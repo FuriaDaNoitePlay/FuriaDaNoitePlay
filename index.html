@@ -45,7 +45,7 @@
       gap: 10px;
     }
 
-    nav a {
+    nav a, .logout-btn {
       color: #fff;
       text-decoration: none;
       background: rgba(255, 0, 0, 0.1);
@@ -55,9 +55,10 @@
       font-weight: bold;
       box-shadow: 0 0 15px #ff0000;
       transition: all 0.3s ease;
+      cursor: pointer;
     }
 
-    nav a:hover {
+    nav a:hover, .logout-btn:hover {
       background-color: #ff0000;
       color: #000;
       box-shadow: 0 0 25px #ff0000;
@@ -106,6 +107,7 @@
       padding: 20px;
       margin: 40px auto;
       max-width: 900px;
+      display: none; /* Chat só aparece para logados */
     }
 
     .chat-box h2 {
@@ -154,23 +156,6 @@
       transform: scale(1.05);
       box-shadow: 0 0 35px #FFD700;
     }
-
-    .logout-btn {
-      background: #ff0000;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 15px;
-      font-weight: bold;
-      box-shadow: 0 0 15px #ff0000;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .logout-btn:hover {
-      background: #fff;
-      color: #ff0000;
-    }
   </style>
 </head>
 
@@ -178,12 +163,16 @@
   <header>
     <img src="logo2.png" alt="Logo Fúria da Noite" class="logo">
     <h1 class="titulo">🔥 FURIADANOITEPLAY 🔥</h1>
-    <nav>
-      <a href="fron.html">FRØN</a>
+    <nav id="menuNavegacao">
+      <a href="index.html">Início</a>
       <a href="regras.html">Regras</a>
-      <a href="membros.html">Agentes da Noite</a>
+      <a href="membros.html">Membros</a>
       <a href="furia-digital.html">💻 Fúria Digital</a>
-      <button class="logout-btn" onclick="sair()">Sair</button>
+      <a href="login.html" id="btnLogin">Login</a>
+      <button class="logout-btn" id="btnLogout" style="display:none;" onclick="sair()">Sair</button>
+      <a href="perfil.html" id="btnPerfil" style="display:none;">Perfil</a>
+      <a href="confrontos.html" id="btnConfronto" style="display:none;">Confrontos</a>
+      <a href="tabela.html" id="btnTabela" style="display:none;">Tabela</a>
     </nav>
   </header>
 
@@ -192,8 +181,7 @@
       <p>
         Seja bem-vindo à <strong>FúriaDaNoitePlay</strong>! 🌙🔥<br>
         Unidos pela força da noite e pelo espírito de equipe.<br>
-        Prepare-se para dominar sob o luar e mostrar o verdadeiro poder da Fúria!<br><br>
-        “Eles pensaram que a Lua seria deles... mas a Fúria já reinava na escuridão.”
+        Prepare-se para dominar sob o luar e mostrar o verdadeiro poder da Fúria!
       </p>
     </section>
 
@@ -203,7 +191,6 @@
         src="https://www.youtube.com/embed/BikO0ccBNeo"
         title="Short - FúriaDaNoitePlay"
         frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen>
       </iframe>
     </section>
@@ -219,7 +206,7 @@
     </section>
   </main>
 
-  <section class="chat-box">
+  <section class="chat-box" id="chatBox">
     <h2>💬 Chat Geral - Fúria da Noite Play</h2>
     <iframe
       src="https://e.widgetbot.io/channels/1328458975615651882/1330988731376861257"
@@ -238,15 +225,30 @@
 
   <script>
     const usuario = localStorage.getItem('usuarioFuria');
-    if (!usuario) {
-      alert('⚠️ Faça login para acessar o site completo.');
-      window.location.href = 'login.html';
-    } else {
-      console.log("Usuário logado:", usuario);
+    const tipoConta = localStorage.getItem('tipoConta'); // "visitante" ou "usuario"
+
+    const btnLogin = document.getElementById("btnLogin");
+    const btnLogout = document.getElementById("btnLogout");
+    const btnPerfil = document.getElementById("btnPerfil");
+    const btnConfronto = document.getElementById("btnConfronto");
+    const btnTabela = document.getElementById("btnTabela");
+    const chatBox = document.getElementById("chatBox");
+
+    if (usuario) {
+      btnLogin.style.display = "none";
+      btnLogout.style.display = "inline-block";
+
+      if (tipoConta === "usuario") {
+        btnPerfil.style.display = "inline-block";
+        btnConfronto.style.display = "inline-block";
+        btnTabela.style.display = "inline-block";
+        chatBox.style.display = "block";
+      }
     }
 
     function sair() {
       localStorage.removeItem('usuarioFuria');
+      localStorage.removeItem('tipoConta');
       alert('Você saiu da Fúria. Até a próxima, guerreiro da noite!');
       window.location.href = 'login.html';
     }
