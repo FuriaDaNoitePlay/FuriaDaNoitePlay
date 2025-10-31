@@ -1,48 +1,255 @@
-<nav id="menu">
-  <a href="fron.html">FRØN</a>
-  <a href="regras.html">Regras</a>
-  <a href="membros.html">Agentes da Noite</a>
-  <a href="furia-digital.html">💻 Fúria Digital</a>
-  <a href="login.html" id="loginLink">🔑 Login</a>
-</nav>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔥 FuriaDaNoitePlay 🔥</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
 
-<script>
-  // Carregar dados de equipe
-  const equipe = JSON.parse(localStorage.getItem('equipeFuria'));
+    header {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px 0;
+      border-bottom: 2px solid #ff0000;
+      box-shadow: 0 0 25px #ff0000;
+    }
 
-  const menu = document.getElementById('menu');
-  const loginLink = document.getElementById('loginLink');
+    .logo {
+      width: 160px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #ff0000;
+    }
 
-  if (equipe) {
-    // Oculta o botão de login
-    loginLink.style.display = 'none';
+    .titulo {
+      color: #ff0000;
+      font-size: 28px;
+      text-transform: uppercase;
+      text-shadow: 0 0 25px #ff0000;
+      margin: 15px 0;
+    }
 
-    // Adiciona as novas abas dinâmicas
-    const perfil = document.createElement('a');
-    perfil.href = 'perfil.html';
-    perfil.textContent = '👤 Meu Perfil';
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-    const chat = document.createElement('a');
-    chat.href = '#chat';
-    chat.textContent = '💬 Chat Geral';
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      background: rgba(255, 0, 0, 0.1);
+      border: 2px solid #ff0000;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 0 15px #ff0000;
+      transition: all 0.3s ease;
+    }
 
-    const confronto = document.createElement('a');
-    confronto.href = 'confrontos.html';
-    confronto.textContent = '⚔️ Confrontos';
+    nav a:hover {
+      background-color: #ff0000;
+      color: #000;
+      box-shadow: 0 0 25px #ff0000;
+    }
 
-    const tabela = document.createElement('a');
-    tabela.href = 'tabela.html';
-    tabela.textContent = '📊 Tabela';
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-    menu.appendChild(perfil);
-    menu.appendChild(chat);
-    menu.appendChild(confronto);
-    menu.appendChild(tabela);
-  } else {
-    // Se não estiver logado, volta pro login
-    if (window.location.pathname.endsWith('index.html')) {
-      alert('Faça login para acessar o conteúdo da Fúria.');
+    .texto-intro, .video-box, .adm-box {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #ff0000;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #ff0000;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .texto-intro strong {
+      color: #ff4444;
+      text-shadow: 0 0 10px #ff0000;
+    }
+
+    iframe {
+      border-radius: 10px;
+      box-shadow: 0 0 20px #ff0000;
+    }
+
+    .adm-box h2 {
+      color: #ff0000;
+      text-shadow: 0 0 20px #ff0000;
+    }
+
+    .adm-box strong {
+      color: #ff4444;
+      text-shadow: 0 0 10px #ff0000;
+    }
+
+    .chat-box {
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #ff0000;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #ff0000;
+      padding: 20px;
+      margin: 40px auto;
+      max-width: 900px;
+    }
+
+    .chat-box h2 {
+      color: #ff0000;
+      text-shadow: 0 0 20px #ff0000;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      color: #ff0000;
+      text-shadow: 0 0 15px #ff0000;
+      border-top: 2px solid #ff0000;
+      padding: 15px;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    .destaque {
+      color: #FFD700;
+      text-shadow: 0 0 20px #FFD700;
+    }
+
+    .assinatura {
+      color: #ff0000;
+      text-shadow: 0 0 10px #ff0000;
+    }
+
+    .botao-inicio {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #FFD700;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 0 25px #FFD700;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 999;
+    }
+
+    .botao-inicio:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px #FFD700;
+    }
+
+    .logout-btn {
+      background: #ff0000;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 15px;
+      font-weight: bold;
+      box-shadow: 0 0 15px #ff0000;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #fff;
+      color: #ff0000;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="logo2.png" alt="Logo Fúria da Noite" class="logo">
+    <h1 class="titulo">🔥 FURIADANOITEPLAY 🔥</h1>
+    <nav>
+      <a href="fron.html">FRØN</a>
+      <a href="regras.html">Regras</a>
+      <a href="membros.html">Agentes da Noite</a>
+      <a href="furia-digital.html">💻 Fúria Digital</a>
+      <button class="logout-btn" onclick="sair()">Sair</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="texto-intro">
+      <p>
+        Seja bem-vindo à <strong>FúriaDaNoitePlay</strong>! 🌙🔥<br>
+        Unidos pela força da noite e pelo espírito de equipe.<br>
+        Prepare-se para dominar sob o luar e mostrar o verdadeiro poder da Fúria!<br><br>
+        “Eles pensaram que a Lua seria deles... mas a Fúria já reinava na escuridão.”
+      </p>
+    </section>
+
+    <section class="video-box">
+      <h2>🎬 Destaque da Semana</h2>
+      <iframe width="350" height="620"
+        src="https://www.youtube.com/embed/BikO0ccBNeo"
+        title="Short - FúriaDaNoitePlay"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </section>
+
+    <section class="adm-box">
+      <h2>👑 Equipe ADM — FuriaDaNoitePlay</h2>
+      <ul>
+        <li><strong>@ToxicSkull√</strong> — “A noite brilha sob nossa fúria.” 🌙🔥</li>
+        <li><strong>Scorpion Game</strong> — “Veneno no foco, vitória na mira.” 🦂</li>
+        <li><strong>NeferpitouI</strong> — “Caos e controle na mesma energia.” 💫</li>
+        <li><strong>༄Son_king</strong> — “Rei das sombras, dono da noite.” 👑</li>
+      </ul>
+    </section>
+  </main>
+
+  <section class="chat-box">
+    <h2>💬 Chat Geral - Fúria da Noite Play</h2>
+    <iframe
+      src="https://e.widgetbot.io/channels/1328458975615651882/1330988731376861257"
+      width="100%"
+      height="500"
+      allowtransparency="true"
+      frameborder="0">
+    </iframe>
+  </section>
+
+  <footer>
+    <p>© 2025 <span class="destaque">FuriaDaNoitePlay</span> — <span class="assinatura">@ToxicSkull√</span></p>
+  </footer>
+
+  <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Início</button>
+
+  <script>
+    const usuario = localStorage.getItem('usuarioFuria');
+    if (!usuario) {
+      alert('⚠️ Faça login para acessar o site completo.');
+      window.location.href = 'login.html';
+    } else {
+      console.log("Usuário logado:", usuario);
+    }
+
+    function sair() {
+      localStorage.removeItem('usuarioFuria');
+      alert('Você saiu da Fúria. Até a próxima, guerreiro da noite!');
       window.location.href = 'login.html';
     }
-  }
-</script>
+  </script>
+</body>
+</html>
