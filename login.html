@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - FúriaDaNoitePlay</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Login de Equipe - FúriaDaNoitePlay</title>
   <style>
     body {
       background-color: #000;
@@ -13,64 +12,93 @@
       text-align: center;
       background: url('MD1.png') no-repeat center/cover;
     }
-    .login-box {
-      margin-top: 150px;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 30px;
+    .box {
+      margin-top: 60px;
+      background: rgba(0,0,0,0.8);
+      padding: 25px;
       border: 2px solid #ff0000;
       border-radius: 15px;
       box-shadow: 0 0 25px #ff0000;
       display: inline-block;
+      text-align: left;
+      max-width: 500px;
     }
-    input {
-      width: 80%;
+    input, button {
+      width: 100%;
+      margin: 8px 0;
       padding: 10px;
-      margin: 10px 0;
       border-radius: 8px;
       border: none;
-      text-align: center;
       font-family: 'Orbitron', sans-serif;
     }
     button {
       background: #ff0000;
-      border: none;
-      padding: 10px 25px;
-      border-radius: 10px;
       color: #fff;
-      cursor: pointer;
       font-weight: bold;
-      box-shadow: 0 0 20px #ff0000;
+      cursor: pointer;
       transition: 0.3s;
     }
-    button:hover {
-      background: #fff;
-      color: #ff0000;
-    }
+    button:hover { background: #fff; color: #ff0000; }
+    h2 { text-align: center; color: #ff0000; }
   </style>
 </head>
 <body>
 
-  <div class="login-box">
-    <h1>🔥 Login Fúria 🔥</h1>
-    <input type="text" id="nickname" placeholder="Seu Nick ou ID do Clash" required><br>
-    <input type="number" id="idade" placeholder="Idade" required><br>
-    <button onclick="verificarLogin()">Entrar</button>
-    <p id="erro" style="color:red; text-shadow:0 0 10px red;"></p>
+  <div class="box">
+    <h2>🔥 Cadastro / Login de Equipe 🔥</h2>
+
+    <label>Nome da Equipe:</label>
+    <input type="text" id="nomeEquipe" placeholder="Ex: Fúria da Noite" required>
+
+    <label>Logotipo da Equipe:</label>
+    <input type="file" id="logoEquipe" accept="image/*">
+
+    <div id="jogadoresBox">
+      <h3>Jogadores (ID e Nick)</h3>
+    </div>
+
+    <button onclick="salvarEquipe()">Salvar e Entrar</button>
   </div>
 
   <script>
-    function verificarLogin() {
-      const idade = document.getElementById('idade').value;
-      const nick = document.getElementById('nickname').value;
+    // Criar campos para 10 jogadores
+    const box = document.getElementById('jogadoresBox');
+    for (let i = 1; i <= 10; i++) {
+      box.innerHTML += `
+        <div>
+          <input type="text" id="jogadorID${i}" placeholder="ID ${i}" style="width:48%">
+          <input type="text" id="jogadorNick${i}" placeholder="Nick ${i}" style="width:48%">
+        </div>`;
+    }
 
-      if (idade >= 18 && nick.length > 2) {
-        localStorage.setItem('usuarioFuria', nick);
+    function salvarEquipe() {
+      const nome = document.getElementById('nomeEquipe').value.trim();
+      const logoInput = document.getElementById('logoEquipe');
+      if (!nome) return alert('Digite o nome da equipe!');
+
+      const equipe = { nome, jogadores: [] };
+
+      for (let i = 1; i <= 10; i++) {
+        const id = document.getElementById('jogadorID' + i).value.trim();
+        const nick = document.getElementById('jogadorNick' + i).value.trim();
+        if (id || nick) equipe.jogadores.push({ id, nick });
+      }
+
+      // Salvar logotipo como base64
+      const reader = new FileReader();
+      reader.onload = function() {
+        equipe.logo = reader.result;
+        localStorage.setItem('equipeFuria', JSON.stringify(equipe));
         window.location.href = 'index.html';
+      };
+      if (logoInput.files[0]) {
+        reader.readAsDataURL(logoInput.files[0]);
       } else {
-        document.getElementById('erro').innerText = 'Apenas maiores de 18 anos podem acessar.';
+        equipe.logo = '';
+        localStorage.setItem('equipeFuria', JSON.stringify(equipe));
+        window.location.href = 'index.html';
       }
     }
   </script>
-
 </body>
 </html>
