@@ -1,11 +1,32 @@
-// Alternar entre seções
-function mostrarSecao(id) {
-  document.querySelectorAll('.secao').forEach(secao => secao.classList.remove('ativa'));
-  document.getElementById(id).classList.add('ativa');
-}
+// === Botão fixo "Início" ===
+document.addEventListener("DOMContentLoaded", () => {
+  if (!document.querySelector(".botao-inicio")) {
+    const botao = document.createElement("button");
+    botao.className = "botao-inicio";
+    botao.textContent = "Início";
+    botao.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+    document.body.appendChild(botao);
+  }
 
-// Alternar abas dentro do campeonato
-function mostrarAba(aba) {
-  document.querySelectorAll('.aba').forEach(a => a.classList.remove('ativa'));
-  document.getElementById(aba).classList.add('ativa');
-}
+  // === Lista dos vídeos TikTok ===
+  const videos = [
+    "https://www.tiktok.com/embed/73939484748374",
+    "https://vt.tiktok.com/ZSyFhosx7/",
+    "https://vt.tiktok.com/ZSyFhosx7/"
+  ];
+
+  const container = document.getElementById("fron-videos");
+  let index = 0;
+
+  function mostrarProximoVideo() {
+    if (!container) return;
+    container.innerHTML = `
+      <div class="video-box">
+        <iframe src="${videos[index]}" allowfullscreen></iframe>
+      </div>`;
+    index = (index + 1) % videos.length;
+  }
+
+  mostrarProximoVideo();
+  setInterval(mostrarProximoVideo, 15000);
+});
