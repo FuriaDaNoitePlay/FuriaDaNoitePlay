@@ -1,112 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login | Fúria Digital</title>
-<style>
-  body {
-    margin: 0;
-    font-family: 'Orbitron', sans-serif;
-    color: #fff;
-    text-align: center;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    animation: fundo 18s infinite alternate;
-  }
-
-  @keyframes fundo {
-    0% { background-image: url('MD1.png'); }
-    50% { background-image: url('MD2.png'); }
-    100% { background-image: url('MD3.png'); }
-  }
-
-  .box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 400px;
-    background: rgba(0,0,0,0.85);
-    border: 2px solid #ff0000;
-    border-radius: 12px;
-    box-shadow: 0 0 25px #ff0000;
-    padding: 25px;
-  }
-
-  h1 {
-    color: #ff0000;
-    text-shadow: 0 0 20px #ff0000;
-  }
-
-  input, button {
-    display: block;
-    width: 90%;
-    margin: 10px auto;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-  }
-
-  input {
-    background: #111;
-    color: #fff;
-    border: 1px solid #ff0000;
-    text-align: center;
-  }
-
-  button {
-    background: #ff0000;
-    color: #fff;
-    font-weight: bold;
-    box-shadow: 0 0 15px #ff0000;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px #ff0000;
-  }
-
-  .aviso {
-    font-size: 0.9em;
-    color: #FFD700;
-    text-shadow: 0 0 10px #FFD700;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - FúriaDaNoitePlay</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      background: url('MD1.png') no-repeat center/cover;
+    }
+    .login-box {
+      margin-top: 150px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      border: 2px solid #ff0000;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #ff0000;
+      display: inline-block;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+    }
+    button {
+      background: #ff0000;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 0 20px #ff0000;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #fff;
+      color: #ff0000;
+    }
+  </style>
 </head>
 <body>
-  <div class="box">
-    <h1>💀 Login Fúria Digital</h1>
-    <p class="aviso">Apenas maiores de 18 anos</p>
 
-    <input type="text" id="usuario" placeholder="Seu Nick / ID Clash Royale">
-    <input type="number" id="idade" placeholder="Sua idade">
-    <button onclick="entrar()">Entrar</button>
+  <div class="login-box">
+    <h1>🔥 Login Fúria 🔥</h1>
+    <input type="text" id="nickname" placeholder="Seu Nick ou ID do Clash" required><br>
+    <input type="number" id="idade" placeholder="Idade" required><br>
+    <button onclick="verificarLogin()">Entrar</button>
+    <p id="erro" style="color:red; text-shadow:0 0 10px red;"></p>
   </div>
 
-<script>
-function entrar() {
-  const usuario = document.getElementById('usuario').value.trim();
-  const idade = parseInt(document.getElementById('idade').value);
+  <script>
+    function verificarLogin() {
+      const idade = document.getElementById('idade').value;
+      const nick = document.getElementById('nickname').value;
 
-  if (!usuario || isNaN(idade)) {
-    alert("Preencha todos os campos!");
-    return;
-  }
+      if (idade >= 18 && nick.length > 2) {
+        localStorage.setItem('usuarioFuria', nick);
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('erro').innerText = 'Apenas maiores de 18 anos podem acessar.';
+      }
+    }
+  </script>
 
-  if (idade < 18) {
-    alert("Acesso negado! Apenas maiores de 18 anos.");
-    return;
-  }
-
-  localStorage.setItem("furia_usuario", usuario);
-  window.location.href = "chatgeral.html";
-}
-</script>
 </body>
 </html>
