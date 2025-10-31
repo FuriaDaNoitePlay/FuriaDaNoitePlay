@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat Geral | Fúria Digital</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #000;
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    text-align: center;
+    background: radial-gradient(circle at center, #1a0000, #000 80%);
+    animation: brilho 4s infinite alternate;
+  }
+
+  @keyframes brilho {
+    0% { box-shadow: inset 0 0 30px #ff0000; }
+    100% { box-shadow: inset 0 0 60px #ff0000; }
+  }
+
+  h1 {
+    color: #ff0000;
+    text-shadow: 0 0 25px #ff0000;
+    margin-top: 20px;
+  }
+
+  #user {
+    color: #FFD700;
+    text-shadow: 0 0 15px #FFD700;
+  }
+
+  iframe {
+    width: 95%;
+    height: 600px;
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    box-shadow: 0 0 25px #ff0000;
+  }
+
+  .sair {
+    margin: 20px;
+    display: inline-block;
+    background: #ff0000;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 20px #ff0000;
+    transition: 0.3s;
+  }
+
+  .sair:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 35px #ff0000;
+  }
+</style>
+</head>
+<body>
+  <h1>💬 Chat Geral — Fúria da Noite Play</h1>
+  <p id="user"></p>
+
+  <iframe
+    src="https://e.widgetbot.io/channels/1328458975615651882/1330988731376861257"
+    allowtransparency="true">
+  </iframe>
+
+  <div class="sair" onclick="logout()">Sair</div>
+
+<script>
+const usuario = localStorage.getItem("furia_usuario");
+if (!usuario) {
+  alert("Acesso negado! Faça login primeiro.");
+  window.location.href = "login.html";
+} else {
+  document.getElementById("user").innerText = "Bem-vindo(a), " + usuario + "!";
+}
+
+function logout() {
+  localStorage.removeItem("furia_usuario");
+  window.location.href = "login.html";
+}
+</script>
+</body>
+</html>
