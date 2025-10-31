@@ -266,5 +266,13 @@
   <!-- ====== BOTÃO FIXO ====== -->
   <button class="botao-inicio" onclick="window.location.href='index.html'">🏠 Início</button>
 
+<script>
+  const usuario = localStorage.getItem('usuarioFuria');
+  if (!usuario) {
+    alert('Faça login para acessar o Chat Geral.');
+    window.location.href = 'login.html';
+  }
+</script>
+
 </body>
 </html>
