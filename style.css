@@ -1,210 +1,456 @@
-/* ================================
-   🌙 FURIA DA NOITE PLAY - ESTILO GERAL
-   ================================ */
+/* ===============================================================
+   FURIA DA NOITE PLAY - TEMA VERMELHO NEON
+   =============================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+    --neon-red: #ff0000;
+    --neon-pink: #ff0066;
+    --neon-orange: #ff3300;
+    --neon-yellow: #ffd700;
+    --neon-green: #00ff00;
+    --dark-bg: #000000;
+    --dark-card: #0a0a0a;
+    --dark-header: #111111;
+    --neon-glow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red), 0 0 40px var(--neon-red);
+    --neon-glow-green: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+    --neon-glow-yellow: 0 0 10px var(--neon-yellow), 0 0 20px var(--neon-yellow);
+}
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Orbitron', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
 }
 
 body {
-  background-color: #000;
-  color: #fff;
-  text-align: center;
-  overflow-x: hidden;
+    background-color: var(--dark-bg);
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
-/* ===== HEADER ===== */
+/* ==================== HEADER ==================== */
 header {
-  background: rgba(0, 0, 0, 0.95);
-  padding: 25px 0;
-  border-bottom: 2px solid #ff0000;
-  box-shadow: 0 0 25px #ff0000;
+    background: var(--dark-header);
+    padding: 20px 0;
+    border-bottom: 2px solid var(--neon-red);
+    box-shadow: var(--neon-glow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-header img.logo {
-  width: 150px;
-  border-radius: 10px;
-  box-shadow: 0 0 25px #ff0000;
+.logo-container {
+    text-align: center;
+    margin-bottom: 15px;
 }
 
-header h1 {
-  color: #ff0000;
-  font-size: 28px;
-  text-transform: uppercase;
-  margin-top: 10px;
-  text-shadow: 0 0 20px #ff0000;
+.logo {
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: var(--neon-glow);
+    transition: all 0.3s ease;
 }
 
-/* ===== MENU ===== */
-nav {
-  margin-top: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+.logo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--neon-red);
 }
 
-nav a, button, .btn-neon {
-  background: rgba(255, 0, 0, 0.1);
-  border: 2px solid #ff0000;
-  border-radius: 8px;
-  color: #fff;
-  font-weight: bold;
-  padding: 10px 18px;
-  text-decoration: none;
-  box-shadow: 0 0 15px #ff0000;
-  transition: 0.3s;
-  cursor: pointer;
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
-nav a:hover, button:hover {
-  background: #ff0000;
-  color: #000;
-  box-shadow: 0 0 25px #ff0000;
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: all 0.3s ease;
 }
 
-/* ===== CONTEÚDO PRINCIPAL ===== */
-main {
-  max-width: 900px;
-  margin: 25px auto;
-  padding: 15px;
+.nav-link:hover {
+    border-color: var(--neon-red);
+    box-shadow: 0 0 15px var(--neon-red);
 }
 
-section {
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #ff0000;
-  border-radius: 12px;
-  box-shadow: 0 0 25px #ff0000;
-  margin-bottom: 25px;
-  padding: 20px;
+.nav-link.neon-btn {
+    background: rgba(255, 0, 0, 0.2);
+    border: 1px solid var(--neon-red);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
-section h2 {
-  color: #ff0000;
-  text-shadow: 0 0 20px #ff0000;
-  margin-bottom: 10px;
+.nav-link.neon-btn:hover {
+    background: rgba(255, 0, 0, 0.3);
+    box-shadow: var(--neon-glow);
 }
 
-section p {
-  font-size: 16px;
-  line-height: 1.5;
+/* ==================== TEXTO NEON ==================== */
+.neon-text {
+    text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
 }
 
-/* ===== CHAT ===== */
-.chat-box iframe {
-  border-radius: 10px;
-  box-shadow: 0 0 25px #ff0000;
-  margin-top: 15px;
+.neon-title {
+    font-size: 3em;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red), 0 0 40px var(--neon-red);
+    margin: 20px 0;
+    animation: neon-pulse 2s infinite;
 }
 
-/* ===== RODAPÉ ===== */
-footer {
-  border-top: 2px solid #ff0000;
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.95);
-  color: #ff0000;
-  font-weight: bold;
-  text-shadow: 0 0 15px #ff0000;
+.neon-subtitle {
+    font-size: 1.5em;
+    color: #fff;
+    text-shadow: 0 0 5px var(--neon-red), 0 0 10px var(--neon-red);
+    margin: 15px 0;
 }
 
-/* ===== BOTÃO FIXO INÍCIO ===== */
-.botao-inicio {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #FFD700;
-  color: #000;
-  border: none;
-  border-radius: 30px;
-  padding: 14px 28px;
-  font-size: 16px;
-  font-weight: bold;
-  box-shadow: 0 0 25px #FFD700;
-  cursor: pointer;
-  transition: 0.3s ease;
-  z-index: 999;
+@keyframes neon-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
 }
 
-.botao-inicio:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 35px #FFD700;
+/* ==================== BOTÕES NEON ==================== */
+.btn-neon {
+    background: rgba(255, 0, 0, 0.1);
+    border: 2px solid var(--neon-red);
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
-/* ===== LOGIN E CADASTRO ===== */
-.login-container, .cadastro-container {
-  max-width: 400px;
-  margin: 80px auto;
-  background: rgba(0, 0, 0, 0.85);
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 35px #ff0000;
-  border: 2px solid #ff0000;
+.btn-neon:hover {
+    background: rgba(255, 0, 0, 0.2);
+    box-shadow: var(--neon-glow);
+    transform: translateY(-2px);
 }
 
-.login-container h1, .cadastro-container h1 {
-  color: #ff0000;
-  text-shadow: 0 0 25px #ff0000;
-  font-size: 24px;
-  margin-bottom: 25px;
+.btn-neon-outline {
+    background: transparent;
+    border: 2px solid var(--neon-red);
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
 }
 
-label {
-  display: block;
-  margin-top: 10px;
-  color: #fff;
-  text-shadow: 0 0 10px #ff0000;
+.btn-neon-outline:hover {
+    background: rgba(255, 0, 0, 0.1);
+    box-shadow: 0 0 20px var(--neon-red);
 }
 
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border-radius: 8px;
-  border: 2px solid #ff0000;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  font-size: 14px;
-  outline: none;
-  box-shadow: 0 0 10px #ff0000;
-}
-
-button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
-  font-weight: bold;
-  background: #ff0000;
-  color: #000;
-  box-shadow: 0 0 25px #ff0000;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #fff;
-  color: #ff0000;
-  box-shadow: 0 0 40px #ff0000;
-}
-
-/* ===== RESPONSIVO ===== */
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-  }
-
-  section iframe {
+/* ==================== FORMULÁRIOS ==================== */
+.input-neon {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--neon-red);
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
     width: 100%;
-    height: 350px;
-  }
+    font-size: 1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+}
 
-  .login-container, .cadastro-container {
+.input-neon:focus {
+    outline: none;
+    box-shadow: 0 0 15px var(--neon-red);
+    border-color: var(--neon-pink);
+}
+
+.file-input {
+    padding: 12px;
+}
+
+/* ==================== LOGIN & CADASTRO ==================== */
+.login-body, .cadastro-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #000000, #1a0000);
+}
+
+.login-container, .cadastro-container {
+    background: rgba(10, 10, 10, 0.95);
+    border: 2px solid var(--neon-red);
+    border-radius: 15px;
+    padding: 40px;
     width: 90%;
-  }
+    max-width: 500px;
+    box-shadow: var(--neon-glow);
+}
+
+.login-header, .cadastro-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-logo, .cadastro-logo {
+    width: 120px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px var(--neon-red);
+}
+
+.login-options, .cadastro-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.login-option, .cadastro-option {
+    flex: 1;
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid var(--neon-red);
+    color: #fff;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.login-option:hover, .cadastro-option:hover,
+.login-option.active, .cadastro-option.active {
+    background: rgba(255, 0, 0, 0.3);
+    box-shadow: 0 0 15px var(--neon-red);
+}
+
+.login-form, .cadastro-form {
+    display: none;
+}
+
+.login-form.active, .cadastro-form.active {
+    display: block;
+}
+
+/* ==================== TABELAS ==================== */
+.campeonato-main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.campeonato-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.pontuacao-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.ponto-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ponto-cor {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px;
+}
+
+.ponto-cor.vitoria {
+    background: var(--neon-green);
+    box-shadow: var(--neon-glow-green);
+}
+
+.ponto-cor.empate {
+    background: var(--neon-yellow);
+    box-shadow: var(--neon-glow-yellow);
+}
+
+.ponto-cor.derrota {
+    background: var(--neon-red);
+    box-shadow: 0 0 10px var(--neon-red);
+}
+
+.tabela-container {
+    background: rgba(10, 10, 10, 0.9);
+    border: 2px solid var(--neon-yellow);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.grupo-section {
+    margin-bottom: 30px;
+}
+
+.grupo-titulo {
+    font-size: 2em;
+    color: var(--neon-yellow);
+    text-shadow: 0 0 10px var(--neon-yellow);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.grupo-subtitulo {
+    color: var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tabela-classificacao {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabela-classificacao th {
+    background: rgba(255, 215, 0, 0.2);
+    color: var(--neon-yellow);
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid var(--neon-yellow);
+    text-shadow: 0 0 5px var(--neon-yellow);
+}
+
+.tabela-classificacao td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* CORES DAS POSIÇÕES */
+.primeiro-lugar {
+    background: rgba(0, 255, 0, 0.1);
+    border-left: 4px solid var(--neon-green);
+}
+
+.segundo-lugar {
+    background: rgba(255, 215, 0, 0.1);
+    border-left: 4px solid var(--neon-yellow);
+}
+
+.terceiro-lugar {
+    background: rgba(255, 0, 0, 0.1);
+    border-left: 4px solid var(--neon-red);
+}
+
+.primeiro-lugar:hover,
+.segundo-lugar:hover,
+.terceiro-lugar:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9));
+}
+
+.hero-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 50px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid var(--neon-red);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--neon-glow);
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+    background: var(--dark-header);
+    border-top: 1px solid var(--neon-red);
+    padding: 20px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 768px) {
+    .main-nav {
+        gap: 10px;
+    }
+    
+    .nav-link {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+    
+    .neon-title {
+        font-size: 2em;
+    }
+    
+    .login-options, .cadastro-options {
+        flex-direction: column;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .pontuacao-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+.neon-link {
+    color: var(--neon-red);
+    text-decoration: none;
+    text-shadow: 0 0 5px var(--neon-red);
+    transition: all 0.3s ease;
+}
+
+.neon-link:hover {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
 }
