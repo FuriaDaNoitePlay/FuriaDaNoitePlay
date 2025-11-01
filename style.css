@@ -1,166 +1,141 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+/* ===== ESTILOS DO CAMPEONATO ===== */
+.campeonato-main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-body {
-    background: linear-gradient(135deg, #1a1a1a, #000000);
-    color: white;
-    min-height: 100vh;
+.campeonato-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.pontuacao-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.ponto-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ponto-cor {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px;
+}
+
+.ponto-cor.vitoria {
+    background: var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green);
+}
+
+.ponto-cor.empate {
+    background: var(--neon-yellow);
+    box-shadow: 0 0 10px var(--neon-yellow);
+}
+
+.ponto-cor.derrota {
+    background: var(--neon-red);
+    box-shadow: 0 0 10px var(--neon-red);
+}
+
+.tabela-container {
+    background: rgba(10, 10, 10, 0.9);
+    border: 2px solid var(--neon-yellow);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.grupo-section {
+    margin-bottom: 30px;
+}
+
+.grupo-titulo {
+    font-size: 2em;
+    color: var(--neon-yellow);
+    text-shadow: 0 0 10px var(--neon-yellow);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.grupo-subtitulo {
+    color: var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tabela-classificacao {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabela-classificacao th {
+    background: rgba(255, 215, 0, 0.2);
+    color: var(--neon-yellow);
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid var(--neon-yellow);
+    text-shadow: 0 0 5px var(--neon-yellow);
+}
+
+.tabela-classificacao td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* CORES DAS POSIÇÕES */
+.primeiro-lugar {
+    background: rgba(0, 255, 0, 0.1);
+    border-left: 4px solid var(--neon-green);
+}
+
+.segundo-lugar {
+    background: rgba(255, 215, 0, 0.1);
+    border-left: 4px solid var(--neon-yellow);
+}
+
+.terceiro-lugar {
+    background: rgba(255, 0, 0, 0.1);
+    border-left: 4px solid var(--neon-red);
+}
+
+.primeiro-lugar:hover,
+.segundo-lugar:hover,
+.terceiro-lugar:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== CENTRALIZAR IMAGEM ===== */
+.logo-container {
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.header h1 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ff0000;
-    text-shadow: 0 0 10px #ff0000;
-}
-
-.login-box {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid #ff0000;
+.logo {
+    width: 180px;
     border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    display: block;
+    margin: 0 auto;
 }
 
-.user-type {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.type-label {
-    background: #ff0000;
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 16px;
-    display: inline-block;
-}
-
-.input-field {
+/* Se a imagem não estiver centralizada, use isso: */
+.header-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 15px;
-    margin: 10px 0;
-    border: 2px solid #ff0000;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-size: 16px;
-    text-align: center;
-}
-
-.input-field:focus {
-    outline: none;
-    box-shadow: 0 0 10px #ff0000;
-}
-
-.input-field::placeholder {
-    color: #ccc;
-    text-align: center;
-}
-
-.btn-entrar {
-    width: 100%;
-    padding: 15px;
-    margin: 20px 0 10px 0;
-    border: none;
-    border-radius: 8px;
-    background: #ff0000;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-entrar:hover {
-    background: #cc0000;
-    box-shadow: 0 0 15px #ff0000;
-}
-
-.btn-cadastrar {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #ff0000;
-    border-radius: 8px;
-    background: transparent;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-}
-
-.btn-cadastrar:hover {
-    background: rgba(255, 0, 0, 0.2);
-}
-
-.links {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.links a {
-    color: #ff0000;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.links a:hover {
-    text-decoration: underline;
-}
-
-footer {
-    text-align: center;
-    margin-top: 30px;
-    color: #666;
-    font-size: 12px;
-}
-
-/* Mensagem de boas-vindas */
-.welcome-message {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.9);
-    border: 2px solid #ff0000;
-    border-radius: 10px;
-    padding: 30px;
-    text-align: center;
-    box-shadow: 0 0 30px #ff0000;
-    z-index: 1000;
-}
-
-.welcome-message h2 {
-    color: #ff0000;
-    margin-bottom: 15px;
-}
-
-.welcome-message button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background: #ff0000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
