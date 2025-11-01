@@ -3,139 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - Fúria da Noite Play</title>
+<title>Login Fúria da Noite</title>
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Orbitron', sans-serif;
-    background: radial-gradient(circle at center, #000 60%, #111 100%);
-    color: #fff;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .login-box {
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid #ff0000;
-    box-shadow: 0 0 40px #ff0000;
-    border-radius: 20px;
-    padding: 40px 30px;
-    text-align: center;
-    width: 320px;
-  }
-
-  .login-box h2 {
-    color: #ff0000;
-    text-shadow: 0 0 20px #ff0000;
-    margin-bottom: 25px;
-  }
-
-  select, input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 8px;
-    outline: none;
-    font-size: 14px;
-    text-align: center;
-    background: #111;
-    color: #fff;
-    box-shadow: 0 0 10px #ff0000;
-  }
-
-  input::placeholder {
-    color: #888;
-  }
-
-  button {
-    width: 95%;
-    padding: 12px;
-    background: #ff0000;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    color: #fff;
-    box-shadow: 0 0 25px #ff0000;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-top: 10px;
-  }
-
-  button:hover {
-    background: #fff;
-    color: #ff0000;
-    box-shadow: 0 0 35px #ff0000;
-  }
-
-  .neon-border {
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
-    pointer-events: none;
-    box-shadow: 0 0 60px #ff0000;
-  }
+body {
+  background: radial-gradient(circle, #000000 70%, #1a0000);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.card {
+  background-color: #0a0a0a;
+  border: 2px solid red;
+  box-shadow: 0 0 25px red;
+  border-radius: 20px;
+  padding: 25px;
+  width: 360px;
+  text-align: center;
+}
+h2 {
+  color: #ff0000;
+  text-shadow: 0 0 10px red;
+}
+select, input, button {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+}
+select, input {
+  background-color: #1a1a1a;
+  color: white;
+}
+button {
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: darkred;
+}
 </style>
 </head>
 <body>
-  <div class="login-box">
+  <div class="card">
     <h2>🔥 Login Fúria da Noite 🔥</h2>
-    
-    <select id="tipoUsuario" onchange="atualizarCampos()">
-      <option value="visitante">👤 Visitante</option>
-      <option value="membro">🌙 Membro</option>
-      <option value="equipe">👑 Equipe</option>
+    <select id="tipoConta">
+      <option value="visitante">Visitante</option>
+      <option value="membro">Membro</option>
+      <option value="equipe">Equipe</option>
+      <option value="usuario">Usuário</option>
     </select>
-
-    <input type="text" id="nick" placeholder="Digite seu Nick" required>
-    <input type="password" id="senha" placeholder="Senha" style="display:none;">
-
-    <button onclick="fazerLogin()">Entrar</button>
+    <input type="text" id="nick" placeholder="Digite seu Nick">
+    <button onclick="entrar()">Entrar</button>
   </div>
 
 <script>
-function atualizarCampos() {
-  const tipo = document.getElementById('tipoUsuario').value;
-  const senha = document.getElementById('senha');
-  if (tipo === 'visitante') {
-    senha.style.display = 'none';
-  } else {
-    senha.style.display = 'block';
-  }
-}
-
-function fazerLogin() {
-  const tipo = document.getElementById('tipoUsuario').value;
-  const nick = document.getElementById('nick').value.trim();
-  const senha = document.getElementById('senha').value.trim();
+function entrar() {
+  const tipo = document.getElementById("tipoConta").value;
+  const nick = document.getElementById("nick").value.trim();
 
   if (!nick) {
-    alert('Digite seu Nick!');
+    alert("Digite seu Nick!");
     return;
   }
 
-  // Simples controle local (pode depois conectar a um banco)
-  if (tipo === 'visitante') {
-    localStorage.setItem('usuarioFuria', nick);
-    window.location.href = 'index.html';
-  } else if (tipo === 'membro' || tipo === 'equipe') {
-    if (!senha) {
-      alert('Digite sua senha!');
-      return;
+  if (tipo === "visitante") {
+    if (nick.toUpperCase() === "SONIC") {
+      alert("Acesso liberado como Visitante!");
+      window.location.href = "index.html";
+    } else {
+      alert("Acesso negado! Apenas SONIC pode entrar como visitante.");
     }
-    localStorage.setItem('usuarioFuria', nick + ' (' + tipo + ')');
-    window.location.href = 'index.html';
+    return;
+  }
+
+  if (tipo === "membro") {
+    window.location.href = "cadastro-membros.html";
+  } else if (tipo === "equipe") {
+    window.location.href = "cadastro-equipe.html";
+  } else if (tipo === "usuario") {
+    window.location.href = "cadastro-usuario.html";
   }
 }
-<p style="margin-top:15px;">
-  Ainda não tem conta?  
-  <a href="cadastro-visitante.html" style="color:#ff0000;">Visitante</a> |
-  <a href="cadastro-membro.html" style="color:#ff0000;">Membro</a> |
-  <a href="cadastro-equipe.html" style="color:#ff0000;">Equipe</a>
-</p>
 </script>
 </body>
 </html>
