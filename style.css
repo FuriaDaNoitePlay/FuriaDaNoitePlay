@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #0a0a0a;
+    color: #ffffff;
+    min-height: 100vh;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 0, 0, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(255, 50, 50, 0.15) 0%, transparent 40%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Neon */
+.neon-header {
+    text-align: center;
+    padding: 40px 20px;
+    margin-bottom: 40px;
+    background: rgba(255, 0, 34, 0.1);
+    border-radius: 20px;
+    border: 2px solid #ff0022;
+    box-shadow: 0 0 20px rgba(255, 0, 34, 0.3);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ff0022;
+    box-shadow: 0 0 15px rgba(255, 0, 34, 0.5);
+}
+
+.neon-text {
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: 
+        0 0 10px #ff0022,
+        0 0 20px #ff0022,
+        0 0 40px #ff0022;
+    animation: neon-pulse 2s infinite alternate;
+}
+
+@keyframes neon-pulse {
+    from {
+        text-shadow: 
+            0 0 10px #ff0022,
+            0 0 20px #ff0022,
+            0 0 40px #ff0022;
+    }
+    to {
+        text-shadow: 
+            0 0 5px #ff0022,
+            0 0 10px #ff0022,
+            0 0 15px #ff0022,
+            0 0 20px #ff0022,
+            0 0 35px #ff0022,
+            0 0 40px #ff0022,
+            0 0 50px #ff0022;
+    }
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #ff6b6b;
+    margin-top: 10px;
+}
+
+.neon-title {
+    font-size: 1.8rem;
+    color: #ff0022;
+    text-shadow: 0 0 10px rgba(255, 0, 34, 0.5);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Cards Mente Digital */
+.mente-digital {
+    margin-bottom: 50px;
+}
+
+.md-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.md-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #ff0022;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 0, 34, 0.2);
+}
+
+.md-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(255, 0, 34, 0.4);
+    background: rgba(255, 0, 34, 0.1);
+}
+
+.md-card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    border: 2px solid #ff0022;
+    object-fit: cover;
+}
+
+.md-card h3 {
+    color: #ff0022;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.md-card p {
+    color: #ff6b6b;
+    font-size: 1rem;
+}
+
+/* Membros Grid */
+.membros {
+    margin-bottom: 50px;
+}
+
+.membros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.membro img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #ff0022;
+    transition: all 0.3s ease;
+}
+
+.membro img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 0, 34, 0.5);
+}
+
+/* WhatsApp Card */
+.contato {
+    margin-bottom: 30px;
+}
+
+.whatsapp-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #25D366;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-info h3 {
+    color: #25D366;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+.whatsapp-info p {
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.recado {
+    font-style: italic;
+    color: #ff6b6b !important;
+    margin-top: 12px;
+    font-size: 1rem;
+}
+
+.neon-btn {
+    background: linear-gradient(45deg, #ff0022, #ff6b6b);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 0, 34, 0.4);
+}
+
+.neon-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 0, 34, 0.6);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .neon-text {
+        font-size: 1.8rem;
+    }
+    
+    .logo {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .md-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .membros-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+    
+    .membro img {
+        width: 100px;
+        height: 100px;
+    }
+}
