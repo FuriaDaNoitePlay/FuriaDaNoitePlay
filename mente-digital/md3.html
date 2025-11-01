@@ -4,246 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel - FuriaDaNoitePlay</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        .painel-grid {
+        .md-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .md-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #ff0022;
+            padding-bottom: 20px;
+        }
+        
+        .panel-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            margin: 30px 0;
+            margin-bottom: 30px;
         }
         
-        .painel-card {
+        .panel-card {
             background: rgba(255, 255, 255, 0.05);
-            border: 2px solid #ff0022;
-            border-radius: 12px;
             padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #ff0022;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 0, 34, 0.3);
         }
         
-        .painel-card:hover {
+        .panel-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 0, 34, 0.1);
-            box-shadow: 0 8px 25px rgba(255, 0, 34, 0.5);
+            box-shadow: 0 10px 25px rgba(255, 0, 34, 0.3);
         }
         
-        .painel-card h3 {
+        .panel-card h3 {
             color: #ff0022;
+            margin: 15px 0;
+        }
+        
+        .panel-icon {
+            font-size: 2.5rem;
             margin-bottom: 10px;
         }
         
-        .console-painel {
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #ff0022;
-            border-radius: 10px;
+        .login-warning {
+            text-align: center;
+            background: rgba(255, 0, 34, 0.1);
             padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ff0022;
             margin: 30px 0;
-            box-shadow: 0 0 20px rgba(255, 0, 34, 0.3);
         }
         
-        .console-output {
-            height: 150px;
-            overflow-y: auto;
-            background: #000;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            border: 1px solid #ff0022;
-        }
-        
-        .console-input {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .console-input input {
-            flex: 1;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #ff0022;
-            border-radius: 5px;
-            color: white;
-        }
-        
-        .console-input button {
-            background: #ff0022;
-            color: white;
-            border: none;
+        .back-btn {
+            background: transparent;
+            color: #ff6b6b;
+            border: 2px solid #ff6b6b;
             padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .btn-inicio {
-            background: linear-gradient(45deg, #ff0022, #ff6b6b);
-            color: white;
-            border: none;
-            padding: 15px 30px;
             border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
             cursor: pointer;
-            margin: 20px auto;
-            display: block;
-            width: 200px;
-            box-shadow: 0 5px 15px rgba(255, 0, 34, 0.4);
+            margin-top: 20px;
             transition: all 0.3s ease;
         }
         
-        .btn-inicio:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 0, 34, 0.6);
-        }
-        
-        .user-info {
-            background: rgba(255, 0, 34, 0.1);
-            border: 2px solid #ff0022;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        
-        .texto-motivacional {
-            background: rgba(255, 0, 34, 0.1);
-            border: 2px solid #ff0022;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 30px 0;
-            text-align: center;
-            box-shadow: 0 0 25px rgba(255, 0, 34, 0.3);
-        }
-        
-        .texto-motivacional h3 {
-            color: #ff0022;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-        
-        .texto-motivacional p {
-            color: #fff;
-            margin: 10px 0;
-            font-size: 1.1rem;
+        .back-btn:hover {
+            background: rgba(255, 107, 107, 0.1);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="neon-header" style="border-color: #ff0022; box-shadow: 0 0 20px rgba(255, 0, 34, 0.3);">
-            <h1 class="neon-text">🎮 PAINEL DA EQUIPE</h1>
-            <p class="subtitle">Acesso Restrito - FuriaDaNoitePlay</p>
-        </header>
-
-        <!-- TEXTO MOTIVACIONAL -->
-        <div class="texto-motivacional">
-            <h3>🌙 REVELE SUA FÚRIA INTERIOR</h3>
-            <p>"A noite não esconde, revela. A Lua não acalma, desperta."</p>
-            <p>"Entre como visitante, saia como <strong>LENDA</strong>."</p>
-            <p>"Sua jornada na Fúria começa aqui - onde os comuns se tornam extraordinários."</p>
-        </div>
-
-        <!-- INFO DO USUÁRIO -->
-        <div class="user-info">
-            <h3>👤 Usuário: <span style="color: #ff0022;">Furia_Member</span></h3>
-            <p>🕒 Login: <span id="login-time"></span></p>
-        </div>
-
-        <div class="painel-content">
-            <div class="painel-grid">
-                <div class="painel-card" onclick="abrirSecao('membros')">
-                    <h3>👥 GERENCIAR MEMBROS</h3>
-                    <p>Adicionar/remover membros</p>
+        <div class="md-container">
+            <div class="md-header">
+                <h1 class="neon-text">🔐 PAINEL DA EQUIPE</h1>
+                <p class="subtitle">Acesso Restrito - Área de Membros</p>
+            </div>
+            
+            <div class="login-warning">
+                <h3>⚠️ ACESSO RESTRITO</h3>
+                <p>Esta área é exclusiva para membros da FuriaDaNoitePlay</p>
+                <p>Entre com suas credenciais para acessar o painel completo</p>
+            </div>
+            
+            <div class="panel-grid">
+                <div class="panel-card" onclick="acessarPainel('agenda')">
+                    <div class="panel-icon">📅</div>
+                    <h3>AGENDA</h3>
+                    <p>Agendar partidas e treinos</p>
                 </div>
                 
-                <div class="painel-card" onclick="abrirSecao('partidas')">
-                    <h3>🎯 GERENCIAR PARTIDAS</h3>
-                    <p>Agendar e monitorar</p>
+                <div class="panel-card" onclick="acessarPainel('membros')">
+                    <div class="panel-icon">👥</div>
+                    <h3>GERENCIAR MEMBROS</h3>
+                    <p>Administrar equipe</p>
                 </div>
                 
-                <div class="painel-card" onclick="abrirSecao('config')">
-                    <h3>⚙️ CONFIGURAÇÕES</h3>
-                    <p>Ajustes do sistema</p>
+                <div class="panel-card" onclick="acessarPainel('estatisticas')">
+                    <div class="panel-icon">📊</div>
+                    <h3>ESTATÍSTICAS</h3>
+                    <p>Dados de desempenho</p>
                 </div>
                 
-                <div class="painel-card" onclick="executarComando('backup')">
-                    <h3>💾 BACKUP</h3>
-                    <p>Salvar dados do sistema</p>
-                </div>
-                
-                <div class="painel-card" onclick="abrirSecao('financeiro')">
-                    <h3>💰 FINANCEIRO</h3>
-                    <p>Gestão de recursos</p>
-                </div>
-                
-                <div class="painel-card" onclick="abrirSecao('relatorios')">
-                    <h3>📊 RELATÓRIOS</h3>
-                    <p>Estatísticas e análises</p>
+                <div class="panel-card" onclick="acessarPainel('backup')">
+                    <div class="panel-icon">💾</div>
+                    <h3>BACKUP</h3>
+                    <p>Sistema de segurança</p>
                 </div>
             </div>
             
-            <!-- Console do Sistema -->
-            <div class="console-painel">
-                <h3 class="neon-title">📟 CONSOLE DO SISTEMA</h3>
-                <div class="console-output" id="console">
-                    <div>> Painel FuriaDaNoitePlay inicializado</div>
-                    <div>> Sistema de membros: ATIVO</div>
-                    <div>> 7 membros conectados</div>
-                    <div>> Servidor: ONLINE</div>
-                    <div>> Último backup: Hoje 14:30</div>
-                </div>
-                <div class="console-input">
-                    <input type="text" id="commandInput" placeholder="Digite um comando...">
-                    <button onclick="enviarComando()">EXECUTAR</button>
-                </div>
+            <div style="text-align: center;">
+                <button class="neon-btn" onclick="irParaLogin()">🎮 FAZER LOGIN</button>
+                <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
             </div>
-            
-            <button class="btn-inicio" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
         </div>
     </div>
 
     <script>
-        // Mostrar hora do login
-        document.getElementById('login-time').textContent = new Date().toLocaleTimeString();
-        
-        function abrirSecao(secao) {
-            const consoleOutput = document.getElementById('console');
-            const timestamp = new Date().toLocaleTimeString();
-            consoleOutput.innerHTML += `<div>[${timestamp}] Acessando: ${secao}</div>`;
-            consoleOutput.scrollTop = consoleOutput.scrollHeight;
-            alert(`🎮 Acessando seção: ${secao.toUpperCase()}`);
+        function acessarPainel(tipo) {
+            alert('🔐 Acesso restrito! Faça login primeiro.');
+            irParaLogin();
         }
         
-        function executarComando(comando) {
-            const consoleOutput = document.getElementById('console');
-            const timestamp = new Date().toLocaleTimeString();
-            consoleOutput.innerHTML += `<div>[${timestamp}] Comando executado: ${comando}</div>`;
-            consoleOutput.scrollTop = consoleOutput.scrollHeight;
-        }
-        
-        function enviarComando() {
-            const input = document.getElementById('commandInput');
-            if (input.value.trim()) {
-                executarComando(input.value);
-                input.value = '';
-            }
+        function irParaLogin() {
+            window.location.href = 'login.html';
         }
         
         function voltarInicio() {
-            window.location.href = '../index.html';
+            window.location.href = 'index.html';
         }
-        
-        // Enter para comandos
-        document.getElementById('commandInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                enviarComando();
-            }
-        });
     </script>
 </body>
 </html>
