@@ -3,39 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cadastro de Equipe - Fúria da Noite</title>
+<title>Cadastro Equipe - Fúria da Noite</title>
 <style>
 body {
   background: radial-gradient(circle, #000000 70%, #1a0000);
-  color: white;
+  color: #fff;
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  padding: 30px;
+  height: 100vh;
 }
 .card {
   background-color: #0a0a0a;
   border: 2px solid red;
   box-shadow: 0 0 25px red;
   border-radius: 20px;
-  padding: 25px;
-  width: 400px;
+  padding: 20px;
+  width: 380px;
+  max-height: 90vh;
+  overflow-y: auto;
   text-align: center;
 }
 h2 {
   color: #ff0000;
   text-shadow: 0 0 10px red;
-  margin-bottom: 10px;
 }
-input, label {
-  display: block;
+input {
   width: 90%;
-  margin: 8px auto;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 8px;
+  margin: 5px 0;
   border: none;
+  border-radius: 10px;
   background-color: #1a1a1a;
   color: white;
   text-align: center;
@@ -52,12 +51,6 @@ button {
 button:hover {
   background-color: darkred;
 }
-.jogador {
-  border: 1px solid #550000;
-  border-radius: 10px;
-  padding: 10px;
-  margin-top: 8px;
-}
 a {
   color: #ff0000;
   text-decoration: none;
@@ -69,79 +62,53 @@ a:hover {
 </head>
 <body>
   <div class="card">
-    <h2>⚔️ Cadastro de Equipe ⚔️</h2>
+    <h2>🔥 Cadastro de Equipe 🔥</h2>
     <input type="text" id="nomeEquipe" placeholder="Nome da Equipe">
-    <label for="foto">Foto da Equipe:</label>
-    <input type="file" id="foto" accept="image/*">
+    <input type="text" id="fotoEquipe" placeholder="URL da Foto da Equipe">
 
-    <h3 style="color:red;">Jogadores (até 10)</h3>
     <div id="jogadores"></div>
-    <button onclick="adicionarJogador()">+ Adicionar Jogador</button>
 
+    <button onclick="adicionarJogador()">+ Jogador</button>
     <br><br>
-    <button onclick="cadastrarEquipe()">Cadastrar Equipe</button>
-    <p style="margin-top:15px;">Voltar para <a href="login.html">Login</a></p>
+    <button onclick="cadastrar()">Cadastrar Equipe</button>
+    <p style="margin-top:15px;">Já tem conta? <a href="login.html">Login</a></p>
   </div>
 
 <script>
-let totalJogadores = 0;
+let count = 0;
 function adicionarJogador() {
-  if (totalJogadores >= 10) {
-    alert("Limite de 10 jogadores atingido!");
+  if (count >= 10) {
+    alert("Máximo de 10 jogadores!");
     return;
   }
-  totalJogadores++;
+  count++;
   const div = document.createElement("div");
-  div.className = "jogador";
   div.innerHTML = `
-    <h4 style="color:#ff5555;">Jogador ${totalJogadores}</h4>
-    <input type="text" placeholder="Nick do Jogador ${totalJogadores}" class="nick">
-    <input type="text" placeholder="ID do Jogador ${totalJogadores}" class="id">
+    <input type="text" placeholder="Nick do Jogador ${count}" id="nick${count}">
+    <input type="text" placeholder="ID do Jogador ${count}" id="id${count}">
   `;
   document.getElementById("jogadores").appendChild(div);
 }
 
-function cadastrarEquipe() {
+function cadastrar() {
   const nomeEquipe = document.getElementById('nomeEquipe').value.trim();
-  const fotoInput = document.getElementById('foto');
-  const jogadoresDiv = document.querySelectorAll('.jogador');
-
+  const fotoEquipe = document.getElementById('fotoEquipe').value.trim();
   if (!nomeEquipe) {
     alert("Digite o nome da equipe!");
     return;
   }
-  if (jogadoresDiv.length === 0) {
-    alert("Adicione pelo menos um jogador!");
-    return;
-  }
 
   const jogadores = [];
-  jogadoresDiv.forEach(div => {
-    const nick = div.querySelector('.nick').value.trim();
-    const id = div.querySelector('.id').value.trim();
+  for (let i = 1; i <= count; i++) {
+    const nick = document.getElementById(`nick${i}`).value.trim();
+    const id = document.getElementById(`id${i}`).value.trim();
     if (nick && id) jogadores.push({ nick, id });
-  });
-
-  const equipe = {
-    nomeEquipe,
-    jogadores
-  };
-
-  // salva no localStorage
-  localStorage.setItem("equipe", JSON.stringify(equipe));
-
-  if (fotoInput.files.length > 0) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      localStorage.setItem("fotoEquipe", e.target.result);
-      alert("Equipe cadastrada com sucesso!");
-      window.location.href = "login.html";
-    };
-    reader.readAsDataURL(fotoInput.files[0]);
-  } else {
-    alert("Equipe cadastrada com sucesso!");
-    window.location.href = "login.html";
   }
+
+  const equipe = { nomeEquipe, fotoEquipe, jogadores };
+  localStorage.setItem("equipe", JSON.stringify(equipe));
+  alert("Cadastro da equipe realizado com sucesso!");
+  window.location.href = "login.html";
 }
 </script>
 </body>
