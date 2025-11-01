@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔐 Login - FuriaDaNoitePlay</title>
+    <title>👑 ADM Supremo - FuriaDaNoitePlay</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .login-container {
-            max-width: 400px;
+            max-width: 500px;
             margin: 50px auto;
             padding: 40px;
             background: rgba(255, 255, 255, 0.05);
-            border: 2px solid #ff0022;
+            border: 2px solid #ffd700;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(255, 0, 34, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
         }
         
         .login-form {
@@ -29,13 +29,14 @@
         }
         
         .input-group label {
-            color: #ff0022;
+            color: #ffd700;
             font-weight: bold;
+            text-shadow: 0 0 5px #ffd700;
         }
         
         .input-group input {
             padding: 12px;
-            border: 2px solid #ff0022;
+            border: 2px solid #ffd700;
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.1);
             color: white;
@@ -44,7 +45,22 @@
         
         .input-group input:focus {
             outline: none;
-            box-shadow: 0 0 10px rgba(255, 0, 34, 0.5);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .adm-info {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #ffd700;
+            text-align: center;
+        }
+        
+        .adm-info h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px #ffd700;
         }
         
         .back-btn {
@@ -65,51 +81,67 @@
         .texto-login {
             text-align: center;
             margin-bottom: 30px;
-            color: #ff0022;
-            text-shadow: 0 0 10px rgba(255, 0, 34, 0.5);
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="neon-header" style="border-color: #ff0022; box-shadow: 0 0 20px rgba(255, 0, 34, 0.3);">
-            <h1 class="neon-text">🔐 LOGIN EQUIPE</h1>
-            <p class="subtitle">Acesso Restrito - FuriaDaNoitePlay</p>
+        <header class="neon-header" style="border-color: #ffd700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);">
+            <h1 class="neon-text">👑 ADM SUPREMO</h1>
+            <p class="subtitle">Controle Total do Sistema - FuriaDaNoitePlay</p>
         </header>
 
         <div class="texto-login">
-            <h3>🌙 REVELE SUA VERDADEIRA FACE</h3>
-            <p>"Entre como visitante, saia como LENDA"</p>
+            <h3>🌙 ACESSO DE ALTO NÍVEL</h3>
+            <p>"O poder da noite em suas mãos"</p>
         </div>
 
         <div class="login-container">
+            <div class="adm-info">
+                <h4>🔐 ACESSO RESTRITO</h4>
+                <p>Área exclusiva para administradores autorizados</p>
+                <p>Entre com suas credenciais de ADM</p>
+            </div>
+            
             <div class="login-form">
                 <div class="input-group">
-                    <label>👤 Usuário:</label>
-                    <input type="text" id="usuario" placeholder="Digite seu usuário">
+                    <label>👑 Usuário ADM:</label>
+                    <input type="text" id="usuarioAdm" placeholder="Digite seu usuário ADM">
                 </div>
                 
                 <div class="input-group">
-                    <label>🔒 Senha:</label>
-                    <input type="password" id="senha" placeholder="Digite sua senha">
+                    <label>🔒 Senha ADM:</label>
+                    <input type="password" id="senhaAdm" placeholder="Digite sua senha ADM">
                 </div>
                 
-                <button class="neon-btn" onclick="fazerLogin()">🎮 ACESSAR PAINEL</button>
+                <button class="neon-btn" onclick="fazerLoginAdm()" style="border-color: #ffd700; color: #ffd700;">
+                    🎮 ACESSAR PAINEL ADM
+                </button>
                 <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
             </div>
         </div>
     </div>
 
     <script>
-        function fazerLogin() {
-            const usuario = document.getElementById('usuario').value;
-            const senha = document.getElementById('senha').value;
+        function fazerLoginAdm() {
+            const usuario = document.getElementById('usuarioAdm').value;
+            const senha = document.getElementById('senhaAdm').value;
             
-            if (usuario === 'furia' && senha === 'noite2025') {
-                alert('✅ Login realizado! Acessando Painel...');
-                window.location.href = 'painel.html';
+            const adms = {
+                'FURIAGOD': 'Furia2025_$',
+                'Scorpion': 'Mlk00',
+                '.Son King': 'God19',
+                'NeferpitouI': 'Ana025',
+                'PNTS': 'pNtS'
+            };
+            
+            if (adms[usuario] && adms[usuario] === senha) {
+                alert('✅ Login ADM realizado! Acessando Painel Supremo...');
+                window.location.href = 'painel-adm.html';
             } else {
-                alert('❌ Usuário ou senha incorretos!');
+                alert('❌ Credenciais ADM incorretas!');
             }
         }
         
@@ -120,7 +152,7 @@
         // Enter para login
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                fazerLogin();
+                fazerLoginAdm();
             }
         });
     </script>
