@@ -5,56 +5,263 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FRØN - Furia Da Noite</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* ESTILOS ESPECÍFICOS PARA FRØN */
+        .redes-sociais {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .rede-btn {
+            background: linear-gradient(45deg, #ff0022, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 34, 0.4);
+        }
+        
+        .rede-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 0, 34, 0.6);
+        }
+        
+        .tiktok-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .video-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .video-card iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+        }
+        
+        .quadrado-amarelo {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            text-align: left;
+        }
+        
+        .quadrado-amarelo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid #FFD700;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        
+        .btn-grande-verde {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-grande-verde:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.7);
+        }
+        
+        .quadro-bemvindo {
+            background: rgba(255, 0, 34, 0.1);
+            border: 2px solid #ff0022;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 0, 34, 0.4);
+        }
+        
+        .btn-inicio {
+            background: linear-gradient(45deg, #ff0022, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            width: 200px;
+            box-shadow: 0 5px 15px rgba(255, 0, 34, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-inicio:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 0, 34, 0.6);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <header class="neon-header">
+        <header class="neon-header" style="border-color: #ff0022; box-shadow: 0 0 20px rgba(255, 0, 34, 0.3);">
             <h1 class="neon-text">🧠 FRØN</h1>
             <p class="subtitle">Agente da Noite - Sistema de Inteligência</p>
         </header>
 
-        <div class="md-content">
-            <div class="md-info">
-                <h2>🎯 MISSÃO FRØN</h2>
-                <ul>
-                    <li>✅ Monitoramento de Partidas</li>
-                    <li>✅ Análise de Desempenho</li>
-                    <li>✅ Estratégias Avançadas</li>
-                    <li>✅ Coordenação de Equipe</li>
-                    <li>✅ Inteligência Competitiva</li>
-                </ul>
-                
-                <div class="status-section">
-                    <h3>📊 STATUS DO SISTEMA</h3>
-                    <div class="status-item">
-                        <span>Monitoramento:</span>
-                        <div class="status-bar"><div class="status-fill" style="width: 95%"></div></div>
-                    </div>
-                    <div class="status-item">
-                        <span>Análise:</span>
-                        <div class="status-bar"><div class="status-fill" style="width: 88%"></div></div>
-                    </div>
-                    <div class="status-item">
-                        <span>Estratégia:</span>
-                        <div class="status-bar"><div class="status-fill" style="width: 92%"></div></div>
-                    </div>
+        <!-- QUADRO DE BOAS VINDAS -->
+        <div class="quadro-bemvindo">
+            <h2 style="color: #ff0022; text-shadow: 0 0 10px rgba(255, 0, 34, 0.5);">
+                BEM-VINDO À DIVISÃO FRØN
+            </h2>
+            <p style="color: #fff; font-size: 1.1rem; margin: 15px 0;">
+                Centro de comando e inteligência da Furia Da Noite
+            </p>
+        </div>
+
+        <!-- REDES SOCIAIS -->
+        <section>
+            <h2 class="neon-title">📱 REDES SOCIAIS</h2>
+            <div class="redes-sociais">
+                <a href="https://www.instagram.com/furiadanoiteplay?igsh=MXcyMmNuYjF6ZzQxaw==" class="rede-btn" target="_blank">
+                    📸 Instagram
+                </a>
+                <a href="https://youtube.com/@xfuriadanoiteplayx?si=76ytT-_RVtOQgWKU" class="rede-btn" target="_blank">
+                    🎥 YouTube
+                </a>
+                <a href="https://www.tiktok.com/@fria.da.noite.pla?_t=ZS-90z4mQWzxDh&_r=1" class="rede-btn" target="_blank">
+                    ⚡ TikTok
+                </a>
+                <a href="https://discord.gg/NgMKT5Tut" class="rede-btn" target="_blank">
+                    💬 Discord
+                </a>
+            </div>
+        </section>
+
+        <!-- VÍDEOS TIKTOK -->
+        <section>
+            <h2 class="neon-title">🎬 VÍDEOS EM DESTAQUE</h2>
+            <div class="tiktok-grid">
+                <div class="video-card">
+                    <iframe src="https://www.tiktok.com/embed/v2/7329549274568297734" allowfullscreen></iframe>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.tiktok.com/embed/v2/7329549274568297734" allowfullscreen></iframe>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.tiktok.com/embed/v2/7329549274568297734" allowfullscreen></iframe>
                 </div>
             </div>
-            
-            <div class="action-buttons">
-                <button class="neon-btn" onclick="executarComando('start')">▶️ ATIVAR FRØN</button>
-                <button class="neon-btn" onclick="voltarInicio()">⬅️ VOLTAR</button>
+        </section>
+
+        <!-- VÍDEO YOUTUBE -->
+        <section>
+            <h2 class="neon-title">🎯 VÍDEO OFICIAL</h2>
+            <div class="video-card" style="max-width: 600px; margin: 0 auto;">
+                <iframe src="https://www.youtube.com/embed/H6_nnRecvv4" allowfullscreen></iframe>
             </div>
-        </div>
+        </section>
+
+        <!-- QUADRADO AMARELO - GAMINGWORLD -->
+        <section>
+            <div class="quadrado-amarelo">
+                <img src="../assets/Gamingworld.png" alt="GamingWorld" onerror="this.style.display='none'">
+                <h3 style="color: #FFD700; text-align: center; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);">
+                    *🫸Mais que uma Comunidade, Uma Familia! Sejam Bem Vindos🫷*
+                </h3>
+                
+                <p style="color: #fff; margin: 15px 0;">
+                    🛡️ *CONHEÇAM NOSSAS COMUNIDADES E GRUPOS QUE PODEM SER DO SEU INTERESSE:*
+                </p>
+
+                <p style="color: #fff; margin: 10px 0;">
+                    *CATÁLOGO COM GRUPOS DE JOGOS, ONDE TEM GRUPOS DE RUSHAR ELO, X1, RECRUTAMENTO, SCRIMS E MUITO MAIS:*
+                    <br>➤https://wa.me/c/554792336299
+                </p>
+
+                <p style="color: #fff; margin: 10px 0;">
+                    *CATÁLOGO COM GRUPOS DE RELACIONAMENTO, BATE PAPO, LGBT, GRUPOS SÓ PARA MULHERES ETC:*
+                    <br>➤https://wa.me/c/5511972817478 
+                </p>
+
+                <p style="color: #fff; margin: 10px 0;">
+                    *CATÁLOGO COM GRUPOS PARA STREAMERS, QUEM OFERECE ALGUM SERVIÇO ETC. E QUER A DIVULGAÇÃO DO SEU TRABALHO EM NOSSAS COMUNIDADES:*
+                    <br>➤https://wa.me/c/554792819665
+                </p>
+
+                <div style="color: #FFD700; margin: 20px 0; text-align: center;">
+                    ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+                    <br><br>
+                    ⚠️ COMUNIDADE VOLTADA PARA⚠️:
+                    <br>♧ _Competitivo Amador & Profissional_
+                    <br>◇ _Sorteios_
+                    <br>♡ _Vazamentos_
+                    <br>♤ _Patch Notes_
+                    <br><br>
+                    📰 *Jornal de Noticias do Mundo dos Games*
+                    <br>☆ _Parcerias ON_
+                    <br>☆ _ǤŴ Jobs - Ache aqui profissionais para sua equipe_
+                    <br>☆ _Academy_
+                    <br>☆ _Eventos Internos_
+                    <br>☆ _Suporte em Recrutamento & Divulgação_
+                    <br>☆ _Clãs Afiliados_
+                </div>
+            </div>
+        </section>
+
+        <!-- BOTÃO GRANDE VERDE -->
+        <a href="https://linkfly.to/gw-esports" class="btn-grande-verde" target="_blank">
+            🔥 ACESSAR COMUNIDADE GW ESPORTS
+        </a>
+
+        <!-- BOTÃO COMUNIDADE WHATSAPP -->
+        <a href="https://chat.whatsapp.com/K0EPoqrxMcuBbkLBS7oawk?mode=wwt" class="btn-grande-verde" target="_blank" 
+           style="background: linear-gradient(45deg, #25D366, #128C7E);">
+            💬 ENTRAR NA COMUNIDADE WHATSAPP
+        </a>
+
+        <!-- BOTÃO INÍCIO -->
+        <button class="btn-inicio" onclick="voltarInicio()">
+            🏠 VOLTAR AO INÍCIO
+        </button>
     </div>
 
     <script>
-        function executarComando(comando) {
-            alert(`🎮 Comando ${comando} executado no sistema FRØN!`);
-        }
-        
         function voltarInicio() {
             window.location.href = '../index.html';
+        }
+        
+        function executarComando(comando) {
+            alert(`🎮 Comando ${comando} executado no sistema FRØN!`);
         }
     </script>
 </body>
