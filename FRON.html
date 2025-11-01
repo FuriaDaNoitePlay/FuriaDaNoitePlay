@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FRØN - Furia da Noite Play</title>
+    <title>FRØN - Agente Da Noite</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ESTILOS ESPECÍFICOS DA FRØN */
         .fron-container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
         
-        /* QUADRADO VERMELHO NEON - VÍDEO YOUTUBE */
         .video-container {
             background: rgba(0, 0, 0, 0.8);
-            border: 3px solid #ff0000;
+            border: 3px solid var(--neon-red);
             border-radius: 15px;
             padding: 20px;
             margin: 20px 0;
-            box-shadow: 0 0 30px #ff0000;
+            box-shadow: var(--neon-glow);
             text-align: center;
         }
         
@@ -28,10 +26,9 @@
             width: 100%;
             height: 300px;
             border-radius: 10px;
-            border: 2px solid #ff0000;
+            border: 2px solid var(--neon-red);
         }
         
-        /* QUADRADO AZUL - INSTAGRAM */
         .instagram-container {
             background: rgba(0, 0, 0, 0.8);
             border: 3px solid #00ffff;
@@ -42,14 +39,13 @@
             text-align: center;
         }
         
-        /* QUADRADO AMARELO - GAMING WORLD */
         .gw-container {
             background: rgba(0, 0, 0, 0.8);
-            border: 3px solid #FFD700;
+            border: 3px solid var(--neon-yellow);
             border-radius: 15px;
             padding: 20px;
             margin: 20px 0;
-            box-shadow: 0 0 30px #FFD700;
+            box-shadow: 0 0 30px var(--neon-yellow);
         }
         
         .gw-logo {
@@ -59,7 +55,6 @@
             border-radius: 10px;
         }
         
-        /* BOTÕES DE REDE SOCIAL */
         .social-buttons {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -69,7 +64,7 @@
         
         .social-btn {
             background: #000;
-            border: 2px solid #ff0000;
+            border: 2px solid var(--neon-red);
             color: white;
             padding: 15px;
             border-radius: 10px;
@@ -80,8 +75,8 @@
         }
         
         .social-btn:hover {
-            background: #ff0000;
-            box-shadow: 0 0 20px #ff0000;
+            background: var(--neon-red);
+            box-shadow: var(--neon-glow);
             transform: scale(1.05);
         }
         
@@ -100,7 +95,6 @@
         .social-btn.tiktok { border-color: #00f2ea; }
         .social-btn.tiktok:hover { background: #00f2ea; color: black; box-shadow: 0 0 20px #00f2ea; }
         
-        /* BOTÃO GRANDE VERDE - WHATSAPP COMUNIDADE */
         .btn-whatsapp-grande {
             display: block;
             width: 100%;
@@ -123,7 +117,6 @@
             transform: scale(1.02);
         }
         
-        /* BOTÃO VERDE GW */
         .btn-gw-link {
             display: block;
             width: 100%;
@@ -144,16 +137,14 @@
             box-shadow: 0 0 20px #25D366;
         }
         
-        /* TEXTO COM BRILHO NEON */
         .texto-neon {
             color: #fff;
-            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+            text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
             text-align: center;
             margin: 20px 0;
             font-size: 1.2em;
         }
         
-        /* QUADRADO TIKTOK */
         .tiktok-container {
             background: rgba(0, 0, 0, 0.8);
             border: 3px solid #00f2ea;
@@ -168,26 +159,23 @@
 <body>
     <header>
         <div class="logo-container">
-            <img src="furia.png" alt="Furia da Noite Play" class="logo">
+            <img src="furia.png" alt="Agente Da Noite" class="logo">
         </div>
         <nav class="main-nav">
             <a href="index.html" class="nav-link neon-text">Início</a>
             <a href="fron.html" class="nav-link neon-text">FRØN</a>
             <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
             <a href="regras.html" class="nav-link neon-text">Regras</a>
-            <a href="membros.html" class="nav-link neon-text">Membros</a>
-            <a href="#" class="nav-link neon-btn" onclick="sair()">Sair</a>
+            <a href="login.html" class="nav-link neon-btn">Login</a>
         </nav>
     </header>
 
     <main class="fron-container">
-        <!-- TEXTO BEM-VINDO -->
         <div class="texto-neon">
             <h1>🌟 BEM-VINDO À DIVISÃO FRØN 🌟</h1>
-            <p>Seja bem-vindo à elite da Furia da Noite!</p>
+            <p>Seja bem-vindo à elite do Agente Da Noite!</p>
         </div>
 
-        <!-- VÍDEO YOUTUBE -->
         <div class="video-container">
             <h2>🎬 VÍDEO OFICIAL FRØN</h2>
             <iframe src="https://www.youtube.com/embed/H6_nnRecvv4" 
@@ -197,14 +185,12 @@
             </iframe>
         </div>
 
-        <!-- BOTÃO WHATSAPP COMUNIDADE -->
         <a href="https://chat.whatsapp.com/K0EPoqrxMcuBbkLBS7oawk" 
            class="btn-whatsapp-grande" 
            target="_blank">
            📱 ENTRAR NA COMUNIDADE WHATSAPP
         </a>
 
-        <!-- REDES SOCIAIS -->
         <div class="social-buttons">
             <a href="https://www.instagram.com/furiadanoiteplay" 
                class="social-btn instagram" target="_blank">📷 Instagram</a>
@@ -222,7 +208,6 @@
                class="social-btn whatsapp" target="_blank">💚 WhatsApp</a>
         </div>
 
-        <!-- INSTAGRAM -->
         <div class="instagram-container">
             <h2>📸 POSTAGEM INSTAGRAM</h2>
             <p>Confira nossa última postagem oficial</p>
@@ -233,7 +218,6 @@
             </a>
         </div>
 
-        <!-- VÍDEOS TIKTOK -->
         <div class="tiktok-container">
             <h2>🎵 VÍDEOS TIKTOK</h2>
             <div style="display: grid; gap: 15px; margin: 15px 0;">
@@ -255,7 +239,6 @@
             </div>
         </div>
 
-        <!-- GAMING WORLD -->
         <div class="gw-container">
             <img src="Gamingworld.png" alt="Gaming World" class="gw-logo">
             <h2 style="text-align: center; color: #FFD700; text-shadow: 0 0 10px #FFD700;">
@@ -301,7 +284,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 FuriaDaNoitePlay - Todos os direitos reservados</p>
+        <p>&copy; 2025 Agente Da Noite - <strong>ToxicSkull√</strong></p>
     </footer>
 
     <script src="script.js"></script>
