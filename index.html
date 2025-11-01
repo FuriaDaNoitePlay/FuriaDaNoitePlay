@@ -252,6 +252,10 @@
       alert('Você saiu da Fúria. Até a próxima, guerreiro da noite!');
       window.location.href = 'login.html';
     }
+const usuario = localStorage.getItem('usuarioFuria');
+if (!usuario) {
+  window.location.href = 'login.html';
+}
   </script>
 </body>
 </html>
