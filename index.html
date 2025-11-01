@@ -6,6 +6,7 @@
   <title>🔥 FuriaDaNoitePlay 🔥</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    /* SEU CSS ORIGINAL INTACTO */
     body {
       background-color: #000;
       color: #fff;
@@ -14,14 +15,12 @@
       padding: 0;
       text-align: center;
     }
-
     header {
       background: rgba(0, 0, 0, 0.9);
       padding: 20px 0;
       border-bottom: 2px solid #ff0000;
       box-shadow: 0 0 25px #ff0000;
     }
-
     .logo {
       width: 160px;
       display: block;
@@ -29,7 +28,6 @@
       border-radius: 10px;
       box-shadow: 0 0 30px #ff0000;
     }
-
     .titulo {
       color: #ff0000;
       font-size: 28px;
@@ -37,14 +35,12 @@
       text-shadow: 0 0 25px #ff0000;
       margin: 15px 0;
     }
-
     nav {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 10px;
     }
-
     nav a, .logout-btn {
       color: #fff;
       text-decoration: none;
@@ -57,19 +53,16 @@
       transition: all 0.3s ease;
       cursor: pointer;
     }
-
     nav a:hover, .logout-btn:hover {
       background-color: #ff0000;
       color: #000;
       box-shadow: 0 0 25px #ff0000;
     }
-
     main {
       max-width: 900px;
       margin: 0 auto;
       padding: 20px;
     }
-
     .texto-intro, .video-box, .adm-box {
       background: rgba(0, 0, 0, 0.7);
       border: 2px solid #ff0000;
@@ -78,27 +71,22 @@
       padding: 20px;
       margin-bottom: 30px;
     }
-
     .texto-intro strong {
       color: #ff4444;
       text-shadow: 0 0 10px #ff0000;
     }
-
     iframe {
       border-radius: 10px;
       box-shadow: 0 0 20px #ff0000;
     }
-
     .adm-box h2 {
       color: #ff0000;
       text-shadow: 0 0 20px #ff0000;
     }
-
     .adm-box strong {
       color: #ff4444;
       text-shadow: 0 0 10px #ff0000;
     }
-
     .chat-box {
       background: rgba(0, 0, 0, 0.8);
       border: 2px solid #ff0000;
@@ -107,15 +95,13 @@
       padding: 20px;
       margin: 40px auto;
       max-width: 900px;
-      display: none; /* Chat só aparece para logados */
+      display: none;
     }
-
     .chat-box h2 {
       color: #ff0000;
       text-shadow: 0 0 20px #ff0000;
       margin-bottom: 15px;
     }
-
     footer {
       color: #ff0000;
       text-shadow: 0 0 15px #ff0000;
@@ -124,17 +110,14 @@
       font-weight: bold;
       background: rgba(0, 0, 0, 0.9);
     }
-
     .destaque {
       color: #FFD700;
       text-shadow: 0 0 20px #FFD700;
     }
-
     .assinatura {
       color: #ff0000;
       text-shadow: 0 0 10px #ff0000;
     }
-
     .botao-inicio {
       position: fixed;
       bottom: 20px;
@@ -151,7 +134,6 @@
       transition: transform 0.2s ease;
       z-index: 999;
     }
-
     .botao-inicio:hover {
       transform: scale(1.05);
       box-shadow: 0 0 35px #FFD700;
@@ -224,8 +206,8 @@
   <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Início</button>
 
   <script>
-    const usuario = localStorage.getItem('usuarioFuria');
-    const tipoConta = localStorage.getItem('tipoConta'); // "visitante" ou "usuario"
+    const usuarioAtual = localStorage.getItem('usuarioFuria');
+    const tipoConta = localStorage.getItem('tipoConta');
 
     const btnLogin = document.getElementById("btnLogin");
     const btnLogout = document.getElementById("btnLogout");
@@ -234,7 +216,7 @@
     const btnTabela = document.getElementById("btnTabela");
     const chatBox = document.getElementById("chatBox");
 
-    if (usuario) {
+    if (usuarioAtual) {
       btnLogin.style.display = "none";
       btnLogout.style.display = "inline-block";
 
@@ -244,6 +226,9 @@
         btnTabela.style.display = "inline-block";
         chatBox.style.display = "block";
       }
+    } else {
+      // se não está logado, redireciona
+      window.location.href = "login.html";
     }
 
     function sair() {
@@ -252,10 +237,6 @@
       alert('Você saiu da Fúria. Até a próxima, guerreiro da noite!');
       window.location.href = 'login.html';
     }
-const usuario = localStorage.getItem('usuarioFuria');
-if (!usuario) {
-  window.location.href = 'login.html';
-}
   </script>
 </body>
 </html>
