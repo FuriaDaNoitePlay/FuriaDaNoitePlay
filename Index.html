@@ -10,7 +10,7 @@
     <div class="container">
         <header class="neon-header">
             <div class="logo">
-                <img src="assets/logo.png" alt="Furia Logo">
+                <img src="assets/fúria.png" alt="Furia Logo">
                 <h1 class="neon-text">FURIA DA NIGHT PLAY</h1>
             </div>
             <p class="subtitle">A LUA E O NOSSO SINAL... E A FÚRIA, E O NOSSO PODER</p>
@@ -21,17 +21,17 @@
             <h2 class="neon-title">🧠 MENTE DIGITAL</h2>
             <div class="md-cards">
                 <div class="md-card" onclick="abrirMD('md1')">
-                    <img src="assets/md1.png" alt="MD1">
+                    <img src="assets/MD1.png" alt="MD1">
                     <h3>FRØN</h3>
                     <p>Agente da Noite</p>
                 </div>
                 <div class="md-card" onclick="abrirMD('md2')">
-                    <img src="assets/md2.png" alt="MD2">
+                    <img src="assets/MD2.png" alt="MD2">
                     <h3>CAMPEONATO</h3>
                     <p>Tabelas e Resultados</p>
                 </div>
                 <div class="md-card" onclick="abrirMD('md3')">
-                    <img src="assets/md3.png" alt="MD3">
+                    <img src="assets/MD3.png" alt="MD3">
                     <h3>PAINEL</h3>
                     <p>Login de Equipe</p>
                 </div>
@@ -40,35 +40,148 @@
 
         <!-- Membros -->
         <section class="membros">
-            <h2 class="neon-title">👥 MEMBROS DA FURIA</h2>
+            <h2 class="neon-title">👥 HIERARQUIA DA FURIA</h2>
             <div class="membros-grid">
-                <div class="membro"><img src="assets/membros1.png" alt="Membro 1"></div>
-                <div class="membro"><img src="assets/membros2.png" alt="Membro 2"></div>
-                <div class="membro"><img src="assets/membros3.png" alt="Membro 3"></div>
-                <div class="membro"><img src="assets/membros4.png" alt="Membro 4"></div>
-                <div class="membro"><img src="assets/membros5.png" alt="Membro 5"></div>
-                <div class="membro"><img src="assets/membros6.png" alt="Membro 6"></div>
-                <div class="membro"><img src="assets/membros7.png" alt="Membro 7"></div>
+                <div class="membro-card">
+                    <img src="assets/membros1.png" alt="Líder">
+                    <h4>LÍDER</h4>
+                    <p>FRØN</p>
+                </div>
+                <div class="membro-card">
+                    <img src="assets/membros2.png" alt="Vice-Líder">
+                    <h4>VICE-LÍDER</h4>
+                    <p>Comandante</p>
+                </div>
+                <div class="membro-card">
+                    <img src="assets/membros3.png" alt="Oficial">
+                    <h4>OFICIAL</h4>
+                    <p>Estratégia</p>
+                </div>
+                <div class="membro-card">
+                    <img src="assets/membros4.png" alt="Líder de Equipe">
+                    <h4>LÍDER DE EQUIPE</h4>
+                    <p>Táticas</p>
+                </div>
+                <div class="membro-card">
+                    <img src="assets/membros5.png" alt="Veterano">
+                    <h4>VETERANO</h4>
+                    <p>Experiência</p>
+                </div>
+                <div class="membro-card">
+                    <img src="assets/membros6.png" alt="Membro">
+                    <h4>MEMBRO</h4>
+                    <p>Ativo</p>
+                </div>
+                <div class="membro-card">
+                    <img src="assets/membros7.png" alt="Ancião">
+                    <h4>ANCIÃO</h4>
+                    <p>Conselheiro</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sistema de Acesso -->
+        <section class="acesso">
+            <h2 class="neon-title">🎮 SISTEMA DE ACESSO</h2>
+            <div class="acesso-cards">
+                <div class="acesso-card" onclick="abrirLoginAdm()">
+                    <div class="acesso-icon">👑</div>
+                    <h3>ADM SUPREMO</h3>
+                    <p>Acesso total ao sistema</p>
+                    <ul>
+                        <li>Editar confrontos</li>
+                        <li>Gerenciar horários</li>
+                        <li>Confirmar resultados</li>
+                        <li>Atualizar tabelas</li>
+                    </ul>
+                </div>
+                
+                <div class="acesso-card" onclick="abrirLoginEquipe()">
+                    <div class="acesso-icon">🔐</div>
+                    <h3>AGENTE DA NOITE ADN</h3>
+                    <p>Painel de equipe</p>
+                    <ul>
+                        <li>Ver estatísticas</li>
+                        <li>Acompanhar campeonatos</li>
+                        <li>Chat da equipe</li>
+                        <li>Gestão de membros</li>
+                    </ul>
+                </div>
+                
+                <div class="acesso-card" onclick="abrirCadastroMembro()">
+                    <div class="acesso-icon">⭐</div>
+                    <h3>CADASTRO GRATUITO</h3>
+                    <p>Junte-se à Furia</p>
+                    <ul>
+                        <li>Acesso ao chat</li>
+                        <li>Ver abas públicas</li>
+                        <li>Comunidade ativa</li>
+                        <li>Suporte da equipe</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
         <!-- Contato -->
         <section class="contato">
-            <h2 class="neon-title">📞 CONTATO</h2>
-            <div class="whatsapp-card">
-                <div class="whatsapp-info">
-                    <h3>FURIA DÁ NOITE</h3>
-                    <p>📍 Ipatinga - MG, Brasil</p>
-                    <p>📧 furiadanoiteplay2025@gmail.com</p>
-                    <p>📱 +55 31 9731-9008</p>
-                    <p class="recado">"A lua e o nosso sinal... e a fúria, e o nosso poder."</p>
-                </div>
-                <button class="neon-btn" onclick="abrirWhatsApp()">💬 WHATSAPP</button>
-                <button class="neon-btn" onclick="abrirLogin()">🔐 LOGIN EQUIPE</button>
+            <h2 class="neon-title">📞 CONEXÕES DA FURIA</h2>
+            <div class="redes-sociais">
+                <button class="social-btn instagram" onclick="abrirInstagram()">
+                    📷 INSTAGRAM
+                </button>
+                <button class="social-btn youtube" onclick="abrirYouTube()">
+                    📺 YOUTUBE
+                </button>
+                <button class="social-btn tiktok" onclick="abrirTikTok()">
+                    ⚡ TIKTOK
+                </button>
+                <button class="social-btn whatsapp" onclick="abrirWhatsApp()">
+                    💬 WHATSAPP
+                </button>
             </div>
         </section>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Funções de Navegação CORRIGIDAS
+        function abrirMD(md) {
+            if (md === 'md1') {
+                window.location.href = 'md1.html';
+            } else if (md === 'md2') {
+                window.location.href = 'md2.html';
+            } else if (md === 'md3') {
+                window.location.href = 'login.html';
+            }
+        }
+
+        function abrirLoginAdm() {
+            window.location.href = 'login-adm.html';
+        }
+
+        function abrirLoginEquipe() {
+            window.location.href = 'login.html';
+        }
+
+        function abrirCadastroMembro() {
+            window.location.href = 'cadastro-membro.html';
+        }
+
+        // Redes Sociais
+        function abrirInstagram() {
+            window.open('https://instagram.com/furiadanoiteplay', '_blank');
+        }
+
+        function abrirYouTube() {
+            window.open('https://youtube.com/@xfuriadanoiteplayx', '_blank');
+        }
+
+        function abrirTikTok() {
+            window.open('https://tiktok.com/@fria.da.noite.pla', '_blank');
+        }
+
+        function abrirWhatsApp() {
+            window.open('https://wa.me/553197319008', '_blank');
+        }
+    </script>
 </body>
 </html>
