@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro Visitante - Fúria da Noite</title>
+<style>
+body {
+  background: radial-gradient(circle, #000000 70%, #1a0000);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.card {
+  background-color: #0a0a0a;
+  border: 2px solid red;
+  box-shadow: 0 0 25px red;
+  border-radius: 20px;
+  padding: 30px;
+  width: 320px;
+  text-align: center;
+}
+h2 {
+  color: #ff0000;
+  text-shadow: 0 0 10px red;
+}
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  background-color: #1a1a1a;
+  color: white;
+  text-align: center;
+}
+button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: darkred;
+}
+a {
+  color: #ff0000;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>🔥 Cadastro Visitante 🔥</h2>
+    <input type="text" id="nick" placeholder="Digite seu Nick">
+    <button onclick="cadastrar()">Cadastrar</button>
+    <p style="margin-top:15px;">Já tem conta? <a href="login.html">Login</a></p>
+  </div>
+
+<script>
+function cadastrar() {
+  const nick = document.getElementById('nick').value.trim();
+  if (!nick) return alert("Digite seu nick!");
+  localStorage.setItem("visitanteNick", nick);
+  alert("Cadastro realizado! Faça login para continuar.");
+  window.location.href = "login.html";
+}
+</script>
+</body>
+</html>
