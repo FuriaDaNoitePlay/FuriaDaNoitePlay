@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 ADM SUPREMO - Painel de Operações</title>
+    <title>👑 ADM SUPREMO - Sistema Liberado</title>
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
@@ -35,8 +35,8 @@
             margin-bottom: 40px;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 15px;
-            border: 3px solid var(--adm-amarelo);
-            box-shadow: 0 0 30px var(--adm-amarelo);
+            border: 3px solid var(--adm-verde);
+            box-shadow: 0 0 30px var(--adm-verde);
             position: relative;
             overflow: hidden;
         }
@@ -48,7 +48,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 0, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
             animation: brilho-adm 6s linear infinite;
         }
 
@@ -59,16 +59,16 @@
 
         .adm-title {
             font-size: 2.5rem;
-            color: var(--adm-amarelo);
-            text-shadow: 0 0 20px var(--adm-amarelo);
+            color: var(--adm-verde);
+            text-shadow: 0 0 20px var(--adm-verde);
             margin-bottom: 10px;
             position: relative;
             z-index: 2;
         }
 
         .adm-subtitle {
-            color: var(--adm-vermelho);
-            text-shadow: 0 0 10px var(--adm-vermelho);
+            color: var(--adm-verde);
+            text-shadow: 0 0 10px var(--adm-verde);
             font-size: 1.1rem;
             position: relative;
             z-index: 2;
@@ -87,23 +87,9 @@
             padding: 15px;
             border-radius: 10px;
             text-align: center;
-            border: 2px solid;
-            transition: all 0.3s ease;
-        }
-
-        .status-item.site {
-            border-color: var(--adm-vermelho);
-            box-shadow: 0 0 15px var(--adm-vermelho);
-        }
-
-        .status-item.database {
-            border-color: var(--adm-amarelo);
-            box-shadow: 0 0 15px var(--adm-amarelo);
-        }
-
-        .status-item.security {
-            border-color: var(--adm-verde);
+            border: 2px solid var(--adm-verde);
             box-shadow: 0 0 15px var(--adm-verde);
+            transition: all 0.3s ease;
         }
 
         .status-indicator {
@@ -111,27 +97,8 @@
             height: 20px;
             border-radius: 50%;
             margin: 0 auto 10px;
-            animation: piscar 2s infinite;
-        }
-
-        .status-indicator.offline {
-            background: var(--adm-vermelho);
-            box-shadow: 0 0 10px var(--adm-vermelho);
-        }
-
-        .status-indicator.alert {
-            background: var(--adm-amarelo);
-            box-shadow: 0 0 10px var(--adm-amarelo);
-        }
-
-        .status-indicator.online {
             background: var(--adm-verde);
             box-shadow: 0 0 10px var(--adm-verde);
-        }
-
-        @keyframes piscar {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
 
         /* FORMULÁRIO LOGIN */
@@ -139,8 +106,8 @@
             background: rgba(0, 0, 0, 0.9);
             padding: 40px;
             border-radius: 15px;
-            border: 3px solid var(--adm-amarelo);
-            box-shadow: 0 0 25px var(--adm-amarelo);
+            border: 3px solid var(--adm-verde);
+            box-shadow: 0 0 25px var(--adm-verde);
             margin-bottom: 30px;
         }
 
@@ -157,17 +124,17 @@
         }
 
         .input-group label {
-            color: var(--adm-amarelo);
+            color: var(--adm-verde);
             font-weight: bold;
-            text-shadow: 0 0 10px var(--adm-amarelo);
+            text-shadow: 0 0 10px var(--adm-verde);
             font-size: 1.1rem;
         }
 
         .input-group input {
             padding: 15px;
-            border: 2px solid var(--adm-amarelo);
+            border: 2px solid var(--adm-verde);
             border-radius: 10px;
-            background: rgba(255, 255, 0, 0.1);
+            background: rgba(0, 255, 0, 0.1);
             color: white;
             font-size: 1rem;
             transition: all 0.3s ease;
@@ -180,7 +147,7 @@
             box-shadow: 0 0 20px var(--adm-verde);
         }
 
-        /* BOTÕES COM SISTEMA DE STATUS */
+        /* BOTÕES */
         .btn-adm {
             padding: 18px 30px;
             border: none;
@@ -190,49 +157,20 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: 'Courier New', monospace;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-adm.login {
-            background: linear-gradient(45deg, var(--adm-amarelo), var(--adm-verde));
+            background: linear-gradient(45deg, var(--adm-verde), #00cc00);
             color: #000;
-            box-shadow: 0 0 20px var(--adm-amarelo);
+            box-shadow: 0 0 20px var(--adm-verde);
         }
 
-        .btn-adm.login:hover:not(:disabled) {
+        .btn-adm:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px var(--adm-verde);
         }
 
-        .btn-adm:disabled {
-            background: linear-gradient(45deg, #ff0000, #cc0000);
-            color: white;
-            cursor: not-allowed;
-            box-shadow: 0 0 20px var(--adm-vermelho);
-        }
-
-        .btn-adm.atualizar {
-            background: linear-gradient(45deg, var(--adm-vermelho), var(--adm-amarelo));
-            color: #000;
-            box-shadow: 0 0 20px var(--adm-vermelho);
-            margin: 10px 0;
-        }
-
-        .btn-adm.atualizar:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--adm-amarelo);
-        }
-
-        .btn-adm.atualizar.ativo {
-            background: linear-gradient(45deg, var(--adm-verde), #00cc00);
-            box-shadow: 0 0 25px var(--adm-verde);
-        }
-
         .back-btn {
             background: transparent;
-            color: var(--adm-vermelho);
-            border: 2px solid var(--adm-vermelho);
+            color: var(--adm-verde);
+            border: 2px solid var(--adm-verde);
             padding: 12px 25px;
             border-radius: 25px;
             cursor: pointer;
@@ -243,53 +181,25 @@
         }
 
         .back-btn:hover {
-            background: rgba(255, 0, 0, 0.1);
-            box-shadow: 0 0 20px var(--adm-vermelho);
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 20px var(--adm-verde);
         }
 
-        /* CLIPES ADM */
-        .clip-adm {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            font-size: 4rem;
-            z-index: 1000;
-            animation: clip-pop 0.5s ease-out;
-        }
-
-        @keyframes clip-pop {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-
-        /* LOADING */
-        .loading-adm {
-            display: inline-block;
-            position: relative;
-        }
-
-        .loading-adm::after {
-            content: "";
-            animation: dots 1.5s infinite;
-        }
-
-        @keyframes dots {
-            0%, 20% { content: "."; }
-            40% { content: ".."; }
-            60%, 100% { content: "..."; }
-        }
-
-        /* ALERTAS */
-        .alerta-sistema {
-            background: rgba(255, 0, 0, 0.1);
-            border: 2px solid var(--adm-vermelho);
+        /* ACESSO LIVRE */
+        .acesso-livre {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid var(--adm-verde);
             border-radius: 10px;
-            padding: 15px;
+            padding: 20px;
             margin: 20px 0;
             text-align: center;
-            box-shadow: 0 0 15px var(--adm-vermelho);
+            box-shadow: 0 0 20px var(--adm-verde);
+        }
+
+        .btn-livre {
+            background: linear-gradient(45deg, #ff0000, #ffff00);
+            color: #000;
+            margin: 10px;
         }
 
         /* RESPONSIVO */
@@ -312,56 +222,54 @@
     <div class="container">
         <!-- HEADER ADM -->
         <header class="adm-header">
-            <h1 class="adm-title">👑 PAINEL DE OPERAÇÕES</h1>
-            <p class="adm-subtitle">ADM SUPREMO - Controle Total do Sistema</p>
+            <h1 class="adm-title">👑 SISTEMA LIBERADO</h1>
+            <p class="adm-subtitle">ACESSO TOTAL ATIVADO - Modo Público</p>
         </header>
 
         <!-- STATUS DO SISTEMA -->
         <div class="status-sistema">
-            <div class="status-item site">
-                <div class="status-indicator offline" id="statusSite"></div>
+            <div class="status-item">
+                <div class="status-indicator"></div>
                 <div>🌐 SITE ONLINE</div>
-                <small id="siteStatusText">VERMELHO = OFFLINE</small>
+                <small>VERDE = ACESSO LIVRE</small>
             </div>
             
-            <div class="status-item database">
-                <div class="status-indicator alert" id="statusDB"></div>
+            <div class="status-item">
+                <div class="status-indicator"></div>
                 <div>💾 DATABASE</div>
-                <small id="dbStatusText">AMARELO = ATENÇÃO</small>
+                <small>VERDE = ATIVADA</small>
             </div>
             
-            <div class="status-item security">
-                <div class="status-indicator online" id="statusSecurity"></div>
+            <div class="status-item">
+                <div class="status-indicator"></div>
                 <div>🛡️ SEGURANÇA</div>
-                <small id="securityStatusText">VERDE = ATIVO</small>
+                <small>VERDE = MODO PÚBLICO</small>
             </div>
         </div>
 
-        <!-- ALERTA DO SISTEMA -->
-        <div class="alerta-sistema" id="alertaSistema">
-            <strong>⚠️ SISTEMA FORA DO AR</strong>
-            <p>Atualize o site para restaurar operações</p>
+        <!-- ACESSO LIVRE -->
+        <div class="acesso-livre">
+            <h3>🎯 ACESSO IMEDIATO LIBERADO</h3>
+            <p>O sistema está em <strong>MODO PÚBLICO</strong></p>
+            <button class="btn-adm btn-livre" onclick="acessoDireto()">
+                🎮 ENTRAR DIRETO NO JOGO
+            </button>
         </div>
 
-        <!-- BOTÃO DE ATUALIZAÇÃO DO SITE -->
-        <button class="btn-adm atualizar" id="btnAtualizarSite" onclick="atualizarSite()">
-            🔄 ATUALIZAR SISTEMA
-        </button>
-
-        <!-- FORMULÁRIO LOGIN -->
+        <!-- FORMULÁRIO LOGIN ADM -->
         <div class="login-container">
             <div class="login-form">
                 <div class="input-group">
                     <label>👑 USUÁRIO ADM:</label>
-                    <input type="text" id="usuarioAdm" placeholder="Digite seu usuário ADM" autocomplete="username">
+                    <input type="text" id="usuarioAdm" placeholder="Digite usuário ADM" value="FURIAGOD">
                 </div>
                 
                 <div class="input-group">
                     <label>🔒 SENHA ADM:</label>
-                    <input type="password" id="senhaAdm" placeholder="Digite sua senha ADM" autocomplete="current-password">
+                    <input type="password" id="senhaAdm" placeholder="Digite senha ADM" value="Furia2025_$">
                 </div>
                 
-                <button class="btn-adm login" id="btnLoginAdm" onclick="fazerLoginAdm()">
+                <button class="btn-adm" onclick="fazerLoginAdm()">
                     🎮 ACESSAR PAINEL ADM
                 </button>
                 
@@ -370,158 +278,61 @@
                 </button>
             </div>
         </div>
+
+        <!-- LOGINS RÁPIDOS -->
+        <div class="acesso-livre">
+            <h3>🔓 LOGINS PRONTOS</h3>
+            <div style="text-align: left; color: white;">
+                <p><strong>FURIAGOD</strong> / Furia2025_$</p>
+                <p><strong>Scorpion</strong> / Mlk00</p>
+                <p><strong>.Son King</strong> / God19</p>
+                <p><strong>NeferpitouI</strong> / Ana025</p>
+                <p><strong>PNTS</strong> / pNtS</p>
+            </div>
+        </div>
     </div>
 
     <script>
-        // SISTEMA DE STATUS DO SITE
-        let siteAtualizado = false;
+        // SISTEMA JÁ INICIALIZADO LIBERADO
+        let siteAtualizado = true;
         let tentativasLogin = 0;
-        const maxTentativas = 3;
 
-        // INICIALIZAR STATUS
-        function inicializarStatus() {
-            // Simular status do sistema
-            setTimeout(() => {
-                if (!siteAtualizado) {
-                    document.getElementById('statusSite').className = 'status-indicator offline';
-                    document.getElementById('siteStatusText').textContent = 'VERMELHO = OFFLINE';
-                    document.getElementById('btnLoginAdm').disabled = true;
-                    document.getElementById('alertaSistema').style.display = 'block';
-                } else {
-                    document.getElementById('statusSite').className = 'status-indicator online';
-                    document.getElementById('siteStatusText').textContent = 'VERDE = ONLINE';
-                    document.getElementById('btnLoginAdm').disabled = false;
-                    document.getElementById('alertaSistema').style.display = 'none';
-                }
-            }, 1000);
+        // ACESSO DIRETO SEM LOGIN
+        function acessoDireto() {
+            alert('🎉 ACESSO LIVRE ATIVADO! Redirecionando para o jogo...');
+            // Redireciona direto para o jogo sem login
+            window.location.href = 'jogo-trucu.html?acesso=livre&modo=publico';
         }
 
-        // ATUALIZAR SITE
-        function atualizarSite() {
-            const btn = document.getElementById('btnAtualizarSite');
-            btn.innerHTML = '🔄 ATUALIZANDO<span class="loading-adm"></span>';
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                siteAtualizado = true;
-                btn.innerHTML = '✅ SITE ATUALIZADO!';
-                btn.className = 'btn-adm atualizar ativo';
-                btn.disabled = true;
-                
-                // Atualizar status
-                document.getElementById('statusSite').className = 'status-indicator online';
-                document.getElementById('siteStatusText').textContent = 'VERDE = ONLINE';
-                document.getElementById('btnLoginAdm').disabled = false;
-                document.getElementById('alertaSistema').style.display = 'none';
-                
-                showClip('✅', 'verde');
-                alert('🎉 Sistema atualizado com sucesso! Painel ADM liberado.');
-            }, 3000);
-        }
-
-        // FAZER LOGIN ADM
+        // LOGIN ADM (OPCIONAL)
         function fazerLoginAdm() {
-            if (!siteAtualizado) {
-                showClip('❌', 'vermelho');
-                alert('⚠️ Atualize o sistema primeiro!');
-                return;
-            }
-
             const usuario = document.getElementById('usuarioAdm').value;
             const senha = document.getElementById('senhaAdm').value;
-            const btn = document.getElementById('btnLoginAdm');
             
-            if (!usuario || !senha) {
-                showClip('⚠️', 'amarelo');
-                shakeElements(['#usuarioAdm', '#senhaAdm']);
-                return;
-            }
-
-            // CREDENCIAIS ADM
+            // CREDENCIAIS ADM LIBERADAS
             const adms = {
                 'FURIAGOD': 'Furia2025_$',
                 'Scorpion': 'Mlk00',
                 '.Son King': 'God19',
                 'NeferpitouI': 'Ana025',
-                'PNTS': 'pNtS'
+                'PNTS': 'pNtS',
+                'VISITANTE': '123456',
+                'TESTE': 'teste123'
             };
             
-            btn.innerHTML = '🔐 VERIFICANDO<span class="loading-adm"></span>';
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                if (adms[usuario] && adms[usuario] === senha) {
-                    tentativasLogin = 0;
-                    showClip('👑', 'verde');
-                    btn.innerHTML = '🎉 ACESSO CONCEDIDO!';
-                    
-                    setTimeout(() => {
-                        window.location.href = 'painel-adm.html';
-                    }, 1500);
-                } else {
-                    tentativasLogin++;
-                    showClip('🚫', 'vermelho');
-                    btn.innerHTML = '🎮 ACESSAR PAINEL ADM';
-                    btn.disabled = false;
-                    
-                    if (tentativasLogin >= maxTentativas) {
-                        alert('🚨 Muitas tentativas falhas! Sistema temporariamente bloqueado.');
-                        btn.disabled = true;
-                        setTimeout(() => {
-                            btn.disabled = false;
-                            tentativasLogin = 0;
-                        }, 30000);
-                    } else {
-                        alert(`❌ Credenciais ADM incorretas! Tentativas: ${tentativasLogin}/${maxTentativas}`);
-                        shakeElements(['#usuarioAdm', '#senhaAdm', '#btnLoginAdm']);
-                    }
-                }
-            }, 2000);
-        }
-
-        // CLIPES ANIMADOS
-        function showClip(emoji, cor) {
-            const clip = document.createElement('div');
-            clip.className = 'clip-adm';
-            clip.textContent = emoji;
-            
-            if (cor === 'vermelho') {
-                clip.style.color = 'var(--adm-vermelho)';
-                clip.style.textShadow = '0 0 20px var(--adm-vermelho)';
-            } else if (cor === 'amarelo') {
-                clip.style.color = 'var(--adm-amarelo)';
-                clip.style.textShadow = '0 0 20px var(--adm-amarelo)';
+            if (adms[usuario] && adms[usuario] === senha) {
+                alert('👑 ACESSO ADM CONCEDIDO! Redirecionando...');
+                window.location.href = 'painel-adm.html?usuario=' + usuario;
             } else {
-                clip.style.color = 'var(--adm-verde)';
-                clip.style.textShadow = '0 0 20px var(--adm-verde)';
+                // MODO PÚBLICO: mesmo com senha errada, permite acesso
+                alert('🔓 MODO PÚBLICO: Acesso concedido como visitante');
+                window.location.href = 'jogo-trucu.html?usuario=VISITANTE';
             }
-            
-            document.body.appendChild(clip);
-            
-            setTimeout(() => {
-                clip.remove();
-            }, 1000);
-        }
-
-        // EFEITO DE TREME-TREME
-        function shakeElements(selectors) {
-            selectors.forEach(selector => {
-                const element = document.querySelector(selector);
-                if (element) {
-                    element.style.animation = 'none';
-                    setTimeout(() => {
-                        element.style.animation = 'clip-pop 0.5s ease-out';
-                    }, 10);
-                }
-            });
         }
 
         // VOLTAR AO INÍCIO
         function voltarInicio() {
-            showClip('🏠', 'amarelo');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 800);
+            window.location.href = 'index.html';
         }
 
         // ENTER PARA LOGIN
@@ -531,26 +342,21 @@
             }
         });
 
-        // INICIALIZAR
+        // INICIALIZAR SISTEMA LIBERADO
         window.addEventListener('load', function() {
-            inicializarStatus();
+            // Já inicia liberado
+            console.log('🎯 SISTEMA LIBERADO - MODO PÚBLICO ATIVO');
             
-            // Efeito de digitação no título
-            const title = document.querySelector('.adm-title');
-            const originalText = title.textContent;
-            title.textContent = '';
-            
-            let i = 0;
-            const typeWriter = () => {
-                if (i < originalText.length) {
-                    title.textContent += originalText.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 100);
-                }
-            };
-            
-            setTimeout(typeWriter, 500);
+            // Auto-redirecionamento opcional (descomente se quiser)
+            // setTimeout(() => {
+            //     acessoDireto();
+            // }, 3000);
         });
+
+        // FORÇAR MODO PÚBLICO
+        localStorage.setItem('modoPublico', 'true');
+        localStorage.setItem('acessoLivre', 'ativo');
+        localStorage.setItem('loginObrigatorio', 'false');
     </script>
 </body>
 </html>
