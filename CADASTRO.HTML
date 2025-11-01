@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - Furia da Noite Play</title>
+    <title>Fúria da Noite Play</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="login-body">
-    <div class="login-container">
-        <div class="login-header">
-            <img src="furia.png" alt="Furia da Noite" class="login-logo">
-            <h2 class="login-title">Cadastrar na Furia</h2>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Fúria da Noite Play</h1>
         </div>
-
-        <div class="login-type">
-            <button class="type-btn active" data-type="membro">Membro</button>
-            <button class="type-btn" data-type="equipe">Equipe</button>
+        
+        <div class="login-box">
+            <div class="user-type">
+                <span class="type-label">Equipe</span>
+            </div>
+            
+            <form id="cadastroForm">
+                <input type="text" placeholder="Digite seu Nick" class="input-field" required>
+                <input type="password" placeholder="Senha" class="input-field" required>
+                <button type="submit" class="btn-entrar">Cadastrar</button>
+            </form>
+            
+            <div class="links">
+                <a href="index.html">Voltar</a>
+            </div>
         </div>
-
-        <form class="login-form">
-            <input type="text" class="login-input" placeholder="Nick" required>
-            <input type="password" class="login-input" placeholder="Senha" required>
-            <input type="text" class="login-input" placeholder="Rede Social">
-            <button type="submit" class="login-btn">Cadastrar</button>
-        </form>
-
-        <div class="login-links">
-            <a href="login.html">Já tenho conta</a>
-            <a href="index.html">Voltar ao início</a>
-        </div>
+        
+        <footer>
+            <p>© 2025 FuriaDaNoitePlay</p>
+        </footer>
     </div>
 
     <script src="script.js"></script>
