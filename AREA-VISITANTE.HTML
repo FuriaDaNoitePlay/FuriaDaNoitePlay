@@ -3,26 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área Visitante - Fúria da Noite</title>
+    <title>Área Visitante - Furia da Noite</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Fúria da Noite Play</h1>
-            <p>Bem-vindo, Visitante!</p>
+    <header>
+        <div class="logo-container">
+            <img src="furia.png" alt="Furia da Noite Play" class="logo">
         </div>
-        
-        <div class="menu">
-            <button onclick="window.location.href='campeonato.html'">Campeonato</button>
-            <button onclick="window.location.href='regras.html'">Regras</button>
-            <button onclick="sair()">Sair</button>
-        </div>
-        
-        <footer>
-            <p>© 2025 FuriaDaNoitePlay</p>
-        </footer>
-    </div>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link neon-text">Início</a>
+            <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
+            <a href="regras.html" class="nav-link neon-text">Regras</a>
+            <a href="#" class="nav-link neon-btn" onclick="sair()">Sair</a>
+        </nav>
+    </header>
+
+    <main class="campeonato-main">
+        <section class="hero">
+            <h1 class="neon-title">BEM-VINDO VISITANTE!</h1>
+            <p class="neon-subtitle">Acesso liberado ao conteúdo público</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <h3>🏆 Campeonato</h3>
+                    <p>Acompanhe as tabelas e resultados</p>
+                    <a href="campeonato.html" class="btn-neon">Ver Campeonato</a>
+                </div>
+                <div class="feature-card">
+                    <h3>📜 Regras</h3>
+                    <p>Conheça as regras da comunidade</p>
+                    <a href="regras.html" class="btn-neon">Ver Regras</a>
+                </div>
+                <div class="feature-card">
+                    <h3>👥 Torne-se Membro</h3>
+                    <p>Cadastre-se para mais recursos</p>
+                    <a href="cadastro.html" class="btn-neon">Cadastrar</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 FuriaDaNoitePlay</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
