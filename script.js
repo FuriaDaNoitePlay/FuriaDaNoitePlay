@@ -1,135 +1,110 @@
-// Sistema de Login e Proteção de Páginas
+// Sistema de Login Fúria da Noite
 document.addEventListener('DOMContentLoaded', function() {
-    // Sistema de troca de tipo de login
-    const typeBtns = document.querySelectorAll('.type-btn');
-    const loginForm = document.getElementById('loginForm');
     
-    if (typeBtns.length > 0) {
-        typeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                typeBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+    // LOGIN VISITANTE (só nick)
+    const visitanteForm = document.getElementById('visitanteForm');
+    if (visitanteForm) {
+        visitanteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nick = this.querySelector('input').value;
+            
+            if (nick.trim()) {
+                // Salva como visitante
+                localStorage.setItem('usuario', JSON.stringify({
+                    tipo: 'visitante',
+                    nick: nick,
+                    acesso: true
+                }));
                 
-                // Atualiza placeholder conforme o tipo
-                const input = loginForm.querySelector('input[type="text"]');
-                const type = this.getAttribute('data-type');
-                
-                if (type === 'equipe') {
-                    input.placeholder = 'Nome da Equipe';
-                } else if (type === 'adm') {
-                    input.placeholder = 'Usuário ADM';
-                } else {
-                    input.placeholder = 'Digite seu Nick';
-                }
-            });
+                // Mostra mensagem de boas-vindas
+                mostrarMensagem(`Seja bem-vindo, ${nick}!`);
+            }
         });
     }
     
-    // Sistema de login
+    // LOGIN NORMAL (com senha)
+    const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const typeBtn = document.querySelector('.type-btn.active');
-            const type = typeBtn.getAttribute('data-type');
             const inputs = this.querySelectorAll('input');
+            const nick = inputs[0].value;
+            const senha = inputs[1].value;
             
-            // Salva login no localStorage
-            localStorage.setItem('usuarioLogado', JSON.stringify({
-                tipo: type,
-                nome: inputs[0].value,
-                timestamp: new Date().getTime()
-            }));
-            
-            // Redireciona conforme o tipo
-            if (type === 'equipe') {
-                window.location.href = 'campeonato.html';
-            } else if (type === 'adm') {
-                window.location.href = 'admin.html';
-            } else {
-                window.location.href = 'membros.html';
+            if (nick.trim() && senha.trim()) {
+                localStorage.setItem('usuario', JSON.stringify({
+                    tipo: 'membro',
+                    nick: nick,
+                    acesso: true
+                }));
+                
+                mostrarMensagem(`Bem-vindo de volta, ${nick}!`);
             }
         });
     }
     
-    // Verifica se está logado para acessar páginas protegidas
-    verificarAcesso();
-});
-
-// Função para verificar acesso às páginas
-function verificarAcesso() {
-    const usuarioLogado = localStorage.getItem('usuarioLogado');
-    const paginaAtual = window.location.pathname;
-    
-    // Páginas que não precisam de login
-    const paginasPublicas = ['/index.html', '/login.html', '/cadastro.html', '/'];
-    
-    // Se não está logado e tentando acessar página protegida
-    if (!usuarioLogado && !paginasPublicas.some(pagina => paginaAtual.includes(pagina))) {
-        window.location.href = 'login.html';
-        return;
+    // CADASTRO
+    const cadastroForm = document.getElementById('cadastroForm');
+    if (cadastroForm) {
+        cadastroForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const inputs = this.querySelectorAll('input');
+            const nick = inputs[0].value;
+            const senha = inputs[1].value;
+            
+            if (nick.trim() && senha.trim()) {
+                // Aqui você pode salvar no banco de dados
+                alert('Cadastro realizado com sucesso!');
+                window.location.href = 'login.html';
+            }
+        });
     }
     
-    // Se está logado, atualiza a navegação
-    if (usuarioLogado) {
-        const usuario = JSON.parse(usuarioLogado);
-        atualizarNavegacao(usuario);
+    // Verifica se já está logado
+    verificarLogin();
+});
+
+function mostrarMensagem(mensagem) {
+    const modal = document.createElement('div');
+    modal.className = 'welcome-message';
+    modal.innerHTML = `
+        <h2>🎉 ${mensagem}</h2>
+        <p>Acesso liberado ao site!</p>
+        <button onclick="entrarNoSite()">Acessar Site</button>
+    `;
+    document.body.appendChild(modal);
+}
+
+function entrarNoSite() {
+    // Remove a mensagem
+    document.querySelector('.welcome-message').remove();
+    
+    // Redireciona para a área logada
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    
+    if (usuario.tipo === 'visitante') {
+        window.location.href = 'area-visitante.html';
+    } else {
+        window.location.href = 'area-membro.html';
     }
 }
 
-// Atualiza a navegação quando usuário está logado
-function atualizarNavegacao(usuario) {
-    const mainNav = document.querySelector('.main-nav');
+function verificarLogin() {
+    const usuario = localStorage.getItem('usuario');
     
-    if (mainNav && window.location.pathname.includes('index.html')) {
-        // Remove link de Login e adiciona outras abas
-        const loginLink = mainNav.querySelector('a[href="login.html"]');
-        if (loginLink) {
-            loginLink.remove();
-            
-            // Adiciona abas conforme o tipo de usuário
-            if (usuario.tipo === 'equipe') {
-                mainNav.innerHTML += `
-                    <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
-                    <a href="chatgeral.html" class="nav-link neon-text">Chat Geral</a>
-                    <a href="#" class="nav-link neon-btn" onclick="sair()">Sair (${usuario.nome})</a>
-                `;
-            } else if (usuario.tipo === 'adm') {
-                mainNav.innerHTML += `
-                    <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
-                    <a href="membros.html" class="nav-link neon-text">Membros</a>
-                    <a href="admin.html" class="nav-link neon-text">Painel ADM</a>
-                    <a href="#" class="nav-link neon-btn" onclick="sair()">Sair (ADM)</a>
-                `;
-            } else {
-                mainNav.innerHTML += `
-                    <a href="membros.html" class="nav-link neon-text">Membros</a>
-                    <a href="chatgeral.html" class="nav-link neon-text">Chat Geral</a>
-                    <a href="#" class="nav-link neon-btn" onclick="sair()">Sair (${usuario.nome})</a>
-                `;
-            }
+    // Se já está logado, redireciona direto
+    if (usuario && !window.location.href.includes('index.html') && !window.location.href.includes('login.html')) {
+        const userData = JSON.parse(usuario);
+        if (userData.tipo === 'visitante') {
+            window.location.href = 'area-visitante.html';
+        } else {
+            window.location.href = 'area-membro.html';
         }
     }
 }
 
 // Função para sair
 function sair() {
-    localStorage.removeItem('usuarioLogado');
+    localStorage.removeItem('usuario');
     window.location.href = 'index.html';
-}
-
-// Verifica se está na página certa conforme o tipo de usuário
-function verificarPaginaPermitida() {
-    const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
-    if (!usuario) return;
-    
-    const paginaAtual = window.location.pathname;
-    
-    if (usuario.tipo === 'membro' && paginaAtual.includes('admin.html')) {
-        window.location.href = 'membros.html';
-    }
-    
-    if (usuario.tipo === 'equipe' && paginaAtual.includes('membros.html')) {
-        window.location.href = 'campeonato.html';
-    }
 }
