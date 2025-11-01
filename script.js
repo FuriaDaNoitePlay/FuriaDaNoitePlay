@@ -1,32 +1,46 @@
-// === Botão fixo "Início" ===
-document.addEventListener("DOMContentLoaded", () => {
-  if (!document.querySelector(".botao-inicio")) {
-    const botao = document.createElement("button");
-    botao.className = "botao-inicio";
-    botao.textContent = "Início";
-    botao.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
-    document.body.appendChild(botao);
-  }
+document.addEventListener('DOMContentLoaded', () => {
+  const tipoLogin = document.getElementById('tipoLogin');
+  const senha = document.getElementById('senha');
+  const entrarBtn = document.getElementById('entrarBtn');
+  const cadastroBtn = document.getElementById('cadastroBtn');
 
-  // === Lista dos vídeos TikTok ===
-  const videos = [
-    "https://www.tiktok.com/embed/73939484748374",
-    "https://vt.tiktok.com/ZSyFhosx7/",
-    "https://vt.tiktok.com/ZSyFhosx7/"
-  ];
+  // Quando muda o tipo de login
+  tipoLogin.addEventListener('change', () => {
+    const tipo = tipoLogin.value;
 
-  const container = document.getElementById("fron-videos");
-  let index = 0;
+    if (tipo === 'usuario') {
+      senha.style.display = 'none';
+      entrarBtn.textContent = 'Continuar';
+    } else {
+      senha.style.display = 'block';
+      entrarBtn.textContent = 'Entrar';
+    }
+  });
 
-  function mostrarProximoVideo() {
-    if (!container) return;
-    container.innerHTML = `
-      <div class="video-box">
-        <iframe src="${videos[index]}" allowfullscreen></iframe>
-      </div>`;
-    index = (index + 1) % videos.length;
-  }
+  // Botão entrar / continuar
+  entrarBtn.addEventListener('click', () => {
+    const tipo = tipoLogin.value;
+    if (tipo === 'usuario') {
+      window.location.href = 'index.html'; // libera site direto
+    } else if (tipo === 'membro') {
+      // Verifica login de membro
+      window.location.href = 'membros.html';
+    } else if (tipo === 'equipe') {
+      // Login da equipe vai para área completa
+      window.location.href = 'camps.html'; // nova página com tabela + confrontos
+    }
+  });
 
-  mostrarProximoVideo();
-  setInterval(mostrarProximoVideo, 15000);
+  // Botão de cadastro
+  cadastroBtn.addEventListener('click', () => {
+    const tipo = tipoLogin.value;
+
+    if (tipo === 'usuario') {
+      window.location.href = 'cadastro-usuario.html';
+    } else if (tipo === 'membro') {
+      window.location.href = 'cadastro-membro.html';
+    } else if (tipo === 'equipe') {
+      window.location.href = 'cadastro-equipe.html';
+    }
+  });
 });
