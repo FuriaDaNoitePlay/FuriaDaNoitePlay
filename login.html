@@ -28,12 +28,12 @@
             border: 3px solid #00ffff;
             box-shadow: 0 0 30px #00ffff;
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             text-align: center;
         }
 
         .logo {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .logo h1 {
@@ -45,6 +45,29 @@
 
         .logo p {
             color: #ff00ff;
+            font-style: italic;
+        }
+
+        /* RELÓGIO AURORA BOREAL */
+        .relogio-aurora {
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff0080);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px #ff00ff;
+        }
+
+        .horario-russia {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #000;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .zona-aurora {
+            font-size: 0.9em;
+            color: #000;
             font-style: italic;
         }
 
@@ -120,42 +143,42 @@
             color: #000;
         }
 
-        .hierarquia {
-            margin-top: 30px;
-            padding: 20px;
+        .perfil-sincronizado {
+            margin-top: 20px;
+            padding: 15px;
             background: rgba(0, 255, 255, 0.1);
             border-radius: 10px;
             border: 1px solid #00ffff;
+            display: none;
         }
 
-        .hierarquia h3 {
+        .info-perfil {
+            text-align: left;
+            margin: 10px 0;
+        }
+
+        .info-perfil span {
             color: #ff00ff;
-            margin-bottom: 15px;
-        }
-
-        .nivel-acesso {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .nivel {
-            padding: 10px;
-            margin: 5px;
-            background: rgba(255, 0, 255, 0.2);
-            border-radius: 5px;
-            border: 1px solid #ff00ff;
-            font-size: 0.9em;
+            font-weight: bold;
         }
 
         .mensagem {
             margin-top: 20px;
             padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .mensagem.sucesso {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+        }
+
+        .mensagem.erro {
             background: rgba(255, 0, 0, 0.2);
             border: 1px solid #ff0000;
-            border-radius: 8px;
             color: #ff4444;
-            display: none;
         }
     </style>
 </head>
@@ -164,6 +187,12 @@
         <div class="logo">
             <h1>🌙 FÚRIA DA NOITE</h1>
             <p>Área do Agente da Noite</p>
+        </div>
+
+        <!-- RELÓGIO AURORA BOREAL -->
+        <div class="relogio-aurora">
+            <div class="horario-russia" id="horarioRussia">00:00:00</div>
+            <div class="zona-aurora">⏰ Horário Aurora Boreal (Rússia)</div>
         </div>
 
         <form id="loginForm">
@@ -180,45 +209,111 @@
             <button type="submit" class="btn-login">🎮 ACESSAR SISTEMA</button>
         </form>
 
+        <!-- PERFIL SINCRONIZADO -->
+        <div id="perfilSincronizado" class="perfil-sincronizado">
+            <h3>👤 PERFIL SINCRONIZADO</h3>
+            <div class="info-perfil">
+                <strong>Nome:</strong> <span id="perfilNome">-</span><br>
+                <strong>Nível:</strong> <span id="perfilNivel">-</span><br>
+                <strong>Equipe:</strong> <span id="perfilEquipe">-</span><br>
+                <strong>TRUCU:</strong> <span id="perfilTrucu">-</span>
+            </div>
+        </div>
+
         <div class="links">
             <a href="cadastro-membro.html" class="link">⭐ Novo Membro</a>
             <a href="index.html" class="link">🏠 Voltar</a>
-        </div>
-
-        <div class="hierarquia">
-            <h3>🎯 NÍVEIS DE ACESSO:</h3>
-            <div class="nivel-acesso">
-                <div class="nivel">👑 ADM Supremo</div>
-                <div class="nivel">🔐 Agente ADN</div>
-                <div class="nivel">⭐ Membro</div>
-            </div>
         </div>
 
         <div id="mensagem" class="mensagem"></div>
     </div>
 
     <script>
+        // RELÓGIO HORÁRIO RÚSSIA (AURORA BOREAL)
+        function atualizarHorarioRussia() {
+            const agora = new Date();
+            // Fuso horário da Rússia (Moscow Time = UTC+3)
+            const options = { 
+                timeZone: 'Europe/Moscow',
+                hour: '2-digit',
+                minute: '2-digit', 
+                second: '2-digit',
+                hour12: false
+            };
+            const horarioRussia = agora.toLocaleTimeString('pt-BR', options);
+            document.getElementById('horarioRussia').textContent = horarioRussia;
+        }
+
+        setInterval(atualizarHorarioRussia, 1000);
+        atualizarHorarioRussia();
+
+        // SISTEMA DE LOGIN SINCRONIZADO
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const codigo = document.getElementById('codigo').value;
             const senha = document.getElementById('senha').value;
             const mensagem = document.getElementById('mensagem');
+            const perfil = document.getElementById('perfilSincronizado');
 
-            // Simulação de login
-            if (codigo === 'FRON' && senha === 'furia123') {
-                mensagem.style.display = 'block';
-                mensagem.style.background = 'rgba(0, 255, 0, 0.2)';
-                mensagem.style.borderColor = '#00ff00';
-                mensagem.style.color = '#00ff00';
-                mensagem.textContent = '🎉 ACESSO CONCEDIDO! Redirecionando...';
+            // DADOS DE USUÁRIOS (simulando banco de dados)
+            const usuarios = {
+                'FRON': { 
+                    senha: 'furia123', 
+                    nome: 'FRØN', 
+                    nivel: '👑 ADM Supremo', 
+                    equipe: 'TUFURA',
+                    trucu: '🎰 Mestre do TRUCU'
+                },
+                'AGENTE1': { 
+                    senha: 'noite123', 
+                    nome: 'Agente Noturno', 
+                    nivel: '🔐 Agente ADN', 
+                    equipe: 'TUFURA',
+                    trucu: '🎯 Expert TRUCU'
+                },
+                'MEMBRO1': { 
+                    senha: 'furia2024', 
+                    nome: 'Novo Membro', 
+                    nivel: '⭐ Membro', 
+                    equipe: 'Em avaliação',
+                    trucu: '🎮 Iniciante TRUCU'
+                }
+            };
+
+            if (usuarios[codigo] && usuarios[codigo].senha === senha) {
+                const usuario = usuarios[codigo];
                 
+                // Mostrar perfil sincronizado
+                document.getElementById('perfilNome').textContent = usuario.nome;
+                document.getElementById('perfilNivel').textContent = usuario.nivel;
+                document.getElementById('perfilEquipe').textContent = usuario.equipe;
+                document.getElementById('perfilTrucu').textContent = usuario.trucu;
+                perfil.style.display = 'block';
+
+                mensagem.className = 'mensagem sucesso';
+                mensagem.style.display = 'block';
+                mensagem.textContent = '🎉 ACESSO CONCEDIDO! Sincronizando perfil...';
+
+                // Salvar dados no localStorage para sincronização
+                localStorage.setItem('usuarioLogado', JSON.stringify({
+                    codigo: codigo,
+                    nome: usuario.nome,
+                    nivel: usuario.nivel,
+                    equipe: usuario.equipe,
+                    trucu: usuario.trucu,
+                    horarioLogin: new Date().toISOString()
+                }));
+
                 setTimeout(() => {
-                    window.location.href = 'md1.html';
-                }, 2000);
+                    window.location.href = 'painel-adm.html';
+                }, 3000);
+
             } else {
+                mensagem.className = 'mensagem erro';
                 mensagem.style.display = 'block';
                 mensagem.textContent = '❌ Código ou senha incorretos! Tente novamente.';
+                perfil.style.display = 'none';
             }
         });
 
@@ -232,6 +327,15 @@
             input.addEventListener('blur', function() {
                 this.style.transform = 'scale(1)';
             });
+        });
+
+        // Verificar se já está logado
+        window.addEventListener('load', function() {
+            const usuarioSalvo = localStorage.getItem('usuarioLogado');
+            if (usuarioSalvo) {
+                const usuario = JSON.parse(usuarioSalvo);
+                document.getElementById('codigo').value = usuario.codigo;
+            }
         });
     </script>
 </body>
