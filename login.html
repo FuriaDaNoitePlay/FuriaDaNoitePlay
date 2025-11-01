@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔐 Login - Agente da Noite</title>
+    <title>🔐 Login - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         * {
             margin: 0;
@@ -19,6 +20,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .login-container {
@@ -28,7 +30,7 @@
             border: 3px solid #00ffff;
             box-shadow: 0 0 30px #00ffff;
             width: 100%;
-            max-width: 450px;
+            max-width: 500px;
             text-align: center;
         }
 
@@ -71,8 +73,41 @@
             font-style: italic;
         }
 
+        .modo-opcoes {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .modo-btn {
+            flex: 1;
+            padding: 12px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            color: #00ffff;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .modo-btn:hover, .modo-btn.ativo {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 20px #00ffff;
+        }
+
+        .form-login {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .form-login.ativo {
+            display: block;
+        }
+
         .input-group {
-            margin-bottom: 20px;
+            margin: 15px 0;
             text-align: left;
         }
 
@@ -88,9 +123,9 @@
             padding: 15px;
             border: 2px solid #00ffff;
             border-radius: 8px;
-            background: rgba(0, 255, 255, 0.1);
-            color: #ffffff;
-            font-size: 1em;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
             transition: all 0.3s;
         }
 
@@ -112,7 +147,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            margin-bottom: 20px;
+            margin: 20px 0;
             box-shadow: 0 0 20px #ff00ff;
         }
 
@@ -125,6 +160,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
+            gap: 10px;
         }
 
         .link {
@@ -135,7 +171,6 @@
             border-radius: 5px;
             transition: all 0.3s;
             flex: 1;
-            margin: 0 5px;
         }
 
         .link:hover {
@@ -167,6 +202,8 @@
             padding: 15px;
             border-radius: 8px;
             display: none;
+            text-align: center;
+            font-weight: bold;
         }
 
         .mensagem.sucesso {
@@ -180,13 +217,41 @@
             border: 1px solid #ff0000;
             color: #ff4444;
         }
+
+        .cashback-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #ffd700;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 20px;
+            }
+            
+            .logo h1 {
+                font-size: 2em;
+            }
+            
+            .links {
+                flex-direction: column;
+            }
+            
+            .modo-opcoes {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
         <div class="logo">
             <h1>🌙 FÚRIA DA NOITE</h1>
-            <p>Área do Agente da Noite</p>
+            <p>Sistema de Acesso Multiplataforma</p>
         </div>
 
         <!-- RELÓGIO AURORA BOREAL -->
@@ -195,33 +260,105 @@
             <div class="zona-aurora">⏰ Horário Aurora Boreal (Rússia)</div>
         </div>
 
-        <form id="loginForm">
+        <div class="modo-opcoes">
+            <button class="modo-btn ativo" onclick="selecionarModo('agente')">
+                🔐 Agente ADN
+            </button>
+            <button class="modo-btn" onclick="selecionarModo('teste')">
+                🚀 Modo Teste
+            </button>
+            <button class="modo-btn" onclick="selecionarModo('cashback')">
+                💰 Com Cashback
+            </button>
+        </div>
+
+        <!-- MODO AGENTE ADN -->
+        <div id="modo-agente" class="form-login ativo">
+            <h3>🔐 Login de Agente</h3>
+            <p>Acesso para agentes cadastrados</p>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="codigo">🔐 Código de Agente:</label>
+                    <input type="text" id="codigo" placeholder="Seu código secreto" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="senha">🗝️ Senha da Noite:</label>
+                    <input type="password" id="senha" placeholder="Sua senha noturna" required>
+                </div>
+
+                <button type="submit" class="btn-login">🎮 ACESSAR SISTEMA</button>
+            </form>
+
+            <!-- PERFIL SINCRONIZADO -->
+            <div id="perfilSincronizado" class="perfil-sincronizado">
+                <h3>👤 PERFIL SINCRONIZADO</h3>
+                <div class="info-perfil">
+                    <strong>Nome:</strong> <span id="perfilNome">-</span><br>
+                    <strong>Nível:</strong> <span id="perfilNivel">-</span><br>
+                    <strong>Equipe:</strong> <span id="perfilEquipe">-</span><br>
+                    <strong>TRUCU:</strong> <span id="perfilTrucu">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODO TESTE RÁPIDO -->
+        <div id="modo-teste" class="form-login">
+            <h3>🚀 Modo Teste Rápido</h3>
+            <p>Teste o sistema sem cadastro</p>
+            
             <div class="input-group">
-                <label for="codigo">🔐 Código de Agente:</label>
-                <input type="text" id="codigo" placeholder="Seu código secreto" required>
+                <label>🎮 Seu Nick:</label>
+                <input type="text" id="nick-teste" placeholder="Seu nick nos games" required>
+            </div>
+
+            <button class="btn-login" onclick="loginTeste()">
+                🎯 ACESSAR MODO TESTE
+            </button>
+        </div>
+
+        <!-- MODO CASHBACK -->
+        <div id="modo-cashback" class="form-login">
+            <h3>💰 Login com Cashback</h3>
+            <p>Receba cashback nas apostas</p>
+
+            <div class="cashback-info">
+                <strong>📱 Conecte com:</strong>
+                <p>• Folha de Pagamento</p>
+                <p>• Instagram da Fúria</p>
+                <p>• Ou outros métodos</p>
+            </div>
+            
+            <div class="input-group">
+                <label>🎮 Seu Nick:</label>
+                <input type="text" id="nick-cashback" placeholder="Seu nick nos games" required>
             </div>
 
             <div class="input-group">
-                <label for="senha">🗝️ Senha da Noite:</label>
-                <input type="password" id="senha" placeholder="Sua senha noturna" required>
+                <label>🔗 Método de Cashback:</label>
+                <select id="metodo-cashback">
+                    <option value="folha">📋 Folha de Pagamento</option>
+                    <option value="instagram">📸 Instagram @Furia</option>
+                    <option value="whatsapp">📱 WhatsApp Oficial</option>
+                    <option value="outro">🔗 Outro Método</option>
+                </select>
             </div>
 
-            <button type="submit" class="btn-login">🎮 ACESSAR SISTEMA</button>
-        </form>
-
-        <!-- PERFIL SINCRONIZADO -->
-        <div id="perfilSincronizado" class="perfil-sincronizado">
-            <h3>👤 PERFIL SINCRONIZADO</h3>
-            <div class="info-perfil">
-                <strong>Nome:</strong> <span id="perfilNome">-</span><br>
-                <strong>Nível:</strong> <span id="perfilNivel">-</span><br>
-                <strong>Equipe:</strong> <span id="perfilEquipe">-</span><br>
-                <strong>TRUCU:</strong> <span id="perfilTrucu">-</span>
+            <div class="input-group" id="campo-info" style="display: none;">
+                <label id="label-info">Informação:</label>
+                <input type="text" id="info-cashback" placeholder="Digite a informação necessária">
             </div>
+
+            <button class="btn-login" onclick="loginCashback()">
+                💰 ACESSAR COM CASHBACK
+            </button>
         </div>
 
         <div class="links">
             <a href="cadastro-membro.html" class="link">⭐ Novo Membro</a>
+            <a href="cadastro-equipe.html" class="link">🏆 Nova Equipe</a>
+            <a href="regras.html" class="link">📜 Regras</a>
             <a href="index.html" class="link">🏠 Voltar</a>
         </div>
 
@@ -229,10 +366,11 @@
     </div>
 
     <script>
+        let modoAtual = 'agente';
+
         // RELÓGIO HORÁRIO RÚSSIA (AURORA BOREAL)
         function atualizarHorarioRussia() {
             const agora = new Date();
-            // Fuso horário da Rússia (Moscow Time = UTC+3)
             const options = { 
                 timeZone: 'Europe/Moscow',
                 hour: '2-digit',
@@ -247,7 +385,56 @@
         setInterval(atualizarHorarioRussia, 1000);
         atualizarHorarioRussia();
 
-        // SISTEMA DE LOGIN SINCRONIZADO
+        // SELECIONAR MODO DE LOGIN
+        function selecionarModo(modo) {
+            modoAtual = modo;
+            
+            // Atualizar botões
+            document.querySelectorAll('.modo-btn').forEach(btn => {
+                btn.classList.remove('ativo');
+            });
+            event.target.classList.add('ativo');
+            
+            // Mostrar formulário correto
+            document.querySelectorAll('.form-login').forEach(form => {
+                form.classList.remove('ativo');
+            });
+            document.getElementById(`modo-${modo}`).classList.add('ativo');
+        }
+
+        // MOSTRAR CAMPO ADICIONAL BASEADO NO MÉTODO
+        document.getElementById('metodo-cashback').addEventListener('change', function() {
+            const campoInfo = document.getElementById('campo-info');
+            const labelInfo = document.getElementById('label-info');
+            const inputInfo = document.getElementById('info-cashback');
+            
+            switch(this.value) {
+                case 'folha':
+                    campoInfo.style.display = 'block';
+                    labelInfo.textContent = '📋 Nº Folha:';
+                    inputInfo.placeholder = 'Número da folha de pagamento';
+                    break;
+                case 'instagram':
+                    campoInfo.style.display = 'block';
+                    labelInfo.textContent = '📸 @Instagram:';
+                    inputInfo.placeholder = '@seuinstagram';
+                    break;
+                case 'whatsapp':
+                    campoInfo.style.display = 'block';
+                    labelInfo.textContent = '📱 WhatsApp:';
+                    inputInfo.placeholder = '(31) 99999-9999';
+                    break;
+                case 'outro':
+                    campoInfo.style.display = 'block';
+                    labelInfo.textContent = '🔗 Método:';
+                    inputInfo.placeholder = 'Descreva seu método preferido';
+                    break;
+                default:
+                    campoInfo.style.display = 'none';
+            }
+        });
+
+        // SISTEMA DE LOGIN AGENTE ADN
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -302,11 +489,12 @@
                     nivel: usuario.nivel,
                     equipe: usuario.equipe,
                     trucu: usuario.trucu,
-                    horarioLogin: new Date().toISOString()
+                    horarioLogin: new Date().toISOString(),
+                    tipo: 'agente'
                 }));
 
                 setTimeout(() => {
-                    window.location.href = 'painel-adm.html';
+                    window.location.href = 'md4.html';
                 }, 3000);
 
             } else {
@@ -317,7 +505,85 @@
             }
         });
 
-        // Efeitos visuais
+        // LOGIN MODO TESTE
+        function loginTeste() {
+            const nick = document.getElementById('nick-teste').value.trim();
+            
+            if (!nick) {
+                mostrarMensagem('❌ Por favor, digite seu nick!', 'erro');
+                return;
+            }
+
+            // Salvar dados do usuário teste
+            const usuarioTeste = {
+                nick: nick,
+                modo: 'teste-rapido',
+                dataAcesso: new Date().toLocaleString('pt-BR'),
+                cashback: false,
+                tipo: 'teste'
+            };
+
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioTeste));
+            localStorage.setItem('usuarioTeste', JSON.stringify(usuarioTeste));
+
+            mostrarMensagem(`🎉 Bem-vindo, ${nick}!\n\nAgora você pode acessar todo o sistema em modo teste!`, 'sucesso');
+            
+            setTimeout(() => {
+                window.location.href = 'md4.html';
+            }, 2000);
+        }
+
+        // LOGIN COM CASHBACK
+        function loginCashback() {
+            const nick = document.getElementById('nick-cashback').value.trim();
+            const metodo = document.getElementById('metodo-cashback').value;
+            const info = document.getElementById('info-cashback').value.trim();
+            
+            if (!nick) {
+                mostrarMensagem('❌ Por favor, digite seu nick!', 'erro');
+                return;
+            }
+
+            if (metodo !== 'folha' && !info) {
+                mostrarMensagem('❌ Por favor, preencha as informações do cashback!', 'erro');
+                return;
+            }
+
+            // Salvar dados do usuário com cashback
+            const usuarioCashback = {
+                nick: nick,
+                modo: 'cashback',
+                metodo: metodo,
+                info: info,
+                dataAcesso: new Date().toLocaleString('pt-BR'),
+                cashback: true,
+                saldo: 0,
+                tipo: 'cashback'
+            };
+
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioCashback));
+            localStorage.setItem('usuarioCashback', JSON.stringify(usuarioCashback));
+
+            mostrarMensagem(`💰 Bem-vindo, ${nick}!\n\nSeu cashback foi ativado!\nMétodo: ${metodo}\n\nAgora você tem acesso completo!`, 'sucesso');
+            
+            setTimeout(() => {
+                window.location.href = 'md4.html';
+            }, 2000);
+        }
+
+        // FUNÇÃO PARA MOSTRAR MENSAGENS
+        function mostrarMensagem(texto, tipo) {
+            const mensagem = document.getElementById('mensagem');
+            mensagem.innerHTML = texto;
+            mensagem.className = `mensagem ${tipo}`;
+            mensagem.style.display = 'block';
+            
+            setTimeout(() => {
+                mensagem.style.display = 'none';
+            }, 5000);
+        }
+
+        // EFEITOS VISUAIS (CÓDIGO QUE VOCÊ MANDOU)
         const inputs = document.querySelectorAll('input');
         inputs.forEach(input => {
             input.addEventListener('focus', function() {
@@ -329,14 +595,10 @@
             });
         });
 
-        // Verificar se já está logado
+        // VERIFICAR SE JÁ ESTÁ LOGADO (CÓDIGO QUE VOCÊ MANDOU)
         window.addEventListener('load', function() {
             const usuarioSalvo = localStorage.getItem('usuarioLogado');
             if (usuarioSalvo) {
                 const usuario = JSON.parse(usuarioSalvo);
-                document.getElementById('codigo').value = usuario.codigo;
-            }
-        });
-    </script>
-</body>
-</html>
+                if (usuario.codigo) {
+                    doc
