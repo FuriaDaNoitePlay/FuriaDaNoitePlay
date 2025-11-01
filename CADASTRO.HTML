@@ -6,256 +6,282 @@
     <title>Cadastro - Agente Da Noite</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .cadastro-type {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
             display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
+            flex-direction: column;
         }
-        
-        .cadastro-btn {
-            flex: 1;
-            padding: 12px;
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid var(--neon-red);
-            color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            min-width: 120px;
-        }
-        
-        .cadastro-btn.active, .cadastro-btn:hover {
-            background: rgba(255, 0, 0, 0.3);
-            box-shadow: 0 0 15px var(--neon-red);
-        }
-        
-        .cadastro-form {
-            display: none;
-        }
-        
-        .cadastro-form.active {
-            display: block;
-        }
-        
-        .form-title {
-            color: var(--neon-red);
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px var(--neon-red);
-        }
-        
-        .cadastro-input {
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--neon-red);
-            color: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 10px 0;
-            width: 100%;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
-        }
-        
-        .cadastro-input:focus {
-            outline: none;
-            box-shadow: 0 0 15px var(--neon-red);
-            border-color: var(--neon-pink);
-        }
-        
-        .file-input {
-            padding: 12px;
-            cursor: pointer;
-        }
-        
-        .cadastro-btn-submit {
-            background: rgba(255, 0, 0, 0.3);
-            border: 2px solid var(--neon-red);
-            color: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            width: 100%;
-        }
-        
-        .cadastro-btn-submit:hover {
-            background: rgba(255, 0, 0, 0.5);
-            box-shadow: var(--neon-glow);
-            transform: scale(1.02);
-        }
-        
-        .jogadores-container {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 10px;
-            border: 1px solid var(--neon-red);
-        }
-        
-        .jogador-input {
-            margin: 8px 0;
-        }
-        
-        .add-jogador-btn {
-            background: rgba(0, 255, 0, 0.2);
-            border: 1px solid var(--neon-green);
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-        
-        .add-jogador-btn:hover {
-            background: rgba(0, 255, 0, 0.3);
-            box-shadow: 0 0 15px var(--neon-green);
-        }
-        
-        .cadastro-links {
-            margin-top: 20px;
+
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
+            align-items: center;
+            border-bottom: 2px solid #ff0000;
+            box-shadow: 0 0 20px #ff0000;
         }
-        
-        .cadastro-links a {
-            color: var(--neon-red);
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: white;
             text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
             transition: all 0.3s ease;
         }
-        
-        .cadastro-links a:hover {
-            text-shadow: 0 0 10px var(--neon-red);
+
+        .neon-text {
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+        }
+
+        .neon-btn {
+            background: linear-gradient(45deg, #ff0000, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-shadow: 0 0 10px white;
+            box-shadow: 0 0 15px #ff0000;
+        }
+
+        .cadastro-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .cadastro-box {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 30px #ff0000;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .cadastro-title {
+            color: #ff0000;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ff0000;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ff0000;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        .btn-cadastrar {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff0000, #ff6b6b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px white;
+            box-shadow: 0 0 20px #ff0000;
+        }
+
+        .btn-cadastrar:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 30px #ff0000;
+        }
+
+        .cadastro-links {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cadastro-links a {
+            color: #ff6b6b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .cadastro-links a:hover {
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid #ff0000;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .main-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .cadastro-box {
+                padding: 2rem;
+                margin: 1rem;
+            }
         }
     </style>
 </head>
-<body class="login-body">
-    <div class="login-container">
-        <div class="login-header">
-            <img src="furia.png" alt="Agente Da Noite" class="login-logo">
-            <h2 class="login-title">CADASTRAR NA COMUNIDADE</h2>
-            <p style="color: #ccc; margin-bottom: 20px;">Junte-se ao Agente Da Noite</p>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="furia.png" alt="Agente Da Noite" class="logo">
+            <h1 class="neon-text">AGENTE DA NOITE</h1>
         </div>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link neon-text">Início</a>
+            <a href="fron.html" class="nav-link neon-text">FRØN</a>
+            <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
+            <a href="regras.html" class="nav-link neon-text">Regras</a>
+            <a href="login.html" class="nav-link neon-btn">Login</a>
+        </nav>
+    </header>
 
-        <!-- BOTÕES DE TIPO DE CADASTRO -->
-        <div class="cadastro-type">
-            <button class="cadastro-btn active" data-type="membro">👤 MEMBRO</button>
-            <button class="cadastro-btn" data-type="equipe">🏆 EQUIPE</button>
-        </div>
-
-        <!-- FORMULÁRIO MEMBRO -->
-        <form id="cadastro-membro" class="cadastro-form active">
-            <h3 class="form-title">🎮 CADASTRO DE MEMBRO</h3>
-            <input type="text" class="cadastro-input" placeholder="Nick do Jogador" required>
-            <input type="password" class="cadastro-input" placeholder="Senha" required>
-            <input type="text" class="cadastro-input" placeholder="Rede Social (Instagram/Twitter)">
-            <input type="text" class="cadastro-input" placeholder="Jogo Principal">
-            <input type="file" class="cadastro-input file-input" accept="image/*">
-            <button type="submit" class="cadastro-btn-submit">✅ CADASTRAR MEMBRO</button>
-        </form>
-
-        <!-- FORMULÁRIO EQUIPE -->
-        <form id="cadastro-equipe" class="cadastro-form">
-            <h3 class="form-title">🏆 CADASTRO DE EQUIPE</h3>
-            <input type="text" class="cadastro-input" placeholder="Nome da Equipe" required>
-            <input type="password" class="cadastro-input" placeholder="Senha da Equipe" required>
-            <input type="text" class="cadastro-input" placeholder="Rede Social da Equipe">
-            <input type="text" class="cadastro-input" placeholder="Jogo da Equipe">
-            
-            <div class="jogadores-container">
-                <h4 style="color: var(--neon-yellow); text-align: center; margin-bottom: 15px;">
-                    👥 JOGADORES DA EQUIPE (Máximo 10)
-                </h4>
-                <div id="jogadores-lista">
-                    <input type="text" class="cadastro-input jogador-input" placeholder="Jogador 1" required>
-                    <input type="text" class="cadastro-input jogador-input" placeholder="Jogador 2" required>
-                    <input type="text" class="cadastro-input jogador-input" placeholder="Jogador 3">
-                    <input type="text" class="cadastro-input jogador-input" placeholder="Jogador 4">
-                    <input type="text" class="cadastro-input jogador-input" placeholder="Jogador 5">
+    <main class="cadastro-container">
+        <div class="cadastro-box">
+            <h2 class="cadastro-title">📝 CADASTRO</h2>
+            <form id="cadastroForm">
+                <div class="form-group">
+                    <label for="nick">Nick no Jogo:</label>
+                    <input type="text" id="nick" name="nick" required>
                 </div>
-                <button type="button" class="add-jogador-btn" onclick="adicionarJogador()">
-                    ➕ Adicionar Jogador
-                </button>
-            </div>
+                
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmarSenha">Confirmar Senha:</label>
+                    <input type="password" id="confirmarSenha" name="confirmarSenha" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jogoPrincipal">Jogo Principal:</label>
+                    <select id="jogoPrincipal" name="jogoPrincipal" required>
+                        <option value="">Selecione...</option>
+                        <option value="freefire">Free Fire</option>
+                        <option value="codm">Call of Duty Mobile</option>
+                        <option value="pubgm">PUBG Mobile</option>
+                        <option value="lol">League of Legends</option>
+                        <option value="valorant">Valorant</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-cadastrar">CRIAR CONTA</button>
+            </form>
             
-            <input type="file" class="cadastro-input file-input" accept="image/*">
-            <button type="submit" class="cadastro-btn-submit">✅ CADASTRAR EQUIPE</button>
-        </form>
+            <div class="cadastro-links">
+                <a href="login.html">🔐 Já tem conta? Faça Login</a>
+                <a href="index.html">🏠 Voltar para o Início</a>
+            </div>
+        </div>
+    </main>
 
-        <div class="cadastro-links">
-            <a href="login.html">🔐 Já tenho conta</a>
-            <a href="index.html">🏠 Voltar ao Início</a>
-        </div>
-        
-        <div style="text-align: center; margin-top: 20px; color: #666; font-size: 0.9em;">
-            <p>&copy; 2025 Agente Da Noite - <strong>ToxicSkull√</strong></p>
-        </div>
-    </div>
+    <footer>
+        <p>&copy; 2025 Agente Da Noite - <strong>ToxicSkull√</strong></p>
+    </footer>
 
     <script>
-        // SISTEMA DE TROCA DE FORMULÁRIOS
-        document.addEventListener('DOMContentLoaded', function() {
-            const cadastroBtns = document.querySelectorAll('.cadastro-btn');
-            const cadastroForms = document.querySelectorAll('.cadastro-form');
+        document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            cadastroBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const type = this.getAttribute('data-type');
-                    
-                    // Remove active de todos
-                    cadastroBtns.forEach(opt => opt.classList.remove('active'));
-                    cadastroForms.forEach(form => form.classList.remove('active'));
-                    
-                    // Adiciona active no selecionado
-                    this.classList.add('active');
-                    document.getElementById(`cadastro-${type}`).classList.add('active');
-                });
-            });
+            const nick = document.getElementById('nick').value;
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const confirmarSenha = document.getElementById('confirmarSenha').value;
+            const jogoPrincipal = document.getElementById('jogoPrincipal').value;
             
-            // SISTEMA DE CADASTRO
-            const forms = document.querySelectorAll('.cadastro-form');
-            forms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const type = this.id.replace('cadastro-', '');
-                    
-                    // Simula cadastro (substituir por sistema real)
-                    alert(`🎉 ${type.toUpperCase()} cadastrado com sucesso!\n\nAgora faça login para acessar o sistema.`);
-                    window.location.href = 'login.html';
-                });
-            });
-        });
-        
-        // SISTEMA DE JOGADORES
-        let jogadorCount = 5;
-        
-        function adicionarJogador() {
-            if (jogadorCount < 10) {
-                jogadorCount++;
-                const container = document.getElementById('jogadores-lista');
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.className = 'cadastro-input jogador-input';
-                input.placeholder = `Jogador ${jogadorCount}`;
-                container.appendChild(input);
-                
-                if (jogadorCount === 10) {
-                    document.querySelector('.add-jogador-btn').style.display = 'none';
-                }
-            } else {
-                alert('❌ Máximo de 10 jogadores por equipe!');
+            if (senha !== confirmarSenha) {
+                alert('As senhas não coincidem!');
+                return;
             }
-        }
+            
+            if (nick && email && senha && jogoPrincipal) {
+                const usuario = {
+                    nick: nick,
+                    email: email,
+                    jogoPrincipal: jogoPrincipal,
+                    tipo: 'membro',
+                    dataCadastro: new Date().toLocaleDateString()
+                };
+                
+                // Salva no localStorage (simulação)
+                localStorage.setItem('usuario_' + email, JSON.stringify(usuario));
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+                
+                alert('Cadastro realizado com sucesso! Bem-vindo ao Agente Da Noite!');
+                window.location.href = 'index.html';
+            } else {
+                alert('Por favor, preencha todos os campos!');
+            }
+        });
     </script>
 </body>
 </html>
