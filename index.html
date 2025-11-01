@@ -3,112 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agente Da Noite</title>
+    <title>Agente Da Noite - A maior comunidade gamer do Brasil</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .hierarquia-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-        
-        .hierarquia-title {
-            text-align: center;
-            color: #fff;
-            text-shadow: 0 0 10px var(--neon-red);
-            margin-bottom: 30px;
-            font-size: 2em;
-        }
-        
-        .membros-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .membro-card {
-            background: rgba(255, 0, 0, 0.1);
-            border: 2px solid var(--neon-red);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-        }
-        
-        .membro-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 25px var(--neon-red);
-        }
-        
-        .membro-imagem {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid var(--neon-red);
-            margin: 0 auto 15px;
-            object-fit: cover;
-            box-shadow: 0 0 15px var(--neon-red);
-        }
-        
-        .membro-nome {
-            color: var(--neon-red);
-            font-weight: bold;
-            margin: 10px 0 5px;
-            text-shadow: 0 0 5px var(--neon-red);
-        }
-        
-        .membro-cargo {
-            color: var(--neon-yellow);
-            font-size: 0.9em;
-            margin-bottom: 10px;
-            text-shadow: 0 0 5px var(--neon-yellow);
-        }
-        
-        .membro-descricao {
-            color: #ccc;
-            font-size: 0.8em;
-        }
-        
-        .membro-dono { border-color: #ff0000; }
-        .membro-lider { border-color: #ff4500; }
-        .membro-colider { border-color: #ffa500; }
-        .membro-anciao { border-color: #00ff00; }
-        
-        .welcome-box {
-            background: rgba(0, 0, 0, 0.8);
-            border: 3px solid var(--neon-red);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px auto;
-            max-width: 800px;
-            text-align: center;
-            box-shadow: var(--neon-glow);
-        }
-        
-        .welcome-title {
-            color: var(--neon-red);
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px var(--neon-red);
-        }
-        
-        .welcome-subtitle {
-            color: var(--neon-yellow);
-            font-size: 1.3em;
-            margin-bottom: 25px;
-            text-shadow: 0 0 5px var(--neon-yellow);
-        }
-    </style>
 </head>
 <body>
     <header>
         <div class="logo-container">
             <img src="furia.png" alt="Agente Da Noite" class="logo">
+            <h1 class="neon-text">AGENTE DA NOITE</h1>
         </div>
         <nav class="main-nav">
             <a href="index.html" class="nav-link neon-text">Início</a>
+            <a href="agente-da-noite.html" class="nav-link neon-text">Agente Da Noite</a>
             <a href="fron.html" class="nav-link neon-text">FRØN</a>
             <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
             <a href="regras.html" class="nav-link neon-text">Regras</a>
@@ -117,67 +23,30 @@
     </header>
 
     <main>
-        <section class="welcome-box">
-            <h1 class="welcome-title">AGENTE DA NOITE</h1>
-            <p class="welcome-subtitle">Quando a Lua aparece, a face da fúria chega!<br>Venha para o cenário casual e competitivo de Clash Royale, MLBB e Clash of Clans</p>
+        <section class="hero">
+            <h1 class="neon-title">AGENTE DA NOITE</h1>
+            <p class="neon-subtitle">A maior comunidade gamer do Brasil</p>
             
-            <div class="hero-buttons">
+            <div class="cta-buttons">
                 <a href="cadastro.html" class="btn-neon">Cadastrar</a>
-                <a href="campeonato.html" class="btn-neon-outline">Ver Campeonato</a>
-            </div>
-        </section>
-
-        <section class="hierarquia-container">
-            <h2 class="hierarquia-title">👑 HIERARQUIA DA COMUNIDADE</h2>
-            
-            <div class="membros-grid">
-                <div class="membro-card membro-dono">
-                    <img src="membros1.png" alt="Dono" class="membro-imagem">
-                    <div class="membro-nome">DONO</div>
-                    <div class="membro-cargo">Nível Máximo</div>
-                    <div class="membro-descricao">Liderança máxima da comunidade</div>
-                </div>
-                
-                <div class="membro-card membro-lider">
-                    <img src="membros2.png" alt="Líder" class="membro-imagem">
-                    <div class="membro-nome">LÍDER</div>
-                    <div class="membro-cargo">Nível 4</div>
-                    <div class="membro-descricao">Vice-liderança e gestão</div>
-                </div>
-                
-                <div class="membro-card membro-colider">
-                    <img src="membros3.png" alt="Colíder" class="membro-imagem">
-                    <div class="membro-nome">COLÍDER</div>
-                    <div class="membro-cargo">Nível 3</div>
-                    <div class="membro-descricao">Coordenação de equipes</div>
-                </div>
-                
-                <div class="membro-card membro-anciao">
-                    <img src="membros4.png" alt="Ancião" class="membro-imagem">
-                    <div class="membro-nome">ANCIÃO</div>
-                    <div class="membro-cargo">Nível 2</div>
-                    <div class="membro-descricao">Membro veterano</div>
-                </div>
+                <a href="campeonato.html" class="btn-neon">Ver Campeonato</a>
             </div>
         </section>
 
         <section class="features">
             <div class="feature-card">
-                <h3>🎮 Campeonatos</h3>
-                <p>Participe de torneios emocionantes com premiações</p>
-                <a href="campeonato.html" class="btn-neon">Ver Torneios</a>
+                <h3>🏆 Campeonatos</h3>
+                <p>Participe de torneios emocionantes</p>
             </div>
             
             <div class="feature-card">
                 <h3>👥 Comunidade</h3>
-                <p>Conecte-se com jogadores de todo o Brasil</p>
-                <a href="fron.html" class="btn-neon">Conhecer FRØN</a>
+                <p>Conecte-se com jogadores</p>
             </div>
             
             <div class="feature-card">
-                <h3>🏆 Ranking</h3>
-                <p>Suba no sistema de hierarquia exclusivo</p>
-                <a href="regras.html" class="btn-neon">Ver Regras</a>
+                <h3>📈 Ranking</h3>
+                <p>Suba no sistema de hierarquia</p>
             </div>
         </section>
     </main>
