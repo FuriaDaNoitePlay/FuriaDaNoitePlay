@@ -5,9 +5,9 @@
 }
 
 body {
-    background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
-    color: #fff;
-    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0a0a2a, #00008b, #2a0a4a);
+    color: #00ffff;
+    font-family: 'Courier New', monospace;
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -18,57 +18,49 @@ body {
     padding: 20px;
 }
 
-/* Efeito Neon */
+/* 🎰 CORES NEON OFICIAIS DA FÚRIA */
+.neon-azul { color: #00ffff; text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+.neon-verde { color: #00ff00; text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
+.neon-vermelho { color: #ff0000; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+.neon-amarelo { color: #ffff00; text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00; }
+.neon-laranja { color: #ff8800; text-shadow: 0 0 10px #ff8800, 0 0 20px #ff8800; }
+.neon-rosa { color: #ff00ff; text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
+
+/* Efeitos de pulsação */
+@keyframes pulsar-azul {
+    from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+    to { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff; }
+}
+
+@keyframes pulsar-verde {
+    from { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
+    to { text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00; }
+}
+
+@keyframes pulsar-vermelho {
+    from { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+    to { text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000; }
+}
+
 .neon-text {
-    color: #ff0022;
-    text-shadow: 
-        0 0 5px #ff0022,
-        0 0 10px #ff0022,
-        0 0 15px #ff0022,
-        0 0 20px #ff0022,
-        0 0 35px #ff0022,
-        0 0 40px #ff0022;
-    animation: neon-pulse 1.5s ease-in-out infinite alternate;
+    animation: pulsar-azul 2s ease-in-out infinite alternate;
 }
 
 .neon-title {
-    color: #00ffea;
-    text-shadow: 
-        0 0 5px #00ffea,
-        0 0 10px #00ffea,
-        0 0 15px #00ffea,
-        0 0 20px #00ffea;
-    margin-bottom: 30px;
     text-align: center;
-}
-
-@keyframes neon-pulse {
-    from {
-        text-shadow: 
-            0 0 5px #ff0022,
-            0 0 10px #ff0022,
-            0 0 15px #ff0022,
-            0 0 20px #ff0022;
-    }
-    to {
-        text-shadow: 
-            0 0 10px #ff0022,
-            0 0 20px #ff0022,
-            0 0 30px #ff0022,
-            0 0 40px #ff0022,
-            0 0 50px #ff0022;
-    }
+    margin-bottom: 30px;
+    font-size: 2.5em;
 }
 
 /* Header */
 .neon-header {
     text-align: center;
-    margin-bottom: 50px;
-    padding: 30px;
-    border: 2px solid #ff0022;
+    padding: 30px 0;
+    border-bottom: 3px solid #00ffff;
+    margin-bottom: 40px;
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 15px;
-    background: rgba(255, 0, 34, 0.1);
-    box-shadow: 0 0 30px rgba(255, 0, 34, 0.3);
+    box-shadow: 0 0 30px #00ffff;
 }
 
 .logo {
@@ -83,14 +75,15 @@ body {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 2px solid #ff0022;
-    box-shadow: 0 0 20px rgba(255, 0, 34, 0.5);
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 20px #00ffff;
 }
 
 .subtitle {
-    color: #00ffea;
-    font-size: 1.2rem;
-    text-shadow: 0 0 10px #00ffea;
+    color: #ff00ff;
+    font-size: 1.3em;
+    font-style: italic;
+    text-shadow: 0 0 10px #ff00ff;
 }
 
 /* Mente Digital */
@@ -102,19 +95,20 @@ body {
 }
 
 .md-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.8);
     padding: 25px;
     border-radius: 15px;
-    border: 2px solid #00ffea;
+    border: 2px solid #00ffff;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(0, 255, 234, 0.2);
+    box-shadow: 0 0 20px #00ffff;
 }
 
 .md-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 0 30px rgba(0, 255, 234, 0.4);
+    box-shadow: 0 0 40px #ff00ff;
+    border-color: #ff00ff;
 }
 
 .md-card img {
@@ -122,49 +116,13 @@ body {
     height: 80px;
     border-radius: 50%;
     margin-bottom: 15px;
-    border: 2px solid #00ffea;
+    border: 2px solid #00ffff;
 }
 
 .md-card h3 {
-    color: #00ffea;
+    color: #ff00ff;
     margin-bottom: 10px;
-    text-shadow: 0 0 10px #00ffea;
-}
-
-/* Membros */
-.membros-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    margin-bottom: 50px;
-}
-
-.membro-card {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid #ff6b6b;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.membro-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
-}
-
-.membro-card img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    border: 2px solid #ff6b6b;
-}
-
-.membro-card h4 {
-    color: #ff6b6b;
-    margin-bottom: 5px;
-    text-shadow: 0 0 5px #ff6b6b;
+    font-size: 1.5em;
 }
 
 /* Sistema de Acesso */
@@ -176,32 +134,31 @@ body {
 }
 
 .acesso-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.8);
     padding: 30px;
     border-radius: 15px;
     border: 2px solid;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-align: center;
 }
 
 .acesso-card:nth-child(1) {
-    border-color: #ffd700;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    border-color: #ffff00;
+    box-shadow: 0 0 20px #ffff00;
 }
-
 .acesso-card:nth-child(2) {
-    border-color: #ff0022;
-    box-shadow: 0 0 20px rgba(255, 0, 34, 0.3);
+    border-color: #ff0000;
+    box-shadow: 0 0 20px #ff0000;
 }
-
 .acesso-card:nth-child(3) {
-    border-color: #00ffea;
-    box-shadow: 0 0 20px rgba(0, 255, 234, 0.3);
+    border-color: #00ff00;
+    box-shadow: 0 0 20px #00ff00;
 }
 
 .acesso-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px;
 }
 
 .acesso-icon {
@@ -210,48 +167,51 @@ body {
 }
 
 .acesso-card h3 {
-    color: inherit;
     margin-bottom: 15px;
-    text-shadow: 0 0 10px currentColor;
+    font-size: 1.4em;
 }
 
-.acesso-card ul {
-    list-style: none;
-    text-align: left;
-}
-
-.acesso-card li {
-    margin: 8px 0;
-    padding-left: 20px;
-    position: relative;
-}
-
-.acesso-card li:before {
-    content: "✨";
-    position: absolute;
-    left: 0;
-}
-
-/* Botões */
+/* Botões Neon */
 .neon-btn {
     background: transparent;
-    color: #ff0022;
-    border: 2px solid #ff0022;
-    padding: 12px 30px;
+    color: #00ffff;
+    border: 2px solid #00ffff;
+    padding: 15px 30px;
     border-radius: 25px;
     cursor: pointer;
     font-size: 1.1rem;
     font-weight: bold;
-    text-transform: uppercase;
     transition: all 0.3s ease;
-    text-shadow: 0 0 5px #ff0022;
-    box-shadow: 0 0 15px rgba(255, 0, 34, 0.3);
+    text-shadow: 0 0 5px #00ffff;
+    box-shadow: 0 0 15px #00ffff;
+    margin: 10px;
 }
 
 .neon-btn:hover {
-    background: rgba(255, 0, 34, 0.1);
-    box-shadow: 0 0 25px rgba(255, 0, 34, 0.5);
+    background: rgba(0, 255, 255, 0.1);
+    box-shadow: 0 0 25px #00ffff;
     transform: scale(1.05);
+}
+
+.neon-btn.verde {
+    color: #00ff00;
+    border-color: #00ff00;
+    box-shadow: 0 0 15px #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.neon-btn.vermelho {
+    color: #ff0000;
+    border-color: #ff0000;
+    box-shadow: 0 0 15px #ff0000;
+    text-shadow: 0 0 5px #ff0000;
+}
+
+.neon-btn.amarelo {
+    color: #ffff00;
+    border-color: #ffff00;
+    box-shadow: 0 0 15px #ffff00;
+    text-shadow: 0 0 5px #ffff00;
 }
 
 /* Redes Sociais */
@@ -259,6 +219,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
+    margin-top: 30px;
 }
 
 .social-btn {
@@ -297,6 +258,101 @@ body {
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
 }
 
+/* CHAT GERAL */
+.chat-container {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 30px 0;
+    box-shadow: 0 0 20px #00ff00;
+}
+
+.chat-messages {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #00ffff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(0, 255, 255, 0.05);
+}
+
+.message {
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    background: rgba(0, 255, 255, 0.1);
+    border-left: 3px solid #00ffff;
+}
+
+.message.membro {
+    background: rgba(0, 255, 0, 0.1);
+    border-left-color: #00ff00;
+}
+
+.message.visitante {
+    background: rgba(255, 255, 0, 0.1);
+    border-left-color: #ffff00;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    background: rgba(0, 255, 255, 0.1);
+    color: white;
+}
+
+.chat-input button {
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    color: black;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* BOTÕES PRINCIPAIS */
+.botoes-principais {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.btn-neon {
+    padding: 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s;
+    box-shadow: 0 0 15px;
+}
+
+.btn-neon.azul { border-color: #00ffff; box-shadow: 0 0 15px #00ffff; }
+.btn-neon.verde { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; }
+.btn-neon.vermelho { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; }
+.btn-neon.amarelo { border-color: #ffff00; box-shadow: 0 0 15px #ffff00; }
+.btn-neon.laranja { border-color: #ff8800; box-shadow: 0 0 15px #ff8800; }
+
+.btn-neon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px;
+}
+
 /* Responsivo */
 @media (max-width: 768px) {
     .logo {
@@ -310,5 +366,13 @@ body {
     
     .membros-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .botoes-principais {
+        grid-template-columns: 1fr;
+    }
+    
+    .neon-title {
+        font-size: 2em;
     }
 }
