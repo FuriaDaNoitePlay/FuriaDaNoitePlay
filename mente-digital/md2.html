@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campeonato - Furia Da Noite</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="neon-header">
+            <h1 class="neon-text">🏆 CAMPEONATO</h1>
+            <p class="subtitle">Tabelas e Resultados - Furia Team</p>
+        </header>
+
+        <div class="md-content">
+            <div class="tabela-campeonato">
+                <h2>📈 TABELA ATUAL</h2>
+                <div class="tabela">
+                    <div class="linha header">
+                        <span>POS</span>
+                        <span>EQUIPE</span>
+                        <span>PTS</span>
+                        <span>JOGOS</span>
+                    </div>
+                    <div class="linha furia">
+                        <span>1°</span>
+                        <span>🔥 FURIA</span>
+                        <span>18</span>
+                        <span>6</span>
+                    </div>
+                    <div class="linha">
+                        <span>2°</span>
+                        <span>RIVAL 1</span>
+                        <span>15</span>
+                        <span>6</span>
+                    </div>
+                    <div class="linha">
+                        <span>3°</span>
+                        <span>RIVAL 2</span>
+                        <span>12</span>
+                        <span>6</span>
+                    </div>
+                </div>
+                
+                <h3>🎯 PRÓXIMAS PARTIDAS</h3>
+                <div class="partidas">
+                    <div class="partida">
+                        <span>🔥 FURIA vs RIVAL 3</span>
+                        <span>📅 15/12 - 20:00</span>
+                    </div>
+                    <div class="partida">
+                        <span>🔥 FURIA vs RIVAL 4</span>
+                        <span>📅 18/12 - 21:00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="neon-btn" onclick="voltarInicio()">⬅️ VOLTAR</button>
+        </div>
+    </div>
+
+    <style>
+        .tabela {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .linha {
+            display: grid;
+            grid-template-columns: 60px 1fr 60px 60px;
+            padding: 12px;
+            border-bottom: 1px solid #ff0022;
+        }
+        
+        .linha.header {
+            background: rgba(255, 0, 34, 0.3);
+            font-weight: bold;
+        }
+        
+        .linha.furia {
+            background: rgba(255, 0, 34, 0.2);
+            color: #ff0022;
+            font-weight: bold;
+        }
+        
+        .partidas {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .partida {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid #ff0022;
+        }
+    </style>
+
+    <script>
+        function voltarInicio() {
+            window.location.href = '../index.html';
+        }
+    </script>
+</body>
+</html>
