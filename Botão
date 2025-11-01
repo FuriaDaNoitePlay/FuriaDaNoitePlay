@@ -1,8 +1,0 @@
-// === Botão Início fixo em todas as páginas ===
-const botao = document.createElement("button");
-botao.className = "botao-inicio";
-botao.textContent = "Início";
-botao.onclick = () => {
-  window.location.href = "https://furiadanoiteplay.com.br";
-};
-document.body.appendChild(botao);
