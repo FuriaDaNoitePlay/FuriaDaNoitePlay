@@ -1,129 +1,57 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🔥 Login - FuriaDaNoitePlay 🔥</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Orbitron', sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-    }
-
-    .login-container {
-      background: rgba(0, 0, 0, 0.85);
-      border: 2px solid #ff0000;
-      border-radius: 12px;
-      box-shadow: 0 0 25px #ff0000;
-      padding: 25px;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    h2 {
-      color: #ff0000;
-      text-shadow: 0 0 15px #ff0000;
-      margin-bottom: 20px;
-    }
-
-    select, input, button {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 12px;
-      border-radius: 8px;
-      border: 2px solid #ff0000;
-      background: #000;
-      color: #fff;
-      font-size: 16px;
-      font-family: 'Orbitron', sans-serif;
-      text-align: center;
-      box-shadow: 0 0 15px #ff0000;
-    }
-
-    button {
-      background: #ff0000;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #fff;
-      color: #ff0000;
-      box-shadow: 0 0 25px #ff0000;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 10px;
-      color: #ff0000;
-      font-size: 14px;
-      text-shadow: 0 0 10px #ff0000;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Furia da Noite Play</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-header">
+            <img src="logo.png" alt="Logo" class="login-logo">
+            <h2 class="neon-title">ACESSAR SISTEMA</h2>
+        </div>
 
-<body>
-  <div class="login-container">
-    <h2>🔥 Fúria da Noite Play 🔥</h2>
+        <div class="login-options">
+            <button class="login-option active" data-type="membro">
+                👤 MEMBRO
+            </button>
+            <button class="login-option" data-type="equipe">
+                🏆 EQUIPE
+            </button>
+            <button class="login-option" data-type="adm">
+                ⚡ ADM
+            </button>
+        </div>
 
-    <select id="tipoUsuario">
-      <option value="usuario">Usuário</option>
-      <option value="membro">Membro</option>
-      <option value="equipe">Equipe</option>
-    </select>
+        <!-- FORMULÁRIO MEMBRO -->
+        <form id="form-membro" class="login-form active">
+            <input type="text" class="input-neon" placeholder="Nick" required>
+            <input type="password" class="input-neon" placeholder="Senha" required>
+            <button type="submit" class="btn-neon">ENTRAR</button>
+        </form>
 
-    <input type="text" id="nick" placeholder="Digite seu Nick">
+        <!-- FORMULÁRIO EQUIPE -->
+        <form id="form-equipe" class="login-form">
+            <input type="text" class="input-neon" placeholder="Nome da Equipe" required>
+            <input type="password" class="input-neon" placeholder="Senha da Equipe" required>
+            <button type="submit" class="btn-neon">ENTRAR COMO EQUIPE</button>
+        </form>
 
-    <button id="entrarBtn">Entrar</button>
-    <button id="cadastrarBtn">Cadastrar</button>
-  </div>
+        <!-- FORMULÁRIO ADM -->
+        <form id="form-adm" class="login-form">
+            <input type="text" class="input-neon" placeholder="Usuário ADM" required>
+            <input type="password" class="input-neon" placeholder="Senha ADM" required>
+            <button type="submit" class="btn-neon">ACESSAR PAINEL ADM</button>
+        </form>
 
-  <footer>© 2025 FuriaDaNoitePlay</footer>
+        <div class="login-links">
+            <a href="cadastro.html" class="neon-link">Criar Conta</a>
+            <a href="index.html" class="neon-link">Voltar ao Início</a>
+        </div>
+    </div>
 
-  <script>
-    // Botão "Entrar"
-    document.getElementById('entrarBtn').addEventListener('click', () => {
-      const tipo = document.getElementById('tipoUsuario').value;
-      const nick = document.getElementById('nick').value.trim();
-
-      if (nick === '') {
-        alert('Digite seu nick!');
-        return;
-      }
-
-      // Salva dados no navegador
-      localStorage.setItem('usuarioFuria', nick);
-      localStorage.setItem('tipoConta', tipo);
-
-      alert(`Bem-vindo(a) à Fúria, ${nick}!`);
-      window.location.href = 'index.html';
-    });
-
-    // Botão "Cadastrar"
-    document.getElementById('cadastrarBtn').addEventListener('click', () => {
-      const tipo = document.getElementById('tipoUsuario').value;
-
-      if (tipo === 'usuario') {
-        window.location.href = 'cadastro-usuario.html';
-      } else if (tipo === 'membro') {
-        window.location.href = 'cadastro-membro.html';
-      } else if (tipo === 'equipe') {
-        window.location.href = 'cadastro-equipe.html';
-      } else {
-        alert('Selecione um tipo de conta para cadastrar!');
-      }
-    });
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
