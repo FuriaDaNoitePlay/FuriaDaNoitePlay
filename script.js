@@ -455,3 +455,23 @@ function inicializarSistemaCompleto() {
 
 // EXECUTAR QUANDO A PÁGINA CARREGAR
 document.addEventListener('DOMContentLoaded', inicializarSistemaCompleto);
+// FUNÇÃO PARA A PÁGINA FRØN
+function inicializarFron() {
+    console.log('🌕 Página FRØN inicializada');
+    
+    // Adiciona efeitos especiais nos botões
+    document.querySelectorAll('.social-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Efeito visual ao clicar
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 150);
+        });
+    });
+}
+
+// Adiciona ao carregamento da página
+if (window.location.href.includes('fron.html')) {
+    document.addEventListener('DOMContentLoaded', inicializarFron);
+}
