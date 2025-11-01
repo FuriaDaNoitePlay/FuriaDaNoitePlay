@@ -3,12 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🔥 Login - Fúria da Noite 🔥</title>
+  <title>🔥 Login - FuriaDaNoitePlay 🔥</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    .login-container {
+      background: rgba(0, 0, 0, 0.85);
+      border: 2px solid #ff0000;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #ff0000;
+      padding: 25px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h2 {
+      color: #ff0000;
+      text-shadow: 0 0 15px #ff0000;
+      margin-bottom: 20px;
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: 2px solid #ff0000;
+      background: #000;
+      color: #fff;
+      font-size: 16px;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      box-shadow: 0 0 15px #ff0000;
+    }
+
+    button {
+      background: #ff0000;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #fff;
+      color: #ff0000;
+      box-shadow: 0 0 25px #ff0000;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      color: #ff0000;
+      font-size: 14px;
+      text-shadow: 0 0 10px #ff0000;
+    }
+  </style>
 </head>
+
 <body>
   <div class="login-container">
-    <h2>🔥 Fúria da Noite 🔥</h2>
+    <h2>🔥 Fúria da Noite Play 🔥</h2>
 
     <select id="tipoUsuario">
       <option value="usuario">Usuário</option>
@@ -22,6 +89,8 @@
     <button id="cadastrarBtn">Cadastrar</button>
   </div>
 
+  <footer>© 2025 FuriaDaNoitePlay</footer>
+
   <script>
     // Botão "Entrar"
     document.getElementById('entrarBtn').addEventListener('click', () => {
@@ -33,13 +102,11 @@
         return;
       }
 
-      // salva o nick localmente pra usar depois
-      localStorage.setItem('usuarioNick', nick);
-      localStorage.setItem('usuarioTipo', tipo);
+      // Salva dados no navegador
+      localStorage.setItem('usuarioFuria', nick);
+      localStorage.setItem('tipoConta', tipo);
 
-      alert(`Bem-vindo(a), ${nick}!`);
-
-      // redireciona para a página inicial (index)
+      alert(`Bem-vindo(a) à Fúria, ${nick}!`);
       window.location.href = 'index.html';
     });
 
@@ -54,7 +121,7 @@
       } else if (tipo === 'equipe') {
         window.location.href = 'cadastro-equipe.html';
       } else {
-        alert('Selecione um tipo de usuário para se cadastrar.');
+        alert('Selecione um tipo de conta para cadastrar!');
       }
     });
   </script>
