@@ -1,9 +1,4 @@
-/* ===============================================================
-   FURIA DA NOITE PLAY - TEMA VERMELHO NEON
-   =============================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-
+/* ===== ESTILOS GERAIS ===== */
 :root {
     --neon-red: #ff0000;
     --neon-pink: #ff0066;
@@ -13,58 +8,44 @@
     --dark-bg: #000000;
     --dark-card: #0a0a0a;
     --dark-header: #111111;
-    --neon-glow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red), 0 0 40px var(--neon-red);
-    --neon-glow-green: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
-    --neon-glow-yellow: 0 0 10px var(--neon-yellow), 0 0 20px var(--neon-yellow);
+    --neon-glow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 body {
-    background-color: var(--dark-bg);
+    background: var(--dark-bg);
     color: #fff;
-    overflow-x: hidden;
     min-height: 100vh;
 }
 
-/* ==================== HEADER ==================== */
+/* ===== HEADER ===== */
 header {
     background: var(--dark-header);
-    padding: 20px 0;
+    padding: 15px 0;
     border-bottom: 2px solid var(--neon-red);
     box-shadow: var(--neon-glow);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
 }
 
 .logo-container {
     text-align: center;
-    margin-bottom: 15px;
 }
 
 .logo {
     width: 180px;
     border-radius: 10px;
-    box-shadow: var(--neon-glow);
-    transition: all 0.3s ease;
-}
-
-.logo:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px var(--neon-red);
 }
 
 .main-nav {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
 }
 
 .nav-link {
@@ -78,13 +59,11 @@ header {
 
 .nav-link:hover {
     border-color: var(--neon-red);
-    box-shadow: 0 0 15px var(--neon-red);
 }
 
 .nav-link.neon-btn {
     background: rgba(255, 0, 0, 0.2);
     border: 1px solid var(--neon-red);
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
 .nav-link.neon-btn:hover {
@@ -92,53 +71,48 @@ header {
     box-shadow: var(--neon-glow);
 }
 
-/* ==================== TEXTO NEON ==================== */
-.neon-text {
-    text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
+/* ===== HERO SECTION ===== */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9));
 }
 
 .neon-title {
     font-size: 3em;
     color: #fff;
-    text-align: center;
-    text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red), 0 0 40px var(--neon-red);
-    margin: 20px 0;
-    animation: neon-pulse 2s infinite;
+    text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
+    margin-bottom: 20px;
 }
 
 .neon-subtitle {
     font-size: 1.5em;
     color: #fff;
-    text-shadow: 0 0 5px var(--neon-red), 0 0 10px var(--neon-red);
-    margin: 15px 0;
+    text-shadow: 0 0 5px var(--neon-red);
+    margin-bottom: 30px;
 }
 
-@keyframes neon-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-/* ==================== BOTÕES NEON ==================== */
 .btn-neon {
-    background: rgba(255, 0, 0, 0.1);
+    background: rgba(255, 0, 0, 0.2);
     border: 2px solid var(--neon-red);
     color: #fff;
     padding: 15px 30px;
     border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1em;
+    text-decoration: none;
     font-weight: bold;
     transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
 }
 
 .btn-neon:hover {
-    background: rgba(255, 0, 0, 0.2);
+    background: rgba(255, 0, 0, 0.3);
     box-shadow: var(--neon-glow);
-    transform: translateY(-2px);
 }
 
 .btn-neon-outline {
@@ -147,10 +121,8 @@ header {
     color: #fff;
     padding: 15px 30px;
     border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
     text-decoration: none;
-    display: inline-block;
+    transition: all 0.3s ease;
 }
 
 .btn-neon-outline:hover {
@@ -158,228 +130,7 @@ header {
     box-shadow: 0 0 20px var(--neon-red);
 }
 
-/* ==================== FORMULÁRIOS ==================== */
-.input-neon {
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid var(--neon-red);
-    color: #fff;
-    padding: 15px;
-    border-radius: 5px;
-    margin: 10px 0;
-    width: 100%;
-    font-size: 1em;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
-}
-
-.input-neon:focus {
-    outline: none;
-    box-shadow: 0 0 15px var(--neon-red);
-    border-color: var(--neon-pink);
-}
-
-.file-input {
-    padding: 12px;
-}
-
-/* ==================== LOGIN & CADASTRO ==================== */
-.login-body, .cadastro-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(45deg, #000000, #1a0000);
-}
-
-.login-container, .cadastro-container {
-    background: rgba(10, 10, 10, 0.95);
-    border: 2px solid var(--neon-red);
-    border-radius: 15px;
-    padding: 40px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: var(--neon-glow);
-}
-
-.login-header, .cadastro-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.login-logo, .cadastro-logo {
-    width: 120px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px var(--neon-red);
-}
-
-.login-options, .cadastro-options {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-
-.login-option, .cadastro-option {
-    flex: 1;
-    background: rgba(255, 0, 0, 0.1);
-    border: 1px solid var(--neon-red);
-    color: #fff;
-    padding: 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.login-option:hover, .cadastro-option:hover,
-.login-option.active, .cadastro-option.active {
-    background: rgba(255, 0, 0, 0.3);
-    box-shadow: 0 0 15px var(--neon-red);
-}
-
-.login-form, .cadastro-form {
-    display: none;
-}
-
-.login-form.active, .cadastro-form.active {
-    display: block;
-}
-
-/* ==================== TABELAS ==================== */
-.campeonato-main {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.campeonato-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.pontuacao-info {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-}
-
-.ponto-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.ponto-cor {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    box-shadow: 0 0 10px;
-}
-
-.ponto-cor.vitoria {
-    background: var(--neon-green);
-    box-shadow: var(--neon-glow-green);
-}
-
-.ponto-cor.empate {
-    background: var(--neon-yellow);
-    box-shadow: var(--neon-glow-yellow);
-}
-
-.ponto-cor.derrota {
-    background: var(--neon-red);
-    box-shadow: 0 0 10px var(--neon-red);
-}
-
-.tabela-container {
-    background: rgba(10, 10, 10, 0.9);
-    border: 2px solid var(--neon-yellow);
-    border-radius: 15px;
-    padding: 20px;
-    margin: 20px 0;
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-}
-
-.grupo-section {
-    margin-bottom: 30px;
-}
-
-.grupo-titulo {
-    font-size: 2em;
-    color: var(--neon-yellow);
-    text-shadow: 0 0 10px var(--neon-yellow);
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.grupo-subtitulo {
-    color: var(--neon-green);
-    text-shadow: 0 0 5px var(--neon-green);
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.tabela-classificacao {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.tabela-classificacao th {
-    background: rgba(255, 215, 0, 0.2);
-    color: var(--neon-yellow);
-    padding: 15px;
-    text-align: center;
-    border-bottom: 2px solid var(--neon-yellow);
-    text-shadow: 0 0 5px var(--neon-yellow);
-}
-
-.tabela-classificacao td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* CORES DAS POSIÇÕES */
-.primeiro-lugar {
-    background: rgba(0, 255, 0, 0.1);
-    border-left: 4px solid var(--neon-green);
-}
-
-.segundo-lugar {
-    background: rgba(255, 215, 0, 0.1);
-    border-left: 4px solid var(--neon-yellow);
-}
-
-.terceiro-lugar {
-    background: rgba(255, 0, 0, 0.1);
-    border-left: 4px solid var(--neon-red);
-}
-
-.primeiro-lugar:hover,
-.segundo-lugar:hover,
-.terceiro-lugar:hover {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-/* ==================== HERO SECTION ==================== */
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9));
-}
-
-.hero-buttons {
-    margin-top: 30px;
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
+/* ===== FEATURES ===== */
 .features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -396,7 +147,6 @@ header {
     padding: 30px;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
 }
 
 .feature-card:hover {
@@ -404,7 +154,115 @@ header {
     box-shadow: var(--neon-glow);
 }
 
-/* ==================== FOOTER ==================== */
+/* ===== LOGIN PAGE ===== */
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #000000, #1a0000);
+}
+
+.login-container {
+    background: var(--dark-card);
+    border: 2px solid var(--neon-red);
+    border-radius: 15px;
+    padding: 40px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--neon-glow);
+    text-align: center;
+}
+
+.login-logo {
+    width: 120px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.login-title {
+    color: #fff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px var(--neon-red);
+}
+
+.login-type {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 12px;
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid var(--neon-red);
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.type-btn.active, .type-btn:hover {
+    background: rgba(255, 0, 0, 0.3);
+    box-shadow: 0 0 15px var(--neon-red);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-input {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--neon-red);
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.login-input:focus {
+    outline: none;
+    box-shadow: 0 0 15px var(--neon-red);
+}
+
+.login-btn {
+    background: rgba(255, 0, 0, 0.3);
+    border: 2px solid var(--neon-red);
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background: rgba(255, 0, 0, 0.5);
+    box-shadow: var(--neon-glow);
+}
+
+.login-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-links a {
+    color: var(--neon-red);
+    text-decoration: none;
+}
+
+.login-links a:hover {
+    text-shadow: 0 0 5px var(--neon-red);
+}
+
+/* ===== FOOTER ===== */
 footer {
     background: var(--dark-header);
     border-top: 1px solid var(--neon-red);
@@ -413,23 +271,16 @@ footer {
     margin-top: 50px;
 }
 
-/* ==================== RESPONSIVO ==================== */
+/* ===== RESPONSIVO ===== */
 @media (max-width: 768px) {
     .main-nav {
+        flex-direction: column;
+        align-items: center;
         gap: 10px;
-    }
-    
-    .nav-link {
-        padding: 8px 15px;
-        font-size: 0.9em;
     }
     
     .neon-title {
         font-size: 2em;
-    }
-    
-    .login-options, .cadastro-options {
-        flex-direction: column;
     }
     
     .hero-buttons {
@@ -437,20 +288,11 @@ footer {
         align-items: center;
     }
     
-    .pontuacao-info {
-        flex-direction: column;
-        gap: 15px;
+    .features {
+        grid-template-columns: 1fr;
     }
-}
-
-.neon-link {
-    color: var(--neon-red);
-    text-decoration: none;
-    text-shadow: 0 0 5px var(--neon-red);
-    transition: all 0.3s ease;
-}
-
-.neon-link:hover {
-    color: var(--neon-pink);
-    text-shadow: 0 0 10px var(--neon-pink);
+    
+    .login-type {
+        flex-direction: column;
+    }
 }
