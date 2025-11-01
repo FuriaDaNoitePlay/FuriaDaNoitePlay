@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 Cadastro Equipe - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cadastro-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #ff6b6b;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+        
+        .cadastro-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .input-group label {
+            color: #ff6b6b;
+            font-weight: bold;
+            text-shadow: 0 0 5px #ff6b6b;
+        }
+        
+        .input-group input, .input-group select {
+            padding: 12px;
+            border: 2px solid #ff6b6b;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+        
+        .jogadores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .jogador-input {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .file-upload {
+            border: 2px dashed #ff6b6b;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="neon-header" style="border-color: #ff6b6b; box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);">
+            <h1 class="neon-text">🏆 CADASTRO DE EQUIPE</h1>
+            <p class="subtitle">Registre sua equipe para os campeonatos</p>
+        </header>
+
+        <div class="cadastro-container">
+            <div class="cadastro-form">
+                <div class="input-group">
+                    <label>🏅 Nome da Equipe:</label>
+                    <input type="text" id="nomeEquipe" placeholder="Ex: Furia da Noite" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>🔐 Senha da Equipe:</label>
+                    <input type="password" id="senhaEquipe" placeholder="Crie uma senha forte" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>📧 E-mail da Equipe:</label>
+                    <input type="email" id="emailEquipe" placeholder="equipe@email.com" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>🎮 Jogo da Equipe:</label>
+                    <select id="jogoEquipe" required>
+                        <option value="">Selecione o jogo</option>
+                        <option value="cfn">CFN - Clash of Clan</option>
+                        <option value="cr">CR - Clash Royale</option>
+                        <option value="mlbb">MLBB - Mobile Legends</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label>🖼️ Logo da Equipe (URL):</label>
+                    <input type="url" id="logoEquipe" placeholder="https://exemplo.com/logo.png">
+                </div>
+                
+                <div class="input-group">
+                    <label>👥 Jogadores (máximo 10):</label>
+                    <div class="jogadores-grid">
+                        <div class="jogador-input">
+                            <input type="text" placeholder="Jogador 1 (Capitão)" required>
+                        </div>
+                        <div class="jogador-input">
+                            <input type="text" placeholder="Jogador 2" required>
+                        </div>
+                        <div class="jogador-input">
+                            <input type="text" placeholder="Jogador 3" required>
+                        </div>
+                        <div class="jogador-input">
+                            <input type="text" placeholder="Jogador 4">
+                        </div>
+                        <div class="jogador-input">
+                            <input type="text" placeholder="Jogador 5">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>📋 Descrição da Equipe:</label>
+                    <textarea id="descricaoEquipe" rows="4" placeholder="Conte sobre sua equipe..." style="
+                        padding: 12px;
+                        border: 2px solid #ff6b6b;
+                        border-radius: 8px;
+                        background: rgba(255, 255, 255, 0.1);
+                        color: white;
+                        font-size: 1rem;
+                        resize: vertical;
+                    "></textarea>
+                </div>
+                
+                <button class="neon-btn" onclick="cadastrarEquipe()" style="border-color: #ff6b6b; color: #ff6b6b;">
+                    🚀 FINALIZAR CADASTRO
+                </button>
+                <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function cadastrarEquipe() {
+            const nomeEquipe = document.getElementById('nomeEquipe').value;
+            const senhaEquipe = document.getElementById('senhaEquipe').value;
+            const emailEquipe = document.getElementById('emailEquipe').value;
+            const jogoEquipe = document.getElementById('jogoEquipe').value;
+            
+            if (!nomeEquipe || !senhaEquipe || !emailEquipe || !jogoEquipe) {
+                alert('❌ Por favor, preencha todos os campos obrigatórios!');
+                return;
+            }
+            
+            if (senhaEquipe.length < 6) {
+                alert('❌ A senha deve ter pelo menos 6 caracteres!');
+                return;
+            }
+            
+            // Simular cadastro
+            alert(`✅ Equipe cadastrada com sucesso!\n\n🏅 Nome: ${nomeEquipe}\n🎮 Jogo: ${jogoEquipe}\n📧 E-mail: ${emailEquipe}\n\nBoa sorte nos campeonatos!`);
+            
+            // Redirecionar para página de confirmação
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 2000);
+        }
+        
+        function voltarInicio() {
+            window.location.href = 'index.html';
+        }
+        
+        // Adicionar mais campos de jogadores dinamicamente
+        let jogadorCount = 5;
+        
+        function adicionarJogador() {
+            if (jogadorCount < 10) {
+                jogadorCount++;
+                const jogadoresGrid = document.querySelector('.jogadores-grid');
+                const novoJogador = document.createElement('div');
+                novoJogador.className = 'jogador-input';
+                novoJogador.innerHTML = `<input type="text" placeholder="Jogador ${jogadorCount}">`;
+                jogadoresGrid.appendChild(novoJogador);
+            } else {
+                alert('❌ Máximo de 10 jogadores atingido!');
+            }
+        }
+    </script>
+</body>
+</html>
