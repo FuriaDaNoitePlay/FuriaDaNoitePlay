@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⭐ Cadastro Membro - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cadastro-container {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #00ffea;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 255, 234, 0.3);
+        }
+        
+        .cadastro-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .input-group label {
+            color: #00ffea;
+            font-weight: bold;
+            text-shadow: 0 0 5px #00ffea;
+        }
+        
+        .input-group input, .input-group select {
+            padding: 12px;
+            border: 2px solid #00ffea;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 234, 0.5);
+        }
+        
+        .beneficios {
+            background: rgba(0, 255, 234, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #00ffea;
+        }
+        
+        .beneficios h4 {
+            color: #00ffea;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px #00ffea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="neon-header" style="border-color: #00ffea; box-shadow: 0 0 20px rgba(0, 255, 234, 0.3);">
+            <h1 class="neon-text">⭐ CADASTRO - AGENTE DA NOITE ADN</h1>
+            <p class="subtitle">Junte-se à Furia - Seja um Agente da Noite</p>
+        </header>
+
+        <div class="beneficios">
+            <h4>🎯 BENEFÍCIOS DO CADASTRO:</h4>
+            <p>• ✅ Acesso ao chat exclusivo</p>
+            <p>• ✅ Visualização de abas públicas</p>
+            <p>• ✅ Comunidade ativa e suporte</p>
+            <p>• ✅ Possibilidade de crescimento</p>
+            <p>• ✅ Participação em eventos</p>
+        </div>
+
+        <div class="cadastro-container">
+            <div class="cadastro-form">
+                <div class="input-group">
+                    <label>🎮 Nick no Jogo:</label>
+                    <input type="text" id="nick" placeholder="Seu nick nos games" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>📧 E-mail:</label>
+                    <input type="email" id="email" placeholder="seu@email.com">
+                </div>
+                
+                <div class="input-group">
+                    <label>📱 WhatsApp:</label>
+                    <input type="tel" id="whatsapp" placeholder="(31) 99999-9999">
+                </div>
+                
+                <div class="input-group">
+                    <label>🔗 Instagram (opcional):</label>
+                    <input type="text" id="instagram" placeholder="@seuinstagram">
+                </div>
+                
+                <div class="input-group">
+                    <label>🎯 Jogo Principal:</label>
+                    <select id="jogoPrincipal">
+                        <option value="">Selecione seu jogo</option>
+                        <option value="cfn">CFN - Clash of Clan</option>
+                        <option value="cr">CR - Clash Royale</option>
+                        <option value="mlbb">MLBB - Mobile Legends</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label>🆔 ID do Jogo:</label>
+                    <input type="text" id="idJogo" placeholder="000000000000">
+                </div>
+                
+                <button class="neon-btn" onclick="cadastrarMembro()" style="border-color: #00ffea; color: #00ffea;">
+                    🚀 CONCLUIR CADASTRO
+                </button>
+                <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function cadastrarMembro() {
+            const nick = document.getElementById('nick').value;
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const jogo = document.getElementById('jogoPrincipal').value;
+            
+            if (!nick) {
+                alert('❌ Por favor, informe seu nick!');
+                return;
+            }
+            
+            if (!jogo) {
+                alert('❌ Por favor, selecione seu jogo principal!');
+                return;
+            }
+            
+            // Simular cadastro
+            alert(`✅ Cadastro realizado com sucesso!\n\n🎮 Nick: ${nick}\n📧 E-mail: ${email}\n📱 WhatsApp: ${whatsapp}\n🎯 Jogo: ${jogo}\n\nBem-vindo à Furia, Agente da Noite!`);
+            
+            // Redirecionar para página de confirmação
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+        
+        function voltarInicio() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
