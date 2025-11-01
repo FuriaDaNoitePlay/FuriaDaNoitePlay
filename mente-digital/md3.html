@@ -20,6 +20,12 @@
             border-radius: 15px;
             border: 3px solid #00ffff;
             box-shadow: 0 0 30px #00ffff;
+            animation: pulsar-borda 3s infinite alternate;
+        }
+
+        @keyframes pulsar-borda {
+            0% { box-shadow: 0 0 20px #00ffff; }
+            100% { box-shadow: 0 0 40px #ff00ff; }
         }
         
         .login-container {
@@ -29,12 +35,32 @@
             padding: 40px;
             margin: 30px 0;
             box-shadow: 0 0 30px #00ff00;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            animation: brilho 6s linear infinite;
+        }
+
+        @keyframes brilho {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .login-form {
             display: flex;
             flex-direction: column;
             gap: 25px;
+            position: relative;
+            z-index: 2;
         }
         
         .input-group {
@@ -58,12 +84,14 @@
             color: white;
             font-size: 1rem;
             transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
         }
         
         .input-group input:focus {
             outline: none;
             box-shadow: 0 0 20px #00ffff;
             border-color: #ff00ff;
+            transform: scale(1.02);
         }
         
         .opcoes-login {
@@ -82,6 +110,23 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opcao-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .opcao-card:hover::before {
+            left: 100%;
         }
         
         .opcao-card:nth-child(1) {
@@ -100,7 +145,7 @@
         }
         
         .opcao-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.05);
             box-shadow: 0 10px 30px;
         }
         
@@ -112,6 +157,12 @@
             margin: 25px 0;
             text-align: center;
             box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+            animation: piscar 2s infinite alternate;
+        }
+
+        @keyframes piscar {
+            0% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(255, 0, 255, 0.6); }
         }
         
         .back-btn {
@@ -124,11 +175,80 @@
             font-weight: bold;
             transition: all 0.3s ease;
             margin: 10px;
+            font-family: 'Courier New', monospace;
         }
         
         .back-btn:hover {
             background: rgba(255, 0, 255, 0.1);
             box-shadow: 0 0 20px #ff00ff;
+            transform: translateY(-2px);
+        }
+
+        /* CLIPES DE ANIMAÇÃO */
+        .clip-success {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 4rem;
+            z-index: 1000;
+            animation: clip-pop 0.5s ease-out;
+        }
+
+        @keyframes clip-pop {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .clip-error {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 4rem;
+            z-index: 1000;
+            animation: clip-shake 0.5s ease-out;
+        }
+
+        @keyframes clip-shake {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) scale(1.2) rotate(-10deg); }
+            50% { transform: translate(-50%, -50%) scale(1.2) rotate(10deg); }
+            75% { transform: translate(-50%, -50%) scale(1.2) rotate(-5deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        }
+
+        /* LOADING ANIMADO */
+        .loading-dots {
+            display: inline-block;
+            position: relative;
+        }
+
+        .loading-dots::after {
+            content: "";
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: "."; }
+            40% { content: ".."; }
+            60%, 100% { content: "..."; }
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .opcoes-login {
+                grid-template-columns: 1fr;
+            }
+            
+            .md-header {
+                padding: 20px;
+            }
+            
+            .login-container {
+                padding: 25px;
+            }
         }
     </style>
 </head>
@@ -154,18 +274,21 @@
                     <div style="font-size: 3rem; margin-bottom: 15px;">🎮</div>
                     <h4 class="neon-verde">AGENTE ADN</h4>
                     <p class="neon-azul">Login de Membro</p>
+                    <div class="neon-verde" style="font-size: 0.9em; margin-top: 10px;">↖️ Clique para focar</div>
                 </div>
                 
                 <div class="opcao-card" onclick="abrirLoginAdm()">
                     <div style="font-size: 3rem; margin-bottom: 15px;">👑</div>
                     <h4 class="neon-amarelo">ADM SUPREMO</h4>
                     <p class="neon-azul">Acesso Total</p>
+                    <div class="neon-amarelo" style="font-size: 0.9em; margin-top: 10px;">⚡ Painel completo</div>
                 </div>
                 
                 <div class="opcao-card" onclick="abrirCadastroMembro()">
                     <div style="font-size: 3rem; margin-bottom: 15px;">⭐</div>
                     <h4 class="neon-rosa">CADASTRAR</h4>
                     <p class="neon-azul">Novo Agente</p>
+                    <div class="neon-rosa" style="font-size: 0.9em; margin-top: 10px;">🎯 Junte-se à Fúria</div>
                 </div>
             </div>
 
@@ -178,15 +301,15 @@
                 <div class="login-form">
                     <div class="input-group">
                         <label>🎮 Usuário ADN:</label>
-                        <input type="text" id="usuario" placeholder="Digite seu usuário ADN">
+                        <input type="text" id="usuario" placeholder="Digite seu usuário ADN" autocomplete="username">
                     </div>
                     
                     <div class="input-group">
                         <label>🔒 Senha:</label>
-                        <input type="password" id="senha" placeholder="Digite sua senha">
+                        <input type="password" id="senha" placeholder="Digite sua senha" autocomplete="current-password">
                     </div>
                     
-                    <button class="neon-btn verde" onclick="fazerLoginEquipe()" style="font-size: 1.2rem; padding: 18px;">
+                    <button class="neon-btn verde" onclick="fazerLoginEquipe()" style="font-size: 1.2rem; padding: 18px;" id="loginBtn">
                         🎮 ACESSAR PAINEL DA EQUIPE
                     </button>
                     
@@ -207,77 +330,134 @@
     </div>
 
     <script>
+        // SISTEMA DE CLIPES ANIMADOS
+        function showClip(emoji, type) {
+            const clip = document.createElement('div');
+            clip.className = `clip-${type}`;
+            clip.textContent = emoji;
+            clip.style.color = type === 'success' ? '#00ff00' : '#ff0000';
+            clip.style.textShadow = type === 'success' ? '0 0 20px #00ff00' : '0 0 20px #ff0000';
+            
+            document.body.appendChild(clip);
+            
+            setTimeout(() => {
+                clip.remove();
+            }, 1000);
+        }
+
+        // FAZER LOGIN COM ANIMAÇÕES
         function fazerLoginEquipe() {
             const usuario = document.getElementById('usuario').value;
             const senha = document.getElementById('senha').value;
+            const loginBtn = document.getElementById('loginBtn');
             
             if (!usuario || !senha) {
-                alert('❌ Preencha todos os campos!');
+                showClip('❌', 'error');
+                shakeElements(['#usuario', '#senha']);
                 return;
             }
             
-            // Credenciais de teste
-            if (usuario === 'ToxicSkull√' && senha === 'L@!on') {
-                // Efeito visual de sucesso
-                const btn = document.querySelector('.neon-btn');
-                btn.innerHTML = '✅ ACESSANDO...';
-                btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
-                
-                setTimeout(() => {
-                    alert('🎉 Login realizado com sucesso! Acessando Painel da Equipe...');
-                    window.location.href = 'painel-equipe.html';
-                }, 1500);
-            } else {
-                // Efeito visual de erro
-                const inputs = document.querySelectorAll('input');
-                inputs.forEach(input => {
-                    input.style.borderColor = '#ff0000';
-                    input.style.boxShadow = '0 0 15px #ff0000';
-                });
-                
-                setTimeout(() => {
-                    inputs.forEach(input => {
-                        input.style.borderColor = '#00ffff';
-                        input.style.boxShadow = 'none';
-                    });
-                }, 2000);
-                
-                alert('❌ Usuário ou senha incorretos!');
-            }
+            // Efeito de loading
+            loginBtn.innerHTML = '⏳ ACESSANDO<span class="loading-dots"></span>';
+            loginBtn.disabled = true;
+            
+            // Simular verificação (na versão final será com backend)
+            setTimeout(() => {
+                // Credenciais de teste
+                if (usuario === 'ToxicSkull√' && senha === 'L@!on') {
+                    showClip('✅', 'success');
+                    loginBtn.innerHTML = '🎉 ACESSO CONCEDIDO!';
+                    loginBtn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'painel-equipe.html';
+                    }, 1500);
+                } else {
+                    showClip('🚫', 'error');
+                    loginBtn.innerHTML = '🎮 ACESSAR PAINEL DA EQUIPE';
+                    loginBtn.disabled = false;
+                    shakeElements(['#usuario', '#senha', '#loginBtn']);
+                    alert('❌ Usuário ou senha incorretos!');
+                }
+            }, 2000);
         }
-        
+
+        // EFEITO DE TREME-TREME
+        function shakeElements(selectors) {
+            selectors.forEach(selector => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    element.style.animation = 'none';
+                    setTimeout(() => {
+                        element.style.animation = 'clip-shake 0.5s ease-out';
+                    }, 10);
+                }
+            });
+        }
+
+        // NAVEGAÇÃO
         function abrirLoginAdm() {
-            window.location.href = 'login-adm.html';
+            showClip('👑', 'success');
+            setTimeout(() => {
+                window.location.href = 'login-adm.html';
+            }, 800);
         }
         
         function abrirCadastroMembro() {
-            window.location.href = 'cadastro-membro.html';
+            showClip('⭐', 'success');
+            setTimeout(() => {
+                window.location.href = 'cadastro-membro.html';
+            }, 800);
         }
         
         function abrirLoginEquipe() {
             document.getElementById('usuario').focus();
+            showClip('🎯', 'success');
         }
         
         function voltarInicio() {
-            window.location.href = 'index.html';
+            showClip('🏠', 'success');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 800);
         }
-        
-        // Enter para login
+
+        // ENTER PARA LOGIN
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 fazerLoginEquipe();
             }
         });
-        
-        // Efeitos nos inputs
+
+        // EFEITOS NOS INPUTS
         document.querySelectorAll('input').forEach(input => {
             input.addEventListener('focus', function() {
                 this.style.transform = 'scale(1.02)';
+                this.style.boxShadow = '0 0 15px #ff00ff';
             });
             
             input.addEventListener('blur', function() {
                 this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
             });
+        });
+
+        // EFEITO DE DIGITAÇÃO NO TÍTULO
+        document.addEventListener('DOMContentLoaded', function() {
+            const title = document.querySelector('.neon-text');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            };
+            
+            setTimeout(typeWriter, 500);
         });
     </script>
 </body>
