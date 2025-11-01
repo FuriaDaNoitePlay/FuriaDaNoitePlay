@@ -176,7 +176,7 @@
                 alert('✅ Login realizado! Acessando Painel da Equipe...');
                 window.location.href = 'painel-equipe.html';
             } else {
-                alert('❌ Usuário ou senha incorretos!\n\n💡 Dica: Use ToxicSkull√ / L@!on para teste');
+                alert('❌ Usuário ou senha incorretos!');
             }
         }
         
@@ -202,11 +202,6 @@
             if (e.key === 'Enter') {
                 fazerLoginEquipe();
             }
-        });
-        
-        // Focar no campo usuário ao carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('usuario').focus();
         });
     </script>
 </body>
