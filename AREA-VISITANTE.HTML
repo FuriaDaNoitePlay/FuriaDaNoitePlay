@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área Visitante - Furia da Noite Play</title>
+    <title>Área Visitante - Agente Da Noite</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="logo-container">
-            <img src="furia.png" alt="Furia da Noite Play" class="logo">
+            <img src="furia.png" alt="Agente Da Noite" class="logo">
         </div>
         <nav class="main-nav">
             <a href="index.html" class="nav-link neon-text">Início</a>
+            <a href="fron.html" class="nav-link neon-text">FRØN</a>
             <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
             <a href="regras.html" class="nav-link neon-text">Regras</a>
             <a href="#" class="nav-link neon-btn" onclick="sair()">Sair</a>
@@ -22,7 +23,7 @@
     <main class="campeonato-main">
         <section class="hero">
             <h1 class="neon-title">🎉 BEM-VINDO VISITANTE!</h1>
-            <p class="neon-subtitle">Acesso liberado ao conteúdo público da Furia da Noite</p>
+            <p class="neon-subtitle">Acesso liberado ao conteúdo público do Agente Da Noite</p>
             
             <div class="features">
                 <div class="feature-card">
@@ -33,10 +34,16 @@
                 
                 <div class="feature-card">
                     <h3>📜 Regras da Comunidade</h3>
-                    <p>Conheça as regras e diretrizes da Furia da Noite</p>
+                    <p>Conheça as regras e diretrizes do Agente Da Noite</p>
                     <a href="regras.html" class="btn-neon">Ver Regras</a>
                 </div>
                 
+                <div class="feature-card">
+                    <h3>🌟 Conheça a FRØN</h3>
+                    <p>Descubra nossa divisão de elite e redes sociais</p>
+                    <a href="fron.html" class="btn-neon">Explorar FRØN</a>
+                </div>
+
                 <div class="feature-card">
                     <h3>👥 Torne-se Membro</h3>
                     <p>Cadastre-se para acessar recursos exclusivos</p>
@@ -47,9 +54,24 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 FuriaDaNoitePlay - Todos os direitos reservados</p>
+        <p>&copy; 2025 Agente Da Noite - <strong>ToxicSkull√</strong></p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        function sair() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                localStorage.removeItem('usuarioLogado');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Verifica se é visitante
+        document.addEventListener('DOMContentLoaded', function() {
+            const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+            if (!usuario || usuario.tipo !== 'visitante') {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
 </body>
 </html>
