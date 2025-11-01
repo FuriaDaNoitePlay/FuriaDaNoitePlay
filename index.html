@@ -6,7 +6,6 @@
   <title>🔥 FuriaDaNoitePlay 🔥</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* SEU CSS ORIGINAL INTACTO */
     body {
       background-color: #000;
       color: #fff;
@@ -144,13 +143,13 @@
 <body>
   <header>
     <img src="logo2.png" alt="Logo Fúria da Noite" class="logo">
-    <h1 class="titulo">🔥 FURIADANOITEPLAY 🔥</h1>
+    <h1 class="titulo">🔥 FURIA DA NOITE PLAY 🔥</h1>
     <nav id="menuNavegacao">
       <a href="index.html">Início</a>
       <a href="regras.html">Regras</a>
       <a href="membros.html">Membros</a>
       <a href="furia-digital.html">💻 Fúria Digital</a>
-      <a href="cadastro-visitante.html" id="btnLogin">Login</a>
+      <a href="login.html" id="btnLogin">Login</a>
       <button class="logout-btn" id="btnLogout" style="display:none;" onclick="sair()">Sair</button>
       <a href="perfil.html" id="btnPerfil" style="display:none;">Perfil</a>
       <a href="confrontos.html" id="btnConfronto" style="display:none;">Confrontos</a>
@@ -208,7 +207,6 @@
   <script>
     const usuarioAtual = localStorage.getItem('usuarioFuria');
     const tipoConta = localStorage.getItem('tipoConta');
-
     const btnLogin = document.getElementById("btnLogin");
     const btnLogout = document.getElementById("btnLogout");
     const btnPerfil = document.getElementById("btnPerfil");
@@ -220,14 +218,16 @@
       btnLogin.style.display = "none";
       btnLogout.style.display = "inline-block";
 
-      if (tipoConta === "usuario") {
+      if (["usuario", "membro", "equipe"].includes(tipoConta)) {
         btnPerfil.style.display = "inline-block";
-        btnConfronto.style.display = "inline-block";
-        btnTabela.style.display = "inline-block";
         chatBox.style.display = "block";
       }
+
+      if (tipoConta === "equipe") {
+        btnConfronto.style.display = "inline-block";
+        btnTabela.style.display = "inline-block";
+      }
     } else {
-      // se não está logado, redireciona
       window.location.href = "login.html";
     }
 
