@@ -3,90 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 FURIA DA NIGHT PLAY</title>
+    <title>🔥 FURIA DA NOITE PLAY</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ESTILOS ADICIONAIS PARA SINCRONIZAÇÃO */
+        .usuario-sincronizado {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #00ffff;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 0 15px #00ffff;
+            display: none;
+        }
+        
+        .info-usuario {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        
+        .info-item {
+            padding: 8px 15px;
+            background: rgba(255, 0, 255, 0.2);
+            border-radius: 5px;
+            margin: 5px;
+            border: 1px solid #ff00ff;
+        }
+        
+        .chat-rapido {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: 0 0 20px #00ff00;
+        }
+        
+        .chat-messages {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #00ffff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(0, 255, 255, 0.05);
+        }
+        
+        .message {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 3px solid #00ffff;
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            background: rgba(0, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .chat-input button {
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .btn-sincronia {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header class="neon-header">
             <div class="logo">
-                <img src="assets/fúria.png" alt="Furia Logo">
-                <h1 class="neon-text">FURIA DA NIGHT PLAY</h1>
+                <img src="assets/fúria.png" alt="Furia Logo" class="logo-img">
+                <h1 class="neon-text">FURIA DA NOITE PLAY</h1>
             </div>
-            <p class="subtitle">A LUA E O NOSSO SINAL... E A FÚRIA, E O NOSSO PODER</p>
+            <p class="subtitle">A LUA É NOSSO SINAL... E A FÚRIA, NOSSO PODER</p>
         </header>
 
-        <!-- Mente Digital -->
+        <!-- USUÁRIO SINCRONIZADO -->
+        <div id="usuarioSincronizado" class="usuario-sincronizado">
+            <h3 class="neon-rosa">👤 PERFIL SINCRONIZADO</h3>
+            <div class="info-usuario">
+                <div class="info-item">
+                    <strong>Nome:</strong> <span id="perfilNome">-</span>
+                </div>
+                <div class="info-item">
+                    <strong>Nível:</strong> <span id="perfilNivel">-</span>
+                </div>
+                <div class="info-item">
+                    <strong>Equipe:</strong> <span id="perfilEquipe">-</span>
+                </div>
+                <div class="info-item">
+                    <strong>TRUCU:</strong> <span id="perfilTrucu">-</span>
+                </div>
+            </div>
+            <button class="btn-sincronia" onclick="sairConta()">🚪 SAIR DA CONTA</button>
+        </div>
+
+        <!-- CHAT RÁPIDO -->
+        <section class="chat-rapido">
+            <h2 class="neon-title">💬 CHAT GERAL DA FÚRIA</h2>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message">
+                    <strong>Sistema:</strong> Bem-vindo ao chat da Fúria! Digite uma mensagem para começar.
+                </div>
+                <div class="message">
+                    <strong>FRØN:</strong> Lembrem-se: Respeito acima de tudo! 🎯
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="mensagemInput" placeholder="Digite sua mensagem...">
+                <button onclick="enviarMensagem()">Enviar</button>
+            </div>
+        </section>
+
+        <!-- MENTE DIGITAL -->
         <section class="mente-digital">
             <h2 class="neon-title">🧠 MENTE DIGITAL</h2>
             <div class="md-cards">
                 <div class="md-card" onclick="abrirMD('md1')">
                     <img src="assets/MD1.png" alt="MD1">
-                    <h3>FRØN</h3>
+                    <h3 class="neon-rosa">FRØN</h3>
                     <p>Agente da Noite</p>
                 </div>
                 <div class="md-card" onclick="abrirMD('md2')">
                     <img src="assets/MD2.png" alt="MD2">
-                    <h3>CAMPEONATO</h3>
+                    <h3 class="neon-azul">CAMPEONATO</h3>
                     <p>Tabelas e Resultados</p>
                 </div>
                 <div class="md-card" onclick="abrirMD('md3')">
                     <img src="assets/MD3.png" alt="MD3">
-                    <h3>PAINEL</h3>
+                    <h3 class="neon-verde">PAINEL</h3>
                     <p>Login de Equipe</p>
                 </div>
             </div>
         </section>
 
-        <!-- Membros -->
-        <section class="membros">
-            <h2 class="neon-title">👥 HIERARQUIA DA FURIA</h2>
-            <div class="membros-grid">
-                <div class="membro-card">
-                    <img src="assets/membros1.png" alt="Líder">
-                    <h4>LÍDER</h4>
-                    <p>FRØN</p>
-                </div>
-                <div class="membro-card">
-                    <img src="assets/membros2.png" alt="Vice-Líder">
-                    <h4>VICE-LÍDER</h4>
-                    <p>Comandante</p>
-                </div>
-                <div class="membro-card">
-                    <img src="assets/membros3.png" alt="Oficial">
-                    <h4>OFICIAL</h4>
-                    <p>Estratégia</p>
-                </div>
-                <div class="membro-card">
-                    <img src="assets/membros4.png" alt="Líder de Equipe">
-                    <h4>LÍDER DE EQUIPE</h4>
-                    <p>Táticas</p>
-                </div>
-                <div class="membro-card">
-                    <img src="assets/membros5.png" alt="Veterano">
-                    <h4>VETERANO</h4>
-                    <p>Experiência</p>
-                </div>
-                <div class="membro-card">
-                    <img src="assets/membros6.png" alt="Membro">
-                    <h4>MEMBRO</h4>
-                    <p>Ativo</p>
-                </div>
-                <div class="membro-card">
-                    <img src="assets/membros7.png" alt="Ancião">
-                    <h4>ANCIÃO</h4>
-                    <p>Conselheiro</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sistema de Acesso -->
+        <!-- SISTEMA DE ACESSO -->
         <section class="acesso">
             <h2 class="neon-title">🎮 SISTEMA DE ACESSO</h2>
             <div class="acesso-cards">
                 <div class="acesso-card" onclick="abrirLoginAdm()">
                     <div class="acesso-icon">👑</div>
-                    <h3>ADM SUPREMO</h3>
+                    <h3 class="neon-amarelo">ADM SUPREMO</h3>
                     <p>Acesso total ao sistema</p>
                     <ul>
                         <li>Editar confrontos</li>
@@ -98,7 +183,7 @@
                 
                 <div class="acesso-card" onclick="abrirLoginEquipe()">
                     <div class="acesso-icon">🔐</div>
-                    <h3>AGENTE DA NOITE ADN</h3>
+                    <h3 class="neon-vermelho">AGENTE DA NOITE</h3>
                     <p>Painel de equipe</p>
                     <ul>
                         <li>Ver estatísticas</li>
@@ -110,7 +195,7 @@
                 
                 <div class="acesso-card" onclick="abrirCadastroMembro()">
                     <div class="acesso-icon">⭐</div>
-                    <h3>CADASTRO GRATUITO</h3>
+                    <h3 class="neon-verde">CADASTRO GRATUITO</h3>
                     <p>Junte-se à Furia</p>
                     <ul>
                         <li>Acesso ao chat</li>
@@ -122,7 +207,14 @@
             </div>
         </section>
 
-        <!-- Contato -->
+        <!-- BOTÕES EXTRAS -->
+        <div class="botoes-principais">
+            <a href="trucu.html" class="btn-neon azul">🎰 JOGAR TRUCU</a>
+            <a href="regras.html" class="btn-neon verde">📜 VER REGRAS</a>
+            <a href="cadastro-equipe.html" class="btn-neon amarelo">👥 CADASTRAR EQUIPE</a>
+        </div>
+
+        <!-- CONTATO -->
         <section class="contato">
             <h2 class="neon-title">📞 CONEXÕES DA FURIA</h2>
             <div class="redes-sociais">
@@ -143,15 +235,96 @@
     </div>
 
     <script>
-        // Funções de Navegação CORRIGIDAS
-        function abrirMD(md) {
-            if (md === 'md1') {
-                window.location.href = 'md1.html';
-            } else if (md === 'md2') {
-                window.location.href = 'md2.html';
-            } else if (md === 'md3') {
-                window.location.href = 'login.html';
+        // SINCRONIZAÇÃO DO USUÁRIO
+        function verificarUsuarioSincronizado() {
+            const usuarioSalvo = localStorage.getItem('usuarioLogado');
+            const perfilDiv = document.getElementById('usuarioSincronizado');
+            
+            if (usuarioSalvo) {
+                const usuario = JSON.parse(usuarioSalvo);
+                document.getElementById('perfilNome').textContent = usuario.nome;
+                document.getElementById('perfilNivel').textContent = usuario.nivel;
+                document.getElementById('perfilEquipe').textContent = usuario.equipe;
+                document.getElementById('perfilTrucu').textContent = usuario.trucu;
+                perfilDiv.style.display = 'block';
+            } else {
+                perfilDiv.style.display = 'none';
             }
+        }
+
+        // SAIR DA CONTA
+        function sairConta() {
+            localStorage.removeItem('usuarioLogado');
+            alert('🚪 Você saiu da conta!');
+            verificarUsuarioSincronizado();
+            location.reload();
+        }
+
+        // CHAT GERAL
+        function enviarMensagem() {
+            const input = document.getElementById('mensagemInput');
+            const mensagem = input.value.trim();
+            
+            if (mensagem) {
+                const usuarioSalvo = localStorage.getItem('usuarioLogado');
+                let nomeUsuario = 'Visitante';
+                
+                if (usuarioSalvo) {
+                    const usuario = JSON.parse(usuarioSalvo);
+                    nomeUsuario = usuario.nome;
+                }
+                
+                const chat = document.getElementById('chatMessages');
+                const novaMsg = document.createElement('div');
+                novaMsg.className = 'message';
+                novaMsg.innerHTML = `<strong>${nomeUsuario}:</strong> ${mensagem}`;
+                chat.appendChild(novaMsg);
+                input.value = '';
+                chat.scrollTop = chat.scrollHeight;
+                
+                // Salvar mensagem no localStorage (simulando banco)
+                const mensagens = JSON.parse(localStorage.getItem('chatFuria')) || [];
+                mensagens.push({
+                    usuario: nomeUsuario,
+                    mensagem: mensagem,
+                    horario: new Date().toLocaleTimeString()
+                });
+                localStorage.setItem('chatFuria', JSON.stringify(mensagens));
+            }
+        }
+
+        // CARREGAR MENSAGENS SALVAS
+        function carregarMensagens() {
+            const mensagens = JSON.parse(localStorage.getItem('chatFuria')) || [];
+            const chat = document.getElementById('chatMessages');
+            
+            // Manter apenas as 2 primeiras mensagens do sistema
+            chat.innerHTML = `
+                <div class="message">
+                    <strong>Sistema:</strong> Bem-vindo ao chat da Fúria! Digite uma mensagem para começar.
+                </div>
+                <div class="message">
+                    <strong>FRØN:</strong> Lembrem-se: Respeito acima de tudo! 🎯
+                </div>
+            `;
+            
+            // Adicionar últimas 5 mensagens do chat
+            const ultimasMensagens = mensagens.slice(-5);
+            ultimasMensagens.forEach(msg => {
+                const novaMsg = document.createElement('div');
+                novaMsg.className = 'message';
+                novaMsg.innerHTML = `<strong>${msg.usuario}:</strong> ${msg.mensagem}`;
+                chat.appendChild(novaMsg);
+            });
+            
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        // NAVEGAÇÃO
+        function abrirMD(md) {
+            if (md === 'md1') window.location.href = 'md1.html';
+            else if (md === 'md2') window.location.href = 'md2.html';
+            else if (md === 'md3') window.location.href = 'login.html';
         }
 
         function abrirLoginAdm() {
@@ -166,7 +339,7 @@
             window.location.href = 'cadastro-membro.html';
         }
 
-        // Redes Sociais
+        // REDES SOCIAIS
         function abrirInstagram() {
             window.open('https://instagram.com/furiadanoiteplay', '_blank');
         }
@@ -182,6 +355,19 @@
         function abrirWhatsApp() {
             window.open('https://wa.me/553197319008', '_blank');
         }
+
+        // ENTER PARA ENVIAR MENSAGEM
+        document.getElementById('mensagemInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                enviarMensagem();
+            }
+        });
+
+        // INICIALIZAR
+        window.addEventListener('load', function() {
+            verificarUsuarioSincronizado();
+            carregarMensagens();
+        });
     </script>
 </body>
 </html>
