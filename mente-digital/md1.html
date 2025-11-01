@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRØN - Furia Da Noite</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="neon-header">
+            <h1 class="neon-text">🧠 FRØN</h1>
+            <p class="subtitle">Agente da Noite - Sistema de Inteligência</p>
+        </header>
+
+        <div class="md-content">
+            <div class="md-info">
+                <h2>🎯 MISSÃO FRØN</h2>
+                <ul>
+                    <li>✅ Monitoramento de Partidas</li>
+                    <li>✅ Análise de Desempenho</li>
+                    <li>✅ Estratégias Avançadas</li>
+                    <li>✅ Coordenação de Equipe</li>
+                    <li>✅ Inteligência Competitiva</li>
+                </ul>
+                
+                <div class="status-section">
+                    <h3>📊 STATUS DO SISTEMA</h3>
+                    <div class="status-item">
+                        <span>Monitoramento:</span>
+                        <div class="status-bar"><div class="status-fill" style="width: 95%"></div></div>
+                    </div>
+                    <div class="status-item">
+                        <span>Análise:</span>
+                        <div class="status-bar"><div class="status-fill" style="width: 88%"></div></div>
+                    </div>
+                    <div class="status-item">
+                        <span>Estratégia:</span>
+                        <div class="status-bar"><div class="status-fill" style="width: 92%"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="neon-btn" onclick="executarComando('start')">▶️ ATIVAR FRØN</button>
+                <button class="neon-btn" onclick="voltarInicio()">⬅️ VOLTAR</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function executarComando(comando) {
+            alert(`🎮 Comando ${comando} executado no sistema FRØN!`);
+        }
+        
+        function voltarInicio() {
+            window.location.href = '../index.html';
+        }
+    </script>
+</body>
+</html>
