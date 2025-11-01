@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔐 Login - Furia Da Noite</title>
+    <title>🔐 Login - FuriaDaNoitePlay</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .login-container {
@@ -55,15 +55,32 @@
             border-radius: 25px;
             cursor: pointer;
             margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        .texto-login {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ff0022;
+            text-shadow: 0 0 10px rgba(255, 0, 34, 0.5);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="neon-header">
+        <header class="neon-header" style="border-color: #ff0022; box-shadow: 0 0 20px rgba(255, 0, 34, 0.3);">
             <h1 class="neon-text">🔐 LOGIN EQUIPE</h1>
-            <p class="subtitle">Acesso Restrito - Membros Furia</p>
+            <p class="subtitle">Acesso Restrito - FuriaDaNoitePlay</p>
         </header>
+
+        <div class="texto-login">
+            <h3>🌙 REVELE SUA VERDADEIRA FACE</h3>
+            <p>Entre como visitante, saia como LENDA</p>
+        </div>
 
         <div class="login-container">
             <div class="login-form">
