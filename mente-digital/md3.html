@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Equipe - FuriaDaNoitePlay</title>
+    <title>🔐 Painel Equipe - Furia da Noite Play</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .md-container {
@@ -15,80 +15,120 @@
         .md-header {
             text-align: center;
             margin-bottom: 40px;
-            border-bottom: 2px solid #ff0022;
-            padding-bottom: 20px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 30px #00ffff;
         }
         
         .login-container {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid #ff0022;
+            background: rgba(0, 0, 0, 0.8);
+            border: 3px solid #00ff00;
             border-radius: 15px;
             padding: 40px;
             margin: 30px 0;
-            box-shadow: 0 10px 30px rgba(255, 0, 34, 0.3);
+            box-shadow: 0 0 30px #00ff00;
         }
         
         .login-form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
         
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
         
         .input-group label {
-            color: #ff0022;
+            color: #00ffff;
             font-weight: bold;
-            text-shadow: 0 0 5px #ff0022;
+            text-shadow: 0 0 10px #00ffff;
+            font-size: 1.1rem;
         }
         
         .input-group input {
-            padding: 12px;
-            border: 2px solid #ff0022;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            background: rgba(0, 255, 255, 0.1);
             color: white;
             font-size: 1rem;
+            transition: all 0.3s ease;
         }
         
         .input-group input:focus {
             outline: none;
-            box-shadow: 0 0 10px rgba(255, 0, 34, 0.5);
+            box-shadow: 0 0 20px #00ffff;
+            border-color: #ff00ff;
         }
         
         .opcoes-login {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
         }
         
         .opcao-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid #00ffea;
-            border-radius: 10px;
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid;
+            border-radius: 15px;
+            padding: 25px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 0 20px;
+        }
+        
+        .opcao-card:nth-child(1) {
+            border-color: #00ff00;
+            box-shadow: 0 0 20px #00ff00;
+        }
+        
+        .opcao-card:nth-child(2) {
+            border-color: #ffff00;
+            box-shadow: 0 0 20px #ffff00;
+        }
+        
+        .opcao-card:nth-child(3) {
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px #ff00ff;
         }
         
         .opcao-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 255, 234, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px;
         }
         
         .info-acesso {
-            background: rgba(255, 0, 34, 0.1);
-            border: 1px solid #ff0022;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
+            background: rgba(255, 0, 255, 0.1);
+            border: 2px solid #ff00ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
             text-align: center;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+        
+        .back-btn {
+            background: transparent;
+            color: #ff00ff;
+            border: 2px solid #ff00ff;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 0, 255, 0.1);
+            box-shadow: 0 0 20px #ff00ff;
         }
     </style>
 </head>
@@ -97,47 +137,47 @@
         <div class="md-container">
             <!-- Header -->
             <div class="md-header">
-                <h1 class="neon-text">🔐 PAINEL DA EQUIPE</h1>
-                <p class="subtitle">AGENTE DA NOITE ADN - Acesso Restrito</p>
+                <h1 class="neon-text neon-azul">🔐 PAINEL DA EQUIPE</h1>
+                <p class="subtitle neon-rosa">AGENTE DA NOITE ADN - Acesso Restrito</p>
             </div>
 
             <!-- Informações de Acesso -->
             <div class="info-acesso">
-                <h3>⚠️ ACESSO RESTRITO</h3>
-                <p>Esta área é exclusiva para <strong>Agentes da Noite ADN</strong> cadastrados</p>
-                <p>Entre com suas credenciais para acessar o painel completo da equipe</p>
+                <h3 class="neon-vermelho">⚠️ ACESSO RESTRITO</h3>
+                <p class="neon-azul">Esta área é exclusiva para <strong class="neon-verde">Agentes da Noite ADN</strong> cadastrados</p>
+                <p class="neon-amarelo">Entre com suas credenciais para acessar o painel completo da equipe</p>
             </div>
 
             <!-- Opções de Login -->
             <div class="opcoes-login">
                 <div class="opcao-card" onclick="abrirLoginEquipe()">
-                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🎮</div>
-                    <h4>AGENTE ADN</h4>
-                    <p>Login de Membro</p>
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🎮</div>
+                    <h4 class="neon-verde">AGENTE ADN</h4>
+                    <p class="neon-azul">Login de Membro</p>
                 </div>
                 
                 <div class="opcao-card" onclick="abrirLoginAdm()">
-                    <div style="font-size: 2.5rem; margin-bottom: 10px;">👑</div>
-                    <h4>ADM SUPREMO</h4>
-                    <p>Acesso Total</p>
+                    <div style="font-size: 3rem; margin-bottom: 15px;">👑</div>
+                    <h4 class="neon-amarelo">ADM SUPREMO</h4>
+                    <p class="neon-azul">Acesso Total</p>
                 </div>
                 
                 <div class="opcao-card" onclick="abrirCadastroMembro()">
-                    <div style="font-size: 2.5rem; margin-bottom: 10px;">⭐</div>
-                    <h4>CADASTRAR</h4>
-                    <p>Novo Agente</p>
+                    <div style="font-size: 3rem; margin-bottom: 15px;">⭐</div>
+                    <h4 class="neon-rosa">CADASTRAR</h4>
+                    <p class="neon-azul">Novo Agente</p>
                 </div>
             </div>
 
             <!-- Formulário de Login -->
             <div class="login-container">
-                <h3 style="color: #ff0022; text-align: center; margin-bottom: 25px; text-shadow: 0 0 10px #ff0022;">
+                <h3 class="neon-verde" style="text-align: center; margin-bottom: 30px; font-size: 1.8rem;">
                     🔐 LOGIN - AGENTE DA NOITE
                 </h3>
                 
                 <div class="login-form">
                     <div class="input-group">
-                        <label>🎮 Usuário:</label>
+                        <label>🎮 Usuário ADN:</label>
                         <input type="text" id="usuario" placeholder="Digite seu usuário ADN">
                     </div>
                     
@@ -146,11 +186,11 @@
                         <input type="password" id="senha" placeholder="Digite sua senha">
                     </div>
                     
-                    <button class="neon-btn" onclick="fazerLoginEquipe()">
-                        🎮 ACESSAR PAINEL
+                    <button class="neon-btn verde" onclick="fazerLoginEquipe()" style="font-size: 1.2rem; padding: 18px;">
+                        🎮 ACESSAR PAINEL DA EQUIPE
                     </button>
                     
-                    <div style="text-align: center; margin-top: 15px;">
+                    <div style="text-align: center; margin-top: 20px;">
                         <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
                     </div>
                 </div>
@@ -158,10 +198,10 @@
 
             <!-- Informações de Suporte -->
             <div class="info-acesso">
-                <h4>📞 PRECISA DE AJUDA?</h4>
-                <p>Entre em contato com a liderança:</p>
-                <p>📱 WhatsApp: (31) 9731-9008</p>
-                <p>📧 E-mail: furiadanoiteplay2025@gmail.com</p>
+                <h4 class="neon-rosa">📞 PRECISA DE AJUDA?</h4>
+                <p class="neon-azul">Entre em contato com a liderança:</p>
+                <p class="neon-verde">📱 WhatsApp: (31) 9731-9008</p>
+                <p class="neon-amarelo">📧 E-mail: furiadanoiteplay2025@gmail.com</p>
             </div>
         </div>
     </div>
@@ -171,11 +211,37 @@
             const usuario = document.getElementById('usuario').value;
             const senha = document.getElementById('senha').value;
             
+            if (!usuario || !senha) {
+                alert('❌ Preencha todos os campos!');
+                return;
+            }
+            
             // Credenciais de teste
             if (usuario === 'ToxicSkull√' && senha === 'L@!on') {
-                alert('✅ Login realizado! Acessando Painel da Equipe...');
-                window.location.href = 'painel-equipe.html';
+                // Efeito visual de sucesso
+                const btn = document.querySelector('.neon-btn');
+                btn.innerHTML = '✅ ACESSANDO...';
+                btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+                
+                setTimeout(() => {
+                    alert('🎉 Login realizado com sucesso! Acessando Painel da Equipe...');
+                    window.location.href = 'painel-equipe.html';
+                }, 1500);
             } else {
+                // Efeito visual de erro
+                const inputs = document.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.style.borderColor = '#ff0000';
+                    input.style.boxShadow = '0 0 15px #ff0000';
+                });
+                
+                setTimeout(() => {
+                    inputs.forEach(input => {
+                        input.style.borderColor = '#00ffff';
+                        input.style.boxShadow = 'none';
+                    });
+                }, 2000);
+                
                 alert('❌ Usuário ou senha incorretos!');
             }
         }
@@ -189,7 +255,6 @@
         }
         
         function abrirLoginEquipe() {
-            // Já está na página de login
             document.getElementById('usuario').focus();
         }
         
@@ -202,6 +267,17 @@
             if (e.key === 'Enter') {
                 fazerLoginEquipe();
             }
+        });
+        
+        // Efeitos nos inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
         });
     </script>
 </body>
