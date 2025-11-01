@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Furia da Noite Play</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="cadastro-body">
+    <div class="cadastro-container">
+        <div class="cadastro-header">
+            <img src="logo.png" alt="Logo" class="cadastro-logo">
+            <h2 class="neon-title">CADASTRAR NA FURIA</h2>
+        </div>
+
+        <div class="cadastro-options">
+            <button class="cadastro-option active" data-type="membro">
+                👤 CADASTRAR MEMBRO
+            </button>
+            <button class="cadastro-option" data-type="equipe">
+                🏆 CADASTRAR EQUIPE
+            </button>
+        </div>
+
+        <!-- CADASTRO MEMBRO -->
+        <form id="cadastro-membro" class="cadastro-form active">
+            <input type="text" class="input-neon" placeholder="Nick" required>
+            <input type="password" class="input-neon" placeholder="Senha" required>
+            <input type="text" class="input-neon" placeholder="Rede Social" required>
+            <input type="file" class="input-neon file-input" accept="image/*">
+            <button type="submit" class="btn-neon">CADASTRAR MEMBRO</button>
+        </form>
+
+        <!-- CADASTRO EQUIPE -->
+        <form id="cadastro-equipe" class="cadastro-form">
+            <input type="text" class="input-neon" placeholder="Nome da Equipe" required>
+            <input type="password" class="input-neon" placeholder="Senha da Equipe" required>
+            
+            <div class="jogadores-container">
+                <h4 class="neon-subtitle">JOGADORES (10)</h4>
+                <div id="jogadores-lista">
+                    <!-- JavaScript vai adicionar os campos aqui -->
+                </div>
+                <button type="button" class="btn-neon-outline" onclick="adicionarJogador()">
+                    + Adicionar Jogador
+                </button>
+            </div>
+
+            <input type="file" class="input-neon file-input" accept="image/*">
+            <button type="submit" class="btn-neon">CADASTRAR EQUIPE</button>
+        </form>
+
+        <div class="cadastro-links">
+            <a href="login.html" class="neon-link">Já tenho conta</a>
+            <a href="index.html" class="neon-link">Voltar ao Início</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
