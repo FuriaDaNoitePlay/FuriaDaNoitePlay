@@ -16,14 +16,28 @@
       <option value="equipe">Equipe</option>
     </select>
 
-    <input type="text" id="nick" placeholder="Digite seu Nick">
-
-    <input type="password" id="senha" placeholder="Digite sua Senha" style="display:none;">
-
-    <button id="entrarBtn">Entrar</button>
-    <button id="cadastroBtn">Cadastrar</button>
+    <input type="text" id="nomeLogin" placeholder="Digite seu nome ou nick">
+    <button id="btnEntrar">Entrar</button>
+    <button onclick="window.location.href='index.html'">Voltar</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    document.getElementById('btnEntrar').addEventListener('click', () => {
+      const tipo = document.getElementById('tipoLogin').value;
+      const nome = document.getElementById('nomeLogin').value.trim();
+
+      if (nome === '') {
+        alert('Digite seu nome ou nick antes de entrar!');
+        return;
+      }
+
+      // salva login no navegador
+      localStorage.setItem('usuarioFuria', nome);
+      localStorage.setItem('tipoConta', tipo);
+
+      alert(`Bem-vindo(a), ${nome}! Conta: ${tipo}`);
+      window.location.href = 'index.html';
+    });
+  </script>
 </body>
 </html>
