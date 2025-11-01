@@ -9,46 +9,25 @@
 <body class="login-body">
     <div class="login-container">
         <div class="login-header">
-            <img src="logo.png" alt="Logo" class="login-logo">
-            <h2 class="neon-title">ACESSAR SISTEMA</h2>
+            <img src="furia.png" alt="Furia da Noite" class="login-logo">
+            <h2 class="login-title">Login Fúria da Noite</h2>
         </div>
 
-        <div class="login-options">
-            <button class="login-option active" data-type="membro">
-                👤 MEMBRO
-            </button>
-            <button class="login-option" data-type="equipe">
-                🏆 EQUIPE
-            </button>
-            <button class="login-option" data-type="adm">
-                ⚡ ADM
-            </button>
+        <div class="login-type">
+            <button class="type-btn active" data-type="equipe">Equipe</button>
+            <button class="type-btn" data-type="membro">Membro</button>
+            <button class="type-btn" data-type="adm">ADM</button>
         </div>
 
-        <!-- FORMULÁRIO MEMBRO -->
-        <form id="form-membro" class="login-form active">
-            <input type="text" class="input-neon" placeholder="Nick" required>
-            <input type="password" class="input-neon" placeholder="Senha" required>
-            <button type="submit" class="btn-neon">ENTRAR</button>
-        </form>
-
-        <!-- FORMULÁRIO EQUIPE -->
-        <form id="form-equipe" class="login-form">
-            <input type="text" class="input-neon" placeholder="Nome da Equipe" required>
-            <input type="password" class="input-neon" placeholder="Senha da Equipe" required>
-            <button type="submit" class="btn-neon">ENTRAR COMO EQUIPE</button>
-        </form>
-
-        <!-- FORMULÁRIO ADM -->
-        <form id="form-adm" class="login-form">
-            <input type="text" class="input-neon" placeholder="Usuário ADM" required>
-            <input type="password" class="input-neon" placeholder="Senha ADM" required>
-            <button type="submit" class="btn-neon">ACESSAR PAINEL ADM</button>
+        <form class="login-form" id="loginForm">
+            <input type="text" class="login-input" placeholder="Digite seu Nick" required>
+            <input type="password" class="login-input" placeholder="Senha" required>
+            <button type="submit" class="login-btn">Entrar</button>
         </form>
 
         <div class="login-links">
-            <a href="cadastro.html" class="neon-link">Criar Conta</a>
-            <a href="index.html" class="neon-link">Voltar ao Início</a>
+            <a href="cadastro.html">Criar conta</a>
+            <a href="index.html">Voltar ao início</a>
         </div>
     </div>
 
