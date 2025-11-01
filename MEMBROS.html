@@ -3,51 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Membros - Agente Da Noite</title>
+    <title>Agente Da Noite - Acesso Visitante</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="logo-container">
             <img src="furia.png" alt="Agente Da Noite" class="logo">
+            <h1 class="neon-text">AGENTE DA NOITE</h1>
         </div>
         <nav class="main-nav">
             <a href="index.html" class="nav-link neon-text">Início</a>
             <a href="fron.html" class="nav-link neon-text">FRØN</a>
             <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
-            <a href="membros.html" class="nav-link neon-text">Membros</a>
-            <a href="#" class="nav-link neon-btn" onclick="sair()">Sair</a>
+            <a href="regras.html" class="nav-link neon-text">Regras</a>
+            <a href="login.html" class="nav-link neon-btn">Login</a>
         </nav>
     </header>
 
     <main class="campeonato-main">
         <section class="hero">
-            <h1 class="neon-title">👥 ÁREA DOS MEMBROS</h1>
-            <p class="neon-subtitle">Bem-vindo à área exclusiva para membros do Agente Da Noite</p>
+            <h1 class="neon-title">🎉 AGENTE DA NOITE</h1>
+            <p class="neon-subtitle">Acesso liberado ao conteúdo público</p>
             
             <div class="features">
                 <div class="feature-card">
-                    <h3>🎯 Meu Perfil</h3>
-                    <p>Acesse suas estatísticas e histórico de partidas</p>
-                    <button class="btn-neon" onclick="alert('Perfil em desenvolvimento!')">Meu Perfil</button>
+                    <h3>🏆 Campeonato</h3>
+                    <p>Acompanhe as tabelas, resultados e classificações</p>
+                    <a href="campeonato.html" class="btn-neon">Ver Campeonato</a>
                 </div>
                 
                 <div class="feature-card">
-                    <h3>🏆 Participar de Torneios</h3>
-                    <p>Inscreva-se nos campeonatos internos</p>
-                    <a href="campeonato.html" class="btn-neon">Ver Torneios</a>
+                    <h3>📜 Regras da Comunidade</h3>
+                    <p>Conheça as regras e diretrizes do Agente Da Noite</p>
+                    <a href="regras.html" class="btn-neon">Ver Regras</a>
                 </div>
                 
                 <div class="feature-card">
-                    <h3>📊 Minhas Estatísticas</h3>
-                    <p>Visualize seu desempenho nos jogos</p>
-                    <button class="btn-neon" onclick="alert('Estatísticas em desenvolvimento!')">Ver Stats</button>
+                    <h3>🌟 Conheça a FRØN</h3>
+                    <p>Descubra nossa divisão de elite e redes sociais</p>
+                    <a href="fron.html" class="btn-neon">Explorar FRØN</a>
                 </div>
 
                 <div class="feature-card">
-                    <h3>⭐ Sistema de Hierarquia</h3>
-                    <p>Acompanhe sua evolução na comunidade</p>
-                    <a href="regras.html" class="btn-neon">Ver Hierarquia</a>
+                    <h3>👥 Torne-se Membro</h3>
+                    <p>Cadastre-se para acessar recursos exclusivos</p>
+                    <a href="cadastro.html" class="btn-neon">Fazer Cadastro</a>
                 </div>
             </div>
         </section>
@@ -57,21 +58,6 @@
         <p>&copy; 2025 Agente Da Noite - <strong>ToxicSkull√</strong></p>
     </footer>
 
-    <script>
-        function sair() {
-            if (confirm('Tem certeza que deseja sair?')) {
-                localStorage.removeItem('usuarioLogado');
-                window.location.href = 'index.html';
-            }
-        }
-
-        // Verifica se é membro
-        document.addEventListener('DOMContentLoaded', function() {
-            const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
-            if (!usuario || (usuario.tipo !== 'membro' && usuario.tipo !== 'equipe' && usuario.tipo !== 'adm')) {
-                window.location.href = 'login.html';
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
