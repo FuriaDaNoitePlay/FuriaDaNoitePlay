@@ -3,157 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 ADM Supremo - FuriaDaNoitePlay</title>
-    <link rel="stylesheet" href="style.css">
+    <title>🔐 Login - Agente da Noite</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a2a, #00008b, #2a0a4a);
+            color: #00ffff;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .login-container {
-            max-width: 500px;
-            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.9);
             padding: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid #ffd700;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 30px #00ffff;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
-        
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+
+        .logo {
+            margin-bottom: 30px;
         }
-        
+
+        .logo h1 {
+            font-size: 2.5em;
+            color: #00ffff;
+            text-shadow: 0 0 15px #00ffff;
+            margin-bottom: 10px;
+        }
+
+        .logo p {
+            color: #ff00ff;
+            font-style: italic;
+        }
+
         .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            margin-bottom: 20px;
+            text-align: left;
         }
-        
+
         .input-group label {
-            color: #ffd700;
+            display: block;
+            margin-bottom: 5px;
+            color: #00ffff;
             font-weight: bold;
-            text-shadow: 0 0 5px #ffd700;
         }
-        
+
         .input-group input {
-            padding: 12px;
-            border: 2px solid #ffd700;
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #00ffff;
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
+            background: rgba(0, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 1em;
+            transition: all 0.3s;
         }
-        
+
         .input-group input:focus {
             outline: none;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            border-color: #ff00ff;
+            box-shadow: 0 0 15px #ff00ff;
+            background: rgba(255, 0, 255, 0.1);
         }
-        
-        .adm-info {
-            background: rgba(255, 215, 0, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 1px solid #ffd700;
-            text-align: center;
-        }
-        
-        .adm-info h4 {
-            color: #ffd700;
-            margin-bottom: 10px;
-            text-shadow: 0 0 5px #ffd700;
-        }
-        
-        .back-btn {
-            background: transparent;
-            color: #ff6b6b;
-            border: 2px solid #ff6b6b;
-            padding: 10px 20px;
-            border-radius: 25px;
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
             cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px #ff00ff;
         }
-        
-        .back-btn:hover {
-            background: rgba(255, 107, 107, 0.1);
+
+        .btn-login:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #00ffff;
         }
-        
-        .texto-login {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .link {
+            color: #00ffff;
+            text-decoration: none;
+            padding: 10px;
+            border: 1px solid #00ffff;
+            border-radius: 5px;
+            transition: all 0.3s;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .link:hover {
+            background: #00ffff;
+            color: #000;
+        }
+
+        .hierarquia {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid #00ffff;
+        }
+
+        .hierarquia h3 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+        }
+
+        .nivel-acesso {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .nivel {
+            padding: 10px;
+            margin: 5px;
+            background: rgba(255, 0, 255, 0.2);
+            border-radius: 5px;
+            border: 1px solid #ff00ff;
+            font-size: 0.9em;
+        }
+
+        .mensagem {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff0000;
+            border-radius: 8px;
+            color: #ff4444;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="neon-header" style="border-color: #ffd700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);">
-            <h1 class="neon-text">👑 ADM SUPREMO</h1>
-            <p class="subtitle">Controle Total do Sistema - FuriaDaNoitePlay</p>
-        </header>
-
-        <div class="texto-login">
-            <h3>🌙 ACESSO DE ALTO NÍVEL</h3>
-            <p>"O poder da noite em suas mãos"</p>
+    <div class="login-container">
+        <div class="logo">
+            <h1>🌙 FÚRIA DA NOITE</h1>
+            <p>Área do Agente da Noite</p>
         </div>
 
-        <div class="login-container">
-            <div class="adm-info">
-                <h4>🔐 ACESSO RESTRITO</h4>
-                <p>Área exclusiva para administradores autorizados</p>
-                <p>Entre com suas credenciais de ADM</p>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="codigo">🔐 Código de Agente:</label>
+                <input type="text" id="codigo" placeholder="Seu código secreto" required>
             </div>
-            
-            <div class="login-form">
-                <div class="input-group">
-                    <label>👑 Usuário ADM:</label>
-                    <input type="text" id="usuarioAdm" placeholder="Digite seu usuário ADM">
-                </div>
-                
-                <div class="input-group">
-                    <label>🔒 Senha ADM:</label>
-                    <input type="password" id="senhaAdm" placeholder="Digite sua senha ADM">
-                </div>
-                
-                <button class="neon-btn" onclick="fazerLoginAdm()" style="border-color: #ffd700; color: #ffd700;">
-                    🎮 ACESSAR PAINEL ADM
-                </button>
-                <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
+
+            <div class="input-group">
+                <label for="senha">🗝️ Senha da Noite:</label>
+                <input type="password" id="senha" placeholder="Sua senha noturna" required>
+            </div>
+
+            <button type="submit" class="btn-login">🎮 ACESSAR SISTEMA</button>
+        </form>
+
+        <div class="links">
+            <a href="cadastro-membro.html" class="link">⭐ Novo Membro</a>
+            <a href="index.html" class="link">🏠 Voltar</a>
+        </div>
+
+        <div class="hierarquia">
+            <h3>🎯 NÍVEIS DE ACESSO:</h3>
+            <div class="nivel-acesso">
+                <div class="nivel">👑 ADM Supremo</div>
+                <div class="nivel">🔐 Agente ADN</div>
+                <div class="nivel">⭐ Membro</div>
             </div>
         </div>
+
+        <div id="mensagem" class="mensagem"></div>
     </div>
 
     <script>
-        function fazerLoginAdm() {
-            const usuario = document.getElementById('usuarioAdm').value;
-            const senha = document.getElementById('senhaAdm').value;
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            const adms = {
-                'FURIAGOD': 'Furia2025_$',
-                'Scorpion': 'Mlk00',
-                '.Son King': 'God19',
-                'NeferpitouI': 'Ana025',
-                'PNTS': 'pNtS'
-            };
-            
-            if (adms[usuario] && adms[usuario] === senha) {
-                alert('✅ Login ADM realizado! Acessando Painel Supremo...');
-                window.location.href = 'painel-adm.html';
+            const codigo = document.getElementById('codigo').value;
+            const senha = document.getElementById('senha').value;
+            const mensagem = document.getElementById('mensagem');
+
+            // Simulação de login
+            if (codigo === 'FRON' && senha === 'furia123') {
+                mensagem.style.display = 'block';
+                mensagem.style.background = 'rgba(0, 255, 0, 0.2)';
+                mensagem.style.borderColor = '#00ff00';
+                mensagem.style.color = '#00ff00';
+                mensagem.textContent = '🎉 ACESSO CONCEDIDO! Redirecionando...';
+                
+                setTimeout(() => {
+                    window.location.href = 'md1.html';
+                }, 2000);
             } else {
-                alert('❌ Credenciais ADM incorretas!');
+                mensagem.style.display = 'block';
+                mensagem.textContent = '❌ Código ou senha incorretos! Tente novamente.';
             }
-        }
-        
-        function voltarInicio() {
-            window.location.href = 'index.html';
-        }
-        
-        // Enter para login
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                fazerLoginAdm();
-            }
+        });
+
+        // Efeitos visuais
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
         });
     </script>
 </body>
