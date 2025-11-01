@@ -1,3 +1,32 @@
+// Navegação
+function abrirMD(pagina) {
+    window.location.href = `mente-digital/${pagina}.html`;
+}
+
+function abrirWhatsApp() {
+    const numero = "553197319008";
+    const mensagem = "Olá! Vim pelo site da FuriaDaNoitePlay e gostaria de mais informações!";
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
+}
+
+function abrirLogin() {
+    window.location.href = 'login.html';
+}
+
+// Sistema de Login
+function fazerLogin() {
+    const usuario = document.getElementById('usuario').value;
+    const senha = document.getElementById('senha').value;
+    
+    if (usuario === 'furia' && senha === 'noite2025') {
+        alert('✅ Login realizado! Acessando Painel...');
+        abrirMD('md3');
+    } else {
+        alert('❌ Usuário ou senha incorretos!');
+    }
+}
+
 // Comandos do Sistema
 function executarComando(comando) {
     const consoleOutput = document.getElementById('console');
@@ -31,38 +60,9 @@ function adicionarConsole(mensagem) {
     }
 }
 
-// Navegação
-function abrirMD(pagina) {
-    window.location.href = `mente-digital/${pagina}.html`;
-}
-
-function abrirWhatsApp() {
-    const numero = "553197319008";
-    const mensagem = "Olá! Vim pelo site da Furia Da Noite e gostaria de mais informações!";
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-}
-
-function abrirLogin() {
-    window.location.href = 'login.html';
-}
-
-// Sistema de Login
-function fazerLogin() {
-    const usuario = document.getElementById('usuario').value;
-    const senha = document.getElementById('senha').value;
-    
-    if (usuario === 'furia' && senha === 'noite2025') {
-        alert('✅ Login realizado! Acessando Painel...');
-        abrirMD('md3');
-    } else {
-        alert('❌ Usuário ou senha incorretos!');
-    }
-}
-
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔥 FURIA DA NIGHT PLAY - Sistema carregado!');
+    console.log('🔥 FuriaDaNoitePlay - Sistema carregado!');
     
     // Efeito nos cards
     const cards = document.querySelectorAll('.md-card');
