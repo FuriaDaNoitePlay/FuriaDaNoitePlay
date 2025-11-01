@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <style>
         .md-container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -19,139 +19,353 @@
             padding-bottom: 20px;
         }
         
-        .md-content {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
+        .quadrado-dourado {
+            background: rgba(255, 215, 0, 0.1);
+            border: 3px solid #FFD700;
             border-radius: 15px;
-            border: 1px solid #ff0022;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            text-align: center;
         }
         
-        .agent-info {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 30px;
+        .quadrado-dourado h3 {
+            color: #FFD700;
+            text-shadow: 0 0 10px #FFD700;
+            margin-bottom: 15px;
         }
         
-        .agent-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 3px solid #ff0022;
-            box-shadow: 0 0 20px rgba(255, 0, 34, 0.5);
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
         }
         
-        .agent-stats {
-            flex: 1;
-        }
-        
-        .stat-bar {
-            margin: 10px 0;
-        }
-        
-        .stat-label {
-            color: #ff0022;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .stat-value {
-            height: 10px;
-            background: rgba(255, 0, 34, 0.3);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .stat-fill {
-            height: 100%;
-            background: #ff0022;
-            box-shadow: 0 0 10px #ff0022;
-        }
-        
-        .back-btn {
-            background: transparent;
-            color: #ff6b6b;
-            border: 2px solid #ff6b6b;
-            padding: 10px 20px;
-            border-radius: 25px;
+        .post-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #00ffea;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
             cursor: pointer;
-            margin-top: 20px;
             transition: all 0.3s ease;
         }
         
-        .back-btn:hover {
-            background: rgba(255, 107, 107, 0.1);
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 234, 0.3);
+        }
+        
+        .post-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #00ffea;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .video-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 3px solid #ff0022;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 34, 0.6);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .social-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .social-btn.instagram {
+            background: linear-gradient(45deg, #405DE6, #C13584);
+        }
+        
+        .social-btn.youtube {
+            background: linear-gradient(45deg, #FF0000, #CC0000);
+        }
+        
+        .social-btn.tiktok {
+            background: linear-gradient(45deg, #000000, #00f2ea);
+        }
+        
+        .social-btn.whatsapp {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+        }
+        
+        .social-btn.discord {
+            background: linear-gradient(45deg, #5865F2, #4752C4);
+        }
+        
+        .social-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .whatsapp-grande {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 25px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-grande:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.6);
+        }
+        
+        .quadrado-gw {
+            background: rgba(255, 215, 0, 0.15);
+            border: 3px solid #FFD700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+        }
+        
+        .link-gw {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 15px 0;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .link-gw:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.6);
+        }
+        
+        .texto-machucou {
+            background: rgba(255, 0, 34, 0.1);
+            border: 2px solid #ff0022;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 0, 34, 0.3);
+        }
+        
+        .texto-machucou h3 {
+            color: #ff0022;
+            text-shadow: 0 0 10px #ff0022;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="md-container">
+            <!-- Header -->
             <div class="md-header">
-                <h1 class="neon-text">🧠 FRØN - AGENTE DA NOITE</h1>
-                <p class="subtitle">Líder e Estrategista da Furia</p>
+                <h1 class="neon-text">🌙 FRØN - AGENTE DA NOITE</h1>
+                <p class="subtitle">Líder e Fundador da FuriaDaNoitePlay</p>
             </div>
-            
-            <div class="md-content">
-                <div class="agent-info">
-                    <img src="assets/MD1.png" alt="FRØN" class="agent-img">
-                    <div class="agent-stats">
-                        <h3>📊 ESTATÍSTICAS DO AGENTE</h3>
-                        
-                        <div class="stat-bar">
-                            <div class="stat-label">🎯 PRECISÃO</div>
-                            <div class="stat-value">
-                                <div class="stat-fill" style="width: 92%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-bar">
-                            <div class="stat-label">⚡ VELOCIDADE</div>
-                            <div class="stat-value">
-                                <div class="stat-fill" style="width: 88%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-bar">
-                            <div class="stat-label">🧠 ESTRATÉGIA</div>
-                            <div class="stat-value">
-                                <div class="stat-fill" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-bar">
-                            <div class="stat-label">💪 RESISTÊNCIA</div>
-                            <div class="stat-value">
-                                <div class="stat-fill" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
+
+            <!-- Texto Machucou -->
+            <div class="texto-machucou">
+                <h3>💀 QUANDO CAI A NOITE A ESCURIDÃO, EU FRØN APARECO!</h3>
+                <p>Sua face Fúria da Noite Play vindo da origem Olimpo. Somos jogadores da ØL rstrs atualmente atuando no cenário da BOOT Camp top 8 liga série C e no cenário competitivo Rising top 128 Brasil.</p>
+            </div>
+
+            <!-- Quadrado Dourado - Mente Digital -->
+            <div class="quadrado-dourado">
+                <h3>🧠 MENTE DIGITAL - FRØN</h3>
+                <p>Centro de comando e estratégia da Furia</p>
+            </div>
+
+            <!-- Postagens do Instagram -->
+            <div class="post-grid">
+                <div class="post-card" onclick="abrirPostFuria()">
+                    <img src="assets/MD1.png" alt="Post Furia">
+                    <h4>FURIA DA NOITE</h4>
+                    <p>Postagem oficial da Furia</p>
                 </div>
                 
-                <div class="agent-details">
-                    <h3>🎮 ESPECIALIDADES</h3>
-                    <ul>
-                        <li>🕵️ Liderança tática em tempo real</li>
-                        <li>🎯 Disparos precisos de longa distância</li>
-                        <li>📡 Comunicação eficiente com a equipe</li>
-                        <li>🌙 Operações noturnas especializadas</li>
-                    </ul>
-                    
-                    <h3>📈 DESEMPENHO RECENTE</h3>
-                    <p>• 15 vitórias consecutivas</p>
-                    <p>• 92% de precisão em headshots</p>
-                    <p>• MVP em 80% das partidas</p>
+                <div class="post-card" onclick="abrirPostBoot()">
+                    <img src="assets/MD2.png" alt="Post Boot">
+                    <h4>BOOT CAMP</h4>
+                    <p>Campeonato interno</p>
                 </div>
                 
-                <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
+                <div class="post-card" onclick="abrirOlimpo()">
+                    <img src="assets/MD3.png" alt="Olimpo">
+                    <h4>OLIMPO</h4>
+                    <p>Origem da Furia</p>
+                </div>
+            </div>
+
+            <!-- Redes Sociais -->
+            <div class="social-links">
+                <a href="https://www.instagram.com/furiadanoiteplay?igsh=MXcyMmNuYjF6ZzQxaw==" class="social-btn instagram" target="_blank">
+                    📷 Instagram
+                </a>
+                <a href="https://youtube.com/@xfuriadanoiteplayx?si=76ytT-_RVtOQgWKU" class="social-btn youtube" target="_blank">
+                    📺 YouTube
+                </a>
+                <a href="https://www.tiktok.com/@fria.da.noite.pla?_t=ZS-90z4mQWzxDh&_r=1" class="social-btn tiktok" target="_blank">
+                    ⚡ TikTok
+                </a>
+                <a href="https://discord.gg/NgMKT5Tut" class="social-btn discord" target="_blank">
+                    💬 Discord
+                </a>
+            </div>
+
+            <!-- Vídeos TikTok/YouTube -->
+            <div class="video-grid">
+                <div class="video-card" onclick="abrirVideoTiktok()">
+                    <h4>🎬 VÍDEO TIKTOK</h4>
+                    <p>Clique para assistir</p>
+                    <div style="font-size: 3rem; margin: 15px 0;">⚡</div>
+                </div>
+                
+                <div class="video-card" onclick="abrirVideoTiktok()">
+                    <h4>🎬 VÍDEO TIKTOK</h4>
+                    <p>Clique para assistir</p>
+                    <div style="font-size: 3rem; margin: 15px 0;">⚡</div>
+                </div>
+                
+                <div class="video-card" onclick="abrirVideoTiktok()">
+                    <h4>🎬 VÍDEO TIKTOK</h4>
+                    <p>Clique para assistir</p>
+                    <div style="font-size: 3rem; margin: 15px 0;">⚡</div>
+                </div>
+            </div>
+
+            <!-- Botão WhatsApp Grande -->
+            <div style="text-align: center;">
+                <a href="https://chat.whatsapp.com/K0EPoqrxMcuBbkLBS7oawk?mode=wwt" class="whatsapp-grande" target="_blank">
+                    💬 ENTRAR NA COMUNIDADE WHATSAPP
+                </a>
+            </div>
+
+            <!-- Quadrado Gaming World -->
+            <div class="quadrado-gw">
+                <h3 style="color: #FFD700; text-align: center;">🎮 GAMING WORLD</h3>
+                <p style="text-align: center;"><strong>🫸 Mais que uma Comunidade, Uma Familia! Sejam Bem Vindos 🫷</strong></p>
+                
+                <p>🛡️ <strong>CONHEÇAM NOSSAS COMUNIDADES E GRUPOS QUE PODEM SER DO SEU INTERESSE:</strong></p>
+                
+                <p><strong>CATÁLOGO COM GRUPOS DE JOGOS, ONDE TEM GRUPOS DE RUSHAR ELO, X1, RECRUTAMENTO, SCRIMS E MUITO MAIS:</strong><br>
+                ➤ https://wa.me/c/554792336299</p>
+                
+                <p><strong>CATÁLOGO COM GRUPOS DE RELACIONAMENTO, BATE PAPO, LGBT, GRUPOS SÓ PARA MULHERES ETC:</strong><br>
+                ➤ https://wa.me/c/5511972817478</p>
+                
+                <p><strong>CATÁLOGO COM GRUPOS PARA STREAMERS, QUEM OFERECE ALGUM SERVIÇO ETC. E QUER A DIVULGAÇÃO DO SEU TRABALHO EM NOSSAS COMUNIDADES:</strong><br>
+                ➤ https://wa.me/c/554792819665</p>
+                
+                <p>⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️</p>
+                
+                <p><strong>⚠️ COMUNIDADE VOLTADA PARA ⚠️:</strong><br>
+                ♧ <em>Competitivo Amador & Profissional</em><br>
+                ◇ <em>Sorteios</em><br>
+                ♡ <em>Vazamentos</em><br>
+                ♤ <em>Patch Notes</em></p>
+                
+                <p>📰 <strong>Jornal de Noticias do Mundo dos Games</strong><br>
+                ☆ <em>Parcerias ON</em><br>
+                ☆ <em>ǤŴ Jobs - Ache aqui profissionais para sua equipe</em><br>
+                ☆ <em>Academy</em><br>
+                ☆ <em>Eventos Internos</em><br>
+                ☆ <em>Suporte em Recrutamento & Divulgação</em><br>
+                ☆ <em>Clãs Afiliados</em></p>
+                
+                <div style="text-align: center;">
+                    <a href="https://linkfly.to/gw-esports" class="link-gw" target="_blank">
+                        🔥 ACESSAR GAMING WORLD
+                    </a>
+                </div>
+            </div>
+
+            <!-- Botão Início -->
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="neon-btn" onclick="voltarInicio()" style="border-color: #ff0022; color: #ff0022;">
+                    🏠 VOLTAR AO INÍCIO
+                </button>
             </div>
         </div>
     </div>
 
     <script>
+        // Funções para abrir links
+        function abrirPostFuria() {
+            window.open('https://www.instagram.com/p/DQdHVwGDf1Z/?igsh=Z3E5azFqMGx3YTQz', '_blank');
+        }
+        
+        function abrirPostBoot() {
+            window.open('https://www.instagram.com/p/DOJmqZmFDh0/?img_index=3&igsh=MXAwdWZocm5wdTZhaw==', '_blank');
+        }
+        
+        function abrirOlimpo() {
+            window.open('https://www.instagram.com/olimpo.ol?igsh=MWR5NXlweWM0a25tdg==', '_blank');
+        }
+        
+        function abrirVideoTiktok() {
+            window.open('https://vt.tiktok.com/ZSyFhosx7/', '_blank');
+        }
+        
+        function abrirVideoYouTube() {
+            window.open('https://youtube.com/shorts/H6_nnRecvv4?si=VvAfEgS2H9HY3NTz', '_blank');
+        }
+        
         function voltarInicio() {
             window.location.href = 'index.html';
         }
+        
+        // Efeitos de neon
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.quadrado-dourado, .post-card, .video-card');
+            elements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
     </script>
 </body>
 </html>
