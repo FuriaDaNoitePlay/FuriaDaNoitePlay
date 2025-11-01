@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel ADM - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .painel-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .painel-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 20px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        
+        .adm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .adm-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .adm-card.vermelho { border-color: #ff0022; }
+        .adm-card.azul { border-color: #00ffea; }
+        .adm-card.verde { border-color: #25D366; }
+        .adm-card.roxo { border-color: #833AB4; }
+        
+        .adm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+        
+        .adm-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .tabela-adm {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .tabela-adm th, .tabela-adm td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .tabela-adm th {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            font-weight: bold;
+        }
+        
+        .acao-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 2px;
+            font-size: 0.9rem;
+        }
+        
+        .editar { background: #00ffea; color: black; }
+        .excluir { background: #ff0022; color: white; }
+        .confirmar { background: #25D366; color: white; }
+        
+        .secao-adm {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .secao-titulo {
+            color: #FFD700;
+            text-shadow: 0 0 10px #FFD700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-adm {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .input-adm {
+            padding: 12px;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .input-adm:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .info-adm {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .info-card {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #FFD700;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .info-numero {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 0 0 10px #FFD700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="painel-container">
+            <!-- Header do Painel ADM -->
+            <div class="painel-header">
+                <h1 class="neon-text">👑 PAINEL ADM SUPREMO</h1>
+                <p class="subtitle">Controle Total - FuriaDaNoitePlay</p>
+                <div class="info-adm">
+                    <div class="info-card">
+                        <div class="info-numero" id="totalMembros">47</div>
+                        <div>MEMBROS</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-numero" id="totalEquipes">12</div>
+                        <div>EQUIPES</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-numero" id="partidasHoje">8</div>
+                        <div>PARTIDAS HOJE</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-numero" id="campeonatos">5</div>
+                        <div>CAMPEONATOS</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid de Funcionalidades ADM -->
+            <div class="adm-grid">
+                <div class="adm-card vermelho" onclick="gerenciarMembros()">
+                    <div class="adm-icon">👥</div>
+                    <h3>GERENCIAR MEMBROS</h3>
+                    <p>Adicionar, editar ou remover membros</p>
+                </div>
+                
+                <div class="adm-card azul" onclick="gerenciarCampeonatos()">
+                    <div class="adm-icon">🏆</div>
+                    <h3>CAMPEONATOS</h3>
+                    <p>Criar e gerenciar competições</p>
+                </div>
+                
+                <div class="adm-card verde" onclick="gerenciarPartidas()">
+                    <div class="adm-icon">🎮</div>
+                    <h3>PARTIDAS</h3>
+                    <p>Agendar e confirmar jogos</p>
+                </div>
+                
+                <div class="adm-card roxo" onclick="gerenciarTabelas()">
+                    <div class="adm-icon">📊</div>
+                    <h3>TABELAS</h3>
+                    <p>Atualizar classificações</p>
+                </div>
+            </div>
+
+            <!-- Seção: Gerenciar Membros -->
+            <div class="secao-adm">
+                <h2 class="secao-titulo">👥 GERENCIAMENTO DE MEMBROS</h2>
+                
+                <div class="form-adm">
+                    <input type="text" class="input-adm" placeholder="Nome do Membro" id="nomeMembro">
+                    <input type="text" class="input-adm" placeholder="Nick no Jogo" id="nickMembro">
+                    <input type="email" class="input-adm" placeholder="E-mail" id="emailMembro">
+                    <input type="tel" class="input-adm" placeholder="WhatsApp" id="whatsappMembro">
+                    <select class="input-adm" id="hierarquiaMembro">
+                        <option value="">Selecionar Hierarquia</option>
+                        <option value="lider">Líder</option>
+                        <option value="vice">Vice-Líder</option>
+                        <option value="oficial">Oficial</option>
+                        <option value="lider-equipe">Líder de Equipe</option>
+                        <option value="veterano">Veterano</option>
+                        <option value="membro">Membro</option>
+                        <option value="anciao">Ancião</option>
+                    </select>
+                    <select class="input-adm" id="jogoMembro">
+                        <option value="">Jogo Principal</option>
+                        <option value="cfn">CFN - Clash of Clan</option>
+                        <option value="cr">CR - Clash Royale</option>
+                        <option value="mlbb">MLBB - Mobile Legends</option>
+                    </select>
+                    <button class="neon-btn full-width" onclick="adicionarMembro()" style="border-color: #25D366; color: #25D366;">
+                        ➕ ADICIONAR MEMBRO
+                    </button>
+                </div>
+
+                <table class="tabela-adm">
+                    <thead>
+                        <tr>
+                            <th>NICK</th>
+                            <th>HIERARQUIA</th>
+                            <th>JOGO</th>
+                            <th>STATUS</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaMembros">
+                        <tr>
+                            <td>FRØN</td>
+                            <td>Líder</td>
+                            <td>MLBB</td>
+                            <td>🟢 Online</td>
+                            <td>
+                                <button class="acao-btn editar">Editar</button>
+                                <button class="acao-btn excluir">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ToxicSkull√</td>
+                            <td>Vice-Líder</td>
+                            <td>CFN</td>
+                            <td>🟡 Ausente</td>
+                            <td>
+                                <button class="acao-btn editar">Editar</button>
+                                <button class="acao-btn excluir">Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Seção: Gerenciar Campeonatos -->
+            <div class="secao-adm">
+                <h2 class="secao-titulo">🏆 GERENCIAR CAMPEONATOS</h2>
+                
+                <div class="form-adm">
+                    <input type="text" class="input-adm" placeholder="Nome do Campeonato" id="nomeCampeonato">
+                    <input type="date" class="input-adm" id="dataInicio">
+                    <input type="date" class="input-adm" id="dataFim">
+                    <input type="number" class="input-adm" placeholder="Premiação R$" id="premiacao">
+                    <select class="input-adm" id="jogoCampeonato">
+                        <option value="">Jogo do Campeonato</option>
+                        <option value="cfn">CFN</option>
+                        <option value="cr">CR</option>
+                        <option value="mlbb">MLBB</option>
+                    </select>
+                    <input type="number" class="input-adm" placeholder="Nº de Times" id="numeroTimes">
+                    <button class="neon-btn full-width" onclick="criarCampeonato()">
+                        🏆 CRIAR CAMPEONATO
+                    </button>
+                </div>
+
+                <table class="tabela-adm">
+                    <thead>
+                        <tr>
+                            <th>CAMPEONATO</th>
+                            <th>JOGO</th>
+                            <th>PERÍODO</th>
+                            <th>PREMIAÇÃO</th>
+                            <th>STATUS</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>RISING CHAMPIONSHIP</td>
+                            <td>MLBB</td>
+                            <td>01/12 - 15/12</td>
+                            <td>R$ 5.000</td>
+                            <td>🟡 Em Andamento</td>
+                            <td>
+                                <button class="acao-btn editar">Editar</button>
+                                <button class="acao-btn confirmar">Finalizar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BOOT CAMP SERIES</td>
+                            <td>CFN</td>
+                            <td>10/12 - 20/12</td>
+                            <td>R$ 3.000</td>
+                            <td>🟢 Ativo</td>
+                            <td>
+                                <button class="acao-btn editar">Editar</button>
+                                <button class="acao-btn excluir">Cancelar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Seção: Partidas Agendadas -->
+            <div class="secao-adm">
+                <h2 class="secao-titulo">🎮 PARTIDAS AGENDADAS</h2>
+                
+                <table class="tabela-adm">
+                    <thead>
+                        <tr>
+                            <th>DATA/HORA</th>
+                            <th>EQUIPE A</th>
+                            <th>EQUIPE B</th>
+                            <th>CAMPEONATO</th>
+                            <th>STATUS</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10/12 - 21:00</td>
+                            <td>FURIA DA NOITE</td>
+                            <td>SHADOW TEAM</td>
+                            <td>RISING</td>
+                            <td>🟢 Confirmada</td>
+                            <td>
+                                <button class="acao-btn editar">Remarcar</button>
+                                <button class="acao-btn excluir">Cancelar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>12/12 - 20:00</td>
+                            <td>FURIA DA NOITE</td>
+                            <td>NIGHT WOLVES</td>
+                            <td>BOOT CAMP</td>
+                            <td>🟡 Pendente</td>
+                            <td>
+                                <button class="acao-btn confirmar">Confirmar</button>
+                                <button class="acao-btn excluir">Cancelar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="neon-btn" onclick="fazerBackup()" style="border-color: #00ffea; color: #00ffea; margin: 0 10px;">
+                    💾 FAZER BACKUP
+                </button>
+                <button class="neon-btn" onclick="voltarInicio()" style="border-color: #ff0022; color: #ff0022; margin: 0 10px;">
+                    🏠 VOLTAR AO INÍCIO
+                </button>
+                <button class="neon-btn" onclick="sairPainel()" style="border-color: #ff6b6b; color: #ff6b6b; margin: 0 10px;">
+                    🚪 SAIR DO PAINEL
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funções do Painel ADM
+        function gerenciarMembros() {
+            document.querySelector('.secao-adm:nth-child(3)').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function gerenciarCampeonatos() {
+            document.querySelector('.secao-adm:nth-child(4)').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function gerenciarPartidas() {
+            document.querySelector('.secao-adm:nth-child(5)').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function gerenciarTabelas() {
+            alert('📊 Funcionalidade de tabelas em desenvolvimento!');
+        }
+        
+        function adicionarMembro() {
+            const nome = document.getElementById('nomeMembro').value;
+            const nick = document.getElementById('nickMembro').value;
+            
+            if (!nome || !nick) {
+                alert('❌ Preencha nome e nick do membro!');
+                return;
+            }
+            
+            alert(`✅ Membro ${nick} adicionado com sucesso!`);
+            // Aqui iria a lógica para adicionar à tabela
+        }
+        
+        function criarCampeonato() {
+            const nome = document.getElementById('nomeCampeonato').value;
+            const premiacao = document.getElementById('premiacao').value;
+            
+            if (!nome || !premiacao) {
+                alert('❌ Preencha nome e premiação do campeonato!');
+                return;
+            }
+            
+            alert(`✅ Campeonato ${nome} criado com premiação de R$ ${premiacao}!`);
+        }
+        
+        function fazerBackup() {
+            alert('💾 Backup do sistema realizado com sucesso!');
+        }
+        
+        function sairPainel() {
+            if (confirm('🚪 Tem certeza que deseja sair do Painel ADM?')) {
+                window.location.href = 'index.html';
+            }
+        }
+        
+        function voltarInicio() {
+            window.location.href = 'index.html';
+        }
+        
+        // Atualizar estatísticas em tempo real
+        function atualizarEstatisticas() {
+            // Simular atualização de dados
+            setInterval(() => {
+                document.getElementById('totalMembros').textContent = 
+                    Math.floor(47 + Math.random() * 3);
+                document.getElementById('partidasHoje').textContent = 
+                    Math.floor(8 + Math.random() * 2);
+            }, 5000);
+        }
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            atualizarEstatisticas();
+        });
+    </script>
+</body>
+</html>
