@@ -5,55 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel - Furia Da Noite</title>
     <link rel="stylesheet" href="../style.css">
-</head>
-<body>
-    <div class="container">
-        <header class="neon-header">
-            <h1 class="neon-text">🎮 PAINEL DA EQUIPE</h1>
-            <p class="subtitle">Acesso Restrito - Membros Furia</p>
-        </header>
-
-        <div class="painel-content">
-            <div class="painel-grid">
-                <div class="painel-card" onclick="abrirSecao('membros')">
-                    <h3>👥 GERENCIAR MEMBROS</h3>
-                    <p>Adicionar/remover membros</p>
-                </div>
-                
-                <div class="painel-card" onclick="abrirSecao('partidas')">
-                    <h3>🎯 GERENCIAR PARTIDAS</h3>
-                    <p>Agendar e monitorar</p>
-                </div>
-                
-                <div class="painel-card" onclick="abrirSecao('config')">
-                    <h3>⚙️ CONFIGURAÇÕES</h3>
-                    <p>Ajustes do sistema</p>
-                </div>
-                
-                <div class="painel-card" onclick="executarComando('backup')">
-                    <h3>💾 BACKUP</h3>
-                    <p>Salvar dados</p>
-                </div>
-            </div>
-            
-            <!-- Console do Sistema -->
-            <div class="console-painel">
-                <h3>📟 CONSOLE DO SISTEMA</h3>
-                <div class="console-output" id="console">
-                    <div>> Painel Furia carregado</div>
-                    <div>> Sistema de membros ativo</div>
-                    <div>> 7 membros conectados</div>
-                </div>
-                <div class="console-input">
-                    <input type="text" id="commandInput" placeholder="Digite um comando...">
-                    <button onclick="enviarComando()">EXECUTAR</button>
-                </div>
-            </div>
-            
-            <button class="neon-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
-        </div>
-    </div>
-
     <style>
         .painel-grid {
             display: grid;
@@ -70,12 +21,13 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 34, 0.3);
         }
         
         .painel-card:hover {
             transform: translateY(-5px);
             background: rgba(255, 0, 34, 0.1);
-            box-shadow: 0 8px 20px rgba(255, 0, 34, 0.3);
+            box-shadow: 0 8px 25px rgba(255, 0, 34, 0.5);
         }
         
         .painel-card h3 {
@@ -89,6 +41,7 @@
             border-radius: 10px;
             padding: 20px;
             margin: 30px 0;
+            box-shadow: 0 0 20px rgba(255, 0, 34, 0.3);
         }
         
         .console-output {
@@ -100,6 +53,7 @@
             margin-bottom: 15px;
             font-family: 'Courier New', monospace;
             font-size: 0.9rem;
+            border: 1px solid #ff0022;
         }
         
         .console-input {
@@ -123,12 +77,116 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn-inicio {
+            background: linear-gradient(45deg, #ff0022, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            width: 200px;
+            box-shadow: 0 5px 15px rgba(255, 0, 34, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-inicio:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 0, 34, 0.6);
+        }
+        
+        .user-info {
+            background: rgba(255, 0, 34, 0.1);
+            border: 2px solid #ff0022;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
         }
     </style>
+</head>
+<body>
+    <div class="container">
+        <header class="neon-header" style="border-color: #ff0022; box-shadow: 0 0 20px rgba(255, 0, 34, 0.3);">
+            <h1 class="neon-text">🎮 PAINEL DA EQUIPE</h1>
+            <p class="subtitle">Acesso Restrito - Membros Furia</p>
+        </header>
+
+        <!-- INFO DO USUÁRIO -->
+        <div class="user-info">
+            <h3>👤 Usuário: <span style="color: #ff0022;">Furia_Member</span></h3>
+            <p>🕒 Login: <span id="login-time"></span></p>
+        </div>
+
+        <div class="painel-content">
+            <div class="painel-grid">
+                <div class="painel-card" onclick="abrirSecao('membros')">
+                    <h3>👥 GERENCIAR MEMBROS</h3>
+                    <p>Adicionar/remover membros</p>
+                </div>
+                
+                <div class="painel-card" onclick="abrirSecao('partidas')">
+                    <h3>🎯 GERENCIAR PARTIDAS</h3>
+                    <p>Agendar e monitorar</p>
+                </div>
+                
+                <div class="painel-card" onclick="abrirSecao('config')">
+                    <h3>⚙️ CONFIGURAÇÕES</h3>
+                    <p>Ajustes do sistema</p>
+                </div>
+                
+                <div class="painel-card" onclick="executarComando('backup')">
+                    <h3>💾 BACKUP</h3>
+                    <p>Salvar dados do sistema</p>
+                </div>
+                
+                <div class="painel-card" onclick="abrirSecao('financeiro')">
+                    <h3>💰 FINANCEIRO</h3>
+                    <p>Gestão de recursos</p>
+                </div>
+                
+                <div class="painel-card" onclick="abrirSecao('relatorios')">
+                    <h3>📊 RELATÓRIOS</h3>
+                    <p>Estatísticas e análises</p>
+                </div>
+            </div>
+            
+            <!-- Console do Sistema -->
+            <div class="console-painel">
+                <h3 class="neon-title">📟 CONSOLE DO SISTEMA</h3>
+                <div class="console-output" id="console">
+                    <div>> Painel Furia inicializado</div>
+                    <div>> Sistema de membros: ATIVO</div>
+                    <div>> 7 membros conectados</div>
+                    <div>> Servidor: ONLINE</div>
+                    <div>> Último backup: Hoje 14:30</div>
+                </div>
+                <div class="console-input">
+                    <input type="text" id="commandInput" placeholder="Digite um comando...">
+                    <button onclick="enviarComando()">EXECUTAR</button>
+                </div>
+            </div>
+            
+            <button class="btn-inicio" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
+        </div>
+    </div>
 
     <script>
+        // Mostrar hora do login
+        document.getElementById('login-time').textContent = new Date().toLocaleTimeString();
+        
         function abrirSecao(secao) {
-            alert(`🎮 Acessando seção: ${secao}`);
+            const consoleOutput = document.getElementById('console');
+            const timestamp = new Date().toLocaleTimeString();
+            consoleOutput.innerHTML += `<div>[${timestamp}] Acessando: ${secao}</div>`;
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            alert(`🎮 Acessando seção: ${secao.toUpperCase()}`);
         }
         
         function executarComando(comando) {
