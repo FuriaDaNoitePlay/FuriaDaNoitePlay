@@ -360,3 +360,98 @@ function getBadgeHierarquia(nivel) {
 }
 
 console.log('🚀 Sistema Furia da Noite Play carregado com sucesso!');
+// ===============================================================
+// FUNÇÕES PARA AS NOVAS PÁGINAS
+// ===============================================================
+
+// VERIFICA SE TODAS AS PÁGINAS EXISTEM
+function verificarTodasPaginas() {
+    const paginas = [
+        'index.html',
+        'login.html', 
+        'cadastro.html',
+        'campeonato.html',
+        'area-visitante.html',
+        'regras.html',
+        'membros.html',
+        'chatgeral.html',
+        'admin.html'
+    ];
+    
+    console.log('🔍 Verificando integridade do site...');
+    
+    paginas.forEach(pagina => {
+        fetch(pagina)
+            .then(response => {
+                if (response.ok) {
+                    console.log(`✅ ${pagina} - OK`);
+                } else {
+                    console.log(`❌ ${pagina} - 404 (Precisa criar)`);
+                }
+            })
+            .catch(error => {
+                console.log(`❌ ${pagina} - Erro: ${error}`);
+            });
+    });
+}
+
+// REDIRECIONAMENTO INTELIGENTE APÓS LOGIN
+function redirecionarAposLogin(usuario) {
+    switch(usuario.tipo) {
+        case 'visitante':
+            window.location.href = 'area-visitante.html';
+            break;
+        case 'membro':
+            window.location.href = 'membros.html';
+            break;
+        case 'equipe':
+            window.location.href = 'campeonato.html';
+            break;
+        case 'adm':
+            window.location.href = 'admin.html';
+            break;
+        default:
+            window.location.href = 'index.html';
+    }
+}
+
+// ATUALIZAR HEADER EM TODAS AS PÁGINAS
+function atualizarHeaderGlobal() {
+    const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+    const header = document.querySelector('header');
+    
+    if (header && usuario) {
+        const nav = header.querySelector('.main-nav');
+        if (nav) {
+            // Mantém apenas links básicos e adiciona sair
+            nav.innerHTML = `
+                <a href="index.html" class="nav-link neon-text">Início</a>
+                <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
+                <a href="regras.html" class="nav-link neon-text">Regras</a>
+                <a href="#" class="nav-link neon-btn" onclick="sair()">Sair (${usuario.nick})</a>
+            `;
+        }
+    }
+}
+
+// INICIALIZAR SISTEMA COMPLETO
+function inicializarSistemaCompleto() {
+    console.log('🎮 Sistema Furia da Noite - Inicializado!');
+    
+    // Verifica login
+    verificarEAtualizarNavegacao();
+    
+    // Atualiza header se estiver logado
+    atualizarHeaderGlobal();
+    
+    // Inicializa sistema de pontos se na página de campeonato
+    if (window.location.href.includes('campeonato.html')) {
+        inicializarSistemaPontos();
+    }
+    
+    // Para debug (descomente se quiser testar)
+    // verificarTodasPaginas();
+}
+
+// EXECUTAR QUANDO A PÁGINA CARREGAR
+document.addEventListener('DOMContentLoaded', inicializarSistemaCompleto);
