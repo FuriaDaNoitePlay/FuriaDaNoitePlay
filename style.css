@@ -430,4 +430,65 @@ header {
     margin-bottom: 25px;
     text-shadow: 0 0 5px var(--neon-yellow);
 }
+}/* ===== ESTILOS DO LOGIN E CADASTRO ===== */
+.login-body, .cadastro-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #000000, #1a0000);
+    padding: 20px;
+}
+
+.login-container, .cadastro-container {
+    background: rgba(10, 10, 10, 0.95);
+    border: 2px solid var(--neon-red);
+    border-radius: 15px;
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: var(--neon-glow);
+}
+
+.login-header, .cadastro-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-logo, .cadastro-logo {
+    width: 100px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px var(--neon-red);
+}
+
+.login-title, .cadastro-title {
+    color: #fff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px var(--neon-red);
+    font-size: 1.8em;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .login-container, .cadastro-container {
+        padding: 30px 20px;
+    }
+    
+    .login-type, .cadastro-type {
+        flex-direction: column;
+    }
+    
+    .type-btn, .cadastro-btn {
+        margin: 5px 0;
+    }
+    
+    .login-links, .cadastro-links {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .login-links a, .cadastro-links a {
+        margin: 5px 0;
+    }
 }
