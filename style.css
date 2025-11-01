@@ -177,3 +177,160 @@ header {
 
 .login-container {
     background: var(--dark
+/* ===== ESTILOS DA ABA FRØN ===== */
+.fron-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* QUADRADO VERMELHO NEON */
+.video-container {
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid var(--neon-red);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: var(--neon-glow);
+    text-align: center;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    border: 2px solid var(--neon-red);
+}
+
+/* QUADRADO AZUL */
+.instagram-container {
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid #00ffff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 30px #00ffff;
+    text-align: center;
+}
+
+/* QUADRADO AMARELO */
+.gw-container {
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid var(--neon-yellow);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 30px var(--neon-yellow);
+}
+
+.gw-logo {
+    width: 150px;
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 10px;
+}
+
+/* BOTÕES DE REDE SOCIAL */
+.social-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.social-btn {
+    background: #000;
+    border: 2px solid var(--neon-red);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.social-btn:hover {
+    background: var(--neon-red);
+    box-shadow: var(--neon-glow);
+    transform: scale(1.05);
+}
+
+.social-btn.whatsapp { border-color: #25D366; }
+.social-btn.whatsapp:hover { background: #25D366; box-shadow: 0 0 20px #25D366; }
+
+.social-btn.discord { border-color: #5865F2; }
+.social-btn.discord:hover { background: #5865F2; box-shadow: 0 0 20px #5865F2; }
+
+.social-btn.instagram { border-color: #E4405F; }
+.social-btn.instagram:hover { background: #E4405F; box-shadow: 0 0 20px #E4405F; }
+
+.social-btn.youtube { border-color: #FF0000; }
+.social-btn.youtube:hover { background: #FF0000; box-shadow: 0 0 20px #FF0000; }
+
+.social-btn.tiktok { border-color: #00f2ea; }
+.social-btn.tiktok:hover { background: #00f2ea; color: black; box-shadow: 0 0 20px #00f2ea; }
+
+/* BOTÃO GRANDE VERDE */
+.btn-whatsapp-grande {
+    display: block;
+    width: 100%;
+    background: #25D366;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 20px 0;
+    border: 3px solid #25D366;
+    box-shadow: 0 0 30px #25D366;
+    transition: all 0.3s ease;
+}
+
+.btn-whatsapp-grande:hover {
+    background: #128C7E;
+    transform: scale(1.02);
+}
+
+/* BOTÃO VERDE GW */
+.btn-gw-link {
+    display: block;
+    width: 100%;
+    background: #25D366;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    margin: 15px 0;
+    border: 2px solid #25D366;
+    transition: all 0.3s ease;
+}
+
+.btn-gw-link:hover {
+    background: #128C7E;
+    box-shadow: 0 0 20px #25D366;
+}
+
+/* TEXTO COM BRILHO NEON */
+.texto-neon {
+    color: #fff;
+    text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1.2em;
+}
+
+/* QUADRADO TIKTOK */
+.tiktok-container {
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid #00f2ea;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 30px #00f2ea;
+    text-align: center;
+}
