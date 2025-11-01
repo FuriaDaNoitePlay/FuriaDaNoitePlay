@@ -227,6 +227,15 @@
             color: #ffd700;
         }
 
+        .codigo-verificacao {
+            background: rgba(255, 0, 255, 0.1);
+            border: 1px solid #ff00ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #ff00ff;
+        }
+
         /* RESPONSIVO */
         @media (max-width: 768px) {
             .login-container {
@@ -286,6 +295,15 @@
                 <div class="input-group">
                     <label for="senha">🗝️ Senha da Noite:</label>
                     <input type="password" id="senha" placeholder="Sua senha noturna" required>
+                </div>
+
+                <!-- CAMPO DE VERIFICAÇÃO ADICIONADO -->
+                <div class="input-group">
+                    <label for="codigoVerificacao">🔢 Código de Verificação:</label>
+                    <input type="text" id="codigoVerificacao" placeholder="35164266" required>
+                    <small style="color: #ff00ff; margin-top: 5px; display: block;">
+                        Código enviado para verificação de segurança
+                    </small>
                 </div>
 
                 <button type="submit" class="btn-login">🎮 ACESSAR SISTEMA</button>
@@ -440,8 +458,18 @@
             
             const codigo = document.getElementById('codigo').value;
             const senha = document.getElementById('senha').value;
+            const codigoVerificacao = document.getElementById('codigoVerificacao').value;
             const mensagem = document.getElementById('mensagem');
             const perfil = document.getElementById('perfilSincronizado');
+
+            // CÓDIGOS DE VERIFICAÇÃO VÁLIDOS
+            const codigosValidos = ['35164266', 'furia2024', 'noite123', 'gorilaroxo', 'furiaplay'];
+
+            // VERIFICAR CÓDIGO DE VERIFICAÇÃO
+            if (!codigosValidos.includes(codigoVerificacao)) {
+                mostrarMensagem('❌ Código de verificação inválido!', 'erro');
+                return;
+            }
 
             // DADOS DE USUÁRIOS (simulando banco de dados)
             const usuarios = {
@@ -568,37 +596,4 @@
             
             setTimeout(() => {
                 window.location.href = 'md4.html';
-            }, 2000);
-        }
-
-        // FUNÇÃO PARA MOSTRAR MENSAGENS
-        function mostrarMensagem(texto, tipo) {
-            const mensagem = document.getElementById('mensagem');
-            mensagem.innerHTML = texto;
-            mensagem.className = `mensagem ${tipo}`;
-            mensagem.style.display = 'block';
-            
-            setTimeout(() => {
-                mensagem.style.display = 'none';
-            }, 5000);
-        }
-
-        // EFEITOS VISUAIS (CÓDIGO QUE VOCÊ MANDOU)
-        const inputs = document.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                this.style.transform = 'scale(1.02)';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.style.transform = 'scale(1)';
-            });
-        });
-
-        // VERIFICAR SE JÁ ESTÁ LOGADO (CÓDIGO QUE VOCÊ MANDOU)
-        window.addEventListener('load', function() {
-            const usuarioSalvo = localStorage.getItem('usuarioLogado');
-            if (usuarioSalvo) {
-                const usuario = JSON.parse(usuarioSalvo);
-                if (usuario.codigo) {
-                    doc
+            }, 2000)
