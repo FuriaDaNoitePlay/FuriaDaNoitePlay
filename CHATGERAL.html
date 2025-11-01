@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Geral - Furia da Noite Play</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="furia.png" alt="Furia da Noite Play" class="logo">
+        </div>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link neon-text">Início</a>
+            <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
+            <a href="membros.html" class="nav-link neon-text">Membros</a>
+            <a href="chatgeral.html" class="nav-link neon-text">Chat Geral</a>
+            <a href="#" class="nav-link neon-btn" onclick="sair()">Sair</a>
+        </nav>
+    </header>
+
+    <main class="campeonato-main">
+        <section class="hero">
+            <h1 class="neon-title">💬 CHAT GERAL</h1>
+            <p class="neon-subtitle">Converse com a comunidade Furia da Noite</p>
+            
+            <div class="chat-container" style="max-width: 800px; margin: 0 auto; background: rgba(255,0,0,0.1); padding: 20px; border-radius: 10px; border: 2px solid var(--neon-red);">
+                <div class="chat-messages" style="height: 300px; overflow-y: auto; margin-bottom: 20px; padding: 15px; background: rgba(0,0,0,0.7); border-radius: 8px;">
+                    <div class="message" style="margin: 10px 0; padding: 10px; background: rgba(255,0,0,0.2); border-radius: 5px;">
+                        <strong style="color: var(--neon-red);">Sistema:</strong> Chat em desenvolvimento!
+                    </div>
+                </div>
+                
+                <div class="chat-input" style="display: flex; gap: 10px;">
+                    <input type="text" placeholder="Digite sua mensagem..." style="flex: 1; padding: 12px; border: 1px solid var(--neon-red); background: rgba(0,0,0,0.7); color: white; border-radius: 5px;">
+                    <button class="btn-neon" onclick="alert('Sistema de chat em desenvolvimento!')">Enviar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 FuriaDaNoitePlay</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
