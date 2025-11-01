@@ -1,6 +1,0 @@
-
-ao.textContent = "Início";
-botao.onclick = () => {
-  window.location.href = "https://furiadanoiteplay.com.br";
-};
-document.body.appendChild(botao);
