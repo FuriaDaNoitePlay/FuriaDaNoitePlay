@@ -60,19 +60,6 @@
             flex-direction: column;
             gap: 5px;
         }
-        
-        .file-upload {
-            border: 2px dashed #ff6b6b;
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .file-upload:hover {
-            background: rgba(255, 107, 107, 0.1);
-        }
     </style>
 </head>
 <body>
@@ -184,22 +171,6 @@
         
         function voltarInicio() {
             window.location.href = 'index.html';
-        }
-        
-        // Adicionar mais campos de jogadores dinamicamente
-        let jogadorCount = 5;
-        
-        function adicionarJogador() {
-            if (jogadorCount < 10) {
-                jogadorCount++;
-                const jogadoresGrid = document.querySelector('.jogadores-grid');
-                const novoJogador = document.createElement('div');
-                novoJogador.className = 'jogador-input';
-                novoJogador.innerHTML = `<input type="text" placeholder="Jogador ${jogadorCount}">`;
-                jogadoresGrid.appendChild(novoJogador);
-            } else {
-                alert('❌ Máximo de 10 jogadores atingido!');
-            }
         }
     </script>
 </body>
