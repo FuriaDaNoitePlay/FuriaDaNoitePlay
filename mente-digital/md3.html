@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel - FuriaDaNoitePlay</title>
+    <title>Painel Equipe - FuriaDaNoitePlay</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .md-container {
@@ -19,123 +19,195 @@
             padding-bottom: 20px;
         }
         
-        .panel-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .panel-card {
+        .login-container {
             background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
+            border: 2px solid #ff0022;
             border-radius: 15px;
-            border: 1px solid #ff0022;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .panel-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 0, 34, 0.3);
-        }
-        
-        .panel-card h3 {
-            color: #ff0022;
-            margin: 15px 0;
-        }
-        
-        .panel-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .login-warning {
-            text-align: center;
-            background: rgba(255, 0, 34, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #ff0022;
+            padding: 40px;
             margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(255, 0, 34, 0.3);
         }
         
-        .back-btn {
-            background: transparent;
-            color: #ff6b6b;
-            border: 2px solid #ff6b6b;
-            padding: 10px 20px;
-            border-radius: 25px;
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .input-group label {
+            color: #ff0022;
+            font-weight: bold;
+            text-shadow: 0 0 5px #ff0022;
+        }
+        
+        .input-group input {
+            padding: 12px;
+            border: 2px solid #ff0022;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 0, 34, 0.5);
+        }
+        
+        .opcoes-login {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .opcao-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #00ffea;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
             cursor: pointer;
-            margin-top: 20px;
             transition: all 0.3s ease;
         }
         
-        .back-btn:hover {
-            background: rgba(255, 107, 107, 0.1);
+        .opcao-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 234, 0.3);
+        }
+        
+        .info-acesso {
+            background: rgba(255, 0, 34, 0.1);
+            border: 1px solid #ff0022;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="md-container">
+            <!-- Header -->
             <div class="md-header">
                 <h1 class="neon-text">🔐 PAINEL DA EQUIPE</h1>
-                <p class="subtitle">Acesso Restrito - Área de Membros</p>
+                <p class="subtitle">AGENTE DA NOITE ADN - Acesso Restrito</p>
             </div>
-            
-            <div class="login-warning">
+
+            <!-- Informações de Acesso -->
+            <div class="info-acesso">
                 <h3>⚠️ ACESSO RESTRITO</h3>
-                <p>Esta área é exclusiva para membros da FuriaDaNoitePlay</p>
-                <p>Entre com suas credenciais para acessar o painel completo</p>
+                <p>Esta área é exclusiva para <strong>Agentes da Noite ADN</strong> cadastrados</p>
+                <p>Entre com suas credenciais para acessar o painel completo da equipe</p>
             </div>
-            
-            <div class="panel-grid">
-                <div class="panel-card" onclick="acessarPainel('agenda')">
-                    <div class="panel-icon">📅</div>
-                    <h3>AGENDA</h3>
-                    <p>Agendar partidas e treinos</p>
+
+            <!-- Opções de Login -->
+            <div class="opcoes-login">
+                <div class="opcao-card" onclick="abrirLoginEquipe()">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🎮</div>
+                    <h4>AGENTE ADN</h4>
+                    <p>Login de Membro</p>
                 </div>
                 
-                <div class="panel-card" onclick="acessarPainel('membros')">
-                    <div class="panel-icon">👥</div>
-                    <h3>GERENCIAR MEMBROS</h3>
-                    <p>Administrar equipe</p>
+                <div class="opcao-card" onclick="abrirLoginAdm()">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">👑</div>
+                    <h4>ADM SUPREMO</h4>
+                    <p>Acesso Total</p>
                 </div>
                 
-                <div class="panel-card" onclick="acessarPainel('estatisticas')">
-                    <div class="panel-icon">📊</div>
-                    <h3>ESTATÍSTICAS</h3>
-                    <p>Dados de desempenho</p>
-                </div>
-                
-                <div class="panel-card" onclick="acessarPainel('backup')">
-                    <div class="panel-icon">💾</div>
-                    <h3>BACKUP</h3>
-                    <p>Sistema de segurança</p>
+                <div class="opcao-card" onclick="abrirCadastroMembro()">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">⭐</div>
+                    <h4>CADASTRAR</h4>
+                    <p>Novo Agente</p>
                 </div>
             </div>
-            
-            <div style="text-align: center;">
-                <button class="neon-btn" onclick="irParaLogin()">🎮 FAZER LOGIN</button>
-                <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
+
+            <!-- Formulário de Login -->
+            <div class="login-container">
+                <h3 style="color: #ff0022; text-align: center; margin-bottom: 25px; text-shadow: 0 0 10px #ff0022;">
+                    🔐 LOGIN - AGENTE DA NOITE
+                </h3>
+                
+                <div class="login-form">
+                    <div class="input-group">
+                        <label>🎮 Usuário:</label>
+                        <input type="text" id="usuario" placeholder="Digite seu usuário ADN">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>🔒 Senha:</label>
+                        <input type="password" id="senha" placeholder="Digite sua senha">
+                    </div>
+                    
+                    <button class="neon-btn" onclick="fazerLoginEquipe()">
+                        🎮 ACESSAR PAINEL
+                    </button>
+                    
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações de Suporte -->
+            <div class="info-acesso">
+                <h4>📞 PRECISA DE AJUDA?</h4>
+                <p>Entre em contato com a liderança:</p>
+                <p>📱 WhatsApp: (31) 9731-9008</p>
+                <p>📧 E-mail: furiadanoiteplay2025@gmail.com</p>
             </div>
         </div>
     </div>
 
     <script>
-        function acessarPainel(tipo) {
-            alert('🔐 Acesso restrito! Faça login primeiro.');
-            irParaLogin();
+        function fazerLoginEquipe() {
+            const usuario = document.getElementById('usuario').value;
+            const senha = document.getElementById('senha').value;
+            
+            // Credenciais de teste
+            if (usuario === 'ToxicSkull√' && senha === 'L@!on') {
+                alert('✅ Login realizado! Acessando Painel da Equipe...');
+                window.location.href = 'painel-equipe.html';
+            } else {
+                alert('❌ Usuário ou senha incorretos!\n\n💡 Dica: Use ToxicSkull√ / L@!on para teste');
+            }
         }
         
-        function irParaLogin() {
-            window.location.href = 'login.html';
+        function abrirLoginAdm() {
+            window.location.href = 'login-adm.html';
+        }
+        
+        function abrirCadastroMembro() {
+            window.location.href = 'cadastro-membro.html';
+        }
+        
+        function abrirLoginEquipe() {
+            // Já está na página de login
+            document.getElementById('usuario').focus();
         }
         
         function voltarInicio() {
             window.location.href = 'index.html';
         }
+        
+        // Enter para login
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                fazerLoginEquipe();
+            }
+        });
+        
+        // Focar no campo usuário ao carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('usuario').focus();
+        });
     </script>
 </body>
 </html>
