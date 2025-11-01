@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro de Equipe - Fúria da Noite</title>
+<style>
+body {
+  background: radial-gradient(circle, #000000 70%, #1a0000);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.card {
+  background-color: #0a0a0a;
+  border: 2px solid red;
+  box-shadow: 0 0 25px red;
+  border-radius: 20px;
+  padding: 25px;
+  width: 360px;
+  text-align: center;
+}
+h2 {
+  color: #ff0000;
+  text-shadow: 0 0 10px red;
+}
+input, button {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+}
+input {
+  background-color: #1a1a1a;
+  color: white;
+}
+button {
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: darkred;
+}
+a {
+  color: #ff0000;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.jogadores {
+  margin-top: 15px;
+  text-align: left;
+}
+.jogadores input {
+  width: 45%;
+  margin: 5px 2%;
+  display: inline-block;
+}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>⚔️ Cadastro de Equipe ⚔️</h2>
+    <input type="text" id="nomeEquipe" placeholder="Nome da Equipe">
+    <input type="text" id="fotoEquipe" placeholder="URL da Foto da Equipe (opcional)">
+    
+    <div class="jogadores">
+      <h4 style="color:#ff0000;text-align:center;">Jogadores</h4>
+      <div id="listaJogadores"></div>
+      <button type="button" onclick="addJogador()">+ Adicionar Jogador</button>
+    </div>
+
+    <button onclick="salvarEquipe()">Salvar Equipe</button>
+    <p style="margin-top:15px;">Já tem equipe? <a href="login.html">Login</a></p>
+  </div>
+
+<script>
+let contador = 0;
+function addJogador() {
+  if (contador >= 10) {
+    alert("Máximo de 10 jogadores atingido!");
+    return;
+  }
+  contador++;
+  const div = document.createElement("div");
+  div.innerHTML = `
+    <input type="text" placeholder="Nick ${contador}" id="nick${contador}">
+    <input type="text" placeholder="ID ${contador}" id="id${contador}">
+  `;
+  document.getElementById("listaJogadores").appendChild(div);
+}
+
+function salvarEquipe() {
+  const nome = document.getElementById("nomeEquipe").value.trim();
+  const foto = document.getElementById("fotoEquipe").value.trim();
+
+  if (!nome) {
+    alert("Digite o nome da equipe!");
+    return;
+  }
+
+  const jogadores = [];
+  for (let i = 1; i <= contador; i++) {
+    const nick = document.getElementById(`nick${i}`).value.trim();
+    const id = document.getElementById(`id${i}`).value.trim();
+    if (nick && id) jogadores.push({ nick, id });
+  }
+
+  if (jogadores.length === 0) {
+    alert("Adicione pelo menos 1 jogador!");
+    return;
+  }
+
+  const equipe = { nome, foto, jogadores };
+  localStorage.setItem("equipe", JSON.stringify(equipe));
+  alert("Equipe cadastrada com sucesso!");
+  window.location.href = "login.html";
+}
+</script>
+</body>
+</html>
