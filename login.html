@@ -3,47 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🔥 Login Fúria da Noite 🔥</title>
+  <title>🔥 Login - Fúria da Noite 🔥</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="login-container">
-    <h2>🔥 Login Fúria da Noite 🔥</h2>
+    <h2>🔥 Fúria da Noite 🔥</h2>
 
-    <select id="tipoLogin">
+    <select id="tipoUsuario">
       <option value="usuario">Usuário</option>
       <option value="membro">Membro</option>
       <option value="equipe">Equipe</option>
     </select>
 
-    <input type="text" id="nomeLogin" placeholder="Digite seu nome ou nick">
-    <button id="btnEntrar">Entrar</button>
-    <button onclick="window.location.href='index.html'">Voltar</button>
+    <input type="text" id="nick" placeholder="Digite seu Nick">
+
+    <button id="entrarBtn">Entrar</button>
+    <button id="cadastrarBtn">Cadastrar</button>
   </div>
 
   <script>
-    document.getElementById('btnEntrar').addEventListener('click', () => {
-      const tipo = document.getElementById('tipoLogin').value;
-      const nome = document.getElementById('nomeLogin').value.trim();
+    // Botão "Entrar"
+    document.getElementById('entrarBtn').addEventListener('click', () => {
+      const tipo = document.getElementById('tipoUsuario').value;
+      const nick = document.getElementById('nick').value.trim();
 
-      if (nome === '') {
-        alert('Digite seu nome ou nick antes de entrar!');
+      if (nick === '') {
+        alert('Digite seu nick!');
         return;
       }
 
-      // salva login no navegador
-      localStorage.setItem('usuarioFuria', nome);
-      localStorage.setItem('tipoConta', tipo);
+      // salva o nick localmente pra usar depois
+      localStorage.setItem('usuarioNick', nick);
+      localStorage.setItem('usuarioTipo', tipo);
 
-      alert(`Bem-vindo(a), ${nome}! Conta: ${tipo}`);
+      alert(`Bem-vindo(a), ${nick}!`);
+
+      // redireciona para a página inicial (index)
       window.location.href = 'index.html';
     });
+
+    // Botão "Cadastrar"
+    document.getElementById('cadastrarBtn').addEventListener('click', () => {
+      const tipo = document.getElementById('tipoUsuario').value;
+
+      if (tipo === 'usuario') {
+        window.location.href = 'cadastro-usuario.html';
+      } else if (tipo === 'membro') {
+        window.location.href = 'cadastro-membro.html';
+      } else if (tipo === 'equipe') {
+        window.location.href = 'cadastro-equipe.html';
+      } else {
+        alert('Selecione um tipo de usuário para se cadastrar.');
+      }
+    });
   </script>
-<script>
-  // Quando clicar em "Cadastrar", vai para o cadastro de usuário
-  document.getElementById('cadastrarBtn').addEventListener('click', () => {
-    window.location.href = 'cadastro-usuario.html';
-  });
-</script>
 </body>
 </html>
