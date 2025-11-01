@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD4 - Painel da Equipe | Sistema Truco</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ESTILOS ESPECÍFICOS MD4 */
+        .status-ativa { color: #28a745; font-weight: bold; }
+        .status-inativa { color: #dc3545; font-weight: bold; }
+        .status-pendente { color: #ffc107; font-weight: bold; }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .info-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .info-item label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .acoes-btn {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .jogos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .jogo-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .jogo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .placar {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .time-info {
+            text-align: center;
+        }
+        
+        .time-nome {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .vs {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎯 MD4 - Painel da Equipe</h1>
+        <nav>
+            <span>Bem-vindo, <strong id="nome-equipe">Sua Equipe</strong></span>
+            <a href="index.html">🏠 Início</a>
+            <a href="md3.html">🔐 Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Informações da Equipe -->
+            <section class="card">
+                <h2>📊 Informações da Equipe</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>🏷️ Nome da Equipe:</label>
+                        <span id="equipe-nome">Carregando...</span>
+                    </div>
+                    <div class="info-item">
+                        <label>👥 Membros:</label>
+                        <span id="equipe-membros">0</span>
+                    </div>
+                    <div class="info-item">
+                        <label>⭐ Pontuação:</label>
+                        <span id="equipe-pontos">0</span>
+                    </div>
+                    <div class="info-item">
+                        <label>📈 Status:</label>
+                        <span id="equipe-status" class="status-ativa">Ativa</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lista de Membros -->
+            <section class="card">
+                <h2>👥 Membros da Equipe</h2>
+                <div class="table-container">
+                    <table id="tabela-membros">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela-membros">
+                            <!-- Membros carregados via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <button onclick="adicionarMembro()" class="btn-primary">➕ Adicionar Membro</button>
+            </section>
+
+            <!-- Próximos Jogos -->
+            <section class="card">
+                <h2>🎮 Próximos Jogos</h2>
+                <div class="jogos-grid" id="proximos-jogos">
+                    <!-- Jogos carregados via JavaScript -->
+                </div>
+            </section>
+
+            <!-- Histórico de Partidas -->
+            <section class="card">
+                <h2>📅 Histórico de Partidas</h2>
+                <div class="table-container">
+                    <table id="tabela-historico">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Adversário</th>
+                                <th>Placar</th>
+                                <th>Resultado</th>
+                                <th>Pontos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-historico">
+                            <!-- Histórico carregado via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Dados mockados para demonstração
+        const equipeData = {
+            nome: "Fúria Truco Team",
+            membros: 4,
+            pontos: 1250,
+            status: "Ativa"
+        };
+
+        const membrosData = [
+            { nome: "João Silva", email: "joao@furia.com", telefone: "(11) 99999-9999" },
+            { nome: "Maria Santos", email: "maria@furia.com", telefone: "(11) 88888-8888" },
+            { nome: "Pedro Oliveira", email: "pedro@furia.com", telefone: "(11) 77777-7777" },
+            { nome: "Ana Costa", email: "ana@furia.com", telefone: "(11) 66666-6666" }
+        ];
+
+        const proximosJogos = [
+            { data: "15/12/2024 20:00", adversario: "Team Alpha", local: "Arena Central" },
+            { data: "18/12/2024 19:00", adversario: "Beta Squad", local: "Sala VIP" },
+            { data: "22/12/2024 21:00", adversario: "Gamma Force", local: "Estádio Digital" }
+        ];
+
+        const historicoPartidas = [
+            { data: "10/12/2024", adversario: "Delta Team", placar: "12x8", resultado: "Vitória", pontos: "+25" },
+            { data: "08/12/2024", adversario: "Epsilon Crew", placar: "10x12", resultado: "Derrota", pontos: "-15" },
+            { data: "05/12/2024", adversario: "Zeta Warriors", placar: "12x5", resultado: "Vitória", pontos: "+30" },
+            { data: "01/12/2024", adversario: "Theta Legends", placar: "12x11", resultado: "Vitória", pontos: "+20" }
+        ];
+
+        // Carregar dados na página
+        function carregarDados() {
+            // Informações da equipe
+            document.getElementById('nome-equipe').textContent = equipeData.nome;
+            document.getElementById('equipe-nome').textContent = equipeData.nome;
+            document.getElementById('equipe-membros').textContent = equipeData.membros;
+            document.getElementById('equipe-pontos').textContent = equipeData.pontos;
+            document.getElementById('equipe-status').textContent = equipeData.status;
+
+            // Lista de membros
+            const corpoMembros = document.getElementById('corpo-tabela-membros');
+            corpoMembros.innerHTML = membrosData.map(membro => `
+                <tr>
+                    <td>${membro.nome}</td>
+                    <td>${membro.email}</td>
+                    <td>${membro.telefone}</td>
+                    <td>
+                        <div class="acoes-btn">
+                            <button class="btn-secondary btn-sm" onclick="editarMembro('${membro.email}')">✏️ Editar</button>
+                            <button class="btn-danger btn-sm" onclick="removerMembro('${membro.email}')">🗑️ Remover</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Próximos jogos
+            const jogosContainer = document.getElementById('proximos-jogos');
+            jogosContainer.innerHTML = proximosJogos.map(jogo => `
+                <div class="jogo-card">
+                    <div class="jogo-header">
+                        <strong>${jogo.data}</strong>
+                        <span class="placar">VS</span>
+                    </div>
+                    <div class="time-info">
+                        <div class="time-nome">${equipeData.nome}</div>
+                        <div class="vs">🆚</div>
+                        <div class="time-nome">${jogo.adversario}</div>
+                    </div>
+                    <p>📍 ${jogo.local}</p>
+                    <button class="btn-primary" onclick="prepararPartida('${jogo.adversario}')">🎯 Preparar Partida</button>
+                </div>
+            `).join('');
+
+            // Histórico
+            const corpoHistorico = document.getElementById('corpo-historico');
+            corpoHistorico.innerHTML = historicoPartidas.map(partida => `
+                <tr>
+                    <td>${partida.data}</td>
+                    <td>${partida.adversario}</td>
+                    <td><strong>${partida.placar}</strong></td>
+                    <td><span class="${partida.resultado === 'Vitória' ? 'status-ativa' : 'status-inativa'}">${partida.resultado}</span></td>
+                    <td><strong>${partida.pontos}</strong></td>
+                </tr>
+            `).join('');
+        }
+
+        // Funções de ação
+        function adicionarMembro() {
+            alert('🔧 Função: Adicionar novo membro à equipe\n\nIntegrar com sistema de cadastro...');
+            // window.location.href = 'cadastro-membro.html';
+        }
+
+        function editarMembro(email) {
+            alert(`✏️ Editar membro: ${email}\n\nAbrir formulário de edição...`);
+        }
+
+        function removerMembro(email) {
+            if(confirm(`Tem certeza que deseja remover ${email} da equipe?`)) {
+                alert(`🗑️ Membro ${email} removido com sucesso!`);
+                // Implementar remoção real aqui
+            }
+        }
+
+        function prepararPartida(adversario) {
+            alert(`🎯 Preparando partida contra: ${adversario}\n\nRedirecionando para sala de jogo...`);
+            // window.location.href = 'trucu.html';
+        }
+
+        // Carregar dados quando a página abrir
+        document.addEventListener('DOMContentLoaded', carregarDados);
+    </script>
+</body>
+</html>
