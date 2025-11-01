@@ -5,10 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campeonato - Agente Da Noite</title>
     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="furia.png" alt="Agente Da Noite" class="logo">
+        </div>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link neon-text">Início</a>
+            <a href="fron.html" class="nav-link neon-text">FRØN</a>
+            <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
+            <a href="regras.html" class="nav-link neon-text">Regras</a>
+            <a href="login.html" class="nav-link neon-btn">Login</a>
+        </nav>
+    </header>
+
+    <main class="campeonato-main">
+        <section class="campeonato-header">
+            <h1 class="neon-title">🏆 CAMPEONATO AGENTE DA NOITE</h1>
+            <div class="pontuacao-info">
+                <div class="ponto-item">
+                    <span class="ponto-cor vitoria"></span>
+                    <span>Vitória: 4 pontos</span>
+                </div>
+                <div class="ponto-item">
+                    <span class="ponto-cor empate"></span>
+                    <span>Empate: 1 ponto</span>
+                </div>
+                <div class="ponto-item">
+                    <span class="ponto-cor derrota"></span>
+                    <span>Derrota: -1 ponto</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="tabela-container">
+            <div class="grupo-section">
+                <h3 class="grupo-titulo">LIGA PRINCIPAL 2025</h3>
+                <p class="grupo-subtitulo">CLASH ROYALE • MLBB • CLASH OF CLANS</p>
+
+                <div class="tabela-classificacao">
+                    <div class="linha-tabela primeiro-lugar">
+                        <div class="posicao">1°</div>
+                        <div class="equipe">FURIA ELITE</div>
+                        <div class="pontos">32</div>
+                    </div>
+                    <div class="linha-tabela segundo-lugar">
+                        <div class="posicao">2°</div>
+                        <div class="equipe">NOCTURNAL WOLVES</div>
+                        <div class="pontos">28</div>
+                    </div>
+                    <div class="linha-tabela terceiro-lugar">
+                        <div class="posicao">3°</div>
+                        <div class="equipe">MOONSHADOW</div>
+                        <div class="pontos">25</div>
+                    </div>
+                    <div class="linha-tabela">
+                        <div class="posicao">4°</div>
+                        <div class="equipe">DARK LEGION</div>
+                        <div class="pontos">22</div>
+                    </div>
+                    <div class="linha-tabela">
+                        <div class="posicao">5°</div>
+                        <div class="equipe">NIGHT RAIDERS</div>
+                        <div class="pontos">20</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tabela-container">
+            <div class="grupo-section">
+                <h3 class="grupo-titulo">PRÓXIMOS JOGOS</h3>
+                <p class="grupo-subtitulo">SEMANA ATUAL</p>
+                
+                <div class="jogo-item">
+                    <div class="times">
+                        <span class="time-casa">FURIA ELITE</span>
+                        <span class="vs">VS</span>
+                        <span class="time-visitante">NOCTURNAL WOLVES</span>
+                    </div>
+                    <div class="info-jogo">
+                        🕒 20:00 • 🎮 Clash Royale
+                    </div>
+                </div>
+
+                <div class="jogo-item">
+                    <div class="times">
+                        <span class="time-casa">MOONSHADOW</span>
+                        <span class="vs">VS</span>
+                        <span class="time-visitante">DARK LEGION</span>
+                    </div>
+                    <div class="info-jogo">
+                        🕒 21:00 • 📱 Mobile Legends
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Agente Da Noite - <strong>ToxicSkull√</strong></p>
+    </footer>
+
     <style>
         .campeonato-main {
             padding: 20px;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
@@ -39,255 +142,130 @@
         }
 
         .ponto-cor.vitoria {
-            background: var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green);
+            background: #00ff00;
+            box-shadow: 0 0 10px #00ff00;
         }
 
         .ponto-cor.empate {
-            background: var(--neon-yellow);
-            box-shadow: 0 0 10px var(--neon-yellow);
+            background: #ffd700;
+            box-shadow: 0 0 10px #ffd700;
         }
 
         .ponto-cor.derrota {
-            background: var(--neon-red);
-            box-shadow: 0 0 10px var(--neon-red);
+            background: #ff0000;
+            box-shadow: 0 0 10px #ff0000;
         }
 
         .tabela-container {
             background: rgba(10, 10, 10, 0.9);
-            border: 2px solid var(--neon-yellow);
+            border: 2px solid #ffd700;
             border-radius: 15px;
             padding: 20px;
             margin: 20px 0;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
         }
 
-        .grupo-section {
-            margin-bottom: 30px;
-        }
-
         .grupo-titulo {
-            font-size: 2em;
-            color: var(--neon-yellow);
-            text-shadow: 0 0 10px var(--neon-yellow);
+            font-size: 1.8em;
+            color: #ffd700;
+            text-shadow: 0 0 10px #ffd700;
             text-align: center;
             margin-bottom: 10px;
         }
 
         .grupo-subtitulo {
-            color: var(--neon-green);
-            text-shadow: 0 0 5px var(--neon-green);
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
             text-align: center;
             margin-bottom: 20px;
         }
 
         .tabela-classificacao {
-            width: 100%;
-            border-collapse: collapse;
             margin-top: 20px;
         }
 
-        .tabela-classificacao th {
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--neon-yellow);
+        .linha-tabela {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 15px;
-            text-align: center;
-            border-bottom: 2px solid var(--neon-yellow);
-            text-shadow: 0 0 5px var(--neon-yellow);
+            margin: 10px 0;
+            border-radius: 10px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0000;
+            transition: all 0.3s ease;
         }
 
-        .tabela-classificacao td {
-            padding: 12px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .linha-tabela:hover {
+            transform: translateX(5px);
+            box-shadow: 0 0 15px #ff0000;
         }
 
-        /* CORES DAS POSIÇÕES */
         .primeiro-lugar {
             background: rgba(0, 255, 0, 0.1);
-            border-left: 4px solid var(--neon-green);
+            border-color: #00ff00;
         }
 
         .segundo-lugar {
             background: rgba(255, 215, 0, 0.1);
-            border-left: 4px solid var(--neon-yellow);
+            border-color: #ffd700;
         }
 
         .terceiro-lugar {
-            background: rgba(255, 0, 0, 0.1);
-            border-left: 4px solid var(--neon-red);
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff0000;
         }
 
-        .primeiro-lugar:hover,
-        .segundo-lugar:hover,
-        .terceiro-lugar:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .posicao {
+            font-weight: bold;
+            color: #ffd700;
+            min-width: 40px;
+        }
+
+        .equipe {
+            flex: 1;
+            font-weight: bold;
+            color: white;
+        }
+
+        .pontos {
+            font-weight: bold;
+            color: #00ff00;
+            min-width: 40px;
+        }
+
+        .jogo-item {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0000;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .times {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .time-casa, .time-visitante {
+            font-weight: bold;
+            color: white;
+        }
+
+        .vs {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .info-jogo {
+            color: #ccc;
+            font-size: 0.9em;
         }
     </style>
-</head>
-<body>
-    <header>
-        <div class="logo-container">
-            <img src="furia.png" alt="Agente Da Noite" class="logo">
-        </div>
-        <nav class="main-nav">
-            <a href="index.html" class="nav-link neon-text">Início</a>
-            <a href="fron.html" class="nav-link neon-text">FRØN</a>
-            <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
-            <a href="regras.html" class="nav-link neon-text">Regras</a>
-            <a href="login.html" class="nav-link neon-btn">Login</a>
-        </nav>
-    </header>
-
-    <main class="campeonato-main">
-        <section class="campeonato-header">
-            <h1 class="neon-title">CAMPEONATO AGENTE DA NOITE</h1>
-            <div class="pontuacao-info">
-                <div class="ponto-item">
-                    <span class="ponto-cor vitoria"></span>
-                    <span>Vitória: 4 pontos</span>
-                </div>
-                <div class="ponto-item">
-                    <span class="ponto-cor empate"></span>
-                    <span>Empate: 1 ponto</span>
-                </div>
-                <div class="ponto-item">
-                    <span class="ponto-cor derrota"></span>
-                    <span>Derrota: -1 ponto</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="tabela-container">
-            <div class="grupo-section">
-                <h3 class="grupo-titulo">LIGA PRINCIPAL - TEMPORADA 2025</h3>
-                <p class="grupo-subtitulo">CLASH ROYALE & MLBB - 12 EQUIPES</p>
-
-                <table class="tabela-classificacao">
-                    <thead>
-                        <tr>
-                            <th>Pos</th>
-                            <th>Equipe</th>
-                            <th>P</th>
-                            <th>J</th>
-                            <th>V</th>
-                            <th>E</th>
-                            <th>D</th>
-                            <th>Pontos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="primeiro-lugar">
-                            <td>1</td>
-                            <td>FURIA ELITE</td>
-                            <td>8</td>
-                            <td>10</td>
-                            <td>8</td>
-                            <td>0</td>
-                            <td>2</td>
-                            <td>32</td>
-                        </tr>
-                        <tr class="segundo-lugar">
-                            <td>2</td>
-                            <td>NOCTURNAL WOLVES</td>
-                            <td>7</td>
-                            <td>10</td>
-                            <td>7</td>
-                            <td>0</td>
-                            <td>3</td>
-                            <td>28</td>
-                        </tr>
-                        <tr class="terceiro-lugar">
-                            <td>3</td>
-                            <td>MOONSHADOW</td>
-                            <td>6</td>
-                            <td>10</td>
-                            <td>6</td>
-                            <td>1</td>
-                            <td>3</td>
-                            <td>25</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>DARK LEGION</td>
-                            <td>5</td>
-                            <td>10</td>
-                            <td>5</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>22</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>NIGHT RAIDERS</td>
-                            <td>5</td>
-                            <td>10</td>
-                            <td>5</td>
-                            <td>0</td>
-                            <td>5</td>
-                            <td>20</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>SHADOW STRIKE</td>
-                            <td>4</td>
-                            <td>10</td>
-                            <td>4</td>
-                            <td>1</td>
-                            <td>5</td>
-                            <td>17</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>MIDNIGHT PHANTOM</td>
-                            <td>3</td>
-                            <td>10</td>
-                            <td>3</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>14</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>LUNAR GUARDIANS</td>
-                            <td>3</td>
-                            <td>10</td>
-                            <td>3</td>
-                            <td>1</td>
-                            <td>6</td>
-                            <td>13</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section class="tabela-container">
-            <div class="grupo-section">
-                <h3 class="grupo-titulo">PRÓXIMOS CONFRONTOS</h3>
-                <p class="grupo-subtitulo">SEMANA 11 - 15/01/2025</p>
-                
-                <div style="text-align: center; margin: 20px 0;">
-                    <div style="background: rgba(255,0,0,0.1); padding: 15px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--neon-red);">
-                        <strong>FURIA ELITE vs NOCTURNAL WOLVES</strong><br>
-                        🕒 20:00 - Clash Royale
-                    </div>
-                    <div style="background: rgba(255,0,0,0.1); padding: 15px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--neon-red);">
-                        <strong>MOONSHADOW vs DARK LEGION</strong><br>
-                        🕒 21:00 - Mobile Legends
-                    </div>
-                    <div style="background: rgba(255,0,0,0.1); padding: 15px; margin: 10px 0; border-radius: 10px; border: 1px solid var(--neon-red);">
-                        <strong>NIGHT RAIDERS vs SHADOW STRIKE</strong><br>
-                        🕒 22:00 - Clash Royale
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Agente Da Noite - <strong>ToxicSkull√</strong></p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
