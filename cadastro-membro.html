@@ -6,13 +6,56 @@
     <title>⭐ Cadastro Membro - FuriaDaNoitePlay</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .cadastro-container {
-            max-width: 500px;
-            margin: 30px auto;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid #00ffea;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a2a, #00008b, #2a0a4a);
+            color: #00ffff;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .neon-header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
             border-radius: 15px;
+            border: 3px solid #00ffea;
+            box-shadow: 0 0 30px rgba(0, 255, 234, 0.3);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .neon-text {
+            font-size: 2em;
+            color: #00ffea;
+            text-shadow: 0 0 15px #00ffea;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #ff00ff;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .cadastro-container {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid #00ffea;
             box-shadow: 0 10px 30px rgba(0, 255, 234, 0.3);
         }
         
@@ -41,11 +84,13 @@
             background: rgba(255, 255, 255, 0.1);
             color: white;
             font-size: 1rem;
+            transition: all 0.3s;
         }
         
         .input-group input:focus, .input-group select:focus {
             outline: none;
-            box-shadow: 0 0 10px rgba(0, 255, 234, 0.5);
+            box-shadow: 0 0 15px rgba(0, 255, 234, 0.7);
+            transform: scale(1.02);
         }
         
         .beneficios {
@@ -54,18 +99,105 @@
             border-radius: 10px;
             margin: 20px 0;
             border: 1px solid #00ffea;
+            box-shadow: 0 0 15px rgba(0, 255, 234, 0.2);
         }
         
         .beneficios h4 {
             color: #00ffea;
             margin-bottom: 10px;
             text-shadow: 0 0 5px #00ffea;
+            font-size: 1.2em;
+        }
+
+        .beneficios p {
+            margin: 8px 0;
+            color: #ffffff;
+        }
+
+        .neon-btn {
+            padding: 15px 30px;
+            background: transparent;
+            border: 2px solid #00ffea;
+            color: #00ffea;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-shadow: 0 0 5px #00ffea;
+            box-shadow: 0 0 15px rgba(0, 255, 234, 0.3);
+            margin: 10px 0;
+        }
+
+        .neon-btn:hover {
+            background: rgba(0, 255, 234, 0.2);
+            box-shadow: 0 0 25px rgba(0, 255, 234, 0.6);
+            transform: scale(1.05);
+        }
+
+        .back-btn {
+            padding: 12px 25px;
+            background: transparent;
+            border: 2px solid #ff00ff;
+            color: #ff00ff;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-shadow: 0 0 5px #ff00ff;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .link {
+            color: #00ffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #00ffff;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-align: center;
+            flex: 1;
+        }
+
+        .link:hover {
+            background: #00ffff;
+            color: #000;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .cadastro-container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .neon-text {
+                font-size: 1.5em;
+            }
+            
+            .links {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="neon-header" style="border-color: #00ffea; box-shadow: 0 0 20px rgba(0, 255, 234, 0.3);">
+        <header class="neon-header">
             <h1 class="neon-text">⭐ CADASTRO - AGENTE DA NOITE ADN</h1>
             <p class="subtitle">Junte-se à Furia - Seja um Agente da Noite</p>
         </header>
@@ -108,6 +240,7 @@
                         <option value="cfn">CFN - Clash of Clan</option>
                         <option value="cr">CR - Clash Royale</option>
                         <option value="mlbb">MLBB - Mobile Legends</option>
+                        <option value="truco">TRUCU - Truco Online</option>
                         <option value="outro">Outro</option>
                     </select>
                 </div>
@@ -116,11 +249,21 @@
                     <label>🆔 ID do Jogo:</label>
                     <input type="text" id="idJogo" placeholder="000000000000">
                 </div>
+
+                <div class="input-group">
+                    <label>🏷️ Tag da Equipe (opcional):</label>
+                    <input type="text" id="tagEquipe" placeholder="#FURIA ou deixe em branco">
+                </div>
                 
-                <button class="neon-btn" onclick="cadastrarMembro()" style="border-color: #00ffea; color: #00ffea;">
+                <button class="neon-btn" onclick="cadastrarMembro()">
                     🚀 CONCLUIR CADASTRO
                 </button>
-                <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
+
+                <div class="links">
+                    <a href="regras.html" class="link">📜 VER REGRAS</a>
+                    <a href="md3.html" class="link">🔐 JÁ TENHO CADASTRO</a>
+                    <a href="index.html" class="link">🏠 VOLTAR AO INÍCIO</a>
+                </div>
             </div>
         </div>
     </div>
@@ -131,6 +274,9 @@
             const email = document.getElementById('email').value;
             const whatsapp = document.getElementById('whatsapp').value;
             const jogo = document.getElementById('jogoPrincipal').value;
+            const idJogo = document.getElementById('idJogo').value;
+            const instagram = document.getElementById('instagram').value;
+            const tagEquipe = document.getElementById('tagEquipe').value;
             
             if (!nick) {
                 alert('❌ Por favor, informe seu nick!');
@@ -141,16 +287,61 @@
                 alert('❌ Por favor, selecione seu jogo principal!');
                 return;
             }
+
+            if (!idJogo) {
+                alert('❌ Por favor, informe seu ID do jogo!');
+                return;
+            }
             
             // Simular cadastro
-            alert(`✅ Cadastro realizado com sucesso!\n\n🎮 Nick: ${nick}\n📧 E-mail: ${email}\n📱 WhatsApp: ${whatsapp}\n🎯 Jogo: ${jogo}\n\nBem-vindo à Furia, Agente da Noite!`);
+            const mensagem = `✅ Cadastro realizado com sucesso!\n\n` +
+                           `🎮 Nick: ${nick}\n` +
+                           `📧 E-mail: ${email || 'Não informado'}\n` +
+                           `📱 WhatsApp: ${whatsapp || 'Não informado'}\n` +
+                           `🔗 Instagram: ${instagram || 'Não informado'}\n` +
+                           `🎯 Jogo: ${document.getElementById('jogoPrincipal').options[document.getElementById('jogoPrincipal').selectedIndex].text}\n` +
+                           `🆔 ID: ${idJogo}\n` +
+                           `🏷️ Tag: ${tagEquipe || 'A definir'}\n\n` +
+                           `Bem-vindo à Furia, Agente da Noite!`;
+            
+            alert(mensagem);
+            
+            // Salvar no localStorage (simulação)
+            const membro = {
+                nick,
+                email,
+                whatsapp,
+                jogo,
+                idJogo,
+                instagram,
+                tagEquipe,
+                dataCadastro: new Date().toLocaleDateString('pt-BR')
+            };
+            
+            localStorage.setItem('membroCadastrado', JSON.stringify(membro));
+            localStorage.setItem('usuarioLogado', 'true');
             
             // Redirecionar para página de confirmação
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = 'md4.html';
             }, 2000);
         }
         
+        // Preencher dados se já tiver cadastro
+        window.addEventListener('load', function() {
+            const membroSalvo = localStorage.getItem('membroCadastrado');
+            if (membroSalvo) {
+                const membro = JSON.parse(membroSalvo);
+                document.getElementById('nick').value = membro.nick || '';
+                document.getElementById('email').value = membro.email || '';
+                document.getElementById('whatsapp').value = membro.whatsapp || '';
+                document.getElementById('instagram').value = membro.instagram || '';
+                document.getElementById('jogoPrincipal').value = membro.jogo || '';
+                document.getElementById('idJogo').value = membro.idJogo || '';
+                document.getElementById('tagEquipe').value = membro.tagEquipe || '';
+            }
+        });
+
         function voltarInicio() {
             window.location.href = 'index.html';
         }
