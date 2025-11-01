@@ -6,49 +6,57 @@
 <title>Cadastro de Equipe - Fúria da Noite</title>
 <style>
 body {
-  background: radial-gradient(circle at top, #1a0000 10%, #000 90%);
-  color: #fff;
-  font-family: 'Orbitron', sans-serif;
+  background: radial-gradient(circle, #000000 70%, #1a0000);
+  color: white;
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100%;
+  padding: 30px;
 }
 .card {
   background-color: #0a0a0a;
   border: 2px solid red;
-  box-shadow: 0 0 30px red;
+  box-shadow: 0 0 25px red;
   border-radius: 20px;
   padding: 25px;
-  width: 380px;
+  width: 400px;
   text-align: center;
-  position: relative;
 }
 h2 {
   color: #ff0000;
-  text-shadow: 0 0 15px red;
+  text-shadow: 0 0 10px red;
+  margin-bottom: 10px;
 }
-input, button {
+input, label {
+  display: block;
   width: 90%;
+  margin: 8px auto;
   padding: 10px;
-  margin: 8px 0;
-  border: none;
   border-radius: 10px;
-  text-align: center;
-}
-input {
+  border: none;
   background-color: #1a1a1a;
   color: white;
+  text-align: center;
 }
 button {
   background-color: red;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
-  font-weight: bold;
 }
 button:hover {
   background-color: darkred;
+}
+.jogador {
+  border: 1px solid #550000;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 8px;
 }
 a {
   color: #ff0000;
@@ -57,101 +65,83 @@ a {
 a:hover {
   text-decoration: underline;
 }
-.jogadores {
-  margin-top: 15px;
-  text-align: left;
-}
-.jogadores input {
-  width: 45%;
-  margin: 5px 2%;
-  display: inline-block;
-}
-.preview {
-  margin: 10px 0;
-  border-radius: 10px;
-  overflow: hidden;
-  display: none;
-}
-.preview img {
-  width: 100%;
-  border-radius: 10px;
-  border: 2px solid red;
-  box-shadow: 0 0 20px red;
-}
 </style>
 </head>
 <body>
   <div class="card">
     <h2>⚔️ Cadastro de Equipe ⚔️</h2>
     <input type="text" id="nomeEquipe" placeholder="Nome da Equipe">
-    <input type="text" id="fotoEquipe" placeholder="URL da Foto da Equipe (opcional)" oninput="previewFoto()">
-    <div class="preview" id="previewFotoDiv">
-      <img id="previewImg" src="">
-    </div>
-    
-    <div class="jogadores">
-      <h4 style="color:#ff0000;text-align:center;">Jogadores</h4>
-      <div id="listaJogadores"></div>
-      <button type="button" onclick="addJogador()">+ Adicionar Jogador</button>
-    </div>
+    <label for="foto">Foto da Equipe:</label>
+    <input type="file" id="foto" accept="image/*">
 
-    <button onclick="salvarEquipe()">💾 Salvar Equipe</button>
-    <p style="margin-top:15px;">Já tem equipe? <a href="login.html">Login</a></p>
+    <h3 style="color:red;">Jogadores (até 10)</h3>
+    <div id="jogadores"></div>
+    <button onclick="adicionarJogador()">+ Adicionar Jogador</button>
+
+    <br><br>
+    <button onclick="cadastrarEquipe()">Cadastrar Equipe</button>
+    <p style="margin-top:15px;">Voltar para <a href="login.html">Login</a></p>
   </div>
 
 <script>
-let contador = 0;
-function addJogador() {
-  if (contador >= 10) {
-    alert("Máximo de 10 jogadores atingido!");
+let totalJogadores = 0;
+function adicionarJogador() {
+  if (totalJogadores >= 10) {
+    alert("Limite de 10 jogadores atingido!");
     return;
   }
-  contador++;
+  totalJogadores++;
   const div = document.createElement("div");
+  div.className = "jogador";
   div.innerHTML = `
-    <input type="text" placeholder="Nick ${contador}" id="nick${contador}">
-    <input type="text" placeholder="ID ${contador}" id="id${contador}">
+    <h4 style="color:#ff5555;">Jogador ${totalJogadores}</h4>
+    <input type="text" placeholder="Nick do Jogador ${totalJogadores}" class="nick">
+    <input type="text" placeholder="ID do Jogador ${totalJogadores}" class="id">
   `;
-  document.getElementById("listaJogadores").appendChild(div);
+  document.getElementById("jogadores").appendChild(div);
 }
 
-function previewFoto() {
-  const url = document.getElementById("fotoEquipe").value.trim();
-  const previewDiv = document.getElementById("previewFotoDiv");
-  const img = document.getElementById("previewImg");
-  if (url) {
-    img.src = url;
-    previewDiv.style.display = "block";
-  } else {
-    previewDiv.style.display = "none";
-  }
-}
+function cadastrarEquipe() {
+  const nomeEquipe = document.getElementById('nomeEquipe').value.trim();
+  const fotoInput = document.getElementById('foto');
+  const jogadoresDiv = document.querySelectorAll('.jogador');
 
-function salvarEquipe() {
-  const nome = document.getElementById("nomeEquipe").value.trim();
-  const foto = document.getElementById("fotoEquipe").value.trim();
-
-  if (!nome) {
+  if (!nomeEquipe) {
     alert("Digite o nome da equipe!");
+    return;
+  }
+  if (jogadoresDiv.length === 0) {
+    alert("Adicione pelo menos um jogador!");
     return;
   }
 
   const jogadores = [];
-  for (let i = 1; i <= contador; i++) {
-    const nick = document.getElementById(`nick${i}`).value.trim();
-    const id = document.getElementById(`id${i}`).value.trim();
+  jogadoresDiv.forEach(div => {
+    const nick = div.querySelector('.nick').value.trim();
+    const id = div.querySelector('.id').value.trim();
     if (nick && id) jogadores.push({ nick, id });
-  }
+  });
 
-  if (jogadores.length === 0) {
-    alert("Adicione pelo menos 1 jogador!");
-    return;
-  }
+  const equipe = {
+    nomeEquipe,
+    jogadores
+  };
 
-  const equipe = { nome, foto, jogadores };
+  // salva no localStorage
   localStorage.setItem("equipe", JSON.stringify(equipe));
-  alert("Equipe cadastrada com sucesso!");
-  window.location.href = "login.html";
+
+  if (fotoInput.files.length > 0) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      localStorage.setItem("fotoEquipe", e.target.result);
+      alert("Equipe cadastrada com sucesso!");
+      window.location.href = "login.html";
+    };
+    reader.readAsDataURL(fotoInput.files[0]);
+  } else {
+    alert("Equipe cadastrada com sucesso!");
+    window.location.href = "login.html";
+  }
 }
 </script>
 </body>
