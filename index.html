@@ -1,226 +1,55 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🔥 FuriaDaNoitePlay 🔥</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Orbitron', sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    header {
-      background: rgba(0, 0, 0, 0.9);
-      padding: 20px 0;
-      border-bottom: 2px solid #ff0000;
-      box-shadow: 0 0 25px #ff0000;
-    }
-
-    .logo {
-      width: 160px;
-      display: block;
-      margin: 0 auto;
-      border-radius: 10px;
-      box-shadow: 0 0 30px #ff0000;
-    }
-
-    .titulo {
-      color: #ff0000;
-      font-size: 28px;
-      text-transform: uppercase;
-      text-shadow: 0 0 25px #ff0000;
-      margin: 15px 0;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    nav a, .logout-btn, .neon-red {
-      color: #fff;
-      text-decoration: none;
-      background: rgba(255, 0, 0, 0.1);
-      border: 2px solid #ff0000;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-weight: bold;
-      box-shadow: 0 0 15px #ff0000;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    nav a:hover, .logout-btn:hover {
-      background-color: #ff0000;
-      color: #000;
-      box-shadow: 0 0 25px #ff0000;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .texto-intro, .video-box, .adm-box {
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #ff0000;
-      border-radius: 12px;
-      box-shadow: 0 0 25px #ff0000;
-      padding: 20px;
-      margin-bottom: 30px;
-    }
-
-    .texto-intro strong {
-      color: #ff4444;
-      text-shadow: 0 0 10px #ff0000;
-    }
-
-    iframe {
-      border-radius: 10px;
-      box-shadow: 0 0 20px #ff0000;
-    }
-
-    .adm-box h2 {
-      color: #ff0000;
-      text-shadow: 0 0 20px #ff0000;
-    }
-
-    footer {
-      color: #ff0000;
-      text-shadow: 0 0 15px #ff0000;
-      border-top: 2px solid #ff0000;
-      padding: 15px;
-      font-weight: bold;
-      background: rgba(0, 0, 0, 0.9);
-    }
-
-    .botao-inicio {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #FFD700;
-      color: #000;
-      border: none;
-      border-radius: 30px;
-      padding: 14px 30px;
-      font-size: 16px;
-      font-weight: bold;
-      box-shadow: 0 0 25px #FFD700;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      z-index: 999;
-    }
-
-    .botao-inicio:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 35px #FFD700;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furia da Noite Play</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header>
-    <img src="logo2.png" alt="Logo Fúria da Noite" class="logo">
-    <h1 class="titulo">🔥 FÚRIA DA NOITE PLAY 🔥</h1>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Furia da Noite Play" class="logo">
+        </div>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link neon-text">Início</a>
+            <a href="campeonato.html" class="nav-link neon-text">Campeonato</a>
+            <a href="membros.html" class="nav-link neon-text">Membros</a>
+            <a href="chatgeral.html" class="nav-link neon-text">Chat Geral</a>
+            <a href="login.html" class="nav-link neon-btn">Login</a>
+        </nav>
+    </header>
 
-    <nav id="menuNavegacao">
-      <a href="index.html">Início</a>
-      <a href="regras.html">Regras</a>
-      <a href="membros.html">Membros</a>
-      <a href="furia-digital.html">💻 Fúria Digital</a>
-      <a href="perfil.html" id="btnPerfil" style="display:none;">Perfil</a>
-      <a href="camps.html" id="btnCamps" style="display:none;">Camps</a>
-      <button class="logout-btn" id="btnLogout" style="display:none;" onclick="sair()">Sair</button>
-    </nav>
-  </header>
+    <main>
+        <section class="hero">
+            <h1 class="neon-title">FURIA DA NOITE PLAY</h1>
+            <p class="neon-subtitle">A maior comunidade gamer do Brasil</p>
+            <div class="hero-buttons">
+                <a href="cadastro.html" class="btn-neon">Cadastrar</a>
+                <a href="campeonato.html" class="btn-neon-outline">Ver Campeonato</a>
+            </div>
+        </section>
 
-  <main>
-    <section class="texto-intro">
-      <p>
-        Seja bem-vindo à <strong>FúriaDaNoitePlay</strong>! 🌙🔥<br>
-        Unidos pela força da noite e pelo espírito de equipe.<br>
-        Prepare-se para dominar sob o luar e mostrar o verdadeiro poder da Fúria!
-      </p>
-    </section>
+        <section class="features">
+            <div class="feature-card">
+                <h3>🎮 Campeonatos</h3>
+                <p>Participe de torneios emocionantes</p>
+            </div>
+            <div class="feature-card">
+                <h3>👥 Comunidade</h3>
+                <p>Conecte-se com jogadores</p>
+            </div>
+            <div class="feature-card">
+                <h3>🏆 Ranking</h3>
+                <p>Suba no sistema de hierarquia</p>
+            </div>
+        </section>
+    </main>
 
-    <section class="video-box">
-      <h2>🎬 Destaque da Semana</h2>
-      <iframe width="350" height="620"
-        src="https://www.youtube.com/embed/BikO0ccBNeo"
-        title="Short - FúriaDaNoitePlay"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
-    </section>
+    <footer>
+        <p>&copy; 2024 Furia da Noite Play - Todos os direitos reservados</p>
+    </footer>
 
-    <section class="adm-box">
-      <h2>👑 Equipe ADM — FuriaDaNoitePlay</h2>
-      <ul>
-        <li><strong>@ToxicSkull√</strong> — “A noite brilha sob nossa fúria.” 🌙🔥</li>
-        <li><strong>Scorpion Game</strong> — “Veneno no foco, vitória na mira.” 🦂</li>
-        <li><strong>NeferpitouI</strong> — “Caos e controle na mesma energia.” 💫</li>
-        <li><strong>༄Son_king</strong> — “Rei das sombras, dono da noite.” 👑</li>
-      </ul>
-    </section>
-  </main>
-
-  <section class="chat-box" id="chatBox" style="display:none;">
-    <h2>💬 Chat Geral - Fúria da Noite Play</h2>
-    <iframe
-      src="https://e.widgetbot.io/channels/1328458975615651882/1330988731376861257"
-      width="100%"
-      height="500"
-      allowtransparency="true"
-      frameborder="0">
-    </iframe>
-  </section>
-
-  <footer>
-    <p>© 2025 FuriaDaNoitePlay — <span>@ToxicSkull√</span></p>
-  </footer>
-
-  <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Início</button>
-
-  <script>
-    const usuario = localStorage.getItem('usuarioFuria');
-    const tipo = localStorage.getItem('tipoConta');
-    const btnLogout = document.getElementById("btnLogout");
-    const btnPerfil = document.getElementById("btnPerfil");
-    const btnCamps = document.getElementById("btnCamps");
-    const chatBox = document.getElementById("chatBox");
-
-    // Se o usuário não estiver logado, manda pro login
-    if (!usuario) {
-      window.location.href = "login.html";
-    } else {
-      // Mostra opções dependendo do tipo da conta
-      btnLogout.style.display = "inline-block";
-      chatBox.style.display = "block";
-
-      if (["usuario", "membro", "equipe"].includes(tipo)) {
-        btnPerfil.style.display = "inline-block";
-      }
-
-      if (tipo === "equipe") {
-        btnCamps.style.display = "inline-block";
-      }
-    }
-
-    function sair() {
-      localStorage.removeItem('usuarioFuria');
-      localStorage.removeItem('tipoConta');
-      alert('Você saiu da Fúria. Até a próxima, guerreiro da noite!');
-      window.location.href = 'login.html';
-    }
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
