@@ -77,6 +77,15 @@ function cadastrar() {
   alert("Cadastro de visitante realizado com sucesso!");
   window.location.href = "login.html";
 }
+<script>
+// Garante que o botão "Cadastrar" fique sempre visível
+document.addEventListener("DOMContentLoaded", function() {
+  var btnCadastrar = document.getElementById("btnCadastrar");
+  if (btnCadastrar) {
+    btnCadastrar.style.display = "inline-block";
+  }
+});
+</script>
 </script>
 </body>
 </html>
