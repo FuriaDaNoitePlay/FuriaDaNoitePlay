@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👑 ADM Supremo - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .input-group label {
+            color: #ffd700;
+            font-weight: bold;
+            text-shadow: 0 0 5px #ffd700;
+        }
+        
+        .input-group input {
+            padding: 12px;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .adm-list {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #ffd700;
+        }
+        
+        .adm-list h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px #ffd700;
+        }
+        
+        .adm-item {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="neon-header" style="border-color: #ffd700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);">
+            <h1 class="neon-text">👑 ADM SUPREMO</h1>
+            <p class="subtitle">Controle Total do Sistema - FuriaDaNoitePlay</p>
+        </header>
+
+        <div class="texto-login">
+            <h3>🌙 ACESSO DE ALTO NÍVEL</h3>
+            <p>"O poder da noite em suas mãos"</p>
+        </div>
+
+        <div class="login-container">
+            <div class="adm-list">
+                <h4>🔐 ADMs AUTORIZADOS:</h4>
+                <div class="adm-item"><strong>FURIAGOD</strong> - Senha: Furia2025_$</div>
+                <div class="adm-item"><strong>Scorpion</strong> - Senha: Mlk00</div>
+                <div class="adm-item"><strong>.Son King</strong> - Senha: God19</div>
+                <div class="adm-item"><strong>NeferpitouI</strong> - Senha: Ana025</div>
+                <div class="adm-item"><strong>PNTS</strong> - Senha: pNtS</div>
+            </div>
+            
+            <div class="login-form">
+                <div class="input-group">
+                    <label>👑 Usuário ADM:</label>
+                    <input type="text" id="usuarioAdm" placeholder="Digite seu usuário ADM">
+                </div>
+                
+                <div class="input-group">
+                    <label>🔒 Senha ADM:</label>
+                    <input type="password" id="senhaAdm" placeholder="Digite sua senha ADM">
+                </div>
+                
+                <button class="neon-btn" onclick="fazerLoginAdm()" style="border-color: #ffd700; color: #ffd700;">
+                    🎮 ACESSAR PAINEL ADM
+                </button>
+                <button class="back-btn" onclick="voltarInicio()">⬅️ VOLTAR AO INÍCIO</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fazerLoginAdm() {
+            const usuario = document.getElementById('usuarioAdm').value;
+            const senha = document.getElementById('senhaAdm').value;
+            
+            const adms = {
+                'FURIAGOD': 'Furia2025_$',
+                'Scorpion': 'Mlk00',
+                '.Son King': 'God19',
+                'NeferpitouI': 'Ana025',
+                'PNTS': 'pNtS'
+            };
+            
+            if (adms[usuario] && adms[usuario] === senha) {
+                alert('✅ Login ADM realizado! Acessando Painel Supremo...');
+                window.location.href = 'painel-adm.html';
+            } else {
+                alert('❌ Credenciais ADM incorretas!');
+            }
+        }
+        
+        function voltarInicio() {
+            window.location.href = 'index.html';
+        }
+        
+        // Enter para login
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                fazerLoginAdm();
+            }
+        });
+    </script>
+</body>
+</html>
