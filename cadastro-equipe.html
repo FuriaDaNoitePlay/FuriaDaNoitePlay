@@ -6,26 +6,27 @@
 <title>Cadastro de Equipe - Fúria da Noite</title>
 <style>
 body {
-  background: radial-gradient(circle, #000000 70%, #1a0000);
+  background: radial-gradient(circle at top, #1a0000 10%, #000 90%);
   color: #fff;
-  font-family: Arial, sans-serif;
+  font-family: 'Orbitron', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 .card {
   background-color: #0a0a0a;
   border: 2px solid red;
-  box-shadow: 0 0 25px red;
+  box-shadow: 0 0 30px red;
   border-radius: 20px;
   padding: 25px;
-  width: 360px;
+  width: 380px;
   text-align: center;
+  position: relative;
 }
 h2 {
   color: #ff0000;
-  text-shadow: 0 0 10px red;
+  text-shadow: 0 0 15px red;
 }
 input, button {
   width: 90%;
@@ -44,6 +45,7 @@ button {
   color: white;
   cursor: pointer;
   transition: 0.3s;
+  font-weight: bold;
 }
 button:hover {
   background-color: darkred;
@@ -64,13 +66,28 @@ a:hover {
   margin: 5px 2%;
   display: inline-block;
 }
+.preview {
+  margin: 10px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  display: none;
+}
+.preview img {
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid red;
+  box-shadow: 0 0 20px red;
+}
 </style>
 </head>
 <body>
   <div class="card">
     <h2>⚔️ Cadastro de Equipe ⚔️</h2>
     <input type="text" id="nomeEquipe" placeholder="Nome da Equipe">
-    <input type="text" id="fotoEquipe" placeholder="URL da Foto da Equipe (opcional)">
+    <input type="text" id="fotoEquipe" placeholder="URL da Foto da Equipe (opcional)" oninput="previewFoto()">
+    <div class="preview" id="previewFotoDiv">
+      <img id="previewImg" src="">
+    </div>
     
     <div class="jogadores">
       <h4 style="color:#ff0000;text-align:center;">Jogadores</h4>
@@ -78,7 +95,7 @@ a:hover {
       <button type="button" onclick="addJogador()">+ Adicionar Jogador</button>
     </div>
 
-    <button onclick="salvarEquipe()">Salvar Equipe</button>
+    <button onclick="salvarEquipe()">💾 Salvar Equipe</button>
     <p style="margin-top:15px;">Já tem equipe? <a href="login.html">Login</a></p>
   </div>
 
@@ -96,6 +113,18 @@ function addJogador() {
     <input type="text" placeholder="ID ${contador}" id="id${contador}">
   `;
   document.getElementById("listaJogadores").appendChild(div);
+}
+
+function previewFoto() {
+  const url = document.getElementById("fotoEquipe").value.trim();
+  const previewDiv = document.getElementById("previewFotoDiv");
+  const img = document.getElementById("previewImg");
+  if (url) {
+    img.src = url;
+    previewDiv.style.display = "block";
+  } else {
+    previewDiv.style.display = "none";
+  }
 }
 
 function salvarEquipe() {
