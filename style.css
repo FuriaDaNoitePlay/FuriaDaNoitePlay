@@ -139,3 +139,39 @@
     align-items: center;
     width: 100%;
 }
+/* ===== ESTILOS DAS NOVAS PÁGINAS ===== */
+.regras-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.regra-item {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid var(--neon-red);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+}
+
+.regra-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 0 15px var(--neon-red);
+}
+
+.regra-item h3 {
+    color: var(--neon-red);
+    margin-bottom: 10px;
+}
+
+/* Garantir que todas as páginas tenham o header */
+header {
+    background: var(--dark-header);
+    padding: 15px 0;
+    border-bottom: 2px solid var(--neon-red);
+    box-shadow: var(--neon-glow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
