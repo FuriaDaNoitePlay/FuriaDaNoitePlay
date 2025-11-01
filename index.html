@@ -58,7 +58,6 @@
       box-shadow: 0 0 25px #ff0000;
     }
 
-    /* Botão cadastrar neon vermelho */
     button.neon-red {
       background: black;
       color: red;
@@ -97,25 +96,6 @@
       color: #ff0000;
       text-shadow: 0 0 20px #ff0000;
     }
-    .adm-box strong {
-      color: #ff4444;
-      text-shadow: 0 0 10px #ff0000;
-    }
-    .chat-box {
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid #ff0000;
-      border-radius: 12px;
-      box-shadow: 0 0 25px #ff0000;
-      padding: 20px;
-      margin: 40px auto;
-      max-width: 900px;
-      display: none;
-    }
-    .chat-box h2 {
-      color: #ff0000;
-      text-shadow: 0 0 20px #ff0000;
-      margin-bottom: 15px;
-    }
     footer {
       color: #ff0000;
       text-shadow: 0 0 15px #ff0000;
@@ -123,14 +103,6 @@
       padding: 15px;
       font-weight: bold;
       background: rgba(0, 0, 0, 0.9);
-    }
-    .destaque {
-      color: #FFD700;
-      text-shadow: 0 0 20px #FFD700;
-    }
-    .assinatura {
-      color: #ff0000;
-      text-shadow: 0 0 10px #ff0000;
     }
     .botao-inicio {
       position: fixed;
@@ -160,17 +132,16 @@
     <img src="logo2.png" alt="Logo Fúria da Noite" class="logo">
     <h1 class="titulo">🔥 FURIA DA NOITE PLAY 🔥</h1>
     <nav id="menuNavegacao">
-  <a href="/index.html">Início</a>
-  <a href="/regras.html">Regras</a>
-  <a href="/membros.html">Membros</a>
-  <a href="/furia-digital.html">💻 Fúria Digital</a>
-  <a href="/login.html" id="btnLogin">Login</a>
-  <button class="neon-red" id="btnCadastrar">Cadastrar</button>
-  <button class="logout-btn" id="btnLogout" style="display:none;" onclick="sair()">Sair</button>
-  <a href="/perfil.html" id="btnPerfil" style="display:none;">Perfil</a>
-  <a href="/confrontos.html" id="btnConfronto" style="display:none;">Confrontos</a>
-  <a href="/tabela.html" id="btnTabela" style="display:none;">Tabela</a>
-</nav>
+      <a href="index.html">Início</a>
+      <a href="regras.html">Regras</a>
+      <a href="membros.html">Membros</a>
+      <a href="furia-digital.html">💻 Fúria Digital</a>
+      <a href="login.html" id="btnLogin">Login</a>
+      <button class="neon-red" id="btnCadastrar">Cadastrar</button>
+      <button class="logout-btn" id="btnLogout" style="display:none;" onclick="sair()">Sair</button>
+      <a href="perfil.html" id="btnPerfil" style="display:none;">Perfil</a>
+      <a href="camps.html" id="btnCamps" style="display:none;">Camps</a>
+    </nav>
   </header>
 
   <main>
@@ -203,7 +174,7 @@
     </section>
   </main>
 
-  <section class="chat-box" id="chatBox">
+  <section class="chat-box" id="chatBox" style="display:none;">
     <h2>💬 Chat Geral - Fúria da Noite Play</h2>
     <iframe
       src="https://e.widgetbot.io/channels/1328458975615651882/1330988731376861257"
@@ -215,7 +186,7 @@
   </section>
 
   <footer>
-    <p>© 2025 <span class="destaque">FuriaDaNoitePlay</span> — <span class="assinatura">@ToxicSkull√</span></p>
+    <p>© 2025 FuriaDaNoitePlay — <span>@ToxicSkull√</span></p>
   </footer>
 
   <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Início</button>
@@ -226,8 +197,7 @@
     const btnLogin = document.getElementById("btnLogin");
     const btnLogout = document.getElementById("btnLogout");
     const btnPerfil = document.getElementById("btnPerfil");
-    const btnConfronto = document.getElementById("btnConfronto");
-    const btnTabela = document.getElementById("btnTabela");
+    const btnCamps = document.getElementById("btnCamps");
     const chatBox = document.getElementById("chatBox");
     const btnCadastrar = document.getElementById("btnCadastrar");
 
@@ -241,25 +211,23 @@
       }
 
       if (tipoConta === "equipe") {
-        btnConfronto.style.display = "inline-block";
-        btnTabela.style.display = "inline-block";
+        btnCamps.style.display = "inline-block";
       }
     } else {
       window.location.href = "login.html";
     }
 
-    // Botão Cadastrar Neon - Direciona para as páginas corretas
     btnCadastrar.addEventListener("click", () => {
-      const tipo = prompt("Qual tipo de conta deseja criar? (visitante / membro / equipe)").toLowerCase();
+      const tipo = prompt("Qual tipo de conta deseja criar? (usuario / membro / equipe)").toLowerCase();
 
-      if (tipo === "visitante") {
-        window.location.href = "cadastro-visitante.html";
+      if (tipo === "usuario") {
+        window.location.href = "cadastro-usuario.html";
       } else if (tipo === "membro") {
         window.location.href = "cadastro-membro.html";
       } else if (tipo === "equipe") {
         window.location.href = "cadastro-equipe.html";
       } else {
-        alert("Tipo inválido! Use: visitante, membro ou equipe.");
+        alert("Tipo inválido! Use: usuario, membro ou equipe.");
       }
     });
 
