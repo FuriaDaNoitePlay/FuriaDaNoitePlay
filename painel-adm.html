@@ -270,107 +270,6 @@
                 </table>
             </div>
 
-            <!-- Seção: Gerenciar Campeonatos -->
-            <div class="secao-adm">
-                <h2 class="secao-titulo">🏆 GERENCIAR CAMPEONATOS</h2>
-                
-                <div class="form-adm">
-                    <input type="text" class="input-adm" placeholder="Nome do Campeonato" id="nomeCampeonato">
-                    <input type="date" class="input-adm" id="dataInicio">
-                    <input type="date" class="input-adm" id="dataFim">
-                    <input type="number" class="input-adm" placeholder="Premiação R$" id="premiacao">
-                    <select class="input-adm" id="jogoCampeonato">
-                        <option value="">Jogo do Campeonato</option>
-                        <option value="cfn">CFN</option>
-                        <option value="cr">CR</option>
-                        <option value="mlbb">MLBB</option>
-                    </select>
-                    <input type="number" class="input-adm" placeholder="Nº de Times" id="numeroTimes">
-                    <button class="neon-btn full-width" onclick="criarCampeonato()">
-                        🏆 CRIAR CAMPEONATO
-                    </button>
-                </div>
-
-                <table class="tabela-adm">
-                    <thead>
-                        <tr>
-                            <th>CAMPEONATO</th>
-                            <th>JOGO</th>
-                            <th>PERÍODO</th>
-                            <th>PREMIAÇÃO</th>
-                            <th>STATUS</th>
-                            <th>AÇÕES</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>RISING CHAMPIONSHIP</td>
-                            <td>MLBB</td>
-                            <td>01/12 - 15/12</td>
-                            <td>R$ 5.000</td>
-                            <td>🟡 Em Andamento</td>
-                            <td>
-                                <button class="acao-btn editar">Editar</button>
-                                <button class="acao-btn confirmar">Finalizar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>BOOT CAMP SERIES</td>
-                            <td>CFN</td>
-                            <td>10/12 - 20/12</td>
-                            <td>R$ 3.000</td>
-                            <td>🟢 Ativo</td>
-                            <td>
-                                <button class="acao-btn editar">Editar</button>
-                                <button class="acao-btn excluir">Cancelar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Seção: Partidas Agendadas -->
-            <div class="secao-adm">
-                <h2 class="secao-titulo">🎮 PARTIDAS AGENDADAS</h2>
-                
-                <table class="tabela-adm">
-                    <thead>
-                        <tr>
-                            <th>DATA/HORA</th>
-                            <th>EQUIPE A</th>
-                            <th>EQUIPE B</th>
-                            <th>CAMPEONATO</th>
-                            <th>STATUS</th>
-                            <th>AÇÕES</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>10/12 - 21:00</td>
-                            <td>FURIA DA NOITE</td>
-                            <td>SHADOW TEAM</td>
-                            <td>RISING</td>
-                            <td>🟢 Confirmada</td>
-                            <td>
-                                <button class="acao-btn editar">Remarcar</button>
-                                <button class="acao-btn excluir">Cancelar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12/12 - 20:00</td>
-                            <td>FURIA DA NOITE</td>
-                            <td>NIGHT WOLVES</td>
-                            <td>BOOT CAMP</td>
-                            <td>🟡 Pendente</td>
-                            <td>
-                                <button class="acao-btn confirmar">Confirmar</button>
-                                <button class="acao-btn excluir">Cancelar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
             <!-- Botões de Ação -->
             <div style="text-align: center; margin-top: 40px;">
                 <button class="neon-btn" onclick="fazerBackup()" style="border-color: #00ffea; color: #00ffea; margin: 0 10px;">
@@ -387,21 +286,20 @@
     </div>
 
     <script>
-        // Funções do Painel ADM
         function gerenciarMembros() {
-            document.querySelector('.secao-adm:nth-child(3)').scrollIntoView({ behavior: 'smooth' });
+            alert('👥 Redirecionando para gestão de membros...');
         }
         
         function gerenciarCampeonatos() {
-            document.querySelector('.secao-adm:nth-child(4)').scrollIntoView({ behavior: 'smooth' });
+            alert('🏆 Redirecionando para gestão de campeonatos...');
         }
         
         function gerenciarPartidas() {
-            document.querySelector('.secao-adm:nth-child(5)').scrollIntoView({ behavior: 'smooth' });
+            alert('🎮 Redirecionando para gestão de partidas...');
         }
         
         function gerenciarTabelas() {
-            alert('📊 Funcionalidade de tabelas em desenvolvimento!');
+            alert('📊 Redirecionando para gestão de tabelas...');
         }
         
         function adicionarMembro() {
@@ -414,19 +312,6 @@
             }
             
             alert(`✅ Membro ${nick} adicionado com sucesso!`);
-            // Aqui iria a lógica para adicionar à tabela
-        }
-        
-        function criarCampeonato() {
-            const nome = document.getElementById('nomeCampeonato').value;
-            const premiacao = document.getElementById('premiacao').value;
-            
-            if (!nome || !premiacao) {
-                alert('❌ Preencha nome e premiação do campeonato!');
-                return;
-            }
-            
-            alert(`✅ Campeonato ${nome} criado com premiação de R$ ${premiacao}!`);
         }
         
         function fazerBackup() {
@@ -442,22 +327,6 @@
         function voltarInicio() {
             window.location.href = 'index.html';
         }
-        
-        // Atualizar estatísticas em tempo real
-        function atualizarEstatisticas() {
-            // Simular atualização de dados
-            setInterval(() => {
-                document.getElementById('totalMembros').textContent = 
-                    Math.floor(47 + Math.random() * 3);
-                document.getElementById('partidasHoje').textContent = 
-                    Math.floor(8 + Math.random() * 2);
-            }, 5000);
-        }
-        
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
-            atualizarEstatisticas();
-        });
     </script>
 </body>
 </html>
