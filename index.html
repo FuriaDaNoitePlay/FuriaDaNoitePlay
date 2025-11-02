@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>furiadanoiteplay - Sistema 333K Linhas</title>
+    <title>furiadanoiteplay - Sistema Oficial</title>
     <style>
         * {
             margin: 0;
@@ -12,80 +12,139 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #0f3460);
-            color: #00ffff;
+            background: linear-gradient(135deg, #1a0000, #4a0000, #000000);
+            color: #ff0000;
             font-family: 'Arial', sans-serif;
             min-height: 100vh;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* HEADER FURIA 333K */
+        /* HEADER FURIA */
         .header {
             text-align: center;
             padding: 50px 0;
             background: rgba(0, 0, 0, 0.95);
             border-radius: 20px;
-            border: 3px solid #00ffff;
-            box-shadow: 0 0 50px #00ffff;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 50px #ff0000;
             margin-bottom: 30px;
         }
 
         .logo {
             font-size: 3em;
-            color: #00ffff;
-            text-shadow: 0 0 30px #00ffff;
+            color: #ff0000;
+            text-shadow: 0 0 30px #ff0000;
             margin-bottom: 10px;
         }
 
         .slogan {
-            color: #ff00ff;
+            color: #ff6666;
             font-size: 1.3em;
+            font-style: italic;
         }
 
-        /* ABA VISITANTE */
-        .aba-visitante {
+        /* ÁREA DO VISITANTE */
+        .area-visitante {
             background: rgba(0, 0, 0, 0.8);
-            padding: 30px;
+            padding: 40px;
             border-radius: 15px;
-            border: 2px solid #ff00ff;
+            border: 2px solid #ff0000;
             margin: 20px 0;
             text-align: center;
         }
 
-        .btn-whatsapp {
-            background: #25D366;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin: 10px;
-            border: 2px solid #00ff00;
+        .titulo-visitante {
+            color: #ff0000;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px #ff0000;
         }
 
+        .descricao-visitante {
+            color: #ff6666;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        /* STATUS AO VIVO */
         .status-live {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
         }
 
         .status-item {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #ff0000;
             text-align: center;
+            box-shadow: 0 0 20px #ff0000;
         }
 
-        .status-online { border-color: #00ff00; }
-        .status-jogando { border-color: #ff00ff; }
+        .status-numero {
+            font-size: 3em;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000;
+            margin-bottom: 10px;
+        }
+
+        .status-label {
+            color: #ff6666;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        /* BOTÃO WHATSAPP */
+        .btn-whatsapp {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 20px 0;
+            border: 3px solid #ff3333;
+            box-shadow: 0 0 30px #ff0000;
+            transition: all 0.3s;
+            animation: pulseVermelho 2s infinite;
+        }
+
+        @keyframes pulseVermelho {
+            0% { transform: scale(1); box-shadow: 0 0 30px #ff0000; }
+            50% { transform: scale(1.05); box-shadow: 0 0 50px #ff0000; }
+            100% { transform: scale(1); box-shadow: 0 0 30px #ff0000; }
+        }
+
+        .btn-whatsapp:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 70px #ff0000;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .status-live {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 2.2em;
+            }
+            
+            .btn-whatsapp {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -93,53 +152,50 @@
         <!-- HEADER -->
         <div class="header">
             <div class="logo">furiadanoiteplay</div>
-            <div class="slogan">Sistema 333K Linhas - Início Oficial</div>
+            <div class="slogan">Sistema Oficial - Comunidade Ativa</div>
         </div>
 
-        <!-- ABA VISITANTE -->
-        <div class="aba-visitante">
-            <h2>🎯 ÁREA DO VISITANTE</h2>
-            <p>Bem-vindo ao sistema oficial FuriaDaNoitePlay</p>
+        <!-- ÁREA DO VISITANTE -->
+        <div class="area-visitante">
+            <h2 class="titulo-visitante">🔍 ÁREA DO VISITANTE</h2>
+            <p class="descricao-visitante">Bem-vindo ao sistema oficial FuriaDaNoitePlay</p>
             
+            <!-- STATUS AO VIVO -->
             <div class="status-live">
-                <div class="status-item status-online">
-                    <div class="status-numero">333</div>
-                    <div>ONLINE AGORA</div>
+                <div class="status-item">
+                    <div class="status-numero" id="onlineCount">338</div>
+                    <div class="status-label">ONLINE AGORA</div>
                 </div>
-                <div class="status-item status-jogando">
-                    <div class="status-numero">87</div>
-                    <div>JOGANDO TRUCU</div>
+                <div class="status-item">
+                    <div class="status-numero" id="playingCount">87</div>
+                    <div class="status-label">JOGANDO TRUCU</div>
                 </div>
             </div>
 
-            <a href="https://chat.whatsapp.com/EkJqeFo2KVSHs2ekpr4NIj" class="btn-whatsapp">
+            <!-- BOTÃO WHATSAPP -->
+            <a href="https://chat.whatsapp.com/EkJqeFo2KVSHs2ekpr4NIj" class="btn-whatsapp" target="_blank">
                 🚀 ENTRAR NO GRUPO
             </a>
         </div>
     </div>
 
     <script>
-        // 🔥 SISTEMA FURIA 333K LINHAS
-        const FURIA_333K = {
-            versao: "furiadanoiteplay_333k",
-            linhasTotal: 333000,
-            modulos: {
-                trucu: Array(111000).fill("TRUCU_PRO_333"),
-                chat: Array(111000).fill("CHAT_GLOBAL_333"), 
-                arena: Array(111000).fill("ARENA_DIGITAL_333")
-            },
-            dominio: "furiadanoiteplay.com.br",
-            whatsapp: "https://chat.whatsapp.com/EkJqeFo2KVSHs2ekpr4NIj"
-        };
-
-        console.log(`🔥 ${FURIA_333K.versao} - ${FURIA_333K.linhasTotal} LINHAS ATIVAS!`);
-
-        // Status dinâmico
+        // 🔥 SISTEMA FURIA - STATUS DINÂMICO
         function atualizarStatus() {
-            document.querySelector('.status-numero').textContent = 
-                Math.floor(Math.random() * 200) + 200;
+            const online = Math.floor(Math.random() * 50) + 320;
+            const playing = Math.floor(online / 3.9);
+            
+            document.getElementById('onlineCount').textContent = online;
+            document.getElementById('playingCount').textContent = playing;
         }
+
+        // Atualizar a cada 5 segundos
         setInterval(atualizarStatus, 5000);
+        
+        // Iniciar
+        atualizarStatus();
+
+        console.log('🔥 furiadanoiteplay - Sistema carregado!');
     </script>
 </body>
 </html>
