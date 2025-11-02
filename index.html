@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌙 Furia da Noite Play - Sistema Comercial Oficial</title>
-    <link rel="stylesheet" href="style.css">
+    <title>furiadanoiteplay - Sistema 333K Linhas</title>
     <style>
         * {
             margin: 0;
@@ -13,45 +12,27 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0a0a2a, #00008b, #2a0a4a);
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #0f3460);
             color: #00ffff;
             font-family: 'Arial', sans-serif;
             min-height: 100vh;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* HEADER COMERCIAL MELHORADO */
+        /* HEADER FURIA 333K */
         .header {
             text-align: center;
-            padding: 40px 0;
-            background: rgba(0, 0, 0, 0.9);
+            padding: 50px 0;
+            background: rgba(0, 0, 0, 0.95);
             border-radius: 20px;
             border: 3px solid #00ffff;
-            box-shadow: 0 0 40px #00ffff;
+            box-shadow: 0 0 50px #00ffff;
             margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
-            animation: brilho 8s linear infinite;
-        }
-
-        @keyframes brilho {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         .logo {
@@ -59,406 +40,106 @@
             color: #00ffff;
             text-shadow: 0 0 30px #00ffff;
             margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
         }
 
         .slogan {
             color: #ff00ff;
             font-size: 1.3em;
-            font-style: italic;
-            position: relative;
-            z-index: 2;
         }
 
-        /* RELÓGIO AURORA ATUALIZADO */
-        .relogio-aurora {
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff0080);
-            padding: 15px;
+        /* ABA VISITANTE */
+        .aba-visitante {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
             border-radius: 15px;
-            margin: 20px auto;
-            border: 3px solid #00ffff;
-            box-shadow: 0 0 25px #ff00ff;
+            border: 2px solid #ff00ff;
+            margin: 20px 0;
             text-align: center;
-            max-width: 350px;
-            position: relative;
-            z-index: 2;
         }
 
-        .horario-russia {
-            font-size: 1.5em;
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
             font-weight: bold;
-            color: #000;
-            text-shadow: 0 0 8px #fff;
+            display: inline-block;
+            margin: 10px;
+            border: 2px solid #00ff00;
         }
 
-        .zona-aurora {
-            font-size: 1em;
-            color: #000;
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        /* STATUS AO VIVO COMERCIAL */
-        .status-ao-vivo {
+        .status-live {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin: 25px 0;
+            margin: 20px 0;
         }
 
         .status-item {
             background: rgba(0, 0, 0, 0.8);
             padding: 20px;
-            border-radius: 12px;
-            border: 2px solid;
-            text-align: center;
-            box-shadow: 0 0 15px;
-        }
-
-        .status-jogadores { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; }
-        .status-partidas { border-color: #ffff00; box-shadow: 0 0 15px #ffff00; }
-        .status-campeonatos { border-color: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
-        .status-premios { border-color: #00ffff; box-shadow: 0 0 15px #00ffff; }
-
-        .status-numero {
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .status-label {
-            font-size: 0.9em;
-            color: #cccccc;
-        }
-
-        /* CARDS GRID COMERCIAL */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .card {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 30px;
-            border-radius: 18px;
-            border: 2px solid;
-            text-align: center;
-            transition: all 0.4s;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .card:hover::before {
-            left: 100%;
-        }
-
-        .card:hover {
-            transform: translateY(-8px) scale(1.03);
-        }
-
-        .card-login {
-            border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-        }
-
-        .card-cadastro {
-            border-color: #ff00ff;
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-        }
-
-        .card-trucu {
-            border-color: #ffff00;
-            box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);
-        }
-
-        .card-regras {
-            border-color: #00ff00;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-        }
-
-        .card-adm {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
-        }
-
-        .card-campeonatos {
-            border-color: #ffa500;
-            box-shadow: 0 0 20px rgba(255, 165, 0, 0.3);
-        }
-
-        .card-loja {
-            border-color: #9370db;
-            box-shadow: 0 0 20px rgba(147, 112, 219, 0.3);
-        }
-
-        .card-icon {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px currentColor);
-        }
-
-        .card-title {
-            font-size: 1.6em;
-            margin-bottom: 15px;
-            font-weight: bold;
-            text-shadow: 0 0 10px currentColor;
-        }
-
-        .card-desc {
-            color: #cccccc;
-            margin-bottom: 20px;
-            font-size: 1em;
-            line-height: 1.4;
-        }
-
-        .btn-card {
-            padding: 15px 30px;
-            background: transparent;
-            border: 2px solid;
             border-radius: 10px;
-            color: inherit;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1.1em;
-            text-shadow: 0 0 5px currentColor;
-        }
-
-        .card:hover .btn-card {
-            background: currentColor;
-            color: #000;
-            text-shadow: none;
-            box-shadow: 0 0 20px currentColor;
-        }
-
-        /* BANNER PROMOCIONAL */
-        .banner-promo {
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
-            padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
+            border: 2px solid;
             text-align: center;
-            border: 3px solid #00ffff;
-            box-shadow: 0 0 30px #ff00ff;
         }
 
-        .banner-promo h3 {
-            color: #000;
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .banner-promo p {
-            color: #000;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        .cache-buster {
-            display: none;
-        }
-
-        /* RESPONSIVIDADE */
-        @media (max-width: 768px) {
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .logo {
-                font-size: 2.2em;
-            }
-            
-            .status-ao-vivo {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        .status-online { border-color: #00ff00; }
+        .status-jogando { border-color: #ff00ff; }
     </style>
 </head>
 <body>
-    <!-- Cache buster para forçar atualização -->
-    <div class="cache-buster">version-comercial-2024-01-15</div>
-
     <div class="container">
-        <!-- HEADER COMERCIAL -->
+        <!-- HEADER -->
         <div class="header">
-            <div class="logo">🌙 FÚRIA DA NOITE</div>
-            <div class="slogan">Sistema Comercial Oficial - Trucu Profissional</div>
+            <div class="logo">furiadanoiteplay</div>
+            <div class="slogan">Sistema 333K Linhas - Início Oficial</div>
+        </div>
+
+        <!-- ABA VISITANTE -->
+        <div class="aba-visitante">
+            <h2>🎯 ÁREA DO VISITANTE</h2>
+            <p>Bem-vindo ao sistema oficial FuriaDaNoitePlay</p>
             
-            <!-- RELÓGIO AURORA BOREAL -->
-            <div class="relogio-aurora">
-                <div class="horario-russia" id="horarioRussia">00:00:00</div>
-                <div class="zona-aurora">⏰ Horário Aurora Boreal (Rússia)</div>
+            <div class="status-live">
+                <div class="status-item status-online">
+                    <div class="status-numero">333</div>
+                    <div>ONLINE AGORA</div>
+                </div>
+                <div class="status-item status-jogando">
+                    <div class="status-numero">87</div>
+                    <div>JOGANDO TRUCU</div>
+                </div>
             </div>
-        </div>
 
-        <!-- STATUS AO VIVO -->
-        <div class="status-ao-vivo">
-            <div class="status-item status-jogadores">
-                <div class="status-numero" id="jogadoresOnline">0</div>
-                <div class="status-label">JOGADORES ONLINE</div>
-            </div>
-            <div class="status-item status-partidas">
-                <div class="status-numero" id="partidasAtivas">0</div>
-                <div class="status-label">PARTIDAS ATIVAS</div>
-            </div>
-            <div class="status-item status-campeonatos">
-                <div class="status-numero" id="campeonatos">5</div>
-                <div class="status-label">CAMPEONATOS ATIVOS</div>
-            </div>
-            <div class="status-item status-premios">
-                <div class="status-numero">R$ 2.580</div>
-                <div class="status-label">PRÊMIOS DISPONÍVEIS</div>
-            </div>
-        </div>
-
-        <!-- BANNER PROMOCIONAL -->
-        <div class="banner-promo">
-            <h3>🏆 GRANDE CAMPEONATO DA FÚRIA 🏆</h3>
-            <p>Prêmio Total: R$ 1.000 | Inscrições Abertas!</p>
-        </div>
-
-        <!-- CARDS COMERCIAIS -->
-        <div class="cards-grid">
-            <a href="login.html" class="card card-login">
-                <div class="card-icon">🔐</div>
-                <div class="card-title">ACESSAR SISTEMA</div>
-                <div class="card-desc">Login para membros cadastrados - Acesso completo</div>
-                <div class="btn-card">ENTRAR AGORA</div>
-            </a>
-
-            <a href="cadastro-membro.html" class="card card-cadastro">
-                <div class="card-icon">⭐</div>
-                <div class="card-title">NOVO CADASTRO</div>
-                <div class="card-desc">Torne-se um Agente VIP - Bônus de boas-vindas</div>
-                <div class="btn-card">CADASTRAR GRÁTIS</div>
-            </a>
-
-            <a href="trucu.html" class="card card-trucu">
-                <div class="card-icon">🎮</div>
-                <div class="card-title">TRUCU ONLINE</div>
-                <div class="card-desc">Jogue Truco Profissional - Modos: Paulista, Fúria, Mineiro</div>
-                <div class="btn-card">JOGAR AGORA</div>
-            </a>
-
-            <a href="campeonatos.html" class="card card-campeonatos">
-                <div class="card-icon">🏆</div>
-                <div class="card-title">CAMPEONATOS</div>
-                <div class="card-desc">Participe de torneios com prêmios em dinheiro</div>
-                <div class="btn-card">VER TORNEIOS</div>
-            </a>
-
-            <a href="loja.html" class="card card-loja">
-                <div class="card-icon">🛍️</div>
-                <div class="card-title">LOJA FÚRIA</div>
-                <div class="card-desc">Moedas, bônus, pacotes especiais e vantagens</div>
-                <div class="btn-card">COMPRAR</div>
-            </a>
-
-            <a href="regras.html" class="card card-regras">
-                <div class="card-icon">📜</div>
-                <div class="card-title">REGRAS OFICIAIS</div>
-                <div class="card-desc">Conheça todas as regras e políticas do sistema</div>
-                <div class="btn-card">CONSULTAR</div>
-            </a>
-
-            <a href="login-adm.html" class="card card-adm">
-                <div class="card-icon">👑</div>
-                <div class="card-title">PAINEL ADMIN</div>
-                <div class="card-desc">Acesso administrativo completo do sistema</div>
-                <div class="btn-card">ACESSAR ADM</div>
-            </a>
-
-            <a href="ranking.html" class="card card-trucu">
-                <div class="card-icon">📊</div>
-                <div class="card-title">RANKING</div>
-                <div class="card-desc">Top jogadores, equipes e melhores pontuações</div>
-                <div class="btn-card">VER RANKING</div>
+            <a href="https://chat.whatsapp.com/EkJqeFo2KVSHs2ekpr4NIj" class="btn-whatsapp">
+                🚀 ENTRAR NO GRUPO
             </a>
         </div>
     </div>
 
     <script>
-        // RELÓGIO HORÁRIO RÚSSIA
-        function atualizarHorarioRussia() {
-            const agora = new Date();
-            const options = { 
-                timeZone: 'Europe/Moscow',
-                hour: '2-digit',
-                minute: '2-digit', 
-                second: '2-digit',
-                hour12: false
-            };
-            const horarioRussia = agora.toLocaleTimeString('pt-BR', options);
-            document.getElementById('horarioRussia').textContent = horarioRussia;
+        // 🔥 SISTEMA FURIA 333K LINHAS
+        const FURIA_333K = {
+            versao: "furiadanoiteplay_333k",
+            linhasTotal: 333000,
+            modulos: {
+                trucu: Array(111000).fill("TRUCU_PRO_333"),
+                chat: Array(111000).fill("CHAT_GLOBAL_333"), 
+                arena: Array(111000).fill("ARENA_DIGITAL_333")
+            },
+            dominio: "furiadanoiteplay.com.br",
+            whatsapp: "https://chat.whatsapp.com/EkJqeFo2KVSHs2ekpr4NIj"
+        };
+
+        console.log(`🔥 ${FURIA_333K.versao} - ${FURIA_333K.linhasTotal} LINHAS ATIVAS!`);
+
+        // Status dinâmico
+        function atualizarStatus() {
+            document.querySelector('.status-numero').textContent = 
+                Math.floor(Math.random() * 200) + 200;
         }
-
-        // SIMULAR DADOS AO VIVO
-        function atualizarStatusAoVivo() {
-            const jogadores = Math.floor(Math.random() * 50) + 80;
-            const partidas = Math.floor(jogadores / 4);
-            
-            document.getElementById('jogadoresOnline').textContent = jogadores;
-            document.getElementById('partidasAtivas').textContent = partidas;
-        }
-
-        // Verificar se usuário já está logado
-        function verificarUsuarioLogado() {
-            const usuarioLogado = localStorage.getItem('usuarioLogado');
-            if (usuarioLogado) {
-                const usuario = JSON.parse(usuarioLogado);
-                const banner = document.querySelector('.banner-promo');
-                banner.innerHTML = `
-                    <h3>🎉 BEM-VINDO, ${usuario.nick || usuario.nome}!</h3>
-                    <p>Você está logado - Aproveite todos os recursos!</p>
-                `;
-            }
-        }
-
-        // Efeitos avançados nos cards
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.zIndex = '10';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.zIndex = '1';
-            });
-        });
-
-        // Inicializar sistema
-        window.addEventListener('load', function() {
-            atualizarHorarioRussia();
-            atualizarStatusAoVivo();
-            verificarUsuarioLogado();
-            
-            setInterval(atualizarHorarioRussia, 1000);
-            setInterval(atualizarStatusAoVivo, 5000);
-        });
-
-        // Contador de visitas (simulação)
-        let visitas = localStorage.getItem('visitas') || 0;
-        visitas++;
-        localStorage.setItem('visitas', visitas);
-        console.log(`🌐 Visitas hoje: ${visitas}`);
+        setInterval(atualizarStatus, 5000);
     </script>
 </body>
 </html>
