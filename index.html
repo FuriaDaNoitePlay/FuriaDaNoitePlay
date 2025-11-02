@@ -114,8 +114,8 @@
             font-weight: bold;
         }
 
-        /* VIDEO YOUTUBE */
-        .video-container {
+        /* PLAYER SOUNDCLOUD */
+        .player-container {
             background: rgba(0, 0, 0, 0.9);
             padding: 30px;
             border-radius: 15px;
@@ -124,26 +124,49 @@
             text-align: center;
         }
 
-        .video-title {
+        .player-title {
             color: #ff0000;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            text-shadow: 0 0 15px #ff0000;
+        }
+
+        .player-subtitle {
+            color: #ff6666;
             margin-bottom: 20px;
-            font-size: 1.5em;
-            text-shadow: 0 0 10px #ff0000;
+            font-style: italic;
         }
 
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .video-wrapper iframe {
+        .audio-btn {
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px solid #ff3333;
+            transition: all 0.3s;
+        }
+
+        .audio-btn:hover {
+            box-shadow: 0 0 20px #ff0000;
+            transform: scale(1.05);
+        }
+
+        .soundcloud-embed {
             width: 100%;
-            height: 450px;
+            height: 166px;
             border-radius: 10px;
             border: 2px solid #ff3333;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
         }
 
         /* GALERIA DE MEMBROS */
@@ -195,11 +218,45 @@
             color: #ff6666;
             font-weight: bold;
             border: 1px solid #ff0000;
+            background-size: cover;
+            background-position: center;
         }
 
         .membro-nome {
             color: #ff6666;
             font-size: 0.9em;
+        }
+
+        /* VIDEO YOUTUBE */
+        .video-container {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #ff0000;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .video-title {
+            color: #ff0000;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
+            height: 450px;
+            border-radius: 10px;
+            border: 2px solid #ff3333;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
         }
 
         /* CHATS DUPLICADOS */
@@ -375,6 +432,11 @@
             .video-wrapper iframe {
                 height: 250px;
             }
+            
+            .audio-controls {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -386,7 +448,7 @@
         <!-- HEADER -->
         <div class="header">
             <div class="logo-container">
-                <img src="https://via.placeholder.com/400x120/ff0000/000000?text=FURIA+DA+NOITE+PLAY" alt="Furia Da Noite Play" class="logo">
+                <img src="fúria.png" alt="Furia Da Noite Play" class="logo">
             </div>
             <div class="slogan">A maior comunidade de Trucu do Brasil</div>
         </div>
@@ -419,36 +481,55 @@
             </div>
         </div>
 
+        <!-- PLAYER SOUNDCLOUD -->
+        <div class="player-container">
+            <h2 class="player-title">🎵 OUÇA _____FININHA______</h2>
+            <p class="player-subtitle">Uma playlist de G.LPlayMoney no SoundCloud</p>
+            
+            <div class="audio-controls">
+                <button class="audio-btn" onclick="playAudio()">▶️ PLAY</button>
+                <button class="audio-btn" onclick="pauseAudio()">⏸️ PAUSE</button>
+                <button class="audio-btn" onclick="nextTrack()">⏭️ PRÓXIMA</button>
+                <button class="audio-btn" onclick="showPlaylist()">📋 VER PLAYLIST</button>
+            </div>
+
+            <iframe 
+                src="https://w.soundcloud.com/player/?url=https://soundcloud.com/glplaymoney/sets/fininha&color=ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+                class="soundcloud-embed"
+                id="soundcloudPlayer">
+            </iframe>
+        </div>
+
         <!-- GALERIA DE MEMBROS -->
         <div class="galeria-membros">
             <h2 class="galeria-titulo">MEMBROS DA FÚRIA</h2>
             <div class="membros-grid">
                 <div class="membro-item">
-                    <div class="membro-img">MEMBRO 1</div>
+                    <div class="membro-img" style="background-image: url('membros1.png');">MEMBRO 1</div>
                     <div class="membro-nome">Neterpitou</div>
                 </div>
                 <div class="membro-item">
-                    <div class="membro-img">MEMBRO 2</div>
+                    <div class="membro-img" style="background-image: url('membros2.png');">MEMBRO 2</div>
                     <div class="membro-nome">Dona</div>
                 </div>
                 <div class="membro-item">
-                    <div class="membro-img">MEMBRO 3</div>
+                    <div class="membro-img" style="background-image: url('membros3.png');">MEMBRO 3</div>
                     <div class="membro-nome">ADN</div>
                 </div>
                 <div class="membro-item">
-                    <div class="membro-img">MEMBRO 4</div>
+                    <div class="membro-img" style="background-image: url('membros4.png');">MEMBRO 4</div>
                     <div class="membro-nome">Membro</div>
                 </div>
                 <div class="membro-item">
-                    <div class="membro-img">MEMBRO 5</div>
+                    <div class="membro-img" style="background-image: url('membros5.png');">MEMBRO 5</div>
                     <div class="membro-nome">Membro</div>
                 </div>
                 <div class="membro-item">
-                    <div class="membro-img">MEMBRO 6</div>
+                    <div class="membro-img" style="background-image: url('membros6.png');">MEMBRO 6</div>
                     <div class="membro-nome">Membro</div>
                 </div>
                 <div class="membro-item">
-                    <div class="membro-img">MEMBRO 7</div>
+                    <div class="membro-img" style="background-image: url('membros7.png');">MEMBRO 7</div>
                     <div class="membro-nome">Membro</div>
                 </div>
             </div>
@@ -483,21 +564,21 @@
                     <div class="message">
                         <div class="message-header">
                             <span class="message-user">Neterpitou</span>
-                            <span class="message-time">18:45</span>
+                            <span class="message-time" id="time1">18:45</span>
                         </div>
                         <div class="message-content">Alguém para uma partida de Trucu?</div>
                     </div>
                     <div class="message">
                         <div class="message-header">
                             <span class="message-user">Dona</span>
-                            <span class="message-time">18:46</span>
+                            <span class="message-time" id="time2">18:46</span>
                         </div>
                         <div class="message-content">Eu topo! Vamos criar uma sala?</div>
                     </div>
                     <div class="message">
                         <div class="message-header">
                             <span class="message-user">ADN</span>
-                            <span class="message-time">18:47</span>
+                            <span class="message-time" id="time3">18:47</span>
                         </div>
                         <div class="message-content">Partida 4x4 começando em 5 min!</div>
                     </div>
@@ -527,85 +608,15 @@
                     <div class="message">
                         <div class="message-header">
                             <span class="message-user">FuriaBot</span>
-                            <span class="message-time">18:40</span>
+                            <span class="message-time" id="time4">18:40</span>
                         </div>
                         <div class="message-content">Bem-vindo ao Chat Trucu oficial!</div>
                     </div>
                     <div class="message">
                         <div class="message-header">
                             <span class="message-user">Player_X1</span>
-                            <span class="message-time">18:42</span>
+                            <span class="message-time" id="time5">18:42</span>
                         </div>
                         <div class="message-content">Alguém quer formar dupla para o campeonato?</div>
                     </div>
-                    <div class="message">
-                        <div class="message-header">
-                            <span class="message-user">TrucuMaster</span>
-                            <span class="message-time">18:44</span>
-                        </div>
-                        <div class="message-content">Dica: Use a manilha com estratégia!</div>
-                    </div>
-                </div>
-                <div class="chat-input-container">
-                    <input type="text" class="chat-input" placeholder="Mensagem no chat Trucu..." id="chatInput2">
-                    <button class="chat-send" id="chatSend2">Enviar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // 🔥 SISTEMA FURIA COMPLETO - SISTEMA DE CHAT AVANÇADO
-        const FURIA_SYSTEM = {
-            versao: "FuriaDaNoitePlay_v3.0",
-            dominio: "FuriaDaNoitePlay.com.br",
-            whatsapp: "https://chat.whatsapp.com/EkJqeFo2KVSHs2ekpr4NIj",
-            botNumero: "553197319008",
-            scriptsAtivos: 333000,
-            // Sistema de sincronização
-            syncEnabled: true,
-            lastUpdate: Date.now()
-        };
-
-        // Status dinâmico REAL
-        function atualizarStatus() {
-            // Números reais baseados no horário e atividade
-            const now = new Date();
-            const hour = now.getHours();
-            const baseOnline = 400 + Math.floor(Math.sin(hour * 0.26) * 50);
-            const baseTrucu = Math.floor(baseOnline * 0.3) + Math.floor(Math.random() * 20);
-            
-            const online = baseOnline + Math.floor(Math.random() * 30);
-            const trucu = baseTrucu + Math.floor(Math.random() * 15);
-            
-            // Atualizar todos os elementos
-            document.getElementById('onlineCount').textContent = online;
-            document.getElementById('trucuCount').textContent = trucu;
-            
-            document.getElementById('chatOnline1').textContent = online;
-            document.getElementById('chatTrucu1').textContent = trucu;
-            
-            document.getElementById('chatOnline2').textContent = online;
-            document.getElementById('chatTrucu2').textContent = trucu;
-            
-            console.log(`🔄 Status atualizado: ${online} online, ${trucu} jogando Trucu`);
-        }
-
-        // Sistema de chat UNIFICADO - mensagens sincronizadas
-        class FuriaChatSystem {
-            constructor() {
-                this.messages = [];
-                this.isConnected = false;
-                this.init();
-            }
-            
-            init() {
-                this.setupChatEvents('1');
-                this.setupChatEvents('2');
-                this.connectToServer();
-                this.loadStoredMessages();
-            }
-            
-            setupChatEvents(chatId) {
-                const sendBtn = document.getElementById(`chatSend${chatId}`);
-               
+          
