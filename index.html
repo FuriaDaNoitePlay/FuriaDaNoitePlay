@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FURIA DA NOITE PLAY - A Maior Comunidade do Brasil</title>
+    <title>FURIA DA NOITE PLAY - COMUNIDADE OFICIAL</title>
     <style>
         * {
             margin: 0;
@@ -16,121 +16,12 @@
             color: #ff0000;
             font-family: 'Arial', sans-serif;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-        }
-
-        /* HEADER SIMPLES E EFICIENTE */
-        .header {
-            text-align: center;
-            padding: 30px 0;
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            height: 80px;
-            margin-bottom: 15px;
-        }
-
-        .titulo-principal {
-            font-size: 2.5em;
-            color: #ff0000;
-            text-shadow: 0 0 20px #ff0000;
-            margin-bottom: 10px;
-        }
-
-        .slogan {
-            font-size: 1.2em;
-            color: #ff6666;
-            margin-bottom: 30px;
-        }
-
-        /* BOTÕES PRINCIPAIS */
-        .botoes-principais {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        @media (max-width: 768px) {
-            .botoes-principais {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .btn-principal {
-            background: linear-gradient(45deg, #ff0000, #cc0000);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 1.1em;
-            font-weight: bold;
-            text-align: center;
-            border: 2px solid #ff3333;
-            box-shadow: 0 0 20px #ff0000;
-            transition: all 0.3s;
-        }
-
-        .btn-principal:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px #ff0000;
-        }
-
-        /* SEÇÃO DE CAMPEONATOS */
-        .secao-campeonatos {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid #ff0000;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .titulo-secao {
-            color: #ff0000;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #ff0000;
-        }
-
-        /* COMUNIDADE E RANK */
-        .info-comunidade {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        @media (max-width: 768px) {
-            .info-comunidade {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card-info {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #ff0000;
-            text-align: center;
-        }
-
-        .card-titulo {
-            color: #ff0000;
-            font-size: 1.3em;
-            margin-bottom: 10px;
-        }
-
-        .card-descricao {
-            color: #ff6666;
-            font-size: 0.9em;
         }
 
         /* NAVEGAÇÃO SUPERIOR */
@@ -143,36 +34,142 @@
             border-bottom: 2px solid #ff0000;
         }
 
-        .nav-esquerda {
+        .nav-titulo {
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.4em;
             color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
         }
 
-        .nav-direita {
+        .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 25px;
         }
 
         .nav-link {
             color: #ff6666;
             text-decoration: none;
             font-weight: bold;
-            transition: color 0.3s;
+            transition: all 0.3s;
         }
 
         .nav-link:hover {
             color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
         }
 
-        /* RODAPÉ */
-        .rodape {
+        /* HEADER PRINCIPAL */
+        .header-principal {
             text-align: center;
-            padding: 30px 0;
-            margin-top: 50px;
-            border-top: 2px solid #ff0000;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            height: 100px;
+            margin-bottom: 20px;
+        }
+
+        .titulo-grande {
+            font-size: 3em;
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000;
+            margin-bottom: 10px;
+        }
+
+        .slogan {
+            font-size: 1.3em;
             color: #ff6666;
-            font-size: 0.9em;
+            margin-bottom: 30px;
+        }
+
+        /* BOTÕES PRINCIPAIS */
+        .botoes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .btn-vermelho {
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            border: 3px solid #ff3333;
+            box-shadow: 0 0 25px #ff0000;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-vermelho:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px #ff0000;
+        }
+
+        /* SEÇÃO CAMPEONATOS */
+        .secao-campeonatos {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid #ff0000;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        .titulo-secao {
+            color: #ff0000;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px #ff0000;
+        }
+
+        .descricao-secao {
+            color: #ff6666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        /* CARDS INFORMAÇÃO */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: rgba(20, 0, 0, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #ff0000;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        .card-titulo {
+            color: #ff0000;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .card-descricao {
+            color: #ff6666;
+            font-size: 1em;
         }
 
         /* BOTÃO FRON */
@@ -182,13 +179,49 @@
             right: 20px;
             background: #ff0000;
             color: white;
-            padding: 10px 15px;
+            padding: 12px 20px;
             border-radius: 25px;
             text-decoration: none;
             font-weight: bold;
             border: 2px solid #ff3333;
-            box-shadow: 0 0 15px #ff0000;
+            box-shadow: 0 0 20px #ff0000;
             z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .btn-fron:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #ff0000;
+        }
+
+        /* RODAPÉ */
+        .rodape {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 2px solid #ff0000;
+            color: #ff6666;
+            font-size: 0.9em;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .botoes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .titulo-grande {
+                font-size: 2.2em;
+            }
         }
     </style>
 </head>
@@ -199,10 +232,8 @@
     <div class="container">
         <!-- NAVEGAÇÃO SUPERIOR -->
         <nav class="nav-superior">
-            <div class="nav-esquerda">
-                Furia da Noite Play
-            </div>
-            <div class="nav-direita">
+            <div class="nav-titulo">FURIA DA NOITE PLAY</div>
+            <div class="nav-links">
                 <a href="#membros" class="nav-link">Membros</a>
                 <a href="#chat" class="nav-link">Chat Geral</a>
                 <a href="login.html" class="nav-link">Login</a>
@@ -210,39 +241,39 @@
         </nav>
 
         <!-- HEADER PRINCIPAL -->
-        <header class="header">
+        <header class="header-principal">
             <img src="fúria.png" alt="Furia Da Noite Play" class="logo">
-            <h1 class="titulo-principal">FURIA DA NOITE PLAY</h1>
+            <h1 class="titulo-grande">FURIA DA NOITE PLAY</h1>
             <p class="slogan">A maior comunidade de Trucu do Brasil</p>
         </header>
 
         <!-- BOTÕES PRINCIPAIS -->
-        <div class="botoes-principais">
-            <a href="cadastro-membro.html" class="btn-principal">📝 CADASTRAR</a>
-            <a href="campeonatos.html" class="btn-principal">🏆 VER CAMPEONATO</a>
+        <div class="botoes-grid">
+            <a href="cadastro-membro.html" class="btn-vermelho">📝 CADASTRAR MEMBRO</a>
+            <a href="campeonatos.html" class="btn-vermelho">🏆 VER CAMPEONATOS</a>
         </div>
 
-        <!-- SEÇÃO DE CAMPEONATOS -->
+        <!-- SEÇÃO CAMPEONATOS -->
         <section class="secao-campeonatos">
             <h2 class="titulo-secao">Campeonatos</h2>
-            <p style="color: #ff6666; margin-bottom: 20px;">Participe de torneios emocionantes</p>
+            <p class="descricao-secao">Participe de torneios emocionantes</p>
             
-            <div class="info-comunidade">
-                <div class="card-info">
+            <div class="cards-container">
+                <div class="card">
                     <h3 class="card-titulo">Comunidade</h3>
                     <p class="card-descricao">Conecte-se com jogadores</p>
                 </div>
-                <div class="card-info">
+                <div class="card">
                     <h3 class="card-titulo">Rank</h3>
                     <p class="card-descricao">Suba no sistema de hierarquia</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO ADICIONAL -->
-        <div class="botoes-principais">
-            <a href="trucu.html" class="btn-principal">🎴 JOGAR TRUCU</a>
-            <a href="chat-galatico.html" class="btn-principal">💬 CHAT GALÁTICO</a>
+        <!-- BOTÕES SECUNDÁRIOS -->
+        <div class="botoes-grid">
+            <a href="trucu.html" class="btn-vermelho">🎴 JOGAR TRUCU 4x4</a>
+            <a href="chat-galatico.html" class="btn-vermelho">💬 CHAT GALÁTICO</a>
         </div>
     </div>
 
@@ -252,27 +283,39 @@
     </footer>
 
     <script>
-        // Funções básicas de navegação
-        function irParaCadastro() {
+        // Sistema básico de navegação
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔥 Furia Da Noite Play - Sistema Ativo!');
+            
+            // Efeito de brilho nos botões
+            const botoes = document.querySelectorAll('.btn-vermelho');
+            botoes.forEach(botao => {
+                botao.addEventListener('mouseenter', function() {
+                    this.style.animation = 'pulse 0.5s';
+                });
+                
+                botao.addEventListener('mouseleave', function() {
+                    this.style.animation = 'none';
+                });
+            });
+        });
+
+        // Funções de navegação
+        function entrarComunidade() {
             window.location.href = 'cadastro-membro.html';
         }
 
-        function irParaCampeonatos() {
+        function verCampeonatos() {
             window.location.href = 'campeonatos.html';
         }
 
-        function irParaChat() {
+        function jogarTrucu() {
+            window.location.href = 'trucu.html';
+        }
+
+        function abrirChat() {
             window.location.href = 'chat-galatico.html';
         }
-
-        function irParaLogin() {
-            window.location.href = 'login.html';
-        }
-
-        // Efeito simples ao carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎮 Furia Da Noite Play - Sistema Carregado!');
-        });
     </script>
 </body>
 </html>
