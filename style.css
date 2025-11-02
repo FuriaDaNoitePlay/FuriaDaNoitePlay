@@ -5,374 +5,125 @@
 }
 
 body {
-    background: linear-gradient(135deg, #0a0a2a, #00008b, #2a0a4a);
-    color: #00ffff;
-    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #1a0000, #4a0000, #000000);
+    color: #ff0000;
+    font-family: 'Arial', sans-serif;
     min-height: 100vh;
-    overflow-x: hidden;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* 🎰 CORES NEON OFICIAIS DA FÚRIA */
-.neon-azul { color: #00ffff; text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-.neon-verde { color: #00ff00; text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
-.neon-vermelho { color: #ff0000; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
-.neon-amarelo { color: #ffff00; text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00; }
-.neon-laranja { color: #ff8800; text-shadow: 0 0 10px #ff8800, 0 0 20px #ff8800; }
-.neon-rosa { color: #ff00ff; text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
-
-/* Efeitos de pulsação */
-@keyframes pulsar-azul {
-    from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-    to { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff; }
-}
-
-@keyframes pulsar-verde {
-    from { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
-    to { text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00; }
-}
-
-@keyframes pulsar-vermelho {
-    from { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
-    to { text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000; }
-}
-
-.neon-text {
-    animation: pulsar-azul 2s ease-in-out infinite alternate;
-}
-
-.neon-title {
+/* HEADER VERMELHO NEON */
+.header {
     text-align: center;
+    padding: 50px 0;
+    background: rgba(0, 0, 0, 0.95);
+    border-radius: 20px;
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 60px #ff0000, 0 0 100px #ff3333;
     margin-bottom: 30px;
-    font-size: 2.5em;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Header */
-.neon-header {
-    text-align: center;
-    padding: 30px 0;
-    border-bottom: 3px solid #00ffff;
-    margin-bottom: 40px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 15px;
-    box-shadow: 0 0 30px #00ffff;
+.header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+    animation: brilhoVermelho 6s linear infinite;
+}
+
+@keyframes brilhoVermelho {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 15px;
-}
-
-.logo-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 2px solid #00ffff;
-    box-shadow: 0 0 20px #00ffff;
-}
-
-.subtitle {
-    color: #ff00ff;
-    font-size: 1.3em;
-    font-style: italic;
-    text-shadow: 0 0 10px #ff00ff;
-}
-
-/* Mente Digital */
-.md-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 50px;
-}
-
-.md-card {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 25px;
-    border-radius: 15px;
-    border: 2px solid #00ffff;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px #00ffff;
-}
-
-.md-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 40px #ff00ff;
-    border-color: #ff00ff;
-}
-
-.md-card img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    border: 2px solid #00ffff;
-}
-
-.md-card h3 {
-    color: #ff00ff;
-    margin-bottom: 10px;
-    font-size: 1.5em;
-}
-
-/* Sistema de Acesso */
-.acesso-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    margin-bottom: 50px;
-}
-
-.acesso-card {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 30px;
-    border-radius: 15px;
-    border: 2px solid;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.acesso-card:nth-child(1) {
-    border-color: #ffff00;
-    box-shadow: 0 0 20px #ffff00;
-}
-.acesso-card:nth-child(2) {
-    border-color: #ff0000;
-    box-shadow: 0 0 20px #ff0000;
-}
-.acesso-card:nth-child(3) {
-    border-color: #00ff00;
-    box-shadow: 0 0 20px #00ff00;
-}
-
-.acesso-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px;
-}
-
-.acesso-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.acesso-card h3 {
-    margin-bottom: 15px;
-    font-size: 1.4em;
-}
-
-/* Botões Neon */
-.neon-btn {
-    background: transparent;
-    color: #00ffff;
-    border: 2px solid #00ffff;
-    padding: 15px 30px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    text-shadow: 0 0 5px #00ffff;
-    box-shadow: 0 0 15px #00ffff;
-    margin: 10px;
-}
-
-.neon-btn:hover {
-    background: rgba(0, 255, 255, 0.1);
-    box-shadow: 0 0 25px #00ffff;
-    transform: scale(1.05);
-}
-
-.neon-btn.verde {
-    color: #00ff00;
-    border-color: #00ff00;
-    box-shadow: 0 0 15px #00ff00;
-    text-shadow: 0 0 5px #00ff00;
-}
-
-.neon-btn.vermelho {
+    font-size: 4em;
     color: #ff0000;
-    border-color: #ff0000;
-    box-shadow: 0 0 15px #ff0000;
-    text-shadow: 0 0 5px #ff0000;
-}
-
-.neon-btn.amarelo {
-    color: #ffff00;
-    border-color: #ffff00;
-    box-shadow: 0 0 15px #ffff00;
-    text-shadow: 0 0 5px #ffff00;
-}
-
-/* Redes Sociais */
-.redes-sociais {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.social-btn {
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-}
-
-.social-btn.instagram {
-    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
-    color: white;
-}
-
-.social-btn.youtube {
-    background: linear-gradient(45deg, #FF0000, #CC0000);
-    color: white;
-}
-
-.social-btn.tiktok {
-    background: linear-gradient(45deg, #000000, #00f2ea);
-    color: white;
-}
-
-.social-btn.whatsapp {
-    background: linear-gradient(45deg, #25D366, #128C7E);
-    color: white;
-}
-
-.social-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
-}
-
-/* CHAT GERAL */
-.chat-container {
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid #00ff00;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 30px 0;
-    box-shadow: 0 0 20px #00ff00;
-}
-
-.chat-messages {
-    height: 300px;
-    overflow-y: auto;
-    border: 1px solid #00ffff;
-    border-radius: 10px;
-    padding: 15px;
+    text-shadow: 0 0 40px #ff0000, 0 0 80px #ff3333;
     margin-bottom: 15px;
-    background: rgba(0, 255, 255, 0.05);
+    position: relative;
+    z-index: 2;
 }
 
-.message {
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 8px;
-    background: rgba(0, 255, 255, 0.1);
-    border-left: 3px solid #00ffff;
+.slogan {
+    color: #ff6666;
+    font-size: 1.4em;
+    font-style: italic;
+    text-shadow: 0 0 20px #ff0000;
+    position: relative;
+    z-index: 2;
 }
 
-.message.membro {
-    background: rgba(0, 255, 0, 0.1);
-    border-left-color: #00ff00;
-}
-
-.message.visitante {
-    background: rgba(255, 255, 0, 0.1);
-    border-left-color: #ffff00;
-}
-
-.chat-input {
-    display: flex;
-    gap: 10px;
-}
-
-.chat-input input {
-    flex: 1;
-    padding: 12px;
-    border: 2px solid #00ffff;
-    border-radius: 8px;
-    background: rgba(0, 255, 255, 0.1);
-    color: white;
-}
-
-.chat-input button {
-    padding: 12px 25px;
-    background: linear-gradient(45deg, #ff00ff, #00ffff);
-    color: black;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* BOTÕES PRINCIPAIS */
-.botoes-principais {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin: 30px 0;
-}
-
+/* BOTÕES VERMELHO NEON */
 .btn-neon {
-    padding: 20px;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.7);
-    border: 2px solid;
-    border-radius: 10px;
+    display: inline-block;
+    background: linear-gradient(45deg, #ff0000, #cc0000);
     color: white;
+    padding: 18px 35px;
+    border-radius: 50px;
     text-decoration: none;
+    font-size: 1.2em;
     font-weight: bold;
-    font-size: 1.1em;
+    margin: 20px 0;
+    border: 3px solid #ff3333;
+    box-shadow: 0 0 30px #ff0000;
     transition: all 0.3s;
-    box-shadow: 0 0 15px;
+    position: relative;
+    z-index: 2;
+    animation: pulseVermelho 2s infinite;
 }
 
-.btn-neon.azul { border-color: #00ffff; box-shadow: 0 0 15px #00ffff; }
-.btn-neon.verde { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; }
-.btn-neon.vermelho { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; }
-.btn-neon.amarelo { border-color: #ffff00; box-shadow: 0 0 15px #ffff00; }
-.btn-neon.laranja { border-color: #ff8800; box-shadow: 0 0 15px #ff8800; }
+@keyframes pulseVermelho {
+    0% { transform: scale(1); box-shadow: 0 0 30px #ff0000; }
+    50% { transform: scale(1.05); box-shadow: 0 0 50px #ff0000; }
+    100% { transform: scale(1); box-shadow: 0 0 30px #ff0000; }
+}
 
 .btn-neon:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 25px;
+    transform: scale(1.1);
+    box-shadow: 0 0 70px #ff0000;
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
-    .logo {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .md-cards, .acesso-cards {
-        grid-template-columns: 1fr;
-    }
-    
-    .membros-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .botoes-principais {
-        grid-template-columns: 1fr;
-    }
-    
-    .neon-title {
-        font-size: 2em;
-    }
+/* CARDS VERMELHO */
+.card {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid #ff0000;
+    text-align: center;
+    transition: all 0.4s;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 40px #ff0000;
+}
+
+/* STATUS VERMELHO */
+.status-item {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 25px;
+    border-radius: 12px;
+    border: 2px solid #ff0000;
+    text-align: center;
+    box-shadow: 0 0 20px #ff0000;
+}
+
+.status-numero {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ff0000;
+    text-shadow: 0 0 15px #ff0000;
 }
