@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FURIA DA NOITE PLAY - Sistema Completo</title>
+    <title>FURIA DA NOITE PLAY - NEON VERMELHO</title>
     <style>
         * {
             margin: 0;
@@ -12,10 +12,41 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1a0000, #4a0000, #000000);
+            background: #000000;
             color: #ff0000;
             font-family: 'Arial', sans-serif;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* EFEITO NEON GLOBAL */
+        .neon-text {
+            text-shadow: 
+                0 0 5px #ff0000,
+                0 0 10px #ff0000,
+                0 0 15px #ff0000,
+                0 0 20px #ff0000,
+                0 0 35px #ff0000,
+                0 0 40px #ff0000;
+        }
+
+        .neon-glow {
+            box-shadow: 
+                0 0 5px #ff0000,
+                0 0 10px #ff0000,
+                0 0 15px #ff0000,
+                0 0 20px #ff0000,
+                0 0 35px #ff0000,
+                0 0 40px #ff0000;
+        }
+
+        .neon-border {
+            border: 3px solid #ff0000;
+            box-shadow: 
+                inset 0 0 10px #ff0000,
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 40px #ff0000;
         }
 
         .container {
@@ -24,17 +55,39 @@
             padding: 20px;
         }
 
-        /* HEADER FURIA */
+        /* HEADER FURIA NEON */
         .header {
             text-align: center;
             padding: 40px 0;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.98);
             border-radius: 25px;
             border: 4px solid #ff0000;
-            box-shadow: 0 0 80px #ff0000;
+            box-shadow: 
+                0 0 20px #ff0000,
+                0 0 40px #ff0000,
+                0 0 80px #ff0000,
+                inset 0 0 20px #ff0000;
             margin-bottom: 40px;
             position: relative;
             overflow: hidden;
+            animation: pulseNeon 2s infinite alternate;
+        }
+
+        @keyframes pulseNeon {
+            0% {
+                box-shadow: 
+                    0 0 20px #ff0000,
+                    0 0 40px #ff0000,
+                    0 0 60px #ff0000,
+                    inset 0 0 20px #ff0000;
+            }
+            100% {
+                box-shadow: 
+                    0 0 30px #ff0000,
+                    0 0 60px #ff0000,
+                    0 0 90px #ff0000,
+                    inset 0 0 30px #ff0000;
+            }
         }
 
         .logo-container {
@@ -46,17 +99,48 @@
 
         .logo {
             height: 120px;
-            filter: drop-shadow(0 0 20px #ff0000);
+            filter: 
+                drop-shadow(0 0 10px #ff0000)
+                drop-shadow(0 0 20px #ff0000)
+                drop-shadow(0 0 30px #ff0000)
+                drop-shadow(0 0 40px #ff0000);
+            animation: logoGlow 3s infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            0% {
+                filter: 
+                    drop-shadow(0 0 5px #ff0000)
+                    drop-shadow(0 0 10px #ff0000)
+                    drop-shadow(0 0 15px #ff0000);
+            }
+            100% {
+                filter: 
+                    drop-shadow(0 0 15px #ff0000)
+                    drop-shadow(0 0 25px #ff0000)
+                    drop-shadow(0 0 35px #ff0000)
+                    drop-shadow(0 0 45px #ff0000);
+            }
         }
 
         .slogan {
             font-size: 1.5em;
-            color: #ff6666;
+            color: #ff0000;
             font-style: italic;
-            text-shadow: 0 0 20px #ff0000;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000,
+                0 0 40px #ff0000;
+            animation: textPulse 2s infinite alternate;
         }
 
-        /* BOTÕES PRINCIPAIS */
+        @keyframes textPulse {
+            0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+            100% { text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000; }
+        }
+
+        /* BOTÕES PRINCIPAIS NEON */
         .botoes-principais {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -65,26 +149,52 @@
         }
 
         .btn-grande {
-            background: linear-gradient(45deg, #ff0000, #cc0000);
-            color: white;
+            background: linear-gradient(45deg, #000000, #1a0000);
+            color: #ff0000;
             padding: 25px;
             border-radius: 15px;
             text-decoration: none;
             font-size: 1.3em;
             font-weight: bold;
             text-align: center;
-            border: 3px solid #ff3333;
-            box-shadow: 0 0 30px #ff0000;
+            border: 3px solid #ff0000;
+            box-shadow: 
+                0 0 15px #ff0000,
+                0 0 30px #ff0000,
+                inset 0 0 15px #ff0000;
             transition: all 0.3s;
             display: block;
+            text-shadow: 0 0 10px #ff0000;
+            animation: btnPulse 3s infinite alternate;
+        }
+
+        @keyframes btnPulse {
+            0% {
+                box-shadow: 
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000,
+                    inset 0 0 10px #ff0000;
+            }
+            100% {
+                box-shadow: 
+                    0 0 20px #ff0000,
+                    0 0 40px #ff0000,
+                    0 0 60px #ff0000,
+                    inset 0 0 20px #ff0000;
+            }
         }
 
         .btn-grande:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 50px #ff0000;
+            box-shadow: 
+                0 0 25px #ff0000,
+                0 0 50px #ff0000,
+                0 0 75px #ff0000,
+                inset 0 0 25px #ff0000;
+            animation: none;
         }
 
-        /* STATUS AO VIVO */
+        /* STATUS AO VIVO NEON */
         .status-ao-vivo {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -93,48 +203,77 @@
         }
 
         .status-item {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 25px;
             border-radius: 15px;
             border: 2px solid #ff0000;
             text-align: center;
-            box-shadow: 0 0 25px #ff0000;
+            box-shadow: 
+                0 0 15px #ff0000,
+                0 0 30px #ff0000,
+                inset 0 0 10px #ff0000;
+            transition: all 0.3s;
+        }
+
+        .status-item:hover {
+            box-shadow: 
+                0 0 25px #ff0000,
+                0 0 50px #ff0000,
+                inset 0 0 15px #ff0000;
         }
 
         .status-numero {
             font-size: 2.5em;
             font-weight: bold;
             color: #ff0000;
-            text-shadow: 0 0 20px #ff0000;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000;
             margin-bottom: 10px;
+            animation: numberGlow 2s infinite alternate;
+        }
+
+        @keyframes numberGlow {
+            0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+            100% { text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000; }
         }
 
         .status-label {
-            color: #ff6666;
+            color: #ff0000;
             font-weight: bold;
+            text-shadow: 0 0 10px #ff0000;
         }
 
-        /* PLAYER SOUNDCLOUD */
+        /* PLAYER SOUNDCLOUD NEON */
         .player-container {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 30px;
             border-radius: 15px;
             border: 3px solid #ff0000;
             margin: 40px 0;
             text-align: center;
+            box-shadow: 
+                0 0 20px #ff0000,
+                0 0 40px #ff0000,
+                inset 0 0 15px #ff0000;
         }
 
         .player-title {
             color: #ff0000;
             margin-bottom: 15px;
             font-size: 1.8em;
-            text-shadow: 0 0 15px #ff0000;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000;
         }
 
         .player-subtitle {
-            color: #ff6666;
+            color: #ff0000;
             margin-bottom: 20px;
             font-style: italic;
+            text-shadow: 0 0 10px #ff0000;
         }
 
         .audio-controls {
@@ -145,19 +284,26 @@
         }
 
         .audio-btn {
-            background: linear-gradient(45deg, #ff0000, #cc0000);
-            color: white;
+            background: linear-gradient(45deg, #000000, #1a0000);
+            color: #ff0000;
             border: none;
             padding: 12px 20px;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            border: 2px solid #ff3333;
+            border: 2px solid #ff0000;
+            box-shadow: 
+                0 0 10px #ff0000,
+                inset 0 0 5px #ff0000;
             transition: all 0.3s;
+            text-shadow: 0 0 5px #ff0000;
         }
 
         .audio-btn:hover {
-            box-shadow: 0 0 20px #ff0000;
+            box-shadow: 
+                0 0 15px #ff0000,
+                0 0 30px #ff0000,
+                inset 0 0 10px #ff0000;
             transform: scale(1.05);
         }
 
@@ -165,17 +311,23 @@
             width: 100%;
             height: 166px;
             border-radius: 10px;
-            border: 2px solid #ff3333;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+            border: 2px solid #ff0000;
+            box-shadow: 
+                0 0 15px #ff0000,
+                0 0 30px rgba(255, 0, 0, 0.7);
         }
 
-        /* GALERIA DE MEMBROS */
+        /* GALERIA DE MEMBROS NEON */
         .galeria-membros {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 30px;
             border-radius: 15px;
             border: 3px solid #ff0000;
             margin: 40px 0;
+            box-shadow: 
+                0 0 20px #ff0000,
+                0 0 40px #ff0000,
+                inset 0 0 15px #ff0000;
         }
 
         .galeria-titulo {
@@ -183,7 +335,10 @@
             color: #ff0000;
             margin-bottom: 25px;
             font-size: 1.8em;
-            text-shadow: 0 0 15px #ff0000;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000;
         }
 
         .membros-grid {
@@ -193,55 +348,69 @@
         }
 
         .membro-item {
-            background: rgba(20, 0, 0, 0.8);
+            background: rgba(20, 0, 0, 0.9);
             border-radius: 10px;
             padding: 15px;
             text-align: center;
-            border: 2px solid #ff3333;
+            border: 2px solid #ff0000;
             transition: all 0.3s;
+            box-shadow: 
+                0 0 10px #ff0000,
+                inset 0 0 5px #ff0000;
         }
 
         .membro-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.7);
+            box-shadow: 
+                0 5px 25px rgba(255, 0, 0, 0.8),
+                0 0 30px #ff0000,
+                inset 0 0 10px #ff0000;
         }
 
         .membro-img {
             width: 100%;
             height: 120px;
-            background: linear-gradient(45deg, #330000, #660000);
+            background: linear-gradient(45deg, #1a0000, #330000);
             border-radius: 8px;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ff6666;
+            color: #ff0000;
             font-weight: bold;
             border: 1px solid #ff0000;
             background-size: cover;
             background-position: center;
+            box-shadow: inset 0 0 10px #ff0000;
         }
 
         .membro-nome {
-            color: #ff6666;
+            color: #ff0000;
             font-size: 0.9em;
+            text-shadow: 0 0 5px #ff0000;
         }
 
-        /* VIDEO YOUTUBE */
+        /* VIDEO YOUTUBE NEON */
         .video-container {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 30px;
             border-radius: 15px;
             border: 3px solid #ff0000;
             margin: 40px 0;
             text-align: center;
+            box-shadow: 
+                0 0 20px #ff0000,
+                0 0 40px #ff0000,
+                inset 0 0 15px #ff0000;
         }
 
         .video-title {
             color: #ff0000;
             margin-bottom: 20px;
             font-size: 1.5em;
-            text-shadow: 0 0 10px #ff0000;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000;
         }
 
         .video-wrapper {
@@ -255,11 +424,13 @@
             width: 100%;
             height: 450px;
             border-radius: 10px;
-            border: 2px solid #ff3333;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            border: 2px solid #ff0000;
+            box-shadow: 
+                0 0 20px #ff0000,
+                0 0 40px rgba(255, 0, 0, 0.7);
         }
 
-        /* CHATS DUPLICADOS */
+        /* CHATS DUPLICADOS NEON */
         .chats-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -274,10 +445,14 @@
         }
 
         .chat-container {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 30px;
             border-radius: 15px;
             border: 3px solid #ff0000;
+            box-shadow: 
+                0 0 20px #ff0000,
+                0 0 40px #ff0000,
+                inset 0 0 15px #ff0000;
         }
 
         .chat-header {
@@ -286,13 +461,17 @@
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #ff3333;
+            border-bottom: 2px solid #ff0000;
+            box-shadow: 0 5px 10px -5px #ff0000;
         }
 
         .chat-title {
             color: #ff0000;
             font-size: 1.8em;
-            text-shadow: 0 0 15px #ff0000;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000;
         }
 
         .chat-stats {
@@ -308,30 +487,35 @@
             font-size: 1.5em;
             font-weight: bold;
             color: #ff0000;
-            text-shadow: 0 0 10px #ff0000;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000;
         }
 
         .chat-stat-label {
             font-size: 0.9em;
-            color: #ff6666;
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
         }
 
         .chat-messages {
             height: 300px;
             overflow-y: auto;
             padding: 15px;
-            background: rgba(20, 0, 0, 0.7);
+            background: rgba(20, 0, 0, 0.8);
             border-radius: 10px;
-            border: 2px solid #ff3333;
+            border: 2px solid #ff0000;
             margin-bottom: 20px;
+            box-shadow: inset 0 0 15px #ff0000;
         }
 
         .message {
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 8px;
-            background: rgba(40, 0, 0, 0.8);
+            background: rgba(40, 0, 0, 0.9);
             border-left: 3px solid #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
 
         .message-header {
@@ -342,16 +526,19 @@
 
         .message-user {
             font-weight: bold;
-            color: #ff3333;
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
         }
 
         .message-time {
-            color: #ff6666;
+            color: #ff0000;
             font-size: 0.8em;
+            text-shadow: 0 0 3px #ff0000;
         }
 
         .message-content {
-            color: #ff9999;
+            color: #ff0000;
+            text-shadow: 0 0 3px #ff0000;
         }
 
         .chat-input-container {
@@ -363,51 +550,88 @@
             flex: 1;
             padding: 12px 15px;
             border-radius: 8px;
-            border: 2px solid #ff3333;
-            background: rgba(20, 0, 0, 0.8);
-            color: #ff9999;
+            border: 2px solid #ff0000;
+            background: rgba(20, 0, 0, 0.9);
+            color: #ff0000;
             font-size: 1em;
+            box-shadow: 
+                inset 0 0 10px #ff0000,
+                0 0 5px #ff0000;
         }
 
         .chat-input::placeholder {
             color: #ff6666;
+            text-shadow: 0 0 3px #ff0000;
         }
 
         .chat-send {
             padding: 12px 25px;
             border-radius: 8px;
-            border: 2px solid #ff3333;
-            background: linear-gradient(45deg, #ff0000, #cc0000);
-            color: white;
+            border: 2px solid #ff0000;
+            background: linear-gradient(45deg, #000000, #1a0000);
+            color: #ff0000;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
+            box-shadow: 
+                0 0 10px #ff0000,
+                inset 0 0 5px #ff0000;
+            text-shadow: 0 0 5px #ff0000;
         }
 
         .chat-send:hover {
-            box-shadow: 0 0 15px #ff0000;
+            box-shadow: 
+                0 0 15px #ff0000,
+                0 0 30px #ff0000,
+                inset 0 0 10px #ff0000;
         }
 
-        /* BOTÃO FRØN */
+        /* BOTÃO FRØN NEON */
         .btn-fron {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(45deg, #ff0000, #cc0000);
-            color: white;
+            background: linear-gradient(45deg, #000000, #1a0000);
+            color: #ff0000;
             padding: 12px 20px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            border: 2px solid #ff3333;
-            box-shadow: 0 0 20px #ff0000;
+            border: 2px solid #ff0000;
+            box-shadow: 
+                0 0 15px #ff0000,
+                0 0 30px #ff0000,
+                inset 0 0 10px #ff0000;
             z-index: 1000;
             transition: all 0.3s;
+            text-shadow: 0 0 5px #ff0000;
+            animation: fronPulse 2s infinite alternate;
+        }
+
+        @keyframes fronPulse {
+            0% {
+                box-shadow: 
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000,
+                    inset 0 0 5px #ff0000;
+            }
+            100% {
+                box-shadow: 
+                    0 0 20px #ff0000,
+                    0 0 40px #ff0000,
+                    0 0 60px #ff0000,
+                    inset 0 0 15px #ff0000;
+            }
         }
 
         .btn-fron:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 30px #ff0000;
+            box-shadow: 
+                0 0 25px #ff0000,
+                0 0 50px #ff0000,
+                0 0 75px #ff0000,
+                inset 0 0 20px #ff0000;
+            animation: none;
         }
 
         /* RESPONSIVIDADE */
@@ -484,140 +708,4 @@
         <!-- PLAYER SOUNDCLOUD -->
         <div class="player-container">
             <h2 class="player-title">🎵 OUÇA _____FININHA______</h2>
-            <p class="player-subtitle">Uma playlist de G.LPlayMoney no SoundCloud</p>
-            
-            <div class="audio-controls">
-                <button class="audio-btn" onclick="playAudio()">▶️ PLAY</button>
-                <button class="audio-btn" onclick="pauseAudio()">⏸️ PAUSE</button>
-                <button class="audio-btn" onclick="nextTrack()">⏭️ PRÓXIMA</button>
-                <button class="audio-btn" onclick="showPlaylist()">📋 VER PLAYLIST</button>
-            </div>
-
-            <iframe 
-                src="https://w.soundcloud.com/player/?url=https://soundcloud.com/glplaymoney/sets/fininha&color=ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
-                class="soundcloud-embed"
-                id="soundcloudPlayer">
-            </iframe>
-        </div>
-
-        <!-- GALERIA DE MEMBROS -->
-        <div class="galeria-membros">
-            <h2 class="galeria-titulo">MEMBROS DA FÚRIA</h2>
-            <div class="membros-grid">
-                <div class="membro-item">
-                    <div class="membro-img" style="background-image: url('membros1.png');"></div>
-                    <div class="membro-nome">Neterpitou</div>
-                </div>
-                <div class="membro-item">
-                    <div class="membro-img" style="background-image: url('membros2.png');"></div>
-                    <div class="membro-nome">Dona</div>
-                </div>
-                <div class="membro-item">
-                    <div class="membro-img" style="background-image: url('membros3.png');"></div>
-                    <div class="membro-nome">ADN</div>
-                </div>
-                <div class="membro-item">
-                    <div class="membro-img" style="background-image: url('membros4.png');"></div>
-                    <div class="membro-nome">Membro</div>
-                </div>
-                <div class="membro-item">
-                    <div class="membro-img" style="background-image: url('membros5.png');"></div>
-                    <div class="membro-nome">Membro</div>
-                </div>
-                <div class="membro-item">
-                    <div class="membro-img" style="background-image: url('membros6.png');"></div>
-                    <div class="membro-nome">Membro</div>
-                </div>
-                <div class="membro-item">
-                    <div class="membro-img" style="background-image: url('membros7.png');"></div>
-                    <div class="membro-nome">Membro</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- VIDEO YOUTUBE -->
-        <div class="video-container">
-            <h3 class="video-title">🎥 VÍDEO OFICIAL FURIA</h3>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <!-- CHATS DUPLICADOS -->
-        <div class="chats-container">
-            <!-- CHAT GALÁTICO -->
-            <div class="chat-container" id="chat">
-                <div class="chat-header">
-                    <h2 class="chat-title">💬 CHAT GALÁTICO</h2>
-                    <div class="chat-stats">
-                        <div class="chat-stat">
-                            <div class="chat-stat-number" id="chatOnline1">426</div>
-                            <div class="chat-stat-label">ONLINE</div>
-                        </div>
-                        <div class="chat-stat">
-                            <div class="chat-stat-number" id="chatTrucu1">128</div>
-                            <div class="chat-stat-label">TRUCU</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-messages" id="chatMessages1">
-                    <div class="message">
-                        <div class="message-header">
-                            <span class="message-user">Neterpitou</span>
-                            <span class="message-time" id="time1">18:45</span>
-                        </div>
-                        <div class="message-content">Alguém para uma partida de Trucu?</div>
-                    </div>
-                    <div class="message">
-                        <div class="message-header">
-                            <span class="message-user">Dona</span>
-                            <span class="message-time" id="time2">18:46</span>
-                        </div>
-                        <div class="message-content">Eu topo! Vamos criar uma sala?</div>
-                    </div>
-                    <div class="message">
-                        <div class="message-header">
-                            <span class="message-user">ADN</span>
-                            <span class="message-time" id="time3">18:47</span>
-                        </div>
-                        <div class="message-content">Partida 4x4 começando em 5 min!</div>
-                    </div>
-                </div>
-                <div class="chat-input-container">
-                    <input type="text" class="chat-input" placeholder="Digite sua mensagem..." id="chatInput1">
-                    <button class="chat-send" id="chatSend1">Enviar</button>
-                </div>
-            </div>
-
-            <!-- CHAT TRUCU -->
-            <div class="chat-container">
-                <div class="chat-header">
-                    <h2 class="chat-title">🎴 CHAT TRUCU</h2>
-                    <div class="chat-stats">
-                        <div class="chat-stat">
-                            <div class="chat-stat-number" id="chatOnline2">426</div>
-                            <div class="chat-stat-label">ONLINE</div>
-                        </div>
-                        <div class="chat-stat">
-                            <div class="chat-stat-number" id="chatTrucu2">128</div>
-                            <div class="chat-stat-label">JOGANDO</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-messages" id="chatMessages2">
-                    <div class="message">
-                        <div class="message-header">
-                            <span class="message-user">FuriaBot</span>
-                            <span class="message-time" id="time4">18:40</span>
-                        </div>
-                        <div class="message-content">Bem-vindo ao Chat Trucu oficial!</div>
-                    </div>
-                    <div class="message">
-                        <div class="message-header">
-                            <span class="message-user">Player_X1</span>
-                            <span class="message-time" id="time5">18:42</span>
-                        </div>
-                        <div class="message-content">Alguém quer formar dupla para o campeonato?</div>
-                    </div>
-                    <div class="message">
-                       
+           
