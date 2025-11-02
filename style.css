@@ -1,129 +1,167 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ============================================= */
+/* SISTEMA DE IMAGENS - CSS ATUALIZADO */
+/* ============================================= */
 
-body {
-    background: linear-gradient(135deg, #1a0000, #4a0000, #000000);
-    color: #ff0000;
-    font-family: 'Arial', sans-serif;
-    min-height: 100vh;
-}
-
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
+/* 🖼️ CONTAINER DAS IMAGENS DOS MEMBROS */
+.membros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
     padding: 20px;
 }
 
-/* HEADER VERMELHO NEON */
-.header {
+/* 🎭 ITEM DE MEMBRO */
+.membro-item {
+    background: rgba(20, 0, 0, 0.9);
+    border-radius: 15px;
+    padding: 15px;
     text-align: center;
-    padding: 50px 0;
-    background: rgba(0, 0, 0, 0.95);
-    border-radius: 20px;
     border: 3px solid #ff0000;
-    box-shadow: 0 0 60px #ff0000, 0 0 100px #ff3333;
-    margin-bottom: 30px;
+    box-shadow: 0 0 25px #ff0000;
+    transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
 }
 
-.header::before {
+.membro-item:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(255, 0, 0, 0.8);
+    border-color: #ff3333;
+}
+
+/* 🖼️ IMAGEM DO MEMBRO */
+.membro-img {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border: 2px solid #ff3333;
+    background: linear-gradient(45deg, #330000, #660000, #990000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff6666;
+    font-weight: bold;
+    font-size: 1.1em;
+    position: relative;
+    overflow: hidden;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* 🔥 EFEITO DE BRILHO NAS IMAGENS */
+.membro-img::before {
     content: "";
     position: absolute;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
-    animation: brilhoVermelho 6s linear infinite;
+    background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.3), transparent);
+    animation: brilho-imagem 3s linear infinite;
 }
 
-@keyframes brilhoVermelho {
+@keyframes brilho-imagem {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-.logo {
-    font-size: 4em;
-    color: #ff0000;
-    text-shadow: 0 0 40px #ff0000, 0 0 80px #ff3333;
-    margin-bottom: 15px;
-    position: relative;
-    z-index: 2;
-}
-
-.slogan {
-    color: #ff6666;
-    font-size: 1.4em;
-    font-style: italic;
-    text-shadow: 0 0 20px #ff0000;
-    position: relative;
-    z-index: 2;
-}
-
-/* BOTÕES VERMELHO NEON */
-.btn-neon {
-    display: inline-block;
-    background: linear-gradient(45deg, #ff0000, #cc0000);
-    color: white;
-    padding: 18px 35px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 1.2em;
+/* 📛 NOME DO MEMBRO */
+.membro-nome {
+    color: #ff3333;
     font-weight: bold;
-    margin: 20px 0;
-    border: 3px solid #ff3333;
-    box-shadow: 0 0 30px #ff0000;
-    transition: all 0.3s;
-    position: relative;
-    z-index: 2;
-    animation: pulseVermelho 2s infinite;
+    font-size: 1em;
+    text-shadow: 0 0 10px #ff0000;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ff0000;
 }
 
-@keyframes pulseVermelho {
-    0% { transform: scale(1); box-shadow: 0 0 30px #ff0000; }
-    50% { transform: scale(1.05); box-shadow: 0 0 50px #ff0000; }
-    100% { transform: scale(1); box-shadow: 0 0 30px #ff0000; }
-}
-
-.btn-neon:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 70px #ff0000;
-}
-
-/* CARDS VERMELHO */
-.card {
-    background: rgba(0, 0, 0, 0.9);
-    padding: 30px;
-    border-radius: 15px;
-    border: 2px solid #ff0000;
-    text-align: center;
-    transition: all 0.4s;
-    cursor: pointer;
-    box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 40px #ff0000;
-}
-
-/* STATUS VERMELHO */
-.status-item {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 25px;
+/* 🎵 PLAYER SOUNDCLOUD ATUALIZADO */
+.soundcloud-embed {
+    width: 100%;
+    height: 180px;
     border-radius: 12px;
-    border: 2px solid #ff0000;
-    text-align: center;
-    box-shadow: 0 0 20px #ff0000;
+    border: 3px solid #ff3333;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+    background: #000;
 }
 
-.status-numero {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #ff0000;
-    text-shadow: 0 0 15px #ff0000;
+/* 🔄 ANIMAÇÕES DE CARREGAMENTO */
+@keyframes pulsar {
+    0% { opacity: 0.6; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 0.6; transform: scale(0.95); }
+}
+
+.carregando {
+    animation: pulsar 2s infinite;
+}
+
+/* 📱 RESPONSIVIDADE PARA IMAGENS */
+@media (max-width: 768px) {
+    .membros-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .membro-img {
+        height: 140px;
+        font-size: 1em;
+    }
+    
+    .membro-nome {
+        font-size: 0.9em;
+        padding: 6px 10px;
+    }
+    
+    .soundcloud-embed {
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .membros-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .membro-img {
+        height: 180px;
+    }
+}
+
+/* 🎯 IMAGEM DO LOGOTIPO */
+.logo {
+    height: 140px;
+    filter: drop-shadow(0 0 25px #ff0000) brightness(1.2);
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 35px #ff0000) brightness(1.3);
+}
+
+/* ⚡ ESTADOS DAS IMAGENS */
+.imagem-carregada {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.imagem-erro {
+    background: linear-gradient(45deg, #550000, #880000) !important;
+    color: #ff9999 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+}
+
+.imagem-erro::before {
+    content: "❌ Imagem não carregada";
+    text-align: center;
 }
