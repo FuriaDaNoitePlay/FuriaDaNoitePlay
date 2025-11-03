@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Botão FRØN - Fúria da Noite</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff0000;
+      --secondary: #FFD700;
+      --dark: #000;
+      --light: #fff;
+      --gray: #333;
+      --dark-gray: #1a1a1a;
+      --azul-galatico: #6600ff;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background-color: var(--dark);
+      color: var(--light);
+      font-family: 'Oxanium', sans-serif;
+      text-align: center;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 0, 0, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 20%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: rgba(26, 26, 26, 0.9);
+      border: 2px solid var(--primary);
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,0,0,0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .container:hover::before {
+      left: 100%;
+    }
+    
+    h1 {
+      color: var(--primary);
+      text-shadow: 0 0 25px var(--primary);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      margin: 20px 0;
+      letter-spacing: 3px;
+    }
+    
+    .subtitle {
+      color: var(--secondary);
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+      font-family: 'Orbitron', sans-serif;
+    }
+    
+    /* Botão FRØN */
+    .btn-fron {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      background: linear-gradient(135deg, #8a2be2, #4b0082, #0000ff);
+      color: white;
+      padding: 18px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.5rem;
+      box-shadow: 0 0 25px #8a2be2, 0 0 45px #4b0082;
+      transition: all 0.3s ease;
+      margin: 25px;
+      border: 2px solid #ffffff;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    
+    .btn-fron::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-fron:hover::before {
+      left: 100%;
+    }
+    
+    .btn-fron:hover {
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 0 0 35px #8a2be2, 0 0 65px #4b0082;
+    }
+    
+    .fron-icon {
+      width: 35px;
+      height: 35px;
+      filter: drop-shadow(0 0 8px white);
+      animation: pulsar-fron 2s infinite;
+    }
+    
+    @keyframes pulsar-fron {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+    
+    .status {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      color: var(--secondary);
+      text-shadow: 0 0 10px var(--secondary);
+      font-family: 'Orbitron', sans-serif;
+      min-height: 30px;
+    }
+    
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--primary);
+      color: var(--dark);
+      padding: 15px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 25px var(--primary);
+      transition: all 0.3s ease;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn-secondary {
+      background: var(--secondary);
+      box-shadow: 0 0 25px var(--secondary);
+    }
+    
+    .btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 35px var(--primary);
+    }
+    
+    .btn-secondary:hover {
+      box-shadow: 0 0 35px var(--secondary);
+    }
+    
+    footer {
+      color: var(--secondary);
+      text-shadow: 0 0 15px var(--secondary);
+      border-top: 3px solid var(--primary);
+      padding: 30px;
+      margin-top: 60px;
+      background: rgba(0, 0, 0, 0.9);
+      width: 100%;
+      max-width: 800px;
+      border-radius: 0 0 15px 15px;
+    }
+    
+    .assinatura {
+      color: var(--primary);
+      text-shadow: 0 0 15px var(--primary);
+      font-weight: bold;
+      font-family: 'Orbitron', sans-serif;
+    }
+    
+    /* Responsividade */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .btn, .btn-fron {
+        padding: 15px 25px;
+        font-size: 1rem;
+      }
+      
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>BOTÃO FRØN</h1>
+    <p class="subtitle">Funcionalidade Ativa - Fúria da Noite</p>
+    
+    <!-- Botão FRØN -->
+    <button class="btn-fron" id="btnFron">
+      <i class="fas fa-fire"></i> FRØN
+    </button>
+    
+    <div class="status" id="status">Clique no botão FRØN para ativar</div>
+    
+    <div class="action-buttons">
+      <button class="btn" id="btnReset">
+        <i class="fas fa-redo"></i> Resetar
+      </button>
+      <button class="btn btn-secondary" id="btnInfo">
+        <i class="fas fa-info-circle"></i> Informações
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2024 <strong>Furia da Noite Play</strong> - Todos os direitos reservados</p>
+    <p style="margin-top: 15px;">Desenvolvido com <i class="fas fa-heart" style="color: var(--primary);"></i> por <span class="assinatura">@ToxicSkull√</span></p>
+  </footer>
+
+  <script>
+    // Elementos DOM
+    const btnFron = document.getElementById('btnFron');
+    const btnReset = document.getElementById('btnReset');
+    const btnInfo = document.getElementById('btnInfo');
+    const status = document.getElementById('status');
+    
+    // Estados do botão FRØN
+    let fronAtivo = false;
+    let contadorCliques = 0;
+    
+    // Função principal do botão FRØN
+    btnFron.addEventListener('click', function() {
+      contadorCliques++;
+      
+      if (!fronAtivo) {
+        // Ativar FRØN
+        fronAtivo = true;
+        status.textContent = `FRØN ATIVADO! Cliques: ${contadorCliques}`;
+        status.style.color = '#00ff00';
+        status.style.textShadow = '0 0 15px #00ff00';
+        
+        // Efeitos visuais
+        btnFron.style.background = 'linear-gradient(135deg, #00ff00, #008800, #004400)';
+        btnFron.style.boxShadow = '0 0 35px #00ff00, 0 0 65px #008800';
+        
+        // Efeito sonoro simulado
+        console.log('🔊 Som de ativação do FRØN');
+      } else {
+        // FRØN já está ativo
+        status.textContent = `FRØN JÁ ESTÁ ATIVO! Cliques: ${contadorCliques}`;
+        
+        // Efeito de pulsação
+        btnFron.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+          btnFron.style.transform = 'translateY(-5px) scale(1.08)';
+        }, 200);
+      }
+      
+      // Feedback visual adicional
+      this.classList.add('clicked');
+      setTimeout(() => {
+        this.classList.remove('clicked');
+      }, 300);
+    });
+    
+    // Botão Reset
+    btnReset.addEventListener('click', function() {
+      fronAtivo = false;
+      contadorCliques = 0;
+      
+      // Resetar visual
+      status.textContent = 'FRØN DESATIVADO. Clique para ativar novamente.';
+      status.style.color = '#FFD700';
+      status.style.textShadow = '0 0 15px #FFD700';
+      
+      btnFron.style.background = 'linear-gradient(135deg, #8a2be2, #4b0082, #0000ff)';
+      btnFron.style.boxShadow = '0 0 25px #8a2be2, 0 0 45px #4b0082';
+      
+      console.log('🔄 FRØN resetado');
+    });
+    
+    // Botão Informações
+    btnInfo.addEventListener('click', function() {
+      status.textContent = 'FRØN - Sistema de Ativação da Fúria da Noite';
+      status.style.color = '#FFD700';
+      
+      // Mostrar informações por 3 segundos
+      setTimeout(() => {
+        if (fronAtivo) {
+          status.textContent = `FRØN ATIVADO! Cliques: ${contadorCliques}`;
+          status.style.color = '#00ff00';
+        } else {
+          status.textContent = 'Clique no botão FRØN para ativar';
+          status.style.color = '#FFD700';
+        }
+      }, 3000);
+    });
+    
+    // Efeito de digitação para o título
+    const title = document.querySelector('h1');
+    const originalText = title.textContent;
+    title.textContent = '';
+    
+    let i = 0;
+    const typeWriter = () => {
+      if (i < originalText.length) {
+        title.textContent += originalText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      }
+    };
+    
+    // Inicia a animação de digitação
+    setTimeout(typeWriter, 500);
+  </script>
+</body>
+</html>
