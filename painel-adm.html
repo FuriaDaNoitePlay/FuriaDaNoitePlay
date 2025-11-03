@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>👑 PAINEL ADM SUPREMO - Furia da Noite Play</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --adm-vermelho: #ff0000;
             --adm-amarelo: #ffff00;
             --adm-verde: #00ff00;
+            --adm-azul: #0066ff;
             --fundo-escuro: #0a0a0a;
         }
 
@@ -74,6 +75,61 @@
             z-index: 2;
         }
 
+        /* BOTÃO GALÁTICO PNG */
+        .btn-galatico-png {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #ff00ff, #6600ff, #0066ff);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 0 20px #6600ff, 0 0 40px #ff00ff;
+            transition: all 0.3s ease;
+            margin: 15px;
+            border: 2px solid #ffffff;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn-galatico-png::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-galatico-png:hover::before {
+            left: 100%;
+        }
+
+        .btn-galatico-png:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 30px #6600ff, 0 0 60px #ff00ff;
+        }
+
+        .galatico-icon {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 0 5px white);
+            animation: pulsar-galatico 2s infinite;
+        }
+
+        @keyframes pulsar-galatico {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
         /* INFO CARDS */
         .info-adm {
             display: grid;
@@ -97,7 +153,7 @@
         .info-card.membros { border-color: var(--adm-verde); box-shadow: 0 0 15px var(--adm-verde); }
         .info-card.equipes { border-color: var(--adm-amarelo); box-shadow: 0 0 15px var(--adm-amarelo); }
         .info-card.partidas { border-color: var(--adm-vermelho); box-shadow: 0 0 15px var(--adm-vermelho); }
-        .info-card.campeonatos { border-color: var(--adm-verde); box-shadow: 0 0 15px var(--adm-verde); }
+        .info-card.campeonatos { border-color: var(--adm-azul); box-shadow: 0 0 15px var(--adm-azul); }
 
         .info-card:hover {
             transform: translateY(-5px) scale(1.05);
@@ -114,7 +170,7 @@
         .info-card.membros .info-numero { color: var(--adm-verde); }
         .info-card.equipes .info-numero { color: var(--adm-amarelo); }
         .info-card.partidas .info-numero { color: var(--adm-vermelho); }
-        .info-card.campeonatos .info-numero { color: var(--adm-verde); }
+        .info-card.campeonatos .info-numero { color: var(--adm-azul); }
 
         /* GRID DE FUNCIONALIDADES */
         .adm-grid {
@@ -153,7 +209,7 @@
         }
 
         .adm-card.vermelho { border-color: var(--adm-vermelho); box-shadow: 0 0 20px var(--adm-vermelho); }
-        .adm-card.azul { border-color: var(--adm-amarelo); box-shadow: 0 0 20px var(--adm-amarelo); }
+        .adm-card.azul { border-color: var(--adm-azul); box-shadow: 0 0 20px var(--adm-azul); }
         .adm-card.verde { border-color: var(--adm-verde); box-shadow: 0 0 20px var(--adm-verde); }
         .adm-card.roxo { border-color: #ff00ff; box-shadow: 0 0 20px #ff00ff; }
 
@@ -175,7 +231,7 @@
         }
 
         .adm-card.vermelho h3 { color: var(--adm-vermelho); }
-        .adm-card.azul h3 { color: var(--adm-amarelo); }
+        .adm-card.azul h3 { color: var(--adm-azul); }
         .adm-card.verde h3 { color: var(--adm-verde); }
         .adm-card.roxo h3 { color: #ff00ff; }
 
@@ -362,6 +418,14 @@
             <h1 class="painel-title">👑 PAINEL ADM SUPREMO</h1>
             <p class="painel-subtitle">Controle Total - Furia da Noite Play</p>
             
+            <!-- BOTÃO GALÁTICO PNG -->
+            <div style="text-align: center; margin: 20px 0;">
+                <a href="#" class="btn-galatico-png" onclick="abrirChatGalatico()">
+                    <img src="https://i.imgur.com/9zJ3Y7c.png" alt="Galático" class="galatico-icon">
+                    CHAT GALÁTICO
+                </a>
+            </div>
+            
             <!-- INFO CARDS -->
             <div class="info-adm">
                 <div class="info-card membros">
@@ -396,7 +460,7 @@
                 <div class="adm-icon">🏆</div>
                 <h3>CAMPEONATOS</h3>
                 <p>Criar e gerenciar competições</p>
-                <div style="color: var(--adm-amarelo); font-size: 0.9em; margin-top: 10px;">🟡 Configurações</div>
+                <div style="color: var(--adm-azul); font-size: 0.9em; margin-top: 10px;">🔵 Configurações</div>
             </div>
             
             <div class="adm-card verde" onclick="gerenciarPartidas()">
@@ -511,68 +575,4 @@
                 clip.style.textShadow = '0 0 20px var(--adm-verde)';
             }
             
-            document.body.appendChild(clip);
-            
-            setTimeout(() => {
-                clip.remove();
-            }, 1000);
-        }
-
-        // FUNÇÕES DO PAINEL
-        function gerenciarMembros() {
-            showClip('👥', 'vermelho');
-            setTimeout(() => {
-                alert('👥 Redirecionando para gestão completa de membros...');
-            }, 800);
-        }
-        
-        function gerenciarCampeonatos() {
-            showClip('🏆', 'amarelo');
-            setTimeout(() => {
-                alert('🏆 Redirecionando para gestão de campeonatos...');
-            }, 800);
-        }
-        
-        function gerenciarPartidas() {
-            showClip('🎮', 'verde');
-            setTimeout(() => {
-                alert('🎮 Redirecionando para gestão de partidas...');
-            }, 800);
-        }
-        
-        function gerenciarTabelas() {
-            showClip('📊', 'amarelo');
-            setTimeout(() => {
-                alert('📊 Redirecionando para gestão de tabelas...');
-            }, 800);
-        }
-        
-        function adicionarMembro() {
-            const nome = document.getElementById('nomeMembro').value;
-            const nick = document.getElementById('nickMembro').value;
-            
-            if (!nome || !nick) {
-                showClip('❌', 'vermelho');
-                shakeElements(['#nomeMembro', '#nickMembro']);
-                alert('❌ Preencha nome e nick do membro!');
-                return;
-            }
-            
-            showClip('✅', 'verde');
-            setTimeout(() => {
-                alert(`✅ Membro ${nick} adicionado com sucesso!`);
-                // Limpar formulário
-                document.querySelectorAll('.input-adm').forEach(input => input.value = '');
-            }, 800);
-        }
-
-        function editarMembro(nick) {
-            showClip('✏️', 'amarelo');
-            setTimeout(() => {
-                alert(`✏️ Editando membro: ${nick}`);
-            }, 800);
-        }
-
-        function excluirMembro(nick) {
-            if (confirm(`🗑️ Tem certeza que deseja excluir o membro ${nick}?`)) {
-                
+            docum
