@@ -179,4 +179,6 @@ function abrirPaginaEspecial() {
   window.location.href = 'md4.html';
   // ou  
   window.location.href = 'painel-adm.html';
+}function abrirPaginaEspecial() {
+  window.location.href = 'sistema-furia-completo.html';
 }
