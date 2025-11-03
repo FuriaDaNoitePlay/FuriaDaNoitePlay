@@ -21,196 +21,380 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
+        /* HEADER NEON PREMIUM */
         .neon-header {
             text-align: center;
-            padding: 30px 0;
-            border-bottom: 3px solid #ff6b6b;
-            margin-bottom: 30px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            box-shadow: 0 0 20px #ff6b6b;
+            padding: 40px 30px;
+            border-bottom: 4px solid #ff6b6b;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            box-shadow: 
+                0 0 30px #ff6b6b,
+                inset 0 0 20px rgba(255, 107, 107, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neon-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+            animation: brilho-header 6s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes brilho-header {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .neon-text {
-            font-size: 2.5em;
+            font-size: 3em;
             color: #ff6b6b;
-            text-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b;
-            margin-bottom: 10px;
+            text-shadow: 
+                0 0 10px #ff6b6b,
+                0 0 20px #ff6b6b,
+                0 0 30px #ff6b6b,
+                0 0 40px #ff6b6b;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            animation: pulsar-neon 2s infinite alternate;
+        }
+
+        @keyframes pulsar-neon {
+            0% { text-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b; }
+            100% { text-shadow: 0 0 20px #ff6b6b, 0 0 40px #ff6b6b, 0 0 60px #ff6b6b; }
         }
 
         .subtitle {
             color: #ff00ff;
-            font-size: 1.2em;
+            font-size: 1.4em;
             font-style: italic;
+            text-shadow: 0 0 10px #ff00ff;
+            position: relative;
+            z-index: 2;
         }
 
+        /* CONTAINER PRINCIPAL */
         .cadastro-container {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #ff6b6b;
-            box-shadow: 0 0 20px #ff6b6b;
-            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid #ff6b6b;
+            box-shadow: 
+                0 0 30px #ff6b6b,
+                inset 0 0 20px rgba(255, 107, 107, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cadastro-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.05), transparent);
+            transition: left 0.6s;
+        }
+
+        .cadastro-container:hover::before {
+            left: 100%;
         }
 
         .cadastro-form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            position: relative;
+            z-index: 2;
         }
 
+        /* GRUPOS DE INPUT */
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 12px;
         }
 
         .input-group label {
             color: #ff6b6b;
             font-weight: bold;
-            text-shadow: 0 0 5px #ff6b6b;
+            text-shadow: 0 0 8px #ff6b6b;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .input-group input, .input-group select, .input-group textarea {
-            padding: 12px;
+            padding: 16px 20px;
             border: 2px solid #ff6b6b;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
             color: white;
-            font-size: 1rem;
-            transition: all 0.3s;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 
+                inset 0 2px 10px rgba(0, 0, 0, 0.3),
+                0 0 15px rgba(255, 107, 107, 0.2);
         }
 
         .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
             outline: none;
             border-color: #ff00ff;
-            box-shadow: 0 0 15px #ff00ff;
+            box-shadow: 
+                inset 0 2px 10px rgba(0, 0, 0, 0.3),
+                0 0 25px #ff00ff;
             background: rgba(255, 0, 255, 0.1);
+            transform: scale(1.02);
         }
 
+        /* GRID DE JOGADORES */
         .jogadores-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin: 10px 0;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
         }
 
         .jogador-input {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 8px;
+            position: relative;
         }
 
+        .jogador-input input {
+            padding: 14px;
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            background: rgba(0, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .jogador-input input:focus {
+            border-color: #ff00ff;
+            box-shadow: 0 0 15px #ff00ff;
+        }
+
+        .btn-remover {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 0, 0, 0.3);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s;
+        }
+
+        .btn-remover:hover {
+            background: #ff4444;
+            color: #000;
+            transform: scale(1.1);
+        }
+
+        /* BOTÕES PRINCIPAIS */
         .btn-neon {
-            padding: 15px 30px;
-            background: linear-gradient(45deg, #ff6b6b, #ff00ff);
+            padding: 20px 40px;
+            background: linear-gradient(145deg, #ff6b6b, #ff00ff);
             color: #000;
             border: none;
-            border-radius: 8px;
-            font-size: 1.2em;
+            border-radius: 15px;
+            font-size: 1.3em;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
-            margin: 10px 0;
-            box-shadow: 0 0 20px #ff6b6b;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            margin: 20px 0;
+            box-shadow: 
+                0 5px 25px rgba(255, 107, 107, 0.4),
+                0 0 30px rgba(255, 0, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-neon:hover::before {
+            left: 100%;
         }
 
         .btn-neon:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px #ff00ff;
+            transform: 
+                translateY(-3px) 
+                scale(1.05);
+            box-shadow: 
+                0 8px 35px rgba(255, 107, 107, 0.6),
+                0 0 40px rgba(255, 0, 255, 0.4);
         }
 
-        .back-btn {
+        .btn-adicionar {
             padding: 12px 25px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 255, 255, 0.15);
             color: #00ffff;
             border: 2px solid #00ffff;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
-            margin: 5px;
+            font-weight: bold;
+            margin: 10px 0;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
         }
 
-        .back-btn:hover {
+        .btn-adicionar:hover {
             background: #00ffff;
             color: #000;
+            box-shadow: 0 0 25px #00ffff;
+            transform: translateY(-2px);
         }
 
+        /* INFORMAÇÕES DO CAMPEONATO */
         .info-campeonato {
-            background: rgba(255, 107, 107, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #ff6b6b;
-            margin: 20px 0;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(255, 0, 255, 0.1));
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #ff6b6b;
+            margin: 25px 0;
+            box-shadow: 
+                0 0 25px rgba(255, 107, 107, 0.3),
+                inset 0 0 15px rgba(255, 107, 107, 0.1);
+            position: relative;
+            z-index: 2;
         }
 
         .info-campeonato h4 {
             color: #ff6b6b;
-            margin-bottom: 10px;
-            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-shadow: 0 0 10px #ff6b6b;
+            text-align: center;
         }
 
         .info-campeonato p {
-            margin: 8px 0;
+            margin: 10px 0;
             color: #ffffff;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
+        /* MENSAGENS */
         .mensagem {
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
             display: none;
             text-align: center;
             font-weight: bold;
+            font-size: 1.1em;
+            position: relative;
+            z-index: 2;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         .mensagem.sucesso {
-            background: rgba(0, 255, 0, 0.2);
-            border: 1px solid #00ff00;
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.1));
+            border: 2px solid #00ff00;
             color: #00ff00;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3);
         }
 
         .mensagem.erro {
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid #ff0000;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.1));
+            border: 2px solid #ff4444;
             color: #ff4444;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
         }
 
+        /* LINKS DE NAVEGAÇÃO */
         .links {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 30px;
         }
 
         .link {
             color: #00ffff;
             text-decoration: none;
-            padding: 10px 20px;
-            border: 1px solid #00ffff;
-            border-radius: 5px;
+            padding: 15px 20px;
+            border: 2px solid #00ffff;
+            border-radius: 10px;
             transition: all 0.3s;
             text-align: center;
-            flex: 1;
+            font-weight: bold;
+            background: rgba(0, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .link:hover::before {
+            left: 100%;
         }
 
         .link:hover {
             background: #00ffff;
             color: #000;
+            box-shadow: 0 0 25px #00ffff;
+            transform: translateY(-3px);
         }
 
-        /* RESPONSIVO */
+        /* RESPONSIVIDADE AVANÇADA */
         @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
             .neon-text {
-                font-size: 2em;
+                font-size: 2.2em;
             }
             
             .cadastro-container {
-                padding: 20px;
+                padding: 25px;
             }
             
             .jogadores-grid {
@@ -218,13 +402,59 @@
             }
             
             .links {
-                flex-direction: column;
+                grid-template-columns: 1fr;
             }
+            
+            .btn-neon {
+                padding: 18px 30px;
+                font-size: 1.1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .neon-text {
+                font-size: 1.8em;
+            }
+            
+            .subtitle {
+                font-size: 1.1em;
+            }
+            
+            .cadastro-container {
+                padding: 20px;
+            }
+            
+            .info-campeonato {
+                padding: 20px;
+            }
+        }
+
+        /* ANIMAÇÃO DE CARREGAMENTO */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #ff6b6b;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- HEADER PREMIUM -->
         <header class="neon-header">
             <h1 class="neon-text">🏆 CADASTRO DE EQUIPE</h1>
             <p class="subtitle">Registre sua equipe para os campeonatos da Fúria</p>
@@ -238,20 +468,26 @@
             <p>⚖️ <strong>Empate:</strong> +1 ponto</p>
             <p>🏅 <strong>Mínimo:</strong> 3 jogadores por equipe</p>
             <p>👥 <strong>Máximo:</strong> 15 jogadores por equipe</p>
+            <p>⭐ <strong>Bônus:</strong> +2 pontos por vitória consecutiva</p>
         </div>
 
         <div class="cadastro-container">
             <div id="mensagem" class="mensagem"></div>
+            <div id="loading" class="loading">
+                <div class="loading-spinner"></div>
+                <p>Processando cadastro...</p>
+            </div>
 
             <div class="cadastro-form">
+                <!-- DADOS DA EQUIPE -->
                 <div class="input-group">
                     <label>🏅 Nome da Equipe:</label>
-                    <input type="text" id="nomeEquipe" placeholder="Ex: TUFURA, Furia da Noite" required>
+                    <input type="text" id="nomeEquipe" placeholder="Ex: Furia da Noite, TUFURA, Lobos da Noite" required>
                 </div>
                 
                 <div class="input-group">
                     <label>🔐 Senha da Equipe:</label>
-                    <input type="password" id="senhaEquipe" placeholder="Mínimo 6 caracteres" required>
+                    <input type="password" id="senhaEquipe" placeholder="Mínimo 6 caracteres - Guarde com segurança!" required>
                 </div>
                 
                 <div class="input-group">
@@ -267,46 +503,58 @@
                 <div class="input-group">
                     <label>🎮 Jogo Principal:</label>
                     <select id="jogoEquipe" required>
-                        <option value="">Selecione o jogo</option>
-                        <option value="cfn">CFN - Clash of Clan</option>
-                        <option value="cr">CR - Clash Royale</option>
-                        <option value="mlbb">MLBB - Mobile Legends</option>
+                        <option value="">🎯 Selecione o jogo principal</option>
                         <option value="trucu">🎰 TRUCU da Fúria</option>
-                        <option value="outro">Outro</option>
+                        <option value="cfn">⚔️ CFN - Clash of Clan</option>
+                        <option value="cr">👑 CR - Clash Royale</option>
+                        <option value="mlbb">🗡️ MLBB - Mobile Legends</option>
+                        <option value="freefire">🔫 Free Fire</option>
+                        <option value="lol">⚡ League of Legends</option>
+                        <option value="valorant">🎯 Valorant</option>
+                        <option value="outro">🔗 Outro Jogo</option>
                     </select>
                 </div>
                 
+                <!-- JOGADORES DA EQUIPE -->
                 <div class="input-group">
                     <label>👥 Jogadores (mínimo 3, máximo 15):</label>
                     <div class="jogadores-grid" id="jogadoresContainer">
+                        <!-- Jogador 1 (Capitão) -->
                         <div class="jogador-input">
-                            <input type="text" class="jogador-nome" placeholder="Jogador 1 (Capitão)" required>
+                            <input type="text" class="jogador-nome" placeholder="🎮 Jogador 1 (Capitão)" required>
                         </div>
+                        <!-- Jogador 2 -->
                         <div class="jogador-input">
-                            <input type="text" class="jogador-nome" placeholder="Jogador 2" required>
+                            <input type="text" class="jogador-nome" placeholder="🎮 Jogador 2" required>
                         </div>
+                        <!-- Jogador 3 -->
                         <div class="jogador-input">
-                            <input type="text" class="jogador-nome" placeholder="Jogador 3" required>
+                            <input type="text" class="jogador-nome" placeholder="🎮 Jogador 3" required>
                         </div>
                     </div>
-                    <button type="button" onclick="adicionarJogador()" style="padding: 8px; margin: 5px 0; background: rgba(0,255,255,0.2); color: #00ffff; border: 1px solid #00ffff; border-radius: 5px; cursor: pointer;">
+                    <button type="button" class="btn-adicionar" onclick="adicionarJogador()">
                         ➕ Adicionar Jogador
                     </button>
+                    <small style="color: #ff6b6b; text-align: center; margin-top: 5px;">
+                        ⚠️ O primeiro jogador será o capitão da equipe
+                    </small>
                 </div>
                 
                 <div class="input-group">
                     <label>📋 Descrição da Equipe:</label>
-                    <textarea id="descricaoEquipe" rows="3" placeholder="Conte sobre sua equipe, táticas, experiência..."></textarea>
+                    <textarea id="descricaoEquipe" rows="4" placeholder="Conte sobre sua equipe: táticas preferidas, experiência em campeonatos, objetivos..."></textarea>
                 </div>
                 
+                <!-- BOTÃO FINALIZAR -->
                 <button class="btn-neon" onclick="cadastrarEquipe()">
-                    🚀 FINALIZAR CADASTRO
+                    🚀 FINALIZAR CADASTRO DA EQUIPE
                 </button>
 
+                <!-- LINKS DE NAVEGAÇÃO -->
                 <div class="links">
-                    <a href="regras.html" class="link">📜 VER REGRAS</a>
+                    <a href="regras.html" class="link">📜 VER REGRAS COMPLETAS</a>
                     <a href="cadastro-membro.html" class="link">⭐ CADASTRO INDIVIDUAL</a>
-                    <a href="md2.html" class="link">🎮 VER CAMPEONATOS</a>
+                    <a href="campeonatos.html" class="link">🏆 VER CAMPEONATOS</a>
                     <a href="index.html" class="link">🏠 VOLTAR AO INÍCIO</a>
                 </div>
             </div>
@@ -314,11 +562,13 @@
     </div>
 
     <script>
+        // SISTEMA DE CADASTRO DE EQUIPE - FURIA DA NOITE
         let contadorJogadores = 3;
 
+        // ADICIONAR JOGADOR
         function adicionarJogador() {
             if (contadorJogadores >= 15) {
-                alert('❌ Máximo de 15 jogadores atingido!');
+                mostrarMensagem('❌ Máximo de 15 jogadores atingido!', 'erro');
                 return;
             }
 
@@ -327,145 +577,41 @@
             const novoJogador = document.createElement('div');
             novoJogador.className = 'jogador-input';
             novoJogador.innerHTML = `
-                <input type="text" class="jogador-nome" placeholder="Jogador ${contadorJogadores}">
-                <button type="button" onclick="removerJogador(this)" style="padding: 5px; background: rgba(255,0,0,0.3); color: #ff4444; border: 1px solid #ff4444; border-radius: 3px; cursor: pointer; font-size: 0.8em;">
-                    ❌ Remover
+                <input type="text" class="jogador-nome" placeholder="🎮 Jogador ${contadorJogadores}">
+                <button type="button" class="btn-remover" onclick="removerJogador(this)">
+                    ✕
                 </button>
             `;
             container.appendChild(novoJogador);
+            
+            // Efeito visual
+            novoJogador.style.opacity = '0';
+            novoJogador.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                novoJogador.style.transition = 'all 0.3s ease';
+                novoJogador.style.opacity = '1';
+                novoJogador.style.transform = 'translateY(0)';
+            }, 10);
         }
 
+        // REMOVER JOGADOR
         function removerJogador(botao) {
             if (contadorJogadores <= 3) {
-                alert('❌ Mínimo de 3 jogadores necessário!');
+                mostrarMensagem('❌ Mínimo de 3 jogadores necessário!', 'erro');
                 return;
             }
             
             const jogadorDiv = botao.parentElement;
-            jogadorDiv.remove();
-            contadorJogadores--;
+            jogadorDiv.style.transform = 'translateX(100px)';
+            jogadorDiv.style.opacity = '0';
             
-            // Reorganizar números dos jogadores
-            const inputs = document.querySelectorAll('.jogador-nome');
-            inputs.forEach((input, index) => {
-                input.placeholder = `Jogador ${index + 1}${index === 0 ? ' (Capitão)' : ''}`;
-            });
-        }
-
-        function cadastrarEquipe() {
-            const nomeEquipe = document.getElementById('nomeEquipe').value.trim();
-            const senhaEquipe = document.getElementById('senhaEquipe').value;
-            const emailEquipe = document.getElementById('emailEquipe').value.trim();
-            const whatsappEquipe = document.getElementById('whatsappEquipe').value.trim();
-            const jogoEquipe = document.getElementById('jogoEquipe').value;
-            const descricaoEquipe = document.getElementById('descricaoEquipe').value.trim();
-            
-            const mensagem = document.getElementById('mensagem');
-
-            // VALIDAÇÕES
-            if (!nomeEquipe || !senhaEquipe || !emailEquipe || !whatsappEquipe || !jogoEquipe) {
-                mostrarMensagem('❌ Preencha todos os campos obrigatórios!', 'erro');
-                return;
-            }
-
-            if (senhaEquipe.length < 6) {
-                mostrarMensagem('❌ A senha deve ter pelo menos 6 caracteres!', 'erro');
-                return;
-            }
-
-            // Coletar jogadores
-            const jogadores = [];
-            const inputsJogadores = document.querySelectorAll('.jogador-nome');
-            inputsJogadores.forEach(input => {
-                if (input.value.trim()) {
-                    jogadores.push(input.value.trim());
-                }
-            });
-
-            if (jogadores.length < 3) {
-                mostrarMensagem('❌ Mínimo de 3 jogadores é necessário!', 'erro');
-                return;
-            }
-
-            // SALVAR NO LOCALSTORAGE
-            const equipe = {
-                id: Date.now(),
-                nome: nomeEquipe,
-                senha: senhaEquipe,
-                email: emailEquipe,
-                whatsapp: whatsappEquipe,
-                jogo: jogoEquipe,
-                jogadores: jogadores,
-                descricao: descricaoEquipe,
-                dataCadastro: new Date().toLocaleDateString('pt-BR'),
-                pontos: 0,
-                vitorias: 0,
-                derrotas: 0,
-                empates: 0,
-                status: 'Ativa'
-            };
-
-            // Recuperar equipes existentes ou criar array vazio
-            const equipesExistentes = JSON.parse(localStorage.getItem('equipesFuria')) || [];
-            
-            // Verificar se nome já existe
-            const nomeExistente = equipesExistentes.find(e => e.nome.toLowerCase() === nomeEquipe.toLowerCase());
-            if (nomeExistente) {
-                mostrarMensagem('❌ Já existe uma equipe com este nome!', 'erro');
-                return;
-            }
-            
-            equipesExistentes.push(equipe);
-            localStorage.setItem('equipesFuria', JSON.stringify(equipesExistentes));
-            localStorage.setItem('equipeLogada', JSON.stringify(equipe));
-
-            // MENSAGEM DE SUCESSO
-            mostrarMensagem(`🎉 Equipe "${nomeEquipe}" cadastrada com sucesso!<br>👥 ${jogadores.length} jogadores registrados<br>📊 Agora vocês podem participar dos campeonatos!`, 'sucesso');
-
-            // Redirecionar após 3 segundos
             setTimeout(() => {
-                window.location.href = 'md4.html'; // Painel da equipe
-            }, 3000);
+                jogadorDiv.remove();
+                contadorJogadores--;
+                atualizarNumerosJogadores();
+            }, 300);
         }
 
-        function mostrarMensagem(texto, tipo) {
-            const mensagem = document.getElementById('mensagem');
-            mensagem.innerHTML = texto;
-            mensagem.className = `mensagem ${tipo}`;
-            mensagem.style.display = 'block';
-            
-            // Auto-esconder após 5 segundos
-            setTimeout(() => {
-                mensagem.style.display = 'none';
-            }, 5000);
-        }
-
-        function voltarInicio() {
-            window.location.href = 'index.html';
-        }
-
-        // Enter para cadastrar
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                cadastrarEquipe();
-            }
-        });
-
-        // Preencher dados do membro se já estiver logado
-        window.addEventListener('load', function() {
-            const membroSalvo = localStorage.getItem('membroCadastrado');
-            if (membroSalvo) {
-                const membro = JSON.parse(membroSalvo);
-                document.getElementById('emailEquipe').value = membro.email || '';
-                document.getElementById('whatsappEquipe').value = membro.whatsapp || '';
-                
-                // Preencher primeiro jogador com nick do membro
-                const primeiroJogador = document.querySelector('.jogador-nome');
-                if (primeiroJogador && membro.nick) {
-                    primeiroJogador.value = membro.nick;
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+        // ATUALIZAR NÚMEROS DOS JOGADORES
+        function atualizarNumerosJogadores() {
+            const inputs = document.querySelectorAll('.jogador
