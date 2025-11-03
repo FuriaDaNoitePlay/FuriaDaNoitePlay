@@ -169,3 +169,14 @@
     console.log('🔄 Sistema integrado: FRØN + ADM Supremo - 100% Funcional');
 
 </script>
+function abrirPaginaEspecial() {
+  // TROQUE ESTA LINHA:
+  window.location.href = 'sistema-fron-completo.html';
+  
+  // POR UMA DESSAS:
+  window.location.href = 'sistema-furia-completo.html'; // RECOMENDADO
+  // ou
+  window.location.href = 'md4.html';
+  // ou  
+  window.location.href = 'painel-adm.html';
+}
