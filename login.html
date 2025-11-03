@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🔐 Login Premium - FuriaDaNoitePlay</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         * {
             margin: 0;
@@ -585,11 +584,7 @@
     </div>
 
     <script>
-        // [O RESTANTE DO JAVASCRIPT PERMANECE O MESMO]
-        // (Mantive o código JavaScript original para não extrapolar o limite de caracteres)
-        // As funções selecionarModo, loginTeste, loginCashback, etc. continuam iguais
-        // apenas atualizei os textos para a versão premium
-
+        // SISTEMA DE LOGIN PREMIUM - FURIA DA NOITE
         let modoAtual = 'agente';
 
         // RELÓGIO HORÁRIO RÚSSIA (AURORA BOREAL)
@@ -621,7 +616,18 @@
         setInterval(atualizarStatusAoVivo, 5000);
         atualizarStatusAoVivo();
 
-        // [CONTINUA... O RESTO DO JAVASCRIPT ORIGINAL]
-    </script>
-</body>
-</html>
+        // SELECIONAR MODO DE LOGIN
+        function selecionarModo(modo) {
+            // Remover classe ativo de todos os botões
+            document.querySelectorAll('.modo-btn').forEach(btn => {
+                btn.classList.remove('ativo');
+            });
+            
+            // Esconder todos os formulários
+            document.querySelectorAll('.form-login').forEach(form => {
+                form.classList.remove('ativo');
+            });
+            
+            // Ativar modo selecionado
+            document.querySelector(`[onclick="selecionarModo('${modo}')"]`).classList.add('ativo');
+            document.getElementById(`modo-${modo}`).classList.add('ativo'
