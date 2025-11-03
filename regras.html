@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📜 Regras - FuriaDaNoitePlay</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,14 +12,19 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #ff0000;
+            --secondary: #FFD700;
+            --dark: #000;
+            --light: #fff;
+            --azul-galatico: #6600ff;
+        }
+
         body {
-            background: linear-gradient(135deg, #0a0a2a, #00008b, #2a0a4a);
-            color: #00ffff;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a0a0a, #0a0a0a, #001a0a);
+            color: var(--light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
         }
 
@@ -27,10 +32,11 @@
             background: rgba(0, 0, 0, 0.9);
             padding: 40px;
             border-radius: 15px;
-            border: 3px solid #00ffff;
-            box-shadow: 0 0 30px #00ffff;
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 30px var(--primary);
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
+            margin: 0 auto;
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -41,53 +47,61 @@
         }
 
         .logo h1 {
-            font-size: 2.5em;
-            color: #00ffff;
-            text-shadow: 0 0 15px #00ffff;
+            font-size: 2.8em;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
             margin-bottom: 10px;
         }
 
         .logo p {
-            color: #ff00ff;
-            font-style: italic;
+            color: var(--secondary);
+            font-size: 1.2em;
+            text-shadow: 0 0 10px var(--secondary);
         }
 
-        /* RELÓGIO AURORA BOREAL */
-        .relogio-aurora {
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff0080);
-            padding: 10px;
+        /* RELÓGIO FURIA */
+        .relogio-furia {
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--azul-galatico));
+            padding: 15px;
             border-radius: 10px;
-            margin: 15px 0;
-            border: 2px solid #00ffff;
-            box-shadow: 0 0 20px #ff00ff;
+            margin: 20px 0;
+            border: 2px solid var(--secondary);
+            box-shadow: 0 0 25px var(--primary);
             text-align: center;
         }
 
-        .horario-russia {
-            font-size: 1.3em;
+        .horario-furia {
+            font-size: 1.5em;
             font-weight: bold;
-            color: #000;
+            color: var(--dark);
             text-shadow: 0 0 5px #fff;
         }
 
-        .zona-aurora {
-            font-size: 0.9em;
-            color: #000;
-            font-style: italic;
+        .zona-furia {
+            font-size: 1em;
+            color: var(--dark);
+            font-weight: bold;
         }
 
         /* SEÇÕES DE REGRAS */
         .secao-regras {
-            margin: 25px 0;
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
         }
 
         .titulo-secao {
-            color: #ff00ff;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px #ff00ff;
-            border-bottom: 2px solid #ff00ff;
-            padding-bottom: 5px;
+            color: var(--secondary);
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px var(--secondary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .lista-regras {
@@ -96,95 +110,143 @@
         }
 
         .item-regra {
-            background: rgba(0, 255, 255, 0.1);
-            margin: 10px 0;
-            padding: 15px;
+            background: rgba(255, 0, 0, 0.1);
+            margin: 12px 0;
+            padding: 18px;
             border-radius: 8px;
-            border-left: 4px solid #00ffff;
+            border-left: 4px solid var(--primary);
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .item-regra:hover {
-            background: rgba(255, 0, 255, 0.1);
-            border-left-color: #ff00ff;
-            transform: translateX(5px);
+            background: rgba(255, 215, 0, 0.1);
+            border-left-color: var(--secondary);
+            transform: translateX(8px);
         }
 
         .destaque {
-            color: #ffff00;
+            color: var(--secondary);
             font-weight: bold;
-            text-shadow: 0 0 5px #ffff00;
+            text-shadow: 0 0 8px var(--secondary);
+            min-width: 120px;
         }
 
         .importante {
             background: rgba(255, 0, 0, 0.2);
             border-left-color: #ff0000;
-            color: #ff4444;
+            border: 2px solid #ff0000;
         }
 
         .positivo {
-            background: rgba(0, 255, 0, 0.2);
+            background: rgba(0, 255, 0, 0.1);
             border-left-color: #00ff00;
-            color: #00ff00;
+            border: 2px solid #00ff00;
         }
 
         /* BOTÕES */
         .btn-regras {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: #000;
+            padding: 18px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--dark);
             border: none;
-            border-radius: 8px;
-            font-size: 1.2em;
+            border-radius: 10px;
+            font-size: 1.3em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            margin: 20px 0 10px;
-            box-shadow: 0 0 20px #ff00ff;
+            margin: 25px 0 15px;
+            box-shadow: 0 0 25px var(--primary);
+            font-family: inherit;
         }
 
         .btn-regras:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 30px #00ffff;
+            box-shadow: 0 0 35px var(--secondary);
         }
 
         .links {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
         }
 
         .link {
-            color: #00ffff;
+            color: var(--light);
             text-decoration: none;
-            padding: 10px 20px;
-            border: 1px solid #00ffff;
-            border-radius: 5px;
+            padding: 15px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
             transition: all 0.3s;
             text-align: center;
-            flex: 1;
+            background: rgba(255, 0, 0, 0.1);
+            font-weight: bold;
         }
 
         .link:hover {
-            background: #00ffff;
-            color: #000;
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--primary);
+        }
+
+        /* ÍCONES PERSONALIZADOS */
+        .icone-regra {
+            font-size: 1.2em;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* SCROLLBAR PERSONALIZADA */
+        .regras-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .regras-container::-webkit-scrollbar-track {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .regras-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .regras-container::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
         }
 
         /* RESPONSIVO */
         @media (max-width: 768px) {
             .regras-container {
-                padding: 20px;
+                padding: 25px;
                 margin: 10px;
             }
             
             .logo h1 {
-                font-size: 2em;
+                font-size: 2.2em;
+            }
+            
+            .titulo-secao {
+                font-size: 1.3em;
+            }
+            
+            .item-regra {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .destaque {
+                min-width: auto;
             }
             
             .links {
-                flex-direction: column;
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -192,164 +254,192 @@
 <body>
     <div class="regras-container">
         <div class="logo">
-            <h1>🌙 FÚRIA DA NOITE</h1>
-            <p>Regras e Diretrizes Oficiais</p>
+            <h1>🔥 FURIADANOITEPLAY</h1>
+            <p>Regras e Diretrizes Oficiais da Comunidade</p>
         </div>
 
-        <!-- RELÓGIO AURORA BOREAL -->
-        <div class="relogio-aurora">
-            <div class="horario-russia" id="horarioRussia">00:00:00</div>
-            <div class="zona-aurora">⏰ Horário Aurora Boreal (Rússia)</div>
+        <!-- RELÓGIO FURIA -->
+        <div class="relogio-furia">
+            <div class="horario-furia" id="horarioFuria">00:00:00</div>
+            <div class="zona-furia">⏰ HORÁRIO FURIA - ZONA DE COMBATE</div>
         </div>
 
         <!-- REGRAS GERAIS -->
         <div class="secao-regras">
-            <h2 class="titulo-secao">📜 REGRAS GERAIS</h2>
+            <h2 class="titulo-secao"><i class="fas fa-scroll"></i> REGRAS GERAIS</h2>
             <ul class="lista-regras">
                 <li class="item-regra">
-                    <span class="destaque">Respeito:</span> Trate todos os membros com educação e respeito
+                    <span class="icone-regra">👑</span>
+                    <span class="destaque">RESPEITO:</span> Honre a hierarquia e trate todos com dignidade
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">Idioma:</span> Use apenas português nos chats oficiais
+                    <span class="icone-regra">🔊</span>
+                    <span class="destaque">COMUNICAÇÃO:</span> Português nos chats oficiais - sem gírias excessivas
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">Idade:</span> Mínimo de 16 anos para participação
+                    <span class="icone-regra">🎯</span>
+                    <span class="destaque">IDADE:</span> Mínimo de 16 anos - verificação obrigatória
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">Atividade:</span> Mantenha-se ativo na comunidade
+                    <span class="icone-regra">⚡</span>
+                    <span class="destaque">ATIVIDADE:</span> Participação semanal mínima exigida
                 </li>
                 <li class="item-regra importante">
-                    <span class="destaque">PROIBIDO:</span> Racismo, homofobia e qualquer tipo de discriminação
+                    <span class="icone-regra">🚫</span>
+                    <span class="destaque">PROIBIDO:</span> Racismo, homofobia e qualquer discriminação
                 </li>
             </ul>
         </div>
 
         <!-- REGRAS DE COMPORTAMENTO -->
         <div class="secao-regras">
-            <h2 class="titulo-secao">🎯 COMPORTAMENTO EM JOGO</h2>
+            <h2 class="titulo-secao"><i class="fas fa-users"></i> COMPORTAMENTO EM JOGO</h2>
             <ul class="lista-regras">
                 <li class="item-regra">
-                    <span class="destaque">Fair Play:</span> Jogue limpo, sem trapaças ou exploits
+                    <span class="icone-regra">⚔️</span>
+                    <span class="destaque">FAIR PLAY:</span> Jogue limpo - sem trapaças ou exploits
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">Toxidade:</span> Zero tolerância a comportamento tóxico
+                    <span class="icone-regra">💀</span>
+                    <span class="destaque">TOXICIDADE:</span> Zero tolerância - respeite adversários
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">Compromisso:</span> Cumpra com os horários marcados
+                    <span class="icone-regra">⏱️</span>
+                    <span class="destaque">PONTUALIDADE:</span> Cumpra horários de partidas marcadas
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">Estratégia:</span> Trabalhe em equipe e siga as táticas
+                    <span class="icone-regra">🎮</span>
+                    <span class="destaque">ESTRATÉGIA:</span> Siga táticas da equipe - trabalho em grupo
                 </li>
                 <li class="item-regra positivo">
-                    <span class="destaque">ENCORAJADO:</span> Ajudar novos jogadores e compartilhar conhecimento
+                    <span class="icone-regra">🌟</span>
+                    <span class="destaque">ENCORAJADO:</span> Ajudar novatos e compartilhar conhecimento
                 </li>
             </ul>
         </div>
 
         <!-- SISTEMA DE PONTUAÇÃO -->
         <div class="secao-regras">
-            <h2 class="titulo-secao">🏆 SISTEMA DE PONTUAÇÃO</h2>
+            <h2 class="titulo-secao"><i class="fas fa-trophy"></i> SISTEMA DE PONTUAÇÃO</h2>
             <ul class="lista-regras">
                 <li class="item-regra positivo">
-                    <span class="destaque">✅ VITÓRIA:</span> +4 pontos para a equipe
+                    <span class="icone-regra">✅</span>
+                    <span class="destaque">VITÓRIA:</span> +4 pontos para a equipe
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">⚖️ EMPATE:</span> +1 ponto para cada equipe
+                    <span class="icone-regra">⚖️</span>
+                    <span class="destaque">EMPATE:</span> +1 ponto para cada equipe
                 </li>
                 <li class="item-regra importante">
-                    <span class="destaque">❌ DERROTA:</span> -1 ponto da equipe
+                    <span class="icone-regra">❌</span>
+                    <span class="destaque">DERROTA:</span> -1 ponto da equipe
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">🎯 BÔNUS:</span> Vitórias consecutivas dão pontos extras
+                    <span class="icone-regra">🔥</span>
+                    <span class="destaque">STREAK BÔNUS:</span> Vitórias consecutivas = pontos extras
                 </li>
             </ul>
         </div>
 
         <!-- REGRAS DO TRUCU -->
         <div class="secao-regras">
-            <h2 class="titulo-secao">🎰 TRUCU DA FÚRIA</h2>
+            <h2 class="titulo-secao"><i class="fas fa-cards"></i> TRUCU DA FÚRIA</h2>
             <ul class="lista-regras">
                 <li class="item-regra">
-                    <span class="destaque">Modo:</span> 4 jogadores online
+                    <span class="icone-regra">🎯</span>
+                    <span class="destaque">MODO:</span> 4x4 online - formato oficial
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">Regras:</span> Estilo mineiro personalizado
+                    <span class="icone-regra">📜</span>
+                    <span class="destaque">REGRAS:</span> Estilo mineiro personalizado Furia
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">Cartas:</span> 7 (maior) > A > K > Q > J > ...
+                    <span class="icone-regra">🃏</span>
+                    <span class="destaque">CARTAS:</span> 7 (maior) > A > K > Q > J > ...
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">Rodadas:</span> Melhor de 3 rounds
+                    <span class="icone-regra">🔄</span>
+                    <span class="destaque">RODADAS:</span> Melhor de 3 rounds - morte súbita
                 </li>
                 <li class="item-regra positivo">
-                    <span class="destaque">PREMIAÇÃO:</span> Pontos no ranking geral
+                    <span class="icone-regra">🏆</span>
+                    <span class="destaque">PREMIAÇÃO:</span> Pontos no ranking + reconhecimento
                 </li>
             </ul>
         </div>
 
         <!-- PENALIDADES -->
         <div class="secao-regras">
-            <h2 class="titulo-secao">⚖️ PENALIDADES</h2>
+            <h2 class="titulo-secao"><i class="fas fa-gavel"></i> SISTEMA DE PENALIDADES</h2>
             <ul class="lista-regras">
                 <li class="item-regra importante">
-                    <span class="destaque">1ª Ocorrência:</span> Aviso por DM
+                    <span class="icone-regra">1️⃣</span>
+                    <span class="destaque">1ª OCORRÊNCIA:</span> Aviso formal + orientação
                 </li>
                 <li class="item-regra importante">
-                    <span class="destaque">2ª Ocorrência:</span> Suspensão por 7 dias
+                    <span class="icone-regra">2️⃣</span>
+                    <span class="destaque">2ª OCORRÊNCIA:</span> Suspensão por 7 dias
                 </li>
                 <li class="item-regra importante">
-                    <span class="destaque">3ª Ocorrência:</span> Banimento permanente
+                    <span class="icone-regra">3️⃣</span>
+                    <span class="destaque">3ª OCORRÊNCIA:</span> Banimento permanente
                 </li>
                 <li class="item-regra">
-                    <span class="destaque">Obs:</span> Casos graves resultam em banimento imediato
+                    <span class="icone-regra">⚠️</span>
+                    <span class="destaque">OBSERVAÇÃO:</span> Casos graves = banimento imediato
                 </li>
             </ul>
         </div>
 
         <button class="btn-regras" onclick="concordarRegras()">
-            ✅ EU CONCORDO COM AS REGRAS
+            <i class="fas fa-shield-alt"></i> EU ACEITO E CONCORDO COM AS REGRAS
         </button>
 
         <div class="links">
-            <a href="cadastro-membro.html" class="link">⭐ FAZER CADASTRO</a>
-            <a href="md3.html" class="link">🔐 LOGIN</a>
-            <a href="index.html" class="link">🏠 VOLTAR AO INÍCIO</a>
+            <a href="cadastro-membro.html" class="link">
+                <i class="fas fa-user-plus"></i> FAZER CADASTRO
+            </a>
+            <a href="index.html" class="link">
+                <i class="fas fa-home"></i> VOLTAR AO INÍCIO
+            </a>
+            <a href="md4.html" class="link">
+                <i class="fas fa-users"></i> NOSSA EQUIPE
+            </a>
         </div>
     </div>
 
     <script>
-        // RELÓGIO HORÁRIO RÚSSIA (AURORA BOREAL)
-        function atualizarHorarioRussia() {
+        // RELÓGIO FURIA
+        function atualizarHorarioFuria() {
             const agora = new Date();
-            // Fuso horário da Rússia (Moscow Time = UTC+3)
             const options = { 
-                timeZone: 'Europe/Moscow',
                 hour: '2-digit',
                 minute: '2-digit', 
                 second: '2-digit',
                 hour12: false
             };
-            const horarioRussia = agora.toLocaleTimeString('pt-BR', options);
-            document.getElementById('horarioRussia').textContent = horarioRussia;
+            const horarioFuria = agora.toLocaleTimeString('pt-BR', options);
+            document.getElementById('horarioFuria').textContent = horarioFuria;
         }
 
-        setInterval(atualizarHorarioRussia, 1000);
-        atualizarHorarioRussia();
+        setInterval(atualizarHorarioFuria, 1000);
+        atualizarHorarioFuria();
 
         // CONCORDAR COM REGRAS
         function concordarRegras() {
-            localStorage.setItem('regrasAceitas', 'true');
-            alert('🎉 Obrigado por aceitar as regras!\n\nAgora você pode fazer seu cadastro e participar da comunidade!');
+            localStorage.setItem('regrasAceitasFuria', 'true');
+            alert('🎉 REGRAS ACEITAS COM SUCESSO!\n\nAgora você pode fazer seu cadastro e entrar para a FuriaDaNoitePlay!');
             window.location.href = 'cadastro-membro.html';
         }
 
         // Verificar se já aceitou as regras
         window.addEventListener('load', function() {
-            const regrasAceitas = localStorage.getItem('regrasAceitas');
+            const regrasAceitas = localStorage.getItem('regrasAceitasFuria');
             if (regrasAceitas) {
-                document.querySelector('.btn-regras').textContent = '✅ REGRAS JÁ ACEITAS';
-                document.querySelector('.btn-regras').style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
-                document.querySelector('.btn-regras').onclick = function() {
+                const btn = document.querySelector('.btn-regras');
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> REGRAS JÁ ACEITAS - IR PARA CADASTRO';
+                btn.style.background = 'linear-gradient(45deg, #00ff00, var(--secondary))';
+                btn.onclick = function() {
                     window.location.href = 'cadastro-membro.html';
                 };
             }
@@ -359,13 +449,29 @@
         const itensRegra = document.querySelectorAll('.item-regra');
         itensRegra.forEach(item => {
             item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(10px)';
+                this.style.transform = 'translateX(10px) scale(1.02)';
             });
             
             item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0)';
+                this.style.transform = 'translateX(0) scale(1)';
             });
         });
+
+        // Efeito de digitação no título
+        const titulo = document.querySelector('.logo h1');
+        const textoOriginal = titulo.textContent;
+        titulo.textContent = '';
+        let i = 0;
+        
+        function digitarTitulo() {
+            if (i < textoOriginal.length) {
+                titulo.textContent += textoOriginal.charAt(i);
+                i++;
+                setTimeout(digitarTitulo, 100);
+            }
+        }
+        
+        setTimeout(digitarTitulo, 500);
     </script>
 </body>
 </html>
