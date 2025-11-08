@@ -3,42 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⭐ Cadastro Membro - FuriaDaNoitePlay</title>
-    <link rel="stylesheet" href="style.css">
+    <title>⭐ Cadastro - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ===== VARIÁVEIS E RESET ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
+        :root {
+            --vermelho-neon: #ff0000;
+            --vermelho-escuro: #cc0000;
+            --amarelo-neon: #FFD700;
+            --preto: #000000;
+            --preto-escuro: #0a0a0a;
+            --branco: #ffffff;
+        }
+        
         body {
-            background: linear-gradient(135deg, #0a0a2a, #00008b, #2a0a4a);
-            color: #00ffff;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0000 100%);
+            color: var(--branco);
+            font-family: 'Orbitron', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
-
+        
         .container {
             width: 100%;
-            max-width: 700px;
+            max-width: 1200px;
         }
 
-        /* HEADER NEON PREMIUM */
+        /* ===== HEADER NEON ===== */
         .neon-header {
-            background: rgba(0, 0, 0, 0.85);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
             padding: 40px 30px;
             border-radius: 20px;
-            border: 3px solid #00ffea;
+            border: 3px solid var(--vermelho-neon);
             box-shadow: 
-                0 0 40px rgba(0, 255, 234, 0.4),
-                inset 0 0 20px rgba(0, 255, 234, 0.1);
+                0 0 50px rgba(255, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             position: relative;
             overflow: hidden;
         }
@@ -50,7 +61,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 234, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
             animation: brilho-header 8s linear infinite;
             z-index: 1;
         }
@@ -61,157 +72,167 @@
         }
 
         .neon-text {
-            font-size: 2.5em;
-            color: #00ffea;
+            font-size: 3rem;
+            color: var(--vermelho-neon);
             text-shadow: 
-                0 0 10px #00ffea,
-                0 0 20px #00ffea,
-                0 0 30px #00ffea;
+                0 0 20px var(--vermelho-neon),
+                0 0 40px var(--vermelho-neon),
+                0 0 60px var(--vermelho-neon);
             margin-bottom: 15px;
             position: relative;
             z-index: 2;
-            animation: pulsar-texto 3s infinite alternate;
+            animation: pulsar-texto 2s infinite alternate;
         }
 
         @keyframes pulsar-texto {
-            0% { text-shadow: 0 0 10px #00ffea, 0 0 20px #00ffea; }
-            100% { text-shadow: 0 0 20px #00ffea, 0 0 40px #00ffea, 0 0 60px #00ffea; }
+            0% { text-shadow: 0 0 20px var(--vermelho-neon); }
+            100% { text-shadow: 0 0 30px var(--vermelho-neon), 0 0 50px var(--vermelho-neon); }
         }
 
         .subtitle {
-            color: #ff00ff;
+            color: var(--amarelo-neon);
             font-style: italic;
-            font-size: 1.3em;
-            text-shadow: 0 0 10px #ff00ff;
+            font-size: 1.4rem;
+            text-shadow: 0 0 15px var(--amarelo-neon);
             position: relative;
             z-index: 2;
         }
 
-        /* CONTAINER PRINCIPAL */
-        .cadastro-container {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 40px;
-            border-radius: 20px;
-            border: 3px solid #00ffea;
-            box-shadow: 
-                0 10px 40px rgba(0, 255, 234, 0.4),
-                inset 0 0 20px rgba(0, 255, 234, 0.1);
-            position: relative;
-            overflow: hidden;
+        /* ===== CONTAINER DE CADASTROS ===== */
+        .cadastros-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
-        .cadastro-container::before {
+        /* ===== QUADRADO DE CADASTRO ===== */
+        .cadastro-quadrado {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(20, 0, 0, 0.85));
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid var(--vermelho-neon);
+            box-shadow: 
+                0 0 40px rgba(255, 0, 0, 0.4),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .cadastro-quadrado::before {
             content: "";
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 234, 0.05), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
             transition: left 0.6s;
         }
 
-        .cadastro-container:hover::before {
+        .cadastro-quadrado:hover::before {
             left: 100%;
         }
-        
+
+        .cadastro-quadrado:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 0 60px rgba(255, 0, 0, 0.6),
+                0 0 80px rgba(255, 0, 0, 0.2),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
+        }
+
+        .quadrado-titulo {
+            color: var(--amarelo-neon);
+            font-size: 2rem;
+            text-shadow: 0 0 15px var(--amarelo-neon);
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 3px solid var(--vermelho-neon);
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        .quadrado-titulo::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: var(--amarelo-neon);
+            box-shadow: 0 0 10px var(--amarelo-neon);
+        }
+
+        /* ===== FORMULÁRIOS ===== */
         .cadastro-form {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
             position: relative;
             z-index: 2;
         }
         
-        /* GRUPOS DE INPUT */
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
         
         .input-group label {
-            color: #00ffea;
+            color: var(--amarelo-neon);
             font-weight: bold;
-            text-shadow: 0 0 8px #00ffea;
-            font-size: 1.1em;
+            text-shadow: 0 0 8px var(--amarelo-neon);
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
         .input-group input, .input-group select, .input-group textarea {
-            padding: 16px 20px;
-            border: 2px solid #00ffea;
+            padding: 15px 18px;
+            border: 2px solid var(--vermelho-neon);
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 0, 0, 0.1);
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
             box-shadow: 
                 inset 0 2px 10px rgba(0, 0, 0, 0.3),
-                0 0 15px rgba(0, 255, 234, 0.2);
+                0 0 15px rgba(255, 0, 0, 0.2);
         }
         
         .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
             outline: none;
-            border-color: #ff00ff;
+            border-color: var(--amarelo-neon);
             box-shadow: 
                 inset 0 2px 10px rgba(0, 0, 0, 0.3),
-                0 0 25px #ff00ff;
-            background: rgba(255, 0, 255, 0.1);
+                0 0 25px var(--amarelo-neon);
+            background: rgba(255, 215, 0, 0.1);
             transform: scale(1.02);
         }
 
-        /* BENEFÍCIOS PREMIUM */
-        .beneficios {
-            background: linear-gradient(135deg, rgba(0, 255, 234, 0.15), rgba(255, 0, 255, 0.1));
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-            border: 2px solid #00ffea;
-            box-shadow: 
-                0 0 25px rgba(0, 255, 234, 0.3),
-                inset 0 0 15px rgba(0, 255, 234, 0.1);
-            position: relative;
-            z-index: 2;
-        }
-        
-        .beneficios h4 {
-            color: #00ffea;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px #00ffea;
-            font-size: 1.3em;
-            text-align: center;
-        }
-
-        .beneficios p {
-            margin: 12px 0;
-            color: #ffffff;
-            font-size: 1em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* BOTÕES PREMIUM */
+        /* ===== BOTÕES NEON ===== */
         .neon-btn {
-            padding: 20px 40px;
-            background: linear-gradient(145deg, #00ffea, #ff00ff);
+            padding: 18px 35px;
+            background: linear-gradient(135deg, var(--vermelho-neon), var(--vermelho-escuro));
             border: none;
-            color: #000;
+            color: var(--preto);
             border-radius: 15px;
-            font-size: 1.3em;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             text-align: center;
             box-shadow: 
-                0 5px 25px rgba(0, 255, 234, 0.4),
-                0 0 30px rgba(255, 0, 255, 0.3);
-            margin: 20px 0;
+                0 5px 25px rgba(255, 0, 0, 0.4),
+                0 0 30px rgba(255, 0, 0, 0.3);
+            margin: 25px 0 15px 0;
             position: relative;
             overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .neon-btn::before {
@@ -221,7 +242,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s;
         }
 
@@ -230,15 +251,58 @@
         }
 
         .neon-btn:hover {
-            transform: 
-                translateY(-3px) 
-                scale(1.05);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: 
-                0 8px 35px rgba(0, 255, 234, 0.6),
-                0 0 40px rgba(255, 0, 255, 0.4);
+                0 8px 35px rgba(255, 0, 0, 0.6),
+                0 0 40px rgba(255, 0, 0, 0.4);
+            background: linear-gradient(135deg, var(--vermelho-escuro), var(--vermelho-neon));
         }
 
-        /* LINKS DE NAVEGAÇÃO */
+        .btn-equipe {
+            background: linear-gradient(135deg, var(--amarelo-neon), #ffaa00);
+            box-shadow: 
+                0 5px 25px rgba(255, 215, 0, 0.4),
+                0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-equipe:hover {
+            box-shadow: 
+                0 8px 35px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(255, 215, 0, 0.4);
+        }
+
+        /* ===== BENEFÍCIOS ===== */
+        .beneficios {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.15), rgba(200, 0, 0, 0.1));
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid var(--vermelho-neon);
+            box-shadow: 
+                0 0 25px rgba(255, 0, 0, 0.3),
+                inset 0 0 15px rgba(255, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .beneficios h4 {
+            color: var(--amarelo-neon);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--amarelo-neon);
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .beneficios p {
+            margin: 10px 0;
+            color: var(--branco);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ===== LINKS DE NAVEGAÇÃO ===== */
         .links {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -247,17 +311,18 @@
         }
 
         .link {
-            color: #00ffff;
+            color: var(--vermelho-neon);
             text-decoration: none;
             padding: 15px 20px;
-            border: 2px solid #00ffff;
+            border: 2px solid var(--vermelho-neon);
             border-radius: 10px;
             transition: all 0.3s;
             text-align: center;
             font-weight: bold;
-            background: rgba(0, 255, 255, 0.1);
+            background: rgba(255, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .link::before {
@@ -267,7 +332,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.2), transparent);
             transition: left 0.5s;
         }
 
@@ -276,13 +341,13 @@
         }
 
         .link:hover {
-            background: #00ffff;
-            color: #000;
-            box-shadow: 0 0 25px #00ffff;
+            background: var(--vermelho-neon);
+            color: var(--preto);
+            box-shadow: 0 0 25px var(--vermelho-neon);
             transform: translateY(-3px);
         }
 
-        /* MENSAGENS */
+        /* ===== MENSAGENS ===== */
         .mensagem {
             padding: 20px;
             border-radius: 12px;
@@ -290,7 +355,7 @@
             display: none;
             text-align: center;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.1rem;
             position: relative;
             z-index: 2;
             animation: slideIn 0.5s ease-out;
@@ -315,7 +380,7 @@
             box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
         }
 
-        /* LOADING */
+        /* ===== LOADING ===== */
         .loading {
             display: none;
             text-align: center;
@@ -324,7 +389,7 @@
 
         .loading-spinner {
             border: 3px solid #f3f3f3;
-            border-top: 3px solid #00ffea;
+            border-top: 3px solid var(--vermelho-neon);
             border-radius: 50%;
             width: 30px;
             height: 30px;
@@ -337,18 +402,23 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* RESPONSIVIDADE AVANÇADA */
+        /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
+            .cadastros-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
             .container {
                 padding: 10px;
             }
             
-            .cadastro-container {
+            .cadastro-quadrado {
                 padding: 25px;
             }
             
             .neon-text {
-                font-size: 2em;
+                font-size: 2.2rem;
             }
             
             .links {
@@ -356,272 +426,157 @@
             }
             
             .neon-btn {
-                padding: 18px 30px;
-                font-size: 1.1em;
+                padding: 16px 25px;
+                font-size: 1.1rem;
             }
         }
 
         @media (max-width: 480px) {
             .neon-text {
-                font-size: 1.6em;
+                font-size: 1.8rem;
             }
             
             .subtitle {
-                font-size: 1.1em;
+                font-size: 1.1rem;
             }
             
-            .cadastro-container {
+            .cadastro-quadrado {
                 padding: 20px;
             }
             
-            .beneficios {
-                padding: 20px;
+            .quadrado-titulo {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- HEADER PREMIUM -->
+        <!-- HEADER NEON -->
         <header class="neon-header">
-            <h1 class="neon-text">⭐ CADASTRO - AGENTE DA NOITE ADN</h1>
-            <p class="subtitle">Junte-se à Furia - Seja um Agente da Noite</p>
+            <h1 class="neon-text">⭐ CADASTRO FURIA DA NOITE</h1>
+            <p class="subtitle">Escolha seu tipo de cadastro e junte-se à Fúria!</p>
         </header>
 
-        <!-- BENEFÍCIOS -->
-        <div class="beneficios">
-            <h4>🎯 BENEFÍCIOS DO CADASTRO:</h4>
-            <p>✅ Acesso ao chat exclusivo</p>
-            <p>✅ Visualização de abas públicas</p>
-            <p>✅ Comunidade ativa e suporte</p>
-            <p>✅ Possibilidade de crescimento</p>
-            <p>✅ Participação em eventos</p>
-            <p>✅ Cashback em apostas</p>
-            <p>✅ Rankeamento competitivo</p>
-        </div>
+        <!-- CONTAINER DE CADASTROS -->
+        <div class="cadastros-container">
+            <!-- QUADRADO MEMBRO INDIVIDUAL -->
+            <div class="cadastro-quadrado">
+                <h2 class="quadrado-titulo">👤 CADASTRO DE MEMBRO</h2>
+                
+                <div id="mensagem-membro" class="mensagem"></div>
+                <div id="loading-membro" class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Processando cadastro...</p>
+                </div>
 
-        <div class="cadastro-container">
-            <div id="mensagem" class="mensagem"></div>
-            <div id="loading" class="loading">
-                <div class="loading-spinner"></div>
-                <p>Processando cadastro...</p>
+                <div class="cadastro-form">
+                    <div class="input-group">
+                        <label>🎮 Nick no Jogo:</label>
+                        <input type="text" id="nick-membro" placeholder="Seu nick nos games" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>📧 E-mail:</label>
+                        <input type="email" id="email-membro" placeholder="seu@email.com">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>📱 WhatsApp:</label>
+                        <input type="tel" id="whatsapp-membro" placeholder="(31) 99999-9999">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>🎯 Jogo Principal:</label>
+                        <select id="jogo-membro" required>
+                            <option value="">Selecione seu jogo</option>
+                            <option value="trucu">🎰 TRUCU da Fúria</option>
+                            <option value="cfn">⚔️ CFN - Clash of Clan</option>
+                            <option value="cr">👑 CR - Clash Royale</option>
+                            <option value="mlbb">🗡️ MLBB - Mobile Legends</option>
+                            <option value="freefire">🔫 Free Fire</option>
+                            <option value="lol">⚡ League of Legends</option>
+                            <option value="valorant">🎯 Valorant</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>🆔 ID do Jogo:</label>
+                        <input type="text" id="idjogo-membro" placeholder="000000000000" required>
+                    </div>
+
+                    <!-- BENEFÍCIOS DO MEMBRO -->
+                    <div class="beneficios">
+                        <h4>🎯 VANTAGENS DO MEMBRO:</h4>
+                        <p>✅ Acesso ao chat exclusivo</p>
+                        <p>✅ Participação em eventos</p>
+                        <p>✅ Rankeamento competitivo</p>
+                        <p>✅ Cashback em apostas</p>
+                        <p>✅ Suporte da comunidade</p>
+                    </div>
+                    
+                    <button class="neon-btn" onclick="cadastrarMembro()">
+                        🚀 VIRAR MEMBRO DA FÚRIA
+                    </button>
+                </div>
             </div>
 
-            <div class="cadastro-form">
-                <!-- DADOS PESSOAIS -->
-                <div class="input-group">
-                    <label>🎮 Nick no Jogo:</label>
-                    <input type="text" id="nick" placeholder="Seu nick nos games (obrigatório)" required>
-                </div>
+            <!-- QUADRADO INSCRIÇÃO DE EQUIPE -->
+            <div class="cadastro-quadrado">
+                <h2 class="quadrado-titulo">🏆 INSCRIÇÃO DE EQUIPE</h2>
                 
-                <div class="input-group">
-                    <label>📧 E-mail:</label>
-                    <input type="email" id="email" placeholder="seu@email.com (recomendado)">
-                </div>
-                
-                <div class="input-group">
-                    <label>📱 WhatsApp:</label>
-                    <input type="tel" id="whatsapp" placeholder="(31) 99999-9999 (recomendado)">
-                </div>
-                
-                <div class="input-group">
-                    <label>🔗 Instagram (opcional):</label>
-                    <input type="text" id="instagram" placeholder="@seuinstagram">
-                </div>
-                
-                <!-- DADOS DO JOGO -->
-                <div class="input-group">
-                    <label>🎯 Jogo Principal:</label>
-                    <select id="jogoPrincipal" required>
-                        <option value="">🎮 Selecione seu jogo principal</option>
-                        <option value="trucu">🎰 TRUCU da Fúria</option>
-                        <option value="cfn">⚔️ CFN - Clash of Clan</option>
-                        <option value="cr">👑 CR - Clash Royale</option>
-                        <option value="mlbb">🗡️ MLBB - Mobile Legends</option>
-                        <option value="freefire">🔫 Free Fire</option>
-                        <option value="lol">⚡ League of Legends</option>
-                        <option value="valorant">🎯 Valorant</option>
-                        <option value="outro">🔗 Outro Jogo</option>
-                    </select>
-                </div>
-                
-                <div class="input-group">
-                    <label>🆔 ID do Jogo:</label>
-                    <input type="text" id="idJogo" placeholder="000000000000 (obrigatório)" required>
+                <div id="mensagem-equipe" class="mensagem"></div>
+                <div id="loading-equipe" class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Processando inscrição...</p>
                 </div>
 
-                <div class="input-group">
-                    <label>🏷️ Tag da Equipe (opcional):</label>
-                    <input type="text" id="tagEquipe" placeholder="#FURIA ou deixe em branco">
-                </div>
+                <div class="cadastro-form">
+                    <div class="input-group">
+                        <label>🏷️ Nome da Equipe:</label>
+                        <input type="text" id="nome-equipe" placeholder="Nome da sua equipe" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>🎮 Seu Nick (Líder):</label>
+                        <input type="text" id="nick-lider" placeholder="Seu nick como líder" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>📧 E-mail do Líder:</label>
+                        <input type="email" id="email-equipe" placeholder="lider@email.com" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>📱 WhatsApp do Líder:</label>
+                        <input type="tel" id="whatsapp-equipe" placeholder="(31) 99999-9999" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>🎯 Jogo da Equipe:</label>
+                        <select id="jogo-equipe" required>
+                            <option value="">Selecione o jogo</option>
+                            <option value="trucu">🎰 TRUCU da Fúria</option>
+                            <option value="cfn">⚔️ CFN - Clash of Clan</option>
+                            <option value="cr">👑 CR - Clash Royale</option>
+                            <option value="mlbb">🗡️ MLBB - Mobile Legends</option>
+                            <option value="freefire">🔫 Free Fire</option>
+                        </select>
+                    </div>
 
-                <div class="input-group">
-                    <label>📝 Descrição (opcional):</label>
-                    <textarea id="descricao" rows="3" placeholder="Conte um pouco sobre você, suas habilidades, experiência..."></textarea>
-                </div>
-                
-                <!-- BOTÃO DE CADASTRO -->
-                <button class="neon-btn" onclick="cadastrarMembro()">
-                    🚀 CONCLUIR CADASTRO - VIRAR AGENTE ADN
-                </button>
+                    <div class="input-group">
+                        <label>👥 Quantidade de Membros:</label>
+                        <input type="number" id="qtd-membros" placeholder="Número de membros" min="2" max="10" required>
+                    </div>
 
-                <!-- LINKS DE NAVEGAÇÃO -->
-                <div class="links">
-                    <a href="regras.html" class="link">📜 VER REGRAS COMPLETAS</a>
-                    <a href="login.html" class="link">🔐 JÁ TENHO CADASTRO</a>
-                    <a href="cadastro-equipe.html" class="link">🏆 CADASTRAR EQUIPE</a>
-                    <a href="index.html" class="link">🏠 VOLTAR AO INÍCIO</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // SISTEMA DE CADASTRO DE MEMBRO - FURIA DA NOITE
-        function cadastrarMembro() {
-            const nick = document.getElementById('nick').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const whatsapp = document.getElementById('whatsapp').value.trim();
-            const jogo = document.getElementById('jogoPrincipal').value;
-            const idJogo = document.getElementById('idJogo').value.trim();
-            const instagram = document.getElementById('instagram').value.trim();
-            const tagEquipe = document.getElementById('tagEquipe').value.trim();
-            const descricao = document.getElementById('descricao').value.trim();
-            
-            const mensagem = document.getElementById('mensagem');
-            const loading = document.getElementById('loading');
-
-            // VALIDAÇÕES
-            if (!nick) {
-                mostrarMensagem('❌ Por favor, informe seu nick!', 'erro');
-                return;
-            }
-            
-            if (!jogo) {
-                mostrarMensagem('❌ Por favor, selecione seu jogo principal!', 'erro');
-                return;
-            }
-
-            if (!idJogo) {
-                mostrarMensagem('❌ Por favor, informe seu ID do jogo!', 'erro');
-                return;
-            }
-
-            // VALIDAÇÃO DE WHATSAPP
-            if (whatsapp && !whatsapp.match(/\(\d{2}\)\s\d{4,5}-\d{4}/)) {
-                mostrarMensagem('❌ Formato de WhatsApp inválido! Use (XX) XXXXX-XXXX', 'erro');
-                return;
-            }
-
-            // MOSTRAR LOADING
-            loading.style.display = 'block';
-            mensagem.style.display = 'none';
-
-            // SIMULAR PROCESSAMENTO
-            setTimeout(() => {
-                processarCadastro(nick, email, whatsapp, jogo, idJogo, instagram, tagEquipe, descricao);
-                loading.style.display = 'none';
-            }, 2000);
-        }
-
-        // PROCESSAR CADASTRO
-        function processarCadastro(nick, email, whatsapp, jogo, idJogo, instagram, tagEquipe, descricao) {
-            // CRIAR OBJETO DO MEMBRO
-            const membro = {
-                id: Date.now(),
-                nick: nick,
-                email: email,
-                whatsapp: whatsapp,
-                jogo: jogo,
-                idJogo: idJogo,
-                instagram: instagram,
-                tagEquipe: tagEquipe,
-                descricao: descricao,
-                dataCadastro: new Date().toLocaleDateString('pt-BR'),
-                horaCadastro: new Date().toLocaleTimeString('pt-BR'),
-                nivel: 'Iniciante',
-                pontos: 0,
-                vitorias: 0,
-                derrotas: 0,
-                cashback: 0,
-                status: 'Ativo',
-                tipo: 'Agente ADN'
-            };
-
-            // SALVAR NO LOCALSTORAGE
-            const membrosExistentes = JSON.parse(localStorage.getItem('membrosFuria')) || [];
-            
-            // VERIFICAR SE NICK JÁ EXISTE
-            const nickExistente = membrosExistentes.find(m => m.nick.toLowerCase() === nick.toLowerCase());
-            if (nickExistente) {
-                mostrarMensagem('❌ Já existe um membro com este nick! Escolha outro.', 'erro');
-                return;
-            }
-            
-            // ADICIONAR MEMBRO
-            membrosExistentes.push(membro);
-            localStorage.setItem('membrosFuria', JSON.stringify(membrosExistentes));
-            localStorage.setItem('membroCadastrado', JSON.stringify(membro));
-            localStorage.setItem('usuarioLogado', 'true');
-            localStorage.setItem('tipoUsuario', 'membro');
-
-            // MENSAGEM DE SUCESSO
-            const jogoTexto = document.getElementById('jogoPrincipal').options[document.getElementById('jogoPrincipal').selectedIndex].text;
-            mostrarMensagem(
-                `🎉 <strong>CADASTRO REALIZADO COM SUCESSO!</strong><br><br>
-                 ⭐ <strong>Agente ADN:</strong> ${nick}<br>
-                 🎮 <strong>Jogo Principal:</strong> ${jogoTexto}<br>
-                 🆔 <strong>ID do Jogo:</strong> ${idJogo}<br>
-                 📅 <strong>Data:</strong> ${membro.dataCadastro}<br>
-                 🕒 <strong>Hora:</strong> ${membro.horaCadastro}<br><br>
-                 🚀 <em>Bem-vindo à Furia, Agente da Noite! Redirecionando...</em>`, 
-                'sucesso'
-            );
-
-            // REDIRECIONAR APÓS 3 SEGUNDOS
-            setTimeout(() => {
-                window.location.href = 'painel-membro.html';
-            }, 3000);
-        }
-
-        // MOSTRAR MENSAGEM
-        function mostrarMensagem(texto, tipo) {
-            const mensagem = document.getElementById('mensagem');
-            mensagem.innerHTML = texto;
-            mensagem.className = `mensagem ${tipo}`;
-            mensagem.style.display = 'block';
-            
-            setTimeout(() => {
-                mensagem.style.display = 'none';
-            }, 5000);
-        }
-
-        // PREENCHER DADOS SE JÁ TIVER CADASTRO
-        window.addEventListener('load', function() {
-            const membroSalvo = localStorage.getItem('membroCadastrado');
-            if (membroSalvo) {
-                const membro = JSON.parse(membroSalvo);
-                document.getElementById('nick').value = membro.nick || '';
-                document.getElementById('email').value = membro.email || '';
-                document.getElementById('whatsapp').value = membro.whatsapp || '';
-                document.getElementById('instagram').value = membro.instagram || '';
-                document.getElementById('jogoPrincipal').value = membro.jogo || '';
-                document.getElementById('idJogo').value = membro.idJogo || '';
-                document.getElementById('tagEquipe').value = membro.tagEquipe || '';
-                document.getElementById('descricao').value = membro.descricao || '';
-            }
-        });
-
-        // ENTER PARA CADASTRAR
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                cadastrarMembro();
-            }
-        });
-
-        // INICIALIZAÇÃO
-        console.log('⭐ Sistema de Cadastro de Membro - Furia Da Noite');
-        console.log('✅ Sistema carregado e pronto para cadastros');
-    </script>
-</body>
-</html>
+                    <!-- BENEFÍCIOS DA EQUIPE -->
+                    <div class="beneficios">
+                        <h4>🏅 VANTAGENS DA EQUIPE:</h4>
+                        <p>✅ Campeonatos exclusivos</p>
+                        <p>✅ Premiações em dinheiro</p>
+                        <p>✅ Reconhecimento da comunidade</p>
+                        <p>✅ Patrocínios e parcerias</p>
+                        <p>✅ Ranking de equipes</p>
+                    </div>
+                    
+                    <button class="neon-btn btn-equipe" onclick="cadastrarEquipe()
