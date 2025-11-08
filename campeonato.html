@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação - Campeonato</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ff003c;
+            text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #1e1e1e;
+            border: 2px solid #333;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: #333;
+        }
+        
+        .nav-btn.active {
+            background-color: #ff003c;
+            border-color: #ff003c;
+        }
+        
+        .championship-section {
+            display: none;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .championship-section.active {
+            display: block;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: #ff003c;
+        }
+        
+        .classification-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .classification-table tr {
+            border-bottom: 1px solid #333;
+        }
+        
+        .classification-table tr:last-child {
+            border-bottom: none;
+        }
+        
+        .classification-table td {
+            padding: 15px 10px;
+        }
+        
+        .position {
+            width: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .team-name {
+            font-weight: bold;
+        }
+        
+        .points {
+            width: 70px;
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        .serie-a .position:nth-child(1) {
+            color: #ff003c;
+        }
+        
+        .serie-b .position:nth-child(1) {
+            color: #ff003c;
+        }
+        
+        .serie-c .position:nth-child(1) {
+            color: #ff003c;
+        }
+        
+        .circle {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .circle.red {
+            background-color: #ff003c;
+        }
+        
+        .circle.white {
+            background-color: #fff;
+            border: 1px solid #555;
+        }
+        
+        .team-tag {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CLASSIFICAÇÃO</h1>
+            <p>Campeonato de eSports</p>
+        </header>
+        
+        <div class="navigation">
+            <button class="nav-btn" data-target="serie-a">Série A</button>
+            <button class="nav-btn active" data-target="serie-b">Série B</button>
+            <button class="nav-btn" data-target="serie-c">Série C</button>
+        </div>
+        
+        <section id="serie-a" class="championship-section serie-a">
+            <h2 class="section-title">SÉRIE A</h2>
+            <table class="classification-table">
+                <tr>
+                    <td class="position">1</td>
+                    <td>
+                        <span class="circle red"></span>
+                        <span class="team-name">FÚRIA DA NOITE</span>
+                        <span class="team-tag">(C) PLAY</span>
+                    </td>
+                    <td class="points">36</td>
+                </tr>
+                <tr>
+                    <td class="position">2</td>
+                    <td>
+                        <span class="circle white"></span>
+                        <span class="team-name">NEON ESPORTS</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">34</td>
+                </tr>
+                <tr>
+                    <td class="position">3</td>
+                    <td>
+                        <span class="circle white"></span>
+                        <span class="team-name">TEAM VORTEX</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">32</td>
+                </tr>
+                <tr>
+                    <td class="position">4</td>
+                    <td>
+                        <span class="circle white"></span>
+                        <span class="team-name">DRAGON FORCE</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">30</td>
+                </tr>
+            </table>
+        </section>
+        
+        <section id="serie-b" class="championship-section serie-b active">
+            <h2 class="section-title">SÉRIE B</h2>
+            <table class="classification-table">
+                <tr>
+                    <td class="position">1</td>
+                    <td>
+                        <span class="circle red"></span>
+                        <span class="team-name">ECHO TEAM ACADEMY</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">34</td>
+                </tr>
+                <tr>
+                    <td class="position">2</td>
+                    <td>
+                        <span class="circle white"></span>
+                        <span class="team-name">OLIMPO YAKUZA</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">34</td>
+                </tr>
+                <tr>
+                    <td class="position">3</td>
+                    <td>
+                        <span class="circle white"></span>
+                        <span class="team-name">BEEZEEKAY ESPORTS</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">32</td>
+                </tr>
+                <tr>
+                    <td class="position">4</td>
+                    <td>
+                        <span class="circle white"></span>
+                        <span class="team-name">THUNDER STRIKE</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">31</td>
+                </tr>
+            </table>
+        </section>
+        
+        <section id="serie-c" class="championship-section serie-c">
+            <h2 class="section-title">SÉRIE C</h2>
+            <table class="classification-table">
+                <tr>
+                    <td class="position">1</td>
+                    <td>
+                        <span class="circle red"></span>
+                        <span class="team-name">PHOENIX RISING</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">35</td>
+                </tr>
+                <tr>
+                    <td class="position">2</td>
+                    <td>
+                        <span class="circle white"></span>
+                        <span class="team-name">WOLF PACK GAMING</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">33</td>
+                </tr>
+                <tr>
+                    <td class="position">3</td>
+                    <td>
+                        <span class="circle white"></span>
+                        <span class="team-name">SHADOW CLAN</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">32</td>
+                </tr>
+                <tr>
+                    <td class="position">4</td>
+                    <td>
+                        <span class="circle white"></span>
+                        <span class="team-name">INFERNO SQUAD</span>
+                        <span class="team-tag">(C)</span>
+                    </td>
+                    <td class="points">30</td>
+                </tr>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const sections = document.querySelectorAll('.championship-section');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    
+                    // Remove active class from all buttons and sections
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Add active class to clicked button and target section
+                    this.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
