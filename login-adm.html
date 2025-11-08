@@ -4,41 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>👑 ADM SUPREMO - Sistema Liberado</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ===== VARIÁVEIS E RESET ===== */
         :root {
             --adm-vermelho: #ff0000;
             --adm-amarelo: #ffff00;
             --adm-verde: #00ff00;
+            --adm-roxo: #8a2be2;
             --fundo-escuro: #0a0a0a;
+            --fundo-medio: #1a1a1a;
+            --texto-brilho: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(135deg, #1a0a0a, #0a0a0a, #001a0a);
-            color: #ffff00;
-            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #001a0a 100%);
+            color: var(--texto-brilho);
+            font-family: 'Orbitron', sans-serif;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+            overflow-x: hidden;
         }
 
+        /* ===== CONTAINER PRINCIPAL ===== */
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* HEADER ADM */
+        /* ===== HEADER ADM SUPREMO ===== */
         .adm-header {
             text-align: center;
-            padding: 30px;
+            padding: 40px 30px;
             margin-bottom: 40px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
+            border-radius: 20px;
             border: 3px solid var(--adm-verde);
-            box-shadow: 0 0 30px var(--adm-verde);
+            box-shadow: 
+                0 0 50px var(--adm-verde),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
+            animation: pulsar-header 4s infinite alternate;
+        }
+
+        @keyframes pulsar-header {
+            0% { box-shadow: 0 0 50px var(--adm-verde); }
+            100% { box-shadow: 0 0 80px var(--adm-verde), 0 0 120px rgba(0, 255, 0, 0.3); }
         }
 
         .adm-header::before {
@@ -49,7 +70,8 @@
             width: 200%;
             height: 200%;
             background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
-            animation: brilho-adm 6s linear infinite;
+            animation: brilho-adm 8s linear infinite;
+            z-index: 1;
         }
 
         @keyframes brilho-adm {
@@ -58,169 +80,421 @@
         }
 
         .adm-title {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--adm-verde);
-            text-shadow: 0 0 20px var(--adm-verde);
-            margin-bottom: 10px;
+            text-shadow: 
+                0 0 20px var(--adm-verde),
+                0 0 40px var(--adm-verde),
+                0 0 60px var(--adm-verde);
+            margin-bottom: 15px;
             position: relative;
             z-index: 2;
+            animation: brilho-texto 2s infinite alternate;
+        }
+
+        @keyframes brilho-texto {
+            0% { text-shadow: 0 0 20px var(--adm-verde); }
+            100% { text-shadow: 0 0 30px var(--adm-verde), 0 0 50px var(--adm-verde); }
         }
 
         .adm-subtitle {
             color: var(--adm-verde);
-            text-shadow: 0 0 10px var(--adm-verde);
-            font-size: 1.1rem;
+            text-shadow: 0 0 15px var(--adm-verde);
+            font-size: 1.3rem;
             position: relative;
             z-index: 2;
+            font-weight: 300;
         }
 
-        /* STATUS DO SISTEMA */
+        /* ===== STATUS DO SISTEMA ===== */
         .status-sistema {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
         .status-item {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(10, 0, 0, 0.8));
+            padding: 25px 15px;
+            border-radius: 15px;
             text-align: center;
             border: 2px solid var(--adm-verde);
-            box-shadow: 0 0 15px var(--adm-verde);
-            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--adm-verde);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 0 40px var(--adm-verde), 0 0 60px rgba(0, 255, 0, 0.2);
         }
 
         .status-indicator {
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
-            margin: 0 auto 10px;
+            margin: 0 auto 15px;
             background: var(--adm-verde);
-            box-shadow: 0 0 10px var(--adm-verde);
+            box-shadow: 0 0 15px var(--adm-verde);
+            animation: pulsar-indicador 2s infinite alternate;
         }
 
-        /* FORMULÁRIO LOGIN */
-        .login-container {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 40px;
-            border-radius: 15px;
+        @keyframes pulsar-indicador {
+            0% { transform: scale(1); box-shadow: 0 0 15px var(--adm-verde); }
+            100% { transform: scale(1.2); box-shadow: 0 0 25px var(--adm-verde); }
+        }
+
+        .status-item div:not(.status-indicator) {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--adm-verde);
+            text-shadow: 0 0 10px var(--adm-verde);
+        }
+
+        .status-item small {
+            color: #cccccc;
+            font-size: 0.85rem;
+        }
+
+        /* ===== ACESSO LIVRE ===== */
+        .acesso-livre {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 100, 0, 0.2));
             border: 3px solid var(--adm-verde);
-            box-shadow: 0 0 25px var(--adm-verde);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 
+                0 0 30px var(--adm-verde),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .acesso-livre::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .acesso-livre:hover::before {
+            left: 100%;
+        }
+
+        .acesso-livre h3 {
+            color: var(--adm-verde);
+            text-shadow: 0 0 15px var(--adm-verde);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .acesso-livre p {
+            color: #cccccc;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* ===== FORMULÁRIO LOGIN ADM ===== */
+        .login-container {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid var(--adm-verde);
+            box-shadow: 
+                0 0 40px var(--adm-verde),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.05), transparent);
+            animation: brilho-login 10s linear infinite;
+        }
+
+        @keyframes brilho-login {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .login-form {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .input-group label {
             color: var(--adm-verde);
             font-weight: bold;
             text-shadow: 0 0 10px var(--adm-verde);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .input-group input {
-            padding: 15px;
+            padding: 18px 20px;
             border: 2px solid var(--adm-verde);
-            border-radius: 10px;
+            border-radius: 12px;
             background: rgba(0, 255, 0, 0.1);
             color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 
+                0 0 15px rgba(0, 255, 0, 0.3),
+                inset 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
         .input-group input:focus {
             outline: none;
             border-color: var(--adm-verde);
-            box-shadow: 0 0 20px var(--adm-verde);
+            box-shadow: 
+                0 0 25px var(--adm-verde),
+                inset 0 2px 5px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 255, 0, 0.15);
+            transform: scale(1.02);
         }
 
-        /* BOTÕES */
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== BOTÕES ===== */
         .btn-adm {
-            padding: 18px 30px;
+            padding: 20px 35px;
             border: none;
             border-radius: 25px;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Courier New', monospace;
-            background: linear-gradient(45deg, var(--adm-verde), #00cc00);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, var(--adm-verde), #00cc00, #009900);
             color: #000;
-            box-shadow: 0 0 20px var(--adm-verde);
+            box-shadow: 
+                0 0 25px var(--adm-verde),
+                0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-adm::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-adm:hover::before {
+            left: 100%;
         }
 
         .btn-adm:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--adm-verde);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 0 40px var(--adm-verde),
+                0 10px 25px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #00ff00, var(--adm-verde), #00cc00);
+        }
+
+        .btn-livre {
+            background: linear-gradient(135deg, #ff0000, #ffff00, #ffaa00);
+            box-shadow: 0 0 25px #ffff00;
+            margin: 10px;
+        }
+
+        .btn-livre:hover {
+            box-shadow: 0 0 40px #ffff00;
         }
 
         .back-btn {
             background: transparent;
             color: var(--adm-verde);
             border: 2px solid var(--adm-verde);
-            padding: 12px 25px;
+            padding: 15px 30px;
             border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             margin-top: 15px;
             width: 100%;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
         }
 
         .back-btn:hover {
             background: rgba(0, 255, 0, 0.1);
-            box-shadow: 0 0 20px var(--adm-verde);
+            box-shadow: 0 0 25px var(--adm-verde);
+            transform: translateY(-3px);
         }
 
-        /* ACESSO LIVRE */
-        .acesso-livre {
-            background: rgba(0, 255, 0, 0.1);
-            border: 2px solid var(--adm-verde);
+        /* ===== LOGINS RÁPIDOS ===== */
+        .logins-rapidos {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.2));
+            border: 3px solid var(--adm-roxo);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 0 30px var(--adm-roxo);
+        }
+
+        .logins-rapidos h3 {
+            color: var(--adm-roxo);
+            text-shadow: 0 0 15px var(--adm-roxo);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .lista-logins {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .login-item {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
             border-radius: 10px;
+            border: 1px solid var(--adm-roxo);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .login-item:hover {
+            background: rgba(138, 43, 226, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .login-item strong {
+            color: var(--adm-roxo);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .login-item span {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        /* ===== MENSAGENS ===== */
+        .mensagem {
             padding: 20px;
+            border-radius: 12px;
             margin: 20px 0;
             text-align: center;
-            box-shadow: 0 0 20px var(--adm-verde);
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+            position: relative;
+            z-index: 100;
         }
 
-        .btn-livre {
-            background: linear-gradient(45deg, #ff0000, #ffff00);
-            color: #000;
-            margin: 10px;
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        /* RESPONSIVO */
+        .mensagem.sucesso {
+            background: rgba(0, 255, 0, 0.2);
+            border: 2px solid var(--adm-verde);
+            color: var(--adm-verde);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .mensagem.erro {
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid var(--adm-vermelho);
+            color: var(--adm-vermelho);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
             .status-sistema {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .adm-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .adm-subtitle {
+                font-size: 1.1rem;
             }
             
             .login-container {
                 padding: 25px;
+            }
+            
+            .btn-adm {
+                padding: 18px 25px;
+                font-size: 1.1rem;
+            }
+            
+            .lista-logins {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .adm-title {
+                font-size: 1.8rem;
+            }
+            
+            .adm-header {
+                padding: 30px 20px;
+            }
+            
+            .login-container {
+                padding: 20px;
+            }
+            
+            .input-group input {
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- HEADER ADM -->
+        <!-- HEADER ADM SUPREMO -->
         <header class="adm-header">
             <h1 class="adm-title">👑 SISTEMA LIBERADO</h1>
             <p class="adm-subtitle">ACESSO TOTAL ATIVADO - Modo Público</p>
@@ -250,7 +524,7 @@
         <!-- ACESSO LIVRE -->
         <div class="acesso-livre">
             <h3>🎯 ACESSO IMEDIATO LIBERADO</h3>
-            <p>O sistema está em <strong>MODO PÚBLICO</strong></p>
+            <p>O sistema está em <strong>MODO PÚBLICO</strong> - Todos podem acessar!</p>
             <button class="btn-adm btn-livre" onclick="acessoDireto()">
                 🎮 ENTRAR DIRETO NO JOGO
             </button>
@@ -260,17 +534,17 @@
         <div class="login-container">
             <div class="login-form">
                 <div class="input-group">
-                    <label>👑 USUÁRIO ADM:</label>
+                    <label><i class="fas fa-crown"></i> USUÁRIO ADM:</label>
                     <input type="text" id="usuarioAdm" placeholder="Digite usuário ADM" value="FURIAGOD">
                 </div>
                 
                 <div class="input-group">
-                    <label>🔒 SENHA ADM:</label>
+                    <label><i class="fas fa-key"></i> SENHA ADM:</label>
                     <input type="password" id="senhaAdm" placeholder="Digite senha ADM" value="Furia2025_$">
                 </div>
                 
                 <button class="btn-adm" onclick="fazerLoginAdm()">
-                    🎮 ACESSAR PAINEL ADM
+                    🚀 ACESSAR PAINEL ADM COMPLETO
                 </button>
                 
                 <button class="back-btn" onclick="voltarInicio()">
@@ -280,83 +554,76 @@
         </div>
 
         <!-- LOGINS RÁPIDOS -->
-        <div class="acesso-livre">
-            <h3>🔓 LOGINS PRONTOS</h3>
-            <div style="text-align: left; color: white;">
-                <p><strong>FURIAGOD</strong> / Furia2025_$</p>
-                <p><strong>Scorpion</strong> / Mlk00</p>
-                <p><strong>.Son King</strong> / God19</p>
-                <p><strong>NeferpitouI</strong> / Ana025</p>
-                <p><strong>PNTS</strong> / pNtS</p>
+        <div class="logins-rapidos">
+            <h3>🔓 LOGINS PRONTOS - CLIQUE PARA USAR</h3>
+            <div class="lista-logins">
+                <div class="login-item" onclick="preencherLogin('FURIAGOD', 'Furia2025_$')">
+                    <strong>FURIAGOD</strong>
+                    <span>Senha: Furia2025_$</span>
+                </div>
+                <div class="login-item" onclick="preencherLogin('Scorpion', 'Mlk00')">
+                    <strong>Scorpion</strong>
+                    <span>Senha: Mlk00</span>
+                </div>
+                <div class="login-item" onclick="preencherLogin('.Son King', 'God19')">
+                    <strong>.Son King</strong>
+                    <span>Senha: God19</span>
+                </div>
+                <div class="login-item" onclick="preencherLogin('NeferpitouI', 'Ana025')">
+                    <strong>NeferpitouI</strong>
+                    <span>Senha: Ana025</span>
+                </div>
+                <div class="login-item" onclick="preencherLogin('PNTS', 'pNtS')">
+                    <strong>PNTS</strong>
+                    <span>Senha: pNtS</span>
+                </div>
+                <div class="login-item" onclick="preencherLogin('VISITANTE', '123456')">
+                    <strong>VISITANTE</strong>
+                    <span>Senha: 123456</span>
+                </div>
             </div>
         </div>
+
+        <!-- MENSAGEM -->
+        <div id="mensagem" class="mensagem"></div>
     </div>
 
     <script>
-        // SISTEMA JÁ INICIALIZADO LIBERADO
+        // =============================================
+        // SISTEMA ADM SUPREMO - COMPLETO E SINCRONIZADO
+        // =============================================
+
+        // VARIÁVEIS DO SISTEMA
         let siteAtualizado = true;
         let tentativasLogin = 0;
+        const mensagem = document.getElementById('mensagem');
 
-        // ACESSO DIRETO SEM LOGIN
+        // CREDENCIAIS ADM COMPLETAS (SINCRONIZADAS)
+        const adms = {
+            'FURIAGOD': 'Furia2025_$',
+            'Scorpion': 'Mlk00',
+            '.Son King': 'God19',
+            'NeferpitouI': 'Ana025',
+            'PNTS': 'pNtS',
+            'ToxicSkull√': 'L@!on',
+            'ADMIN': 'admin123',
+            'MODERADOR': 'mod123',
+            'VISITANTE': '123456',
+            'TESTE': 'teste123',
+            'FURIA': 'furia2024',
+            'ROOT': 'rootAccess'
+        };
+
+        // ACESSO DIRETO SEM LOGIN (MODO PÚBLICO)
         function acessoDireto() {
-            alert('🎉 ACESSO LIVRE ATIVADO! Redirecionando para o jogo...');
-            // Redireciona direto para o jogo sem login
-            window.location.href = 'jogo-trucu.html?acesso=livre&modo=publico';
+            mostrarMensagem('🎉 ACESSO LIVRE ATIVADO! Redirecionando para o jogo...', 'sucesso');
+            
+            setTimeout(() => {
+                // Redireciona direto para o jogo sem login
+                window.location.href = 'jogo-trucu.html?acesso=livre&modo=publico&usuario=VISITANTE';
+            }, 1500);
         }
 
-        // LOGIN ADM (OPCIONAL)
+        // LOGIN ADM COMPLETO
         function fazerLoginAdm() {
-            const usuario = document.getElementById('usuarioAdm').value;
-            const senha = document.getElementById('senhaAdm').value;
-            
-            // CREDENCIAIS ADM LIBERADAS
-            const adms = {
-                'FURIAGOD': 'Furia2025_$',
-                'Scorpion': 'Mlk00',
-                '.Son King': 'God19',
-                'NeferpitouI': 'Ana025',
-                'PNTS': 'pNtS',
-                'VISITANTE': '123456',
-                'TESTE': 'teste123'
-            };
-            
-            if (adms[usuario] && adms[usuario] === senha) {
-                alert('👑 ACESSO ADM CONCEDIDO! Redirecionando...');
-                window.location.href = 'painel-adm.html?usuario=' + usuario;
-            } else {
-                // MODO PÚBLICO: mesmo com senha errada, permite acesso
-                alert('🔓 MODO PÚBLICO: Acesso concedido como visitante');
-                window.location.href = 'jogo-trucu.html?usuario=VISITANTE';
-            }
-        }
-
-        // VOLTAR AO INÍCIO
-        function voltarInicio() {
-            window.location.href = 'index.html';
-        }
-
-        // ENTER PARA LOGIN
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                fazerLoginAdm();
-            }
-        });
-
-        // INICIALIZAR SISTEMA LIBERADO
-        window.addEventListener('load', function() {
-            // Já inicia liberado
-            console.log('🎯 SISTEMA LIBERADO - MODO PÚBLICO ATIVO');
-            
-            // Auto-redirecionamento opcional (descomente se quiser)
-            // setTimeout(() => {
-            //     acessoDireto();
-            // }, 3000);
-        });
-
-        // FORÇAR MODO PÚBLICO
-        localStorage.setItem('modoPublico', 'true');
-        localStorage.setItem('acessoLivre', 'ativo');
-        localStorage.setItem('loginObrigatorio', 'false');
-    </script>
-</body>
-</html>
+            const usuario = document.getElementById('usuarioAdm').value.trim()
