@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔐 Login Premium - FuriaDaNoitePlay</title>
+    <title>🔐 Login - FuriaDaNoitePlay</title>
     <style>
         * {
             margin: 0;
@@ -24,12 +24,12 @@
 
         .login-container {
             background: rgba(0, 0, 0, 0.95);
-            padding: 50px;
+            padding: 40px;
             border-radius: 20px;
-            border: 3px solid #00ffff;
-            box-shadow: 0 0 50px #00ffff;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 50px #ff0000;
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -42,7 +42,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
             animation: brilho 8s linear infinite;
             z-index: 1;
         }
@@ -59,48 +59,22 @@
         }
 
         .logo h1 {
-            font-size: 2.8em;
-            color: #00ffff;
-            text-shadow: 0 0 25px #00ffff;
+            font-size: 2.5em;
+            color: #ff0000;
+            text-shadow: 0 0 25px #ff0000;
             margin-bottom: 10px;
         }
 
         .logo p {
-            color: #ff00ff;
+            color: #ff4444;
             font-style: italic;
-            font-size: 1.2em;
-        }
-
-        /* RELÓGIO AURORA BOREAL PREMIUM */
-        .relogio-aurora {
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff0080);
-            padding: 15px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border: 3px solid #00ffff;
-            box-shadow: 0 0 25px #ff00ff;
-            position: relative;
-            z-index: 2;
-        }
-
-        .horario-russia {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #000;
-            text-shadow: 0 0 8px #fff;
-        }
-
-        .zona-aurora {
-            font-size: 1em;
-            color: #000;
-            font-style: italic;
-            font-weight: bold;
+            font-size: 1.1em;
         }
 
         /* STATUS DO SISTEMA */
         .status-sistema {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             margin: 20px 0;
             position: relative;
@@ -111,15 +85,15 @@
             background: rgba(0, 0, 0, 0.7);
             padding: 12px;
             border-radius: 8px;
-            border: 2px solid #00ff00;
+            border: 2px solid #ff0000;
             text-align: center;
-            box-shadow: 0 0 10px #00ff00;
+            box-shadow: 0 0 10px #ff0000;
         }
 
         .status-numero {
             font-size: 1.3em;
             font-weight: bold;
-            color: #00ff00;
+            color: #ff0000;
         }
 
         .status-label {
@@ -127,50 +101,11 @@
             color: #cccccc;
         }
 
-        /* MODOS DE LOGIN PREMIUM */
-        .modo-opcoes {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 25px 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .modo-btn {
-            padding: 15px;
-            background: rgba(0, 255, 255, 0.15);
-            border: 2px solid #00ffff;
-            border-radius: 10px;
-            color: #00ffff;
-            cursor: pointer;
-            transition: all 0.4s;
-            font-weight: bold;
-            font-size: 1em;
-        }
-
-        .modo-btn:hover, .modo-btn.ativo {
-            background: #00ffff;
-            color: #000;
-            box-shadow: 0 0 25px #00ffff;
-            transform: translateY(-3px);
-        }
-
+        /* FORMULÁRIO DE LOGIN */
         .form-login {
-            display: none;
             margin: 25px 0;
             position: relative;
             z-index: 2;
-        }
-
-        .form-login.ativo {
-            display: block;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .input-group {
@@ -181,119 +116,115 @@
         .input-group label {
             display: block;
             margin-bottom: 8px;
-            color: #00ffff;
+            color: #ff0000;
             font-weight: bold;
             font-size: 1.1em;
-            text-shadow: 0 0 10px #00ffff;
+            text-shadow: 0 0 10px #ff0000;
         }
 
         .input-group input {
             width: 100%;
-            padding: 18px;
-            border: 2px solid #00ffff;
+            padding: 15px;
+            border: 2px solid #ff0000;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
         }
 
         .input-group input:focus {
             outline: none;
-            border-color: #ff00ff;
-            box-shadow: 0 0 20px #ff00ff;
-            background: rgba(255, 0, 255, 0.1);
-            transform: scale(1.02);
+            border-color: #ff4444;
+            box-shadow: 0 0 20px #ff4444;
+            background: rgba(255, 0, 0, 0.1);
         }
 
         .btn-login {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: #000;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 1.3em;
+            border-radius: 10px;
+            font-size: 1.2em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.4s;
-            margin: 25px 0;
-            box-shadow: 0 0 25px #ff00ff;
-            text-shadow: 0 0 5px #000;
+            margin: 20px 0;
+            box-shadow: 0 0 25px #ff0000;
         }
 
         .btn-login:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 35px #00ffff;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            box-shadow: 0 0 35px #ff0000;
+            background: linear-gradient(45deg, #cc0000, #ff0000);
         }
 
-        /* LINKS PREMIUM */
+        /* TIPOS DE LOGIN */
+        .tipo-login {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tipo-btn {
+            padding: 12px;
+            background: rgba(255, 0, 0, 0.15);
+            border: 2px solid #ff0000;
+            border-radius: 8px;
+            color: #ff0000;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .tipo-btn:hover, .tipo-btn.ativo {
+            background: #ff0000;
+            color: white;
+            box-shadow: 0 0 20px #ff0000;
+        }
+
+        /* LINKS */
         .links {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 25px;
+            gap: 10px;
+            margin-top: 20px;
             position: relative;
             z-index: 2;
         }
 
         .link {
-            color: #00ffff;
+            color: #ff0000;
             text-decoration: none;
-            padding: 15px;
-            border: 2px solid #00ffff;
+            padding: 12px;
+            border: 2px solid #ff0000;
             border-radius: 8px;
             transition: all 0.3s;
             text-align: center;
             font-weight: bold;
-            background: rgba(0, 255, 255, 0.1);
+            background: rgba(255, 0, 0, 0.1);
         }
 
         .link:hover {
-            background: #00ffff;
-            color: #000;
-            box-shadow: 0 0 20px #00ffff;
-            transform: translateY(-2px);
+            background: #ff0000;
+            color: white;
+            box-shadow: 0 0 15px #ff0000;
         }
 
-        /* PERFIL SINCRONIZADO PREMIUM */
-        .perfil-sincronizado {
-            margin-top: 25px;
-            padding: 20px;
-            background: rgba(0, 255, 255, 0.15);
-            border-radius: 12px;
-            border: 2px solid #00ffff;
-            display: none;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-        }
-
-        .info-perfil {
-            text-align: left;
-            margin: 15px 0;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .info-perfil span {
-            color: #ff00ff;
-            font-weight: bold;
-            text-shadow: 0 0 8px #ff00ff;
-        }
-
-        /* MENSAGENS PREMIUM */
+        /* MENSAGENS */
         .mensagem {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 10px;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
             display: none;
             text-align: center;
             font-weight: bold;
-            font-size: 1.1em;
             position: relative;
             z-index: 2;
             animation: slideIn 0.5s ease-out;
@@ -308,89 +239,29 @@
             background: rgba(0, 255, 0, 0.2);
             border: 2px solid #00ff00;
             color: #00ff00;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
         }
 
         .mensagem.erro {
             background: rgba(255, 0, 0, 0.2);
             border: 2px solid #ff4444;
             color: #ff4444;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
         }
 
-        /* SEÇÕES ESPECIAIS */
-        .cashback-info {
-            background: rgba(255, 215, 0, 0.15);
-            border: 2px solid #ffd700;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            color: #ffd700;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        .codigo-verificacao {
-            background: rgba(255, 0, 255, 0.15);
-            border: 2px solid #ff00ff;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            color: #ff00ff;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-        }
-
-        /* BANNER PROMOCIONAL */
-        .banner-promo {
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border: 3px solid #00ffff;
-            box-shadow: 0 0 30px #ff00ff;
-            position: relative;
-            z-index: 2;
-        }
-
-        .banner-promo h4 {
-            color: #000;
-            font-size: 1.4em;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .banner-promo p {
-            color: #000;
-            font-size: 1.1em;
-            font-weight: bold;
-        }
-
-        /* RESPONSIVIDADE PREMIUM */
+        /* RESPONSIVIDADE */
         @media (max-width: 768px) {
             .login-container {
                 padding: 30px 20px;
             }
             
             .logo h1 {
-                font-size: 2.2em;
+                font-size: 2em;
             }
             
-            .modo-opcoes {
+            .tipo-login {
                 grid-template-columns: 1fr;
             }
             
             .links {
-                grid-template-columns: 1fr;
-            }
-            
-            .status-sistema {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .info-perfil {
                 grid-template-columns: 1fr;
             }
         }
@@ -414,13 +285,7 @@
     <div class="login-container">
         <div class="logo">
             <h1>🌙 FÚRIA DA NOITE</h1>
-            <p>Sistema Premium - Acesso Comercial</p>
-        </div>
-
-        <!-- RELÓGIO AURORA BOREAL -->
-        <div class="relogio-aurora">
-            <div class="horario-russia" id="horarioRussia">00:00:00</div>
-            <div class="zona-aurora">⏰ Horário Aurora Boreal (Rússia)</div>
+            <p>Sistema de Acesso - Membros & ADMs</p>
         </div>
 
         <!-- STATUS DO SISTEMA -->
@@ -433,176 +298,49 @@
                 <div class="status-numero" id="partidasAtivas">42</div>
                 <div class="status-label">PARTIDAS ATIVAS</div>
             </div>
-            <div class="status-item">
-                <div class="status-numero">5</div>
-                <div class="status-label">CAMPEONATOS</div>
-            </div>
         </div>
 
-        <!-- BANNER PROMOCIONAL -->
-        <div class="banner-promo">
-            <h4>🏆 CAMPEONATO DA FÚRIA</h4>
-            <p>Prêmio Total: R$ 1.000 | Inscrições Abertas!</p>
-        </div>
-
-        <!-- MODOS DE LOGIN -->
-        <div class="modo-opcoes">
-            <button class="modo-btn ativo" onclick="selecionarModo('agente')">
-                🔐 Agente VIP
+        <!-- TIPOS DE LOGIN -->
+        <div class="tipo-login">
+            <button class="tipo-btn ativo" onclick="selecionarTipo('membro')">
+                👥 MEMBRO
             </button>
-            <button class="modo-btn" onclick="selecionarModo('teste')">
-                🚀 Teste Grátis
-            </button>
-            <button class="modo-btn" onclick="selecionarModo('cashback')">
-                💰 Com Cashback
+            <button class="tipo-btn" onclick="selecionarTipo('adm')">
+                👑 ADMIN
             </button>
         </div>
 
-        <!-- MODO AGENTE VIP -->
-        <div id="modo-agente" class="form-login ativo">
-            <h3>🔐 Login Agente VIP</h3>
-            <p>Acesso premium para agentes cadastrados</p>
-            
+        <!-- FORMULÁRIO DE LOGIN -->
+        <div class="form-login">
             <form id="loginForm">
                 <div class="input-group">
-                    <label for="codigo">🔐 Código de Agente:</label>
-                    <input type="text" id="codigo" placeholder="Seu código secreto VIP" required>
+                    <label for="usuario">👤 Usuário:</label>
+                    <input type="text" id="usuario" placeholder="Digite seu usuário" required>
                 </div>
 
                 <div class="input-group">
-                    <label for="senha">🗝️ Senha da Noite:</label>
-                    <input type="password" id="senha" placeholder="Sua senha noturna premium" required>
+                    <label for="senha">🔒 Senha:</label>
+                    <input type="password" id="senha" placeholder="Digite sua senha" required>
                 </div>
 
-                <!-- CAMPO DE VERIFICAÇÃO PREMIUM -->
-                <div class="codigo-verificacao">
-                    <div class="input-group">
-                        <label for="codigoVerificacao">🔢 Código de Verificação:</label>
-                        <input type="text" id="codigoVerificacao" placeholder="35164266" required>
-                        <small style="color: #ff00ff; margin-top: 8px; display: block; font-weight: bold;">
-                            ✅ Código de segurança enviado para verificação
-                        </small>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn-login">🎮 ACESSAR SISTEMA PREMIUM</button>
+                <button type="submit" class="btn-login">🎮 ENTRAR NO SISTEMA</button>
             </form>
-
-            <!-- PERFIL SINCRONIZADO VIP -->
-            <div id="perfilSincronizado" class="perfil-sincronizado">
-                <h3>👤 PERFIL SINCRONIZADO - VIP</h3>
-                <div class="info-perfil">
-                    <div><strong>Nome:</strong> <span id="perfilNome">-</span></div>
-                    <div><strong>Nível:</strong> <span id="perfilNivel">-</span></div>
-                    <div><strong>Equipe:</strong> <span id="perfilEquipe">-</span></div>
-                    <div><strong>TRUCU:</strong> <span id="perfilTrucu">-</span></div>
-                    <div><strong>Cashback:</strong> <span id="perfilCashback">-</span></div>
-                    <div><strong>Status:</strong> <span id="perfilStatus">-</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODO TESTE GRÁTIS -->
-        <div id="modo-teste" class="form-login">
-            <h3>🚀 Teste Grátis - 7 Dias</h3>
-            <p>Experimente o sistema completo sem compromisso</p>
-            
-            <div class="input-group">
-                <label>🎮 Seu Nick:</label>
-                <input type="text" id="nick-teste" placeholder="Digite seu nick preferido" required>
-            </div>
-
-            <div class="input-group">
-                <label>📧 E-mail (Opcional):</label>
-                <input type="email" id="email-teste" placeholder="seu@email.com">
-            </div>
-
-            <button class="btn-login" onclick="loginTeste()">
-                🎯 INICIAR TESTE GRÁTIS
-            </button>
-
-            <div class="cashback-info" style="margin-top: 20px;">
-                <strong>🎁 BÔNUS DO TESTE:</strong>
-                <p>• Acesso a todos os modos de jogo</p>
-                <p>• Participação em campeonatos</p>
-                <p>• Suporte premium durante o teste</p>
-            </div>
-        </div>
-
-        <!-- MODO CASHBACK PREMIUM -->
-        <div id="modo-cashback" class="form-login">
-            <h3>💰 Login com Cashback</h3>
-            <p>Receba cashback em todas as suas apostas</p>
-
-            <div class="cashback-info">
-                <strong>📱 CONECTE E GANHE:</strong>
-                <p>• Até 15% de cashback nas apostas</p>
-                <p>• Bônus de boas-vindas</p>
-                <p>• Participação em torneios exclusivos</p>
-            </div>
-            
-            <div class="input-group">
-                <label>🎮 Seu Nick:</label>
-                <input type="text" id="nick-cashback" placeholder="Seu nick nos games" required>
-            </div>
-
-            <div class="input-group">
-                <label>📧 E-mail:</label>
-                <input type="email" id="email-cashback" placeholder="seu@email.com" required>
-            </div>
-
-            <div class="input-group">
-                <label>🔗 Método de Cashback:</label>
-                <select id="metodo-cashback">
-                    <option value="folha">📋 Folha de Pagamento</option>
-                    <option value="instagram">📸 Instagram @FuriaDaNoite</option>
-                    <option value="whatsapp">📱 WhatsApp Oficial</option>
-                    <option value="indicacao">👥 Indicação de Amigo</option>
-                    <option value="outro">🔗 Outro Método</option>
-                </select>
-            </div>
-
-            <div class="input-group" id="campo-info" style="display: none;">
-                <label id="label-info">Informação:</label>
-                <input type="text" id="info-cashback" placeholder="Digite a informação necessária">
-            </div>
-
-            <button class="btn-login" onclick="loginCashback()">
-                💰 ATIVAR CASHBACK & ENTRAR
-            </button>
         </div>
 
         <!-- LINKS DE NAVEGAÇÃO -->
         <div class="links">
-            <a href="cadastro-membro.html" class="link">⭐ VIP</a>
-            <a href="cadastro-equipe.html" class="link">🏆 EQUIPE</a>
-            <a href="regras.html" class="link">📜 REGRAS</a>
+            <a href="cadastro.html" class="link">📝 CADASTRAR</a>
             <a href="index.html" class="link">🏠 INÍCIO</a>
+            <a href="recuperar.html" class="link">🔑 RECUPERAR</a>
+            <a href="regras.html" class="link">📜 REGRAS</a>
         </div>
 
         <div id="mensagem" class="mensagem"></div>
     </div>
 
     <script>
-        // SISTEMA DE LOGIN PREMIUM - FURIA DA NOITE
-        let modoAtual = 'agente';
-
-        // RELÓGIO HORÁRIO RÚSSIA (AURORA BOREAL)
-        function atualizarHorarioRussia() {
-            const agora = new Date();
-            const options = { 
-                timeZone: 'Europe/Moscow',
-                hour: '2-digit',
-                minute: '2-digit', 
-                second: '2-digit',
-                hour12: false
-            };
-            const horarioRussia = agora.toLocaleTimeString('pt-BR', options);
-            document.getElementById('horarioRussia').textContent = horarioRussia;
-        }
-
-        setInterval(atualizarHorarioRussia, 1000);
-        atualizarHorarioRussia();
+        // SISTEMA DE LOGIN SIMPLIFICADO
+        let tipoAtual = 'membro';
 
         // ATUALIZAR STATUS AO VIVO
         function atualizarStatusAoVivo() {
@@ -616,18 +354,106 @@
         setInterval(atualizarStatusAoVivo, 5000);
         atualizarStatusAoVivo();
 
-        // SELECIONAR MODO DE LOGIN
-        function selecionarModo(modo) {
+        // SELECIONAR TIPO DE LOGIN
+        function selecionarTipo(tipo) {
             // Remover classe ativo de todos os botões
-            document.querySelectorAll('.modo-btn').forEach(btn => {
+            document.querySelectorAll('.tipo-btn').forEach(btn => {
                 btn.classList.remove('ativo');
             });
             
-            // Esconder todos os formulários
-            document.querySelectorAll('.form-login').forEach(form => {
-                form.classList.remove('ativo');
-            });
+            // Ativar tipo selecionado
+            document.querySelector(`[onclick="selecionarTipo('${tipo}')"]`).classList.add('ativo');
+            tipoAtual = tipo;
             
-            // Ativar modo selecionado
-            document.querySelector(`[onclick="selecionarModo('${modo}')"]`).classList.add('ativo');
-            document.getElementById(`modo-${modo}`).classList.add('ativo'
+            // Atualizar placeholder do usuário
+            const usuarioInput = document.getElementById('usuario');
+            if (tipo === 'membro') {
+                usuarioInput.placeholder = "Digite seu nick ou usuário";
+            } else {
+                usuarioInput.placeholder = "Usuário ADM (ex: ToxicSkull√)";
+            }
+        }
+
+        // SISTEMA DE LOGIN
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const usuario = document.getElementById('usuario').value.trim();
+            const senha = document.getElementById('senha').value;
+            const mensagem = document.getElementById('mensagem');
+
+            // CREDENCIAIS DOS MEMBROS
+            const membros = {
+                'ToxicSkull√': 'furia123',
+                'Scorpion': 'scorpion123',
+                'NeferpitouI': 'nefer123',
+                'Son_king': 'sonking123',
+                'visitante': '123456'
+            };
+
+            // CREDENCIAIS DOS ADMs
+            const adms = {
+                'FURIAGOD': 'Furia2025_$',
+                'ToxicSkull√': 'L@!on',
+                'Scorpion': 'Mlk00',
+                'NeferpitouI': 'Ana025',
+                'Son_king': 'God19',
+                'ADMIN': 'admin123'
+            };
+
+            let credenciaisValidas = false;
+            let usuarioNome = '';
+
+            if (tipoAtual === 'membro') {
+                // Verificar login de membro
+                if (membros[usuario] && membros[usuario] === senha) {
+                    credenciaisValidas = true;
+                    usuarioNome = usuario;
+                }
+            } else {
+                // Verificar login de ADM
+                if (adms[usuario] && adms[usuario] === senha) {
+                    credenciaisValidas = true;
+                    usuarioNome = usuario;
+                }
+            }
+
+            if (credenciaisValidas) {
+                mensagem.textContent = `✅ Login realizado com sucesso! Bem-vindo, ${usuarioNome}`;
+                mensagem.className = 'mensagem sucesso';
+                mensagem.style.display = 'block';
+                
+                // Redirecionar após 2 segundos
+                setTimeout(() => {
+                    if (tipoAtual === 'membro') {
+                        window.location.href = 'sistema-membros.html';
+                    } else {
+                        window.location.href = 'painel-adm.html';
+                    }
+                }, 2000);
+            } else {
+                mensagem.textContent = '❌ Usuário ou senha incorretos!';
+                mensagem.className = 'mensagem erro';
+                mensagem.style.display = 'block';
+                
+                // Limpar mensagem após 3 segundos
+                setTimeout(() => {
+                    mensagem.style.display = 'none';
+                }, 3000);
+            }
+        });
+
+        // FOCO AUTOMÁTICO NO CAMPO DE USUÁRIO
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('usuario').focus();
+        });
+
+        // ENTER PARA SUBMIT
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>
