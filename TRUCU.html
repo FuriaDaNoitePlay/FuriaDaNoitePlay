@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎴 TRUCU 4x4 - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        :root {
+            --primary: #ff0000;
+            --secondary: #FFD700;
+            --dark: #000;
+            --light: #fff;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a0a0a, #0a0a0a, #001a0a);
+            color: var(--light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center; 
+            padding: 30px; 
+            margin-bottom: 30px;
+            background: rgba(0,0,0,0.9); 
+            border-radius: 20px;
+            border: 3px solid var(--primary); 
+            box-shadow: 0 0 50px var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,0,0,0.1), transparent);
+            animation: brilho-header 6s linear infinite;
+        }
+
+        @keyframes brilho-header {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo {
+            font-size: 3em; 
+            color: var(--primary); 
+            text-shadow: 0 0 30px var(--primary);
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1.3em;
+            text-shadow: 0 0 15px var(--secondary);
+        }
+
+        /* ÁREA DA MÚSICA */
+        .area-musica {
+            background: rgba(255,0,0,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid var(--primary);
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .btn-musica {
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 5px;
+        }
+
+        .btn-musica:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        /* STATUS PARTIDA */
+        .status-partida {
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .time {
+            background: rgba(0,0,0,0.8); 
+            padding: 25px; 
+            border-radius: 15px;
+            border: 2px solid var(--primary); 
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .time:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--primary);
+        }
+
+        .time-nome {
+            color: var(--primary); 
+            font-size: 1.3em; 
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .time-pontos {
+            color: var(--secondary); 
+            font-size: 2.5em; 
+            font-weight: bold;
+            text-shadow: 0 0 15px var(--secondary);
+        }
+
+        .timer-urgente {
+            animation: piscar 1s infinite;
+            color: #ff4444 !important;
+        }
+
+        @keyframes piscar {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* MESA 4x4 */
+        .mesa-4x4 {
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .lado-mesa {
+            background: rgba(0,0,0,0.9); 
+            padding: 30px; 
+            border-radius: 15px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 20px rgba(255,0,0,0.3);
+        }
+
+        .jogador-slot {
+            background: rgba(255,0,0,0.1); 
+            padding: 20px; 
+            margin: 15px 0;
+            border-radius: 12px; 
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .jogador-slot:hover {
+            background: rgba(255,215,0,0.1);
+            border-color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .jogador-nome {
+            color: var(--primary); 
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* CARTAS */
+        .area-cartas {
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; 
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .carta {
+            width: 90px; 
+            height: 130px; 
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            border-radius: 10px;
+            border: 3px solid #000; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: space-between; 
+            padding: 10px; 
+            color: #000;
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .carta.vermelha {
+            color: #ff0000;
+        }
+
+        .carta:hover {
+            transform: translateY(-15px) rotate(5deg); 
+            box-shadow: 0 15px 30px var(--primary);
+        }
+
+        .carta-superior, .carta-inferior {
+            font-size: 1.2em;
+        }
+
+        .carta-inferior {
+            transform: rotate(180deg);
+            align-self: flex-end;
+        }
+
+        .carta-centro {
+            font-size: 1.8em;
+            text-align: center;
+            margin: auto 0;
+        }
+
+        /* REGRAS */
+        .regras-container {
+            background: rgba(0,0,0,0.9);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid var(--secondary);
+            margin: 20px 0;
+        }
+
+        .regras-titulo {
+            color: var(--secondary);
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        .regras-lista {
+            list-style: none;
+            padding: 0;
+        }
+
+        .regras-lista li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+            color: var(--light);
+        }
+
+        .regras-lista li:before {
+            content: '🎴';
+            margin-right: 10px;
+        }
+
+        /* BOTÕES */
+        .botoes-acao {
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 18px 35px; 
+            border: none; 
+            border-radius: 25px;
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: inherit;
+        }
+
+        .btn-neon {
+            background: linear-gradient(45deg, var(--primary), #cc0000);
+            color: white; 
+            box-shadow: 0 0 25px var(--primary);
+        }
+
+        .btn-neon:hover {
+            transform: scale(1.08); 
+            box-shadow: 0 0 40px var(--primary);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, var(--secondary), #cc9900);
+            color: var(--dark);
+            box-shadow: 0 0 25px var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px var(--secondary);
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .status-partida {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .mesa-4x4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .botoes-acao {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="logo">🎴 TRUCU 4x4 - FURIADANOITEPLAY</div>
+            <p class="subtitle">Partidas de 5 minutos • Sistema Multiplayer • Modo Competitivo</p>
+        </div>
+
+        <!-- ÁREA DA MÚSICA -->
+        <div class="area-musica">
+            <h3 style="color: var(--secondary); margin-bottom: 15px;">
+                <i class="fas fa-music"></i> MÚSICA DA PARTIDA
+            </h3>
+            <button class="btn-musica" onclick="tocarMusica()">
+                <i class="fas fa-play"></i> Tocar Música
+            </button>
+            <button class="btn-musica" onclick="pausarMusica()">
+                <i class="fas fa-pause"></i> Pausar
+            </button>
+            <audio id="musicaPartida" loop>
+                <source src="https://www.soundjay.com/misc/sounds/fail-buzzer-02.wav" type="audio/wav">
+                Seu navegador não suporta áudio.
+            </audio>
+        </div>
+
+        <!-- STATUS DA PARTIDA -->
+        <div class="status-partida">
+            <div class="time">
+                <div class="time-nome">🔥 TIME FURIA</div>
+                <div class="time-pontos" id="pontosTimeA">0</div>
+                <div style="color: var(--secondary); margin-top: 10px;">VITÓRIAS: <span id="vitoriasA">0</span></div>
+            </div>
+            <div class="time">
+                <div class="time-nome">⚔️ TIME ADVERSÁRIO</div>
+                <div class="time-pontos" id="pontosTimeB">0</div>
+                <div style="color: var(--secondary); margin-top: 10px;">VITÓRIAS: <span id="vitoriasB">0</span></div>
+            </div>
+            <div class="time">
+                <div class="time-nome">🔄 RODADA</div>
+                <div style="color: var(--secondary); font-size: 2.5em; font-weight: bold;" id="rodadaAtual">1</div>
+                <div style="color: var(--light); margin-top: 10px;">MELHOR DE 3</div>
+            </div>
+            <div class="time">
+                <div class="time-nome">⏰ TEMPO</div>
+                <div style="color: var(--secondary); font-size: 2em; font-weight: bold;" id="tempoPartida">05:00</div>
+                <div style="color: var(--light); margin-top: 10px;">RESTANTE</div>
+            </div>
+        </div>
+
+        <!-- REGRAS DO JOGO -->
+        <div class="regras-container">
+            <div class="regras-titulo">
+                <i class="fas fa-book"></i> REGRAS DO TRUCU 4x4
+            </div>
+            <ul class="regras-lista">
+                <li>Partidas de 5 minutos no máximo</li>
+                <li>Modo 4x4 - 2 times de 4 jogadores</li>
+                <li>Melhor de 3 rodadas vence</li>
+                <li>Truco, Seis e Fugir disponíveis</li>
+                <li>Cartas especiais ativam power-ups</li>
+                <li>Comunicação por chat em tempo real</li>
+            </ul>
+        </div>
+
+        <!-- BOTÕES DE AÇÃO -->
+        <div class="botoes-acao">
+            <button class="btn btn-neon" onclick="buscarPartida()">
+                <i class="fas fa-search"></i> BUSCAR PARTIDA
+            </button>
+            <button class="btn btn-neon" onclick="jogarCarta()">
+                <i class="fas fa-play"></i> JOGAR CARTA
+            </button>
+            <button class="btn btn-neon" onclick="pedirTruco()">
+                <i class="fas fa-bullhorn"></i> TRUCO!
+            </button>
+            <a href="index.html" class="btn btn-secondary">
+                <i class="fas fa-home"></i> VOLTAR AO INÍCIO
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 🔥 SISTEMA TRUCU 4x4 - FURIADANOITEPLAY
+        const TRUCU_SYSTEM = {
+            partidaAtiva: false,
+            tempoTotal: 300, // 5 minutos em segundos
+            timer: null,
+            musica: document.getElementById('musicaPartida')
+        };
+
+        // CONTROLE DE MÚSICA
+        function tocarMusica() {
+            TRUCU_SYSTEM.musica.play().catch(e => {
+                console.log("Erro ao reproduzir música:", e);
+                alert('Clique em "Tocar Música" novamente para ativar o áudio!');
+            });
+        }
+
+        function pausarMusica() {
+            TRUCU_SYSTEM.musica.pause();
+        }
+
+        // TIMER DA PARTIDA
+        function iniciarTimer() {
+            const tempoElemento = document.getElementById('tempoPartida');
+            TRUCU_SYSTEM.timer = setInterval(() => {
+                TRUCU_SYSTEM.tempoTotal--;
+                
+                const minutos = Math.floor(TRUCU_SYSTEM.tempoTotal / 60);
+                const segundos = TRUCU_SYSTEM.tempoTotal % 60;
+                
+                tempoElemento.textContent = 
+                    `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+                
+                // Efeito de urgência nos últimos 30 segundos
+                if (TRUCU_SYSTEM.tempoTotal <= 30) {
+                    tempoElemento.classList.add('timer-urgente');
+                }
+                
+                // Fim do tempo
+                if (TRUCU_SYSTEM.tempoTotal <= 0) {
+                    clearInterval(TRUCU_SYSTEM.timer);
+                    alert('⏰ TEMPO ESGOTADO! Partida finalizada.');
+                }
+            }, 1000);
+        }
+
+        // BUSCAR PARTIDA
+        function buscarPartida() {
+            alert('🔍 Buscando partida 4x4...\nTempo estimado: 5 minutos');
+            TRUCU_SYSTEM.partidaAtiva = true;
+            iniciarTimer();
+        }
+
+        // AÇÕES DO JOGO
+        function jogarCarta() {
+            if (!TRUCU_SYSTEM.partidaAtiva) {
+                alert('🎯 Primeiro busque uma partida!');
+                return;
+            }
+            alert('🃏 Carta jogada! Aguardando outros jogadores...');
+        }
+
+        function pedirTruco() {
+            if (!TRUCU_SYSTEM.partidaAtiva) {
+                alert('🎯 Primeiro busque uma partida!');
+                return;
+            }
+            alert('📢 TRUCO pedido! Aguardando resposta...');
+        }
+
+        // INICIAR MÚSICA AUTOMATICAMENTE (COM INTERAÇÃO DO USUÁRIO)
+        document.addEventListener('click', function() {
+            TRUCU_SYSTEM.musica.play().then(() => {
+                TRUCU_SYSTEM.musica.pause(); // Pausa até o usuário clicar em play
+            }).catch(e => {});
+        }, { once: true });
+    </script>
+</body>
+</html>
