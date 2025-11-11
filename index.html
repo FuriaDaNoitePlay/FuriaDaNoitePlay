@@ -211,7 +211,7 @@
       box-shadow: 0 0 20px #ff0000;
     }
 
-    /* ===== PLAYER DE MÚSICA ATUALIZADO ===== */
+    /* ===== PLAYER DE MÚSICA PERSONALIZADO ===== */
     .player-musica {
       background: rgba(0, 0, 0, 0.7);
       border: 2px solid #ff0000;
@@ -233,70 +233,40 @@
     .player-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       margin-bottom: 20px;
+      position: relative;
     }
 
     .capa-musica {
-      width: 120px;
-      height: 120px;
+      width: 200px;
+      height: 200px;
       border-radius: 10px;
       border: 2px solid #ff0000;
       box-shadow: 0 0 15px #ff0000;
       object-fit: cover;
-    }
-
-    .info-musica {
-      text-align: left;
-      flex: 1;
-      margin-left: 20px;
-    }
-
-    .info-musica h3 {
-      color: #ff0000;
-      font-size: 22px;
-      margin-bottom: 5px;
-      text-shadow: 0 0 10px #ff0000;
-    }
-
-    .info-musica p {
-      color: #ccc;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
-    .barra-progresso {
-      width: 100%;
-      height: 8px;
-      background: rgba(255, 0, 0, 0.2);
-      border-radius: 4px;
-      margin: 20px 0;
-      cursor: pointer;
       position: relative;
     }
 
-    .progresso {
-      height: 100%;
-      background: linear-gradient(90deg, #ff0000, #ff4444);
-      border-radius: 4px;
-      width: 0%;
-      transition: width 0.1s linear;
-      box-shadow: 0 0 10px #ff0000;
-    }
-
-    .tempo-musica {
-      display: flex;
-      justify-content: space-between;
-      color: #ccc;
-      font-size: 14px;
-      margin-top: 5px;
+    .texto-capa {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ff0000;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #ff0000;
+      text-align: center;
+      width: 100%;
+      z-index: 2;
     }
 
     .controles-musica {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
       margin-top: 20px;
     }
 
@@ -304,90 +274,34 @@
       background: linear-gradient(135deg, #ff0000, #cc0000);
       color: white;
       border: none;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      font-size: 18px;
+      font-size: 22px;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 10px #ff0000;
+      box-shadow: 0 0 15px #ff0000;
     }
 
     .btn-musica:hover {
       background: linear-gradient(135deg, #cc0000, #ff0000);
-      box-shadow: 0 0 15px #ff0000;
+      box-shadow: 0 0 25px #ff0000;
       transform: scale(1.1);
     }
 
-    .btn-musica.principal {
-      width: 60px;
-      height: 60px;
-      font-size: 22px;
+    .video-musica {
+      margin-top: 25px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 15px #ff0000;
+      display: none;
     }
 
-    .playlist {
-      margin-top: 30px;
-      max-height: 200px;
-      overflow-y: auto;
-      border-top: 1px solid rgba(255, 0, 0, 0.3);
-      padding-top: 15px;
-    }
-
-    .playlist h3 {
-      color: #ff0000;
-      margin-bottom: 15px;
-      text-align: left;
-    }
-
-    .musica-item {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      background: rgba(255, 0, 0, 0.05);
-    }
-
-    .musica-item:hover {
-      background: rgba(255, 0, 0, 0.1);
-    }
-
-    .musica-item.ativa {
-      background: rgba(255, 0, 0, 0.2);
-      border-left: 3px solid #ff0000;
-    }
-
-    .musica-item img {
-      width: 40px;
-      height: 40px;
-      border-radius: 5px;
-      margin-right: 15px;
-    }
-
-    .musica-info {
-      text-align: left;
-      flex: 1;
-    }
-
-    .musica-info h4 {
-      color: #fff;
-      font-size: 16px;
-      margin-bottom: 3px;
-    }
-
-    .musica-info p {
-      color: #ccc;
-      font-size: 12px;
-    }
-
-    .musica-duracao {
-      color: #ccc;
-      font-size: 14px;
+    .video-musica.ativo {
+      display: block;
     }
 
     /* ===== BOTÃO WHATSAPP ===== */
@@ -534,12 +448,6 @@
         flex-direction: column;
         text-align: center;
       }
-      
-      .info-musica {
-        margin-left: 0;
-        margin-top: 15px;
-        text-align: center;
-      }
     }
   </style>
 </head>
@@ -620,83 +528,38 @@
     </section>
 
     <!-- ====== PLAYER FRØN MUSIC ====== -->
-<section class="player-musica">
-  <h2>🎵 FRØN Music</h2>
-  
-  <div class="player-header">
-    <img id="capaAtual" src="musicaT.png" alt="Capa da Música" class="capa-musica">
-    <div class="info-musica">
-      <h3 id="tituloMusica">Nathalia</h3>
-      <p id="artistaMusica">FuriaDaNoitePlay</p>
-      <p id="albumMusica">Tema Oficial</p>
-    </div>
-  </div>
-  
-  <div class="barra-progresso" id="barraProgresso">
-    <div class="progresso" id="progresso"></div>
-  </div>
-  
-  <div class="tempo-musica">
-    <span id="tempoAtual">0:00</span>
-    <span id="tempoTotal">0:00</span>
-  </div>
-  
-  <div class="controles-musica">
-    <button class="btn-musica principal" onclick="tocarPausar()" id="btnPlay">
-      <i class="fas fa-play"></i>
-    </button>
-  </div>
-  
-  <audio id="musica" src="Nathalia.m4a"></audio>
-</section>
-
-<script>
-  const musica = document.getElementById('musica');
-  const btnPlay = document.getElementById('btnPlay');
-  const progresso = document.getElementById('progresso');
-  const barraProgresso = document.getElementById('barraProgresso');
-  const tempoAtual = document.getElementById('tempoAtual');
-  const tempoTotal = document.getElementById('tempoTotal');
-
-  musica.volume = 1.0;
-
-  musica.addEventListener('loadedmetadata', () => {
-    tempoTotal.textContent = formatarTempo(musica.duration);
-  });
-
-  musica.addEventListener('timeupdate', () => {
-    const progressoPercent = (musica.currentTime / musica.duration) * 100;
-    progresso.style.width = progressoPercent + '%';
-    tempoAtual.textContent = formatarTempo(musica.currentTime);
-  });
-
-  barraProgresso.addEventListener('click', (e) => {
-    const largura = barraProgresso.clientWidth;
-    const clique = e.offsetX;
-    const novaPosicao = (clique / largura) * musica.duration;
-    musica.currentTime = novaPosicao;
-  });
-
-  function tocarPausar() {
-    if (musica.paused) {
-      musica.play();
-      btnPlay.innerHTML = '<i class="fas fa-pause"></i>';
-    } else {
-      musica.pause();
-      btnPlay.innerHTML = '<i class="fas fa-play"></i>';
-    }
-  }
-
-  musica.onended = () => {
-    btnPlay.innerHTML = '<i class="fas fa-play"></i>';
-  };
-
-  function formatarTempo(segundos) {
-    const minutos = Math.floor(segundos / 60);
-    const segs = Math.floor(segundos % 60);
-    return `${minutos}:${segs < 10 ? '0' : ''}${segs}`;
-  }
-</script>
+    <section class="player-musica">
+      <h2>🎵 FRØN PLAYMUSIC</h2>
+      
+      <div class="player-header">
+        <div style="position: relative;">
+          <img id="capaAtual" src="musicaT.png" alt="Capa da Música" class="capa-musica">
+          <div class="texto-capa">FRØN<br>MUSIC</div>
+        </div>
+      </div>
+      
+      <div class="controles-musica">
+        <button class="btn-musica" onclick="pausarVideo()">
+          <i class="fas fa-pause"></i>
+        </button>
+        <button class="btn-musica" onclick="tocarVideo()" id="btnPlay">
+          <i class="fas fa-play"></i>
+        </button>
+        <button class="btn-musica" onclick="pararVideo()">
+          <i class="fas fa-stop"></i>
+        </button>
+      </div>
+      
+      <div class="video-musica" id="videoMusica">
+        <iframe width="100%" height="315" 
+          src="https://www.youtube.com/embed/0hWm967g3M4?si=TdSz4kV1qVCegk0E" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
 
     <!-- ====== EQUIPE ADM ====== -->
     <section class="adm-box">
@@ -725,96 +588,123 @@
   <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">🏠 Início</button>
 
   <script>
-    // ===== PLAYLIST DA FÚRIA =====
-    const playlist = [
-      {
-        titulo: "The Perfect Girl",
-        artista: "Mareux",
-        album: "The Perfect Girl (Single)",
-        src: "https://www.soundcloud.com/mareux/the-perfect-girl",
-        capa: "https://i1.sndcdn.com/artworks-000639577287-9k6v6o-t500x500.jpg",
-        duracao: "3:14"
-      },
-      {
-        titulo: "After Dark",
-        artista: "Mr.Kitty",
-        album: "Time",
-        src: "https://www.soundcloud.com/mrkitty/after-dark",
-        capa: "https://i1.sndcdn.com/artworks-000117829554-6m9s8p-t500x500.jpg",
-        duracao: "4:20"
-      },
-      {
-        titulo: "Crystals",
-        artista: "Isolated",
-        album: "Crystals",
-        src: "https://www.soundcloud.com/isolated/crystals",
-        capa: "https://i1.sndcdn.com/artworks-000241726567-0fqj8t-t500x500.jpg",
-        duracao: "3:52"
-      },
-      {
-        titulo: "Goth",
-        artista: "Sidewalks and Skeletons",
-        album: "White Light",
-        src: "https://www.soundcloud.com/sidewalksandskeletons/goth",
-        capa: "https://i1.sndcdn.com/artworks-000119105280-1qy5v0-t500x500.jpg",
-        duracao: "4:15"
-      },
-      {
-        titulo: "Shadow Lady",
-        artista: "Portwave",
-        album: "Shadow Lady",
-        src: "https://www.soundcloud.com/portwave/shadow-lady",
-        capa: "https://i1.sndcdn.com/artworks-000242831788-3f9q0c-t500x500.jpg",
-        duracao: "3:45"
-      }
-    ];
-
-    // ===== VARIÁVEIS DO PLAYER =====
-    const musica = document.getElementById('musica');
+    // ===== CONTROLE DO VÍDEO =====
+    let videoPlayer;
+    let videoTocando = false;
     const btnPlay = document.getElementById('btnPlay');
-    const progresso = document.getElementById('progresso');
-    const barraProgresso = document.getElementById('barraProgresso');
-    const tempoAtual = document.getElementById('tempoAtual');
-    const tempoTotal = document.getElementById('tempoTotal');
-    const tituloMusica = document.getElementById('tituloMusica');
-    const artistaMusica = document.getElementById('artistaMusica');
-    const albumMusica = document.getElementById('albumMusica');
-    const capaAtual = document.getElementById('capaAtual');
-    const listaMusicas = document.getElementById('listaMusicas');
-    
-    let musicaAtual = 0;
-    let musicaTocando = false;
-    let intervaloProgresso;
+    const videoMusica = document.getElementById('videoMusica');
 
-    // ===== INICIALIZAÇÃO =====
-    function inicializarPlayer() {
-      carregarPlaylist();
-      carregarMusica(0);
-      
-      // Event listeners
-      barraProgresso.addEventListener('click', definirProgresso);
-      musica.addEventListener('loadedmetadata', function() {
-        tempoTotal.textContent = formatarTempo(musica.duration);
-      });
-      
-      musica.addEventListener('ended', function() {
-        mudarMusica(1);
-      });
+    // Função para carregar o player de vídeo do YouTube
+    function carregarVideo() {
+      // O iframe já está no HTML, então vamos apenas obter a referência
+      videoPlayer = document.querySelector('#videoMusica iframe');
     }
 
-    // ===== CARREGAR PLAYLIST =====
-    function carregarPlaylist() {
-      listaMusicas.innerHTML = '';
-      
-      playlist.forEach((musica, index) => {
-        const item = document.createElement('div');
-        item.className = 'musica-item';
-        if (index === musicaAtual) item.classList.add('ativa');
+    // Função para tocar o vídeo
+    function tocarVideo() {
+      if (!videoTocando) {
+        // Mostra o vídeo
+        videoMusica.classList.add('ativo');
         
-        item.innerHTML = `
-          <img src="${musica.capa}" alt="${musica.titulo}">
-          <div class="musica-info">
-            <h4>${musica.titulo}</h4>
-            <p>${musica.artista}</p>
-          </div>
-          <d
+        // Atualiza o botão
+        btnPlay.innerHTML = '<i class="fas fa-pause"></i>';
+        btnPlay.style.background = 'linear-gradient(135deg, #00ff00, #008800)';
+        
+        // Tenta reproduzir o vídeo (pode não funcionar devido a restrições de autoplay)
+        try {
+          // Esta é uma abordagem simplificada, pois o autoplay pode ser bloqueado
+          videoPlayer.src += "&autoplay=1";
+        } catch (e) {
+          console.log("Autoplay pode estar bloqueado pelo navegador");
+        }
+        
+        videoTocando = true;
+      } else {
+        pausarVideo();
+      }
+    }
+
+    // Função para pausar o vídeo
+    function pausarVideo() {
+      if (videoTocando) {
+        // Pausa o vídeo
+        try {
+          videoPlayer.src = videoPlayer.src.replace("&autoplay=1", "");
+        } catch (e) {
+          console.log("Erro ao pausar o vídeo");
+        }
+        
+        // Atualiza o botão
+        btnPlay.innerHTML = '<i class="fas fa-play"></i>';
+        btnPlay.style.background = 'linear-gradient(135deg, #ff0000, #cc0000)';
+        
+        videoTocando = false;
+      }
+    }
+
+    // Função para parar o vídeo
+    function pararVideo() {
+      // Para o vídeo e esconde
+      try {
+        videoPlayer.src = videoPlayer.src.replace("&autoplay=1", "");
+      } catch (e) {
+        console.log("Erro ao parar o vídeo");
+      }
+      
+      // Esconde o vídeo
+      videoMusica.classList.remove('ativo');
+      
+      // Atualiza o botão
+      btnPlay.innerHTML = '<i class="fas fa-play"></i>';
+      btnPlay.style.background = 'linear-gradient(135deg, #ff0000, #cc0000)';
+      
+      videoTocando = false;
+    }
+
+    // ===== EFEITOS VISUAIS =====
+    document.addEventListener('DOMContentLoaded', function() {
+      // Adiciona efeito de digitação no título
+      const titulo = document.querySelector('.titulo');
+      const textoOriginal = titulo.textContent;
+      titulo.textContent = '';
+      
+      let i = 0;
+      const typingEffect = setInterval(() => {
+        if (i < textoOriginal.length) {
+          titulo.textContent += textoOriginal.charAt(i);
+          i++;
+        } else {
+          clearInterval(typingEffect);
+        }
+      }, 100);
+      
+      // Efeito de entrada para os elementos
+      const elementos = document.querySelectorAll('.texto-intro, .quadrado-social, .video-box, .player-musica, .adm-box');
+      
+      elementos.forEach((elemento, index) => {
+        elemento.style.opacity = '0';
+        elemento.style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+          elemento.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+          elemento.style.opacity = '1';
+          elemento.style.transform = 'translateY(0)';
+        }, 300 + (index * 200));
+      });
+      
+      // Carrega o vídeo
+      carregarVideo();
+    });
+
+    // ===== BOTÃO VOLTAR AO TOPO =====
+    window.addEventListener('scroll', function() {
+      const botaoInicio = document.querySelector('.botao-inicio');
+      if (window.scrollY > 300) {
+        botaoInicio.style.display = 'block';
+      } else {
+        botaoInicio.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
