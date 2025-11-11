@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRØN - Patrocinadores</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: white;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #ccc;
+            font-size: 1.2em;
+        }
+        
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .sponsor-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .sponsor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .sponsor-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: #00ff88;
+        }
+        
+        .sponsor-card h3 {
+            color: #00ff88;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+        
+        .sponsor-card p {
+            color: #ccc;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        
+        .special-offer {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        
+        .special-offer p {
+            color: #00ff88 !important;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .sponsors-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>FRØN</h1>
+            <p>Patrocinadores Oficiais</p>
+        </div>
+        
+        <div class="sponsors-grid">
+            <!-- Corre de Seda -->
+            <div class="sponsor-card">
+                <div class="sponsor-image">🛒</div>
+                <h3>CORRE DE SEDA</h3>
+                <p>Produtos de tabacaria de qualidade</p>
+                <p>TóxicSkull√ a subir código</p>
+            </div>
+            
+            <!-- Automotive Estética -->
+            <div class="sponsor-card">
+                <div class="sponsor-image">🚗</div>
+                <h3>AUTOMOTIVE ESTÉTICA</h3>
+                <p>Serviço especializado em lanternagem</p>
+                <p>Mão de obra profissional</p>
+            </div>
+            
+            <!-- Volvac -->
+            <div class="sponsor-card">
+                <div class="sponsor-image">🚛</div>
+                <h3>VOLVAC</h3>
+                <p>Mecânica especializada Volvo</p>
+                <p>Carreta cavalinho FH/FM Volvo diesel</p>
+                <p>Mão de obra qualificada</p>
+            </div>
+            
+            <!-- Quintal do Peixe -->
+            <div class="sponsor-card">
+                <div class="sponsor-image">🐟</div>
+                <h3>QUINTAL DO PEIXE</h3>
+                <p>Experiência gastronômica única</p>
+                <div class="special-offer">
+                    <p>🎯 Ajuda sem pré com almoço por conta da casa</p>
+                </div>
+            </div>
+            
+            <!-- Paraíso das Bebidas -->
+            <div class="sponsor-card">
+                <div class="sponsor-image">🍷</div>
+                <h3>DISTRIBUIDORA PARAÍSO DAS BEBIDAS</h3>
+                <p>Melhores bebidas da região</p>
+                <div class="special-offer">
+                    <p>📍 Ipatinga - MG</p>
+                    <p>🎁 Sempre não cobra nada para TóxicSkull</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 FRØN. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>
