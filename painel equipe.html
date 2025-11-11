@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 PAINEL DE EQUIPE - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            background: linear-gradient(135deg, #0a0a0a, #1a0a1a, #0a0a1a);
+            color: white; 
+            font-family: 'Orbitron', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+        }
+        
+        /* HEADER */
+        .header {
+            text-align: center;
+            padding: 30px;
+            margin-bottom: 30px;
+            background: rgba(138, 43, 226, 0.1);
+            border: 3px solid #8a2be2;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #8a2be2;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header h1 {
+            color: #8a2be2;
+            text-shadow: 0 0 20px #8a2be2;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .team-status {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(138, 43, 226, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid #8a2be2;
+            font-weight: bold;
+        }
+
+        /* INFO DA EQUIPE */
+        .team-info {
+            background: rgba(138, 43, 226, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #8a2be2;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 25px;
+            align-items: center;
+        }
+        
+        .team-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #8a2be2, #6a0dad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border: 3px solid #8a2be2;
+            box-shadow: 0 0 20px #8a2be2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .team-logo:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #8a2be2;
+        }
+        
+        .team-details {
+            text-align: left;
+        }
+        
+        .team-name {
+            color: #8a2be2;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #8a2be2;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .edit-btn {
+            background: rgba(138, 43, 226, 0.3);
+            border: 1px solid #8a2be2;
+            color: #8a2be2;
+            padding: 5px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-btn:hover {
+            background: #8a2be2;
+            color: white;
+        }
+        
+        .team-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .team-stat {
+            text-align: center;
+            padding: 10px;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 10px;
+            border: 1px solid #8a2be2;
+        }
+        
+        .team-stat div:first-child {
+            color: #8a2be2;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(138, 43, 226, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #8a2be2;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px #8a2be2;
+        }
+        
+        .stat-number {
+            color: #8a2be2;
+            font-size: 1.8em;
+            font-weight: bold;
+            text-shadow: 0 0 10px #8a2be2;
+        }
+        
+        /* AÇÕES PRINCIPAIS */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+        }
+        
+        .btn-team {
+            background: linear-gradient(45deg, #8a2be2, #6a0dad);
+            box-shadow: 0 0 20px #8a2be2;
+        }
+        
+        .btn-team:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px #8a2be2;
+            background: linear-gradient(45deg, #6a0dad, #8a2be2);
+        }
+        
+        /* NAVEGAÇÃO */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-btn {
+            padding: 15px;
+            border: 2px solid #8a2be2;
+            border-radius: 10px;
+            background: rgba(138, 43, 226, 0.1);
+            color: #8a2be2;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover {
+            background: #8a2be2;
+            color: white;
+            box-shadow: 0 0 20px #8a2be2;
+            transform: translateY(-3px);
+        }
+        
+        .nav-btn i {
+            font-size: 1.5rem;
+        }
+        
+        /* LAYOUT PRINCIPAL */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        /* MEMBROS DA EQUIPE */
+        .team-section {
+            background: rgba(0,0,0,0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #8a2be2;
+            margin-bottom: 20px;
+        }
+        
+        .team-section h2 {
+            color: #8a2be2;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #8a2be2;
+            border-bottom: 2px solid #8a2be2;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .members-list {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .member-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 10px;
+            border: 1px solid #8a2be2;
+            transition: all 0.3s ease;
+        }
+        
+        .member-item:hover {
+            background: rgba(138, 43, 226, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .member-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .member-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #8a2be2, #6a0dad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        .member-role {
+            font-size: 0.8rem;
+            color: #8a2be2;
+            font-weight: bold;
+        }
+        
+        .member-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: 1px solid #8a2be2;
+            border-radius: 6px;
+            background: rgba(138, 43, 226, 0.2);
+            color: #8a2be2;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background: #8a2be2;
+            color: white;
+        }
+        
+        /* CHAT DA EQUIPE */
+        .chat-section {
+            background: rgba(0,0,0,0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #8a2be2;
+            height: fit-content;
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            background: rgba(138, 43, 226, 0.05);
+            border: 1px solid #8a2be2;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(138, 43, 226, 0.1);
+        }
+        
+        .message.team {
+            background: rgba(138, 43, 226, 0.2);
+            border-left: 3px solid #8a2be2;
+        }
+        
+        .message-user {
+            color: #8a2be2;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #8a2be2;
+            border-radius: 8px;
+            background: rgba(138, 43, 226, 0.1);
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .chat-input button {
+            padding: 12px 20px;
+            border: 2px solid #8a2be2;
+            border-radius: 8px;
+            background: #8a2be2;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* CONQUISTAS */
+        .achievements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .achievement {
+            text-align: center;
+            padding: 15px;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 10px;
+            border: 1px solid #8a2be2;
+        }
+        
+        .achievement i {
+            font-size: 2rem;
+            color: #8a2be2;
+            margin-bottom: 8px;
+        }
+        
+        /* RESPONSIVIDADE */
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .team-info {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .team-details {
+                text-align: center;
+            }
+            
+            .team-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .team-status {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-top: 15px;
+                display: inline-block;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .member-item {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .member-actions {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="team-status">
+                🏆 EQUIPE ATIVA
+            </div>
+            <h1>🏆 PAINEL DE EQUIPE</h1>
+            <p>Gerenciamento Completo da Sua Equipe</p>
+        </div>
+        
+        <!-- INFO DA EQUIPE -->
+        <div class="team-info">
+            <div class="team-logo" onclick="editarLogo()">
+                🐺
+            </div>
+            <div class="team-details">
+                <div class="team-name">
+                    FuriaElite 
+                    <button class="edit-btn" onclick="editarNomeEquipe()">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                </div>
+                <div style="color: #cccccc; margin-bottom: 10px;">
+                    Líder: Scorpion | Criada: 15/01/2024
+                </div>
+                <div class="team-stats">
+                    <div class="team-stat">
+                        <div>5</div>
+                        <div>MEMBROS</div>
+                    </div>
+                    <div class="team-stat">
+                        <div>89%</div>
+                        <div>VITÓRIAS</div>
+                    </div>
+                    <div class="team-stat">
+                        <div>12</div>
+                        <div>TORNEIOS</div>
+                    </div>
+                    <div class="team-stat">
+                        <div>🥇</div>
+                        <div>RANK</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ESTATÍSTICAS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">47</div>
+                <div>PARTIDAS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">42</div>
+                <div>VITÓRIAS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">89%</div>
+                <div>EFICIÊNCIA</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">🥇</div>
+                <div>POSIÇÃO</div>
+            </div>
+        </div>
+        
+        <!-- AÇÕES PRINCIPAIS -->
+        <div class="actions-grid">
+            <button class="btn btn-team" onclick="jogarComoEquipe()">
+                🎮 JOGAR COMO EQUIPE
+            </button>
+            <button class="btn btn-team" onclick="gerenciarMembros()">
+                👥 GERENCIAR MEMBROS
+            </button>
+            <button class="btn btn-team" onclick="inscreverCampeonato()">
+                🏆 INSCREVER EM CAMPEONATO
+            </button>
+            <button class="btn btn-team" onclick="configuracoesEquipe()">
+                ⚙️ CONFIGURAÇÕES
+            </button>
+        </div>
+        
+        <!-- NAVEGAÇÃO RÁPIDA -->
+        <div class="nav-grid">
+            <a href="TRUCU.html" class="nav-btn">
+                <i class="fas fa-gamepad"></i>
+                🎴 TRUCU
+            </a>
+            <a href="FR0N.html" class="nav-btn">
+                <i class="fas fa-users"></i>
+                FRØN
+            </a>
+            <a href="campeonato.html" class="nav-btn">
+                <i class="fas fa-trophy"></i>
+                CAMPEONATO
+            </a>
+            <a href="regras.html" class="nav-btn">
+                <i class="fas fa-book"></i>
+                REGRAS
+            </a>
+        </div>
+        
+        <!-- LAYOUT PRINCIPAL -->
+        <div class="main-grid">
+            <!-- COLUNA ESQUERDA -->
+            <div>
+                <!-- MEMBROS DA EQUIPE -->
+                <div class="team-section">
+                    <h2>
+                        👥 MEMBROS DA EQUIPE
+                        <button class="edit-btn" onclick="adicionarMembro()">
+                            <i class="fas fa-plus"></i> Adicionar
+                        </button>
+                    </h2>
+                    <div class="members-list">
+                        <div class="member-item">
+                            <div class="member-info">
+                                <div class="member-avatar">S</div>
+                                <div>
+                                    <div>Scorpion</div>
+                                    <div class="member-role">LÍDER</div>
+                                </div>
+                            </div>
+                            <div class="member-actions">
+                                <button class="action-btn" onclick="editarMembro('Scorpion')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-info">
+                                <div class="member-avatar">T</div>
+                                <div>
+                                    <div>ToxicSkull√</div>
+                                    <div class="member-role">CO-LÍDER</div>
+                                </div>
+                            </div>
+                            <div class="member-actions">
+                                <button class="action-btn" onclick="editarMembro('ToxicSkull√')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn" onclick="removerMembro('ToxicSkull√')">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-info">
+                                <div class="member-avatar">N</div>
+                                <div>
+                                    <div>NeferpitouI</div>
+                                    <div class="member-role">MEMBRO</div>
+                                </div>
+                            </div>
+                            <div class="member-actions">
+                                <button class="action-btn" onclick="editarMembro('NeferpitouI')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn" onclick="removerMembro('NeferpitouI')">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="membe
