@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌕 Agente Da Noite - FuriaDaNoitePlay</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET E CONFIGURAÇÕES GERAIS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --vermelho-furia: #ff0000;
+      --vermelho-escuro: #cc0000;
+      --roxo-fron: #8a2be2;
+      --azul-fron: #0000ff;
+      --verde-adm: #00ff00;
+      --preto: #0c0c0c;
+      --cinza-escuro: #1a1a2e;
+      --neon-vermelho: #ff0000;
+      --neon-azul: #00f2ea;
+    }
+    
+    body {
+      background: linear-gradient(135deg, var(--preto) 0%, var(--cinza-escuro) 50%, #16213e 100%);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      min-height: 100vh;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* ===== CABEÇALHO ===== */
+    header {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px 0;
+      border-bottom: 2px solid var(--neon-vermelho);
+      box-shadow: 0 0 25px var(--neon-vermelho);
+      position: relative;
+      z-index: 100;
+    }
+
+    .logo {
+      width: 160px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 0 30px var(--neon-vermelho);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+
+    .logo:hover {
+      transform: scale(1.1) rotateY(10deg);
+      box-shadow: 0 0 50px var(--neon-vermelho);
+    }
+
+    .titulo {
+      color: var(--neon-vermelho);
+      font-size: 28px;
+      text-transform: uppercase;
+      text-shadow: 0 0 25px var(--neon-vermelho);
+      margin: 15px 0;
+    }
+
+    /* ===== MENU ===== */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      background: rgba(255, 0, 0, 0.1);
+      border: 2px solid var(--neon-vermelho);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 0 15px var(--neon-vermelho);
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: var(--neon-vermelho);
+      color: #000;
+      box-shadow: 0 0 25px var(--neon-vermelho);
+      transform: translateY(-3px);
+    }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .titulo-pagina {
+      color: var(--neon-vermelho);
+      font-size: 2.5em;
+      text-transform: uppercase;
+      text-shadow: 0 0 30px var(--neon-vermelho);
+      margin: 30px 0;
+      animation: pulsar-neon 2s infinite;
+    }
+
+    @keyframes pulsar-neon {
+      0% { text-shadow: 0 0 20px var(--neon-vermelho); }
+      50% { text-shadow: 0 0 40px var(--neon-vermelho), 0 0 60px var(--neon-vermelho); }
+      100% { text-shadow: 0 0 20px var(--neon-vermelho); }
+    }
+
+    /* ===== SISTEMA DE MEMBROS ===== */
+    .hierarquia-info {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--neon-vermelho);
+      border-radius: 12px;
+      box-shadow: 0 0 25px var(--neon-vermelho);
+      padding: 25px;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    .hierarquia-info h2 {
+      color: var(--neon-vermelho);
+      text-shadow: 0 0 15px var(--neon-vermelho);
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .hierarquia-lista {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .cargo-item {
+      background: rgba(255, 0, 0, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid var(--neon-vermelho);
+    }
+
+    .cargo-item strong {
+      color: var(--neon-vermelho);
+      text-shadow: 0 0 10px var(--neon-vermelho);
+    }
+
+    /* ===== GRID DE MEMBROS ===== */
+    .membros-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 30px;
+      perspective: 1000px;
+    }
+
+    .membro-card {
+      background: linear-gradient(145deg, #1a0000, #0a0000);
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      border: 3px solid;
+      box-shadow: 
+          0 10px 30px rgba(255, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .membro-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .membro-card:hover::before {
+      left: 100%;
+    }
+
+    .membro-card:hover {
+      transform: 
+          translateY(-15px) 
+          rotateX(5deg) 
+          scale(1.08);
+      box-shadow: 
+          0 25px 50px rgba(255, 0, 0, 0.6),
+          0 0 80px rgba(255, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    /* Cores específicas para cada cargo */
+    .membro-dono {
+      border-color: #ff0000;
+      box-shadow: 0 0 30px #ff0000;
+    }
+
+    .membro-dona {
+      border-color: #ff00ff;
+      box-shadow: 0 0 30px #ff00ff;
+    }
+
+    .membro-lider {
+      border-color: #ffff00;
+      box-shadow: 0 0 30px #ffff00;
+    }
+
+    .membro-colid {
+      border-color: #00ff00;
+      box-shadow: 0 0 30px #00ff00;
+    }
+
+    .membro-anciao {
+      border-color: var(--neon-azul);
+      box-shadow: 0 0 30px var(--neon-azul);
+    }
+
+    .membro-card:hover.membro-dono {
+      border-color: #ff3333;
+      box-shadow: 0 0 50px #ff0000;
+    }
+
+    .membro-card:hover.membro-dona {
+      border-color: #ff66ff;
+      box-shadow: 0 0 50px #ff00ff;
+    }
+
+    .membro-card:hover.membro-lider {
+      border-color: #ffff66;
+      box-shadow: 0 0 50px #ffff00;
+    }
+
+    .membro-card:hover.membro-colid {
+      border-color: #66ff66;
+      box-shadow: 0 0 50px #00ff00;
+    }
+
+    .membro-card:hover.membro-anciao {
+      border-color: #66ffff;
+      box-shadow: 0 0 50px var(--neon-azul);
+    }
+
+    /* ===== IMAGEM DO MEMBRO ===== */
+    .membro-imagem {
+      width: 100%;
+      height: 200px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      border: 3px solid;
+      background: linear-gradient(135deg, #330000, #660000, #990000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff6666;
+      font-weight: bold;
+      font-size: 1.2em;
+      position: relative;
+      overflow: hidden;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      transition: all 0.4s ease;
+    }
+
+    .membro-imagem::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+          45deg, 
+          transparent, 
+          rgba(255, 0, 0, 0.1), 
+          rgba(255, 255, 255, 0.1), 
+          rgba(255, 0, 0, 0.1), 
+          transparent
+      );
+      animation: brilho-holografico 4s linear infinite;
+      transform: rotate(45deg);
+    }
+
+    @keyframes brilho-holografico {
+      0% { transform: rotate(45deg) translateX(-100%); }
+      100% { transform: rotate(45deg) translateX(100%); }
+    }
+
+    .membro-imagem::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+          135deg,
+          transparent 0%,
+          rgba(255, 0, 0, 0.1) 50%,
+          transparent 100%
+      );
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .membro-card:hover .membro-imagem::after {
+      opacity: 1;
+    }
+
+    /* ===== INFORMAÇÕES DO MEMBRO ===== */
+    .membro-nome {
+      color: #ff3333;
+      font-weight: bold;
+      font-size: 1.3em;
+      text-shadow: 
+          0 0 10px #ff0000,
+          0 0 20px #ff0000,
+          0 0 30px #ff0000;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 2px solid #ff0000;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin-bottom: 10px;
+    }
+
+    .membro-nome::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .membro-card:hover .membro-nome::before {
+      left: 100%;
+    }
+
+    .membro-card:hover .membro-nome {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    }
+
+    .membro-cargo {
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding: 8px 15px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .cargo-dono { background: linear-gradient(135deg, #ff0000, #cc0000); }
+    .cargo-dona { background: linear-gradient(135deg, #ff00ff, #cc00cc); }
+    .cargo-lider { background: linear-gradient(135deg, #ffff00, #cccc00); color: #000; }
+    .cargo-colid { background: linear-gradient(135deg, #00ff00, #00cc00); color: #000; }
+    .cargo-anciao { background: linear-gradient(135deg, var(--neon-azul), #00a0a0); }
+
+    .membro-descricao {
+      color: #ccc;
+      font-size: 0.9em;
+      line-height: 1.4;
+      margin-top: 10px;
+    }
+
+    /* ===== RODAPÉ ===== */
+    footer {
+      color: var(--neon-vermelho);
+      text-shadow: 0 0 15px var(--neon-vermelho);
+      border-top: 2px solid var(--neon-vermelho);
+      padding: 20px;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.9);
+      margin-top: 40px;
+    }
+
+    .destaque {
+      color: #FFD700;
+      text-shadow: 0 0 20px #FFD700;
+    }
+
+    .assinatura {
+      color: var(--neon-vermelho);
+      text-shadow: 0 0 10px var(--neon-vermelho);
+    }
+
+    /* ===== BOTÃO INÍCIO ===== */
+    .botao-inicio {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #FFD700;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 0 25px #FFD700;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 999;
+    }
+
+    .botao-inicio:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px #FFD700;
+    }
+
+    /* ===== RESPONSIVIDADE ===== */
+    @media (max-width: 768px) {
+      .membros-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;
+      }
+      
+      .membro-imagem {
+        height: 160px;
+        font-size: 1.1em;
+      }
+      
+      .membro-nome {
+        font-size: 1.1em;
+        padding: 10px;
+      }
+      
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      nav a {
+        width: 80%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://via.placeholder.com/160x80/ff0000/000000?text=FURIA" alt="FuriaDaNoitePlay" class="logo">
+    <h1 class="titulo">🌕 FuriaDaNoitePlay 🌕</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="agente.html">Agente Da Noite</a>
+      <a href="FR0N.html">FRØN</a>
+      <a href="campeonato.html">Campeonato</a>
+      <a href="TRUCU.html">🎴 TRUCU</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="titulo-pagina">🌙 AGENTE DA NOITE 🌙</h1>
+    
+    <!-- Informações da Hierarquia -->
+    <div class="hierarquia-info">
+      <h2>🏰 HIERARQUIA DA EQUIPE</h2>
+      <div class="hierarquia-lista">
+        <div class="cargo-item">
+          <strong>👑 DONO/DONA</strong> - Liderança máxima da equipe
+        </div>
+        <div class="cargo-item">
+          <strong>⭐ LÍDER</strong> - Comando direto das operações
+        </div>
+        <div class="cargo-item">
+          <strong>🌟 CO-LÍDER</strong> - Suporte à liderança
+        </div>
+        <div class="cargo-item">
+          <strong>💎 ANCIÃO</strong> - Membros veteranos e experientes
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de Membros -->
+    <div class="membros-grid">
+      <!-- DONO 1 -->
+      <div class="membro-card membro-dono">
+        <div class="membro-imagem" style="background: linear-gradient(135deg, #ff0000, #cc0000);">
+          <span>DONO</span>
+        </div>
+        <div class="membro-nome">FURIA DA NOITE</div>
+        <div class="membro-cargo cargo-dono">👑 FUNDADOR</div>
+        <div class="membro-descricao">
+          Líder máximo e fundador da FuriaDaNoitePlay. Comanda todas as operações e estratégias.
+        </div>
+      </div>
+
+      <!-- DONA 2 -->
+      <div class="membro-card membro-dona">
+        <div class="membro-imagem" style="background: linear-gradient(135deg, #ff00ff, #cc00cc);">
+          <span>DONA</span>
+        </div>
+        <div class="membro-nome">LUA DA NOITE</div>
+        <div class="membro-cargo cargo-dona">👑 CO-FUNDADORA</div>
+        <div class="membro-descricao">
+          Co-fundadora e estrategista principal. Especialista em táticas avançadas.
+        </div>
+      </div>
+
+      <!-- DONO 3 -->
+      <div class="membro-card membro-dono">
+        <div class="membro-imagem" style="background: linear-gradient(135deg, #ff3333, #cc0000);">
+          <span>DONO</span>
+        </div>
+        <div class="membro-nome">SOMBRA NOTURNA</div>
+        <div class="membro-cargo cargo-dono">👑 CO-FUNDADOR</div>
+        <div class="membro-descricao">
+          Co-fundador e especialista em operações especiais. Mestre em estratégias furtivas.
+        </div>
+      </div>
+
+      <!-- LÍDER 4 -->
+      <div class="membro-card membro-lider">
+        <div class="membro-imagem" style="background: linear-gradient(135deg, #ffff00, #cccc00);">
+          <span>LÍDER</span>
+        </div>
+        <div class="membro-nome">TROVÃO NOTURNO</div>
+        <div class="membro-cargo cargo-lider">⭐ LÍDER GERAL</div>
+        <div class="membro-descricao">
+          Líder de operações. Responsável pelo comando direto em campo e treinamento.
+        </div>
+      </div>
+
+      <!-- CO-LÍDER 5 -->
+      <div class="membro-card membro-colid">
+        <div class="membro-imagem" style="background: linear-gradient(135deg, #00ff00, #00cc00);">
+          <span>CO-LÍDER</span>
+        </div>
+        <div class="membro-nome">VENTO DA NOITE</div>
+        <div class="membro-cargo cargo-colid">🌟 CO-LÍDER</div>
+        <div class="membro-descricao">
+          Vice-líder e especialista em logística. Coordena as equipes em missões.
+        </div>
+      </div>
+
+      <!-- ANCIÃO 6 -->
+      <div class="membro-card membro-anciao">
+        <div class="membro-imagem" style="background: linear-gradient(135deg, var(--neon-azul), #00a0a0);">
+          <span>ANCIÃO</span>
+        </div>
+        <div class="membro-nome">SABIO NOTURNO</div>
+        <div class="membro-cargo cargo-anciao">💎 ANCIÃO VETERANO</div>
+        <div class="membro-descricao">
+          Membro veterano com vasta experiência. Conselheiro estratégico da equipe.
+        </div>
+      </div>
+
+      <!-- ANCIÃO 7 -->
+      <div class="membro-card membro-anciao">
+        <div class="membro-imagem" style="background: linear-gradient(135deg, #66ffff, #00a0a0);">
+          <span>ANCIÃO</span>
+        </div>
+        <div class="membro-nome">GUARDIÃO DA NOITE</div>
+        <div class="membro-cargo cargo-anciao">💎 ANCIÃO GUARDIÃO</div>
+        <div class="membro-descricao">
+          Guardião das tradições da equipe. Especialista em defesa e proteção.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- BOTÃO VOLTAR AO INÍCIO -->
+  <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <i class="fas fa-arrow-up"></i> INÍCIO
+  </button>
+
+  <footer>
+    <p>© 2024 <span class="destaque">FURIA DA NOITE PLAY</span> - Todos os direitos reservados</p>
+    <p class="assinatura">Agente Da Noite - Hierarquia Oficial</p>
+  </footer>
+
+  <script>
+    // Efeito de digitação no título
+    document.addEventListener('DOMContentLoaded', function() {
+      const titulo = document.querySelector('.titulo-pagina');
+      const textoOriginal = titulo.textContent;
+      titulo.textContent = '';
+      
+      let i = 0;
+      const digitar = () => {
+        if (i < textoOriginal.length) {
+          titulo.textContent += textoOriginal.charAt(i);
+          i++;
+          setTimeout(digitar, 100);
+        }
+      };
+      
+      // Iniciar efeito de digitação
+      setTimeout(digitar, 500);
+    });
+
+    // Efeito de brilho aleatório nos cards
+    setInterval(() => {
+      const cards = document.querySelectorAll('.membro-card');
+      const randomCard = cards[Math.floor(Math.random() * cards.length)];
+      
+      randomCard.style.boxShadow = '0 0 60px rgba(255, 0, 0, 0.8)';
+      
+      setTimeout(() => {
+        randomCard.style.boxShadow = '';
+      }, 1000);
+    }, 3000);
+  </script>
+</body>
+</html>
