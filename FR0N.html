@@ -65,16 +65,20 @@
         }
         
         .sponsor-image {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             margin: 0 auto 15px;
-            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
-            color: #00ff88;
+        }
+        
+        .sponsor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         
         .sponsor-card h3 {
@@ -131,7 +135,9 @@
         <div class="sponsors-grid">
             <!-- Corre de Seda -->
             <div class="sponsor-card">
-                <div class="sponsor-image">🛒</div>
+                <div class="sponsor-image">
+                    <img src="corre.png" alt="Corre de Seda">
+                </div>
                 <h3>CORRE DE SEDA</h3>
                 <p>Produtos de tabacaria de qualidade</p>
                 <p>TóxicSkull√ a subir código</p>
@@ -139,7 +145,9 @@
             
             <!-- Automotive Estética -->
             <div class="sponsor-card">
-                <div class="sponsor-image">🚗</div>
+                <div class="sponsor-image">
+                    <img src="lg.png" alt="Automotive Estética">
+                </div>
                 <h3>AUTOMOTIVE ESTÉTICA</h3>
                 <p>Serviço especializado em lanternagem</p>
                 <p>Mão de obra profissional</p>
@@ -147,7 +155,9 @@
             
             <!-- Volvac -->
             <div class="sponsor-card">
-                <div class="sponsor-image">🚛</div>
+                <div class="sponsor-image">
+                    <img src="volvaco.png" alt="Volvac">
+                </div>
                 <h3>VOLVAC</h3>
                 <p>Mecânica especializada Volvo</p>
                 <p>Carreta cavalinho FH/FM Volvo diesel</p>
@@ -156,7 +166,9 @@
             
             <!-- Quintal do Peixe -->
             <div class="sponsor-card">
-                <div class="sponsor-image">🐟</div>
+                <div class="sponsor-image">
+                    <img src="logo.png" alt="Quintal do Peixe">
+                </div>
                 <h3>QUINTAL DO PEIXE</h3>
                 <p>Experiência gastronômica única</p>
                 <div class="special-offer">
@@ -166,7 +178,9 @@
             
             <!-- Paraíso das Bebidas -->
             <div class="sponsor-card">
-                <div class="sponsor-image">🍷</div>
+                <div class="sponsor-image">
+                    <img src="paraíso.png" alt="Paraíso das Bebidas">
+                </div>
                 <h3>DISTRIBUIDORA PARAÍSO DAS BEBIDAS</h3>
                 <p>Melhores bebidas da região</p>
                 <div class="special-offer">
