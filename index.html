@@ -408,11 +408,11 @@
 
     <h1 class="titulo">🌕 FuriaDaNoitePlay 🌕</h1>
     <nav>
-      <a href="index.html">Início</a>
-      <a href="membros.html">Membros</a>
+      <a href="FR0N.html">FRØN</a>
+      <a href="campeonato.html">Campeonato</a>
       <a href="regras.html">Regras</a>
       <a href="login.html">Login</a>
-      <a href="campeonato.html">Campeonato</a>
+      <a href="TRUCU.html">🎴 TRUCU</a>
     </nav>
   </header>
 
@@ -449,6 +449,16 @@
           Ver TikTok
         </a>
       </div>
+
+      <!-- NOVO QUADRADO TRUCU -->
+      <div class="quadrado-social" onclick="window.location.href='TRUCU.html'">
+        <i class="fas fa-gamepad"></i>
+        <h3>🎴 TRUCU 4x4</h3>
+        <p>Jogo de cartas multiplayer competitivo</p>
+        <button class="btn-social" onclick="window.location.href='TRUCU.html'">
+          JOGAR AGORA
+        </button>
+      </div>
     </div>
 
     <!-- ====== VÍDEO SEÇÃO ====== -->
@@ -467,8 +477,8 @@
 
     <!-- ====== PLAYER DE MÚSICA ====== -->
     <section class="player-musica">
-      <h2>🎵 Trilha Sonora FRØN</h2>
-      <p>Ouça a música tema da FuriaDaNoitePlay</p>
+      <h2>🎵 The Perfect Girl - Mareux</h2>
+      <p>Trilha oficial da FuriaDaNoitePlay</p>
       <div class="controles-musica">
         <button class="btn-musica" onclick="toggleMusica()" id="btnPlay">
           <i class="fas fa-play"></i>
@@ -478,8 +488,7 @@
         </button>
       </div>
       <audio id="musica" loop>
-        <!-- Adicione aqui o link da música -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="https://www.youtube.com/embed/0hWm967g3M4" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
       </audio>
     </section>
@@ -520,9 +529,11 @@
       if (musicaTocando) {
         musica.pause();
         btnPlay.innerHTML = '<i class="fas fa-play"></i>';
+        btnPlay.style.background = 'linear-gradient(135deg, #ff0000, #cc0000)';
       } else {
         musica.play();
         btnPlay.innerHTML = '<i class="fas fa-pause"></i>';
+        btnPlay.style.background = 'linear-gradient(135deg, #00ff00, #008800)';
       }
       musicaTocando = !musicaTocando;
     }
@@ -531,6 +542,7 @@
       musica.pause();
       musica.currentTime = 0;
       btnPlay.innerHTML = '<i class="fas fa-play"></i>';
+      btnPlay.style.background = 'linear-gradient(135deg, #ff0000, #cc0000)';
       musicaTocando = false;
     }
 
@@ -575,6 +587,13 @@
         botaoInicio.style.display = 'none';
       }
     });
+
+    // ===== AUTO PLAY MÚSICA =====
+    setTimeout(() => {
+      if (!musicaTocando) {
+        toggleMusica();
+      }
+    }, 2000);
   </script>
 </body>
 </html>
