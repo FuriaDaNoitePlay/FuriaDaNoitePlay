@@ -73,7 +73,7 @@
 
         .status-sistema {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin: 20px 0;
             position: relative;
@@ -162,7 +162,7 @@
 
         .tipo-login {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin: 20px 0;
             position: relative;
@@ -178,6 +178,7 @@
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
+            font-size: 0.9em;
         }
 
         .tipo-btn:hover, .tipo-btn.ativo {
@@ -245,7 +246,9 @@
         @media (max-width: 768px) {
             .login-container { padding: 30px 20px; }
             .logo h1 { font-size: 2em; }
-            .tipo-login, .links { grid-template-columns: 1fr; }
+            .tipo-login { grid-template-columns: 1fr; }
+            .links { grid-template-columns: 1fr; }
+            .status-sistema { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 480px) {
@@ -259,7 +262,7 @@
     <div class="login-container">
         <div class="logo">
             <h1>🌙 FÚRIA DA NOITE</h1>
-            <p>Sistema de Acesso - Membros & ADMs</p>
+            <p>Sistema de Acesso - Membros, Equipes & ADMs</p>
         </div>
 
         <div class="status-sistema">
@@ -271,17 +274,22 @@
                 <div class="status-numero" id="partidasAtivas">42</div>
                 <div class="status-label">PARTIDAS ATIVAS</div>
             </div>
+            <div class="status-item">
+                <div class="status-numero" id="equipesOnline">18</div>
+                <div class="status-label">EQUIPES ONLINE</div>
+            </div>
         </div>
 
         <div class="tipo-login">
             <button class="tipo-btn ativo" onclick="selecionarTipo('membro')">👥 MEMBRO</button>
+            <button class="tipo-btn" onclick="selecionarTipo('equipe')">🏆 EQUIPE</button>
             <button class="tipo-btn" onclick="selecionarTipo('adm')">👑 ADMIN</button>
         </div>
 
         <div class="form-login">
             <form id="loginForm">
                 <div class="input-group">
-                    <label for="usuario">👤 Usuário:</label>
+                    <label for="usuario" id="labelUsuario">👤 Usuário:</label>
                     <input type="text" id="usuario" placeholder="Digite seu usuário" required>
                 </div>
                 <div class="input-group">
@@ -308,8 +316,10 @@
         function atualizarStatusAoVivo() {
             const jogadores = Math.floor(Math.random() * 30) + 100;
             const partidas = Math.floor(jogadores / 3);
+            const equipes = Math.floor(jogadores / 7);
             document.getElementById('jogadoresOnline').textContent = jogadores;
             document.getElementById('partidasAtivas').textContent = partidas;
+            document.getElementById('equipesOnline').textContent = equipes;
         }
 
         setInterval(atualizarStatusAoVivo, 5000);
@@ -319,8 +329,24 @@
             document.querySelectorAll('.tipo-btn').forEach(btn => btn.classList.remove('ativo'));
             document.querySelector(`[onclick="selecionarTipo('${tipo}')"]`).classList.add('ativo');
             tipoAtual = tipo;
+            
             const usuarioInput = document.getElementById('usuario');
-            usuarioInput.placeholder = tipo === 'membro' ? "Digite seu nick ou usuário" : "Usuário ADM (ex: FURIAGOD)";
+            const labelUsuario = document.getElementById('labelUsuario');
+            
+            switch(tipo) {
+                case 'membro':
+                    usuarioInput.placeholder = "Digite seu nick ou usuário";
+                    labelUsuario.innerHTML = "👤 Usuário:";
+                    break;
+                case 'equipe':
+                    usuarioInput.placeholder = "Nome da equipe (ex: FuriaElite)";
+                    labelUsuario.innerHTML = "🏆 Nome da Equipe:";
+                    break;
+                case 'adm':
+                    usuarioInput.placeholder = "Usuário ADM (ex: FURIAGOD)";
+                    labelUsuario.innerHTML = "👑 Usuário ADM:";
+                    break;
+            }
         }
 
         document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -329,7 +355,7 @@
             const senha = document.getElementById('senha').value;
             const mensagem = document.getElementById('mensagem');
 
-            // CREDENCIAIS ATUALIZADAS
+            // CREDENCIAIS ATUALIZADAS - MEMBROS
             const membros = { 
                 'ToxicSkull√': 'L@!on', 
                 'Scorpion': 'Mlk00', 
@@ -339,6 +365,16 @@
                 'visitante': '123456' 
             };
             
+            // CREDENCIAIS ATUALIZADAS - EQUIPES
+            const equipes = { 
+                'FuriaElite': 'FuriaElite', 
+                'NightWolves': 'NightWolves', 
+                'DarkDragons': 'DarkDragons',
+                'ShadowTeam': 'ShadowTeam',
+                'BloodFury': 'BloodFury'
+            };
+            
+            // CREDENCIAIS ATUALIZADAS - ADMS
             const adms = { 
                 'FURIAGOD': 'Furia2025_$', 
                 'Scorpion': 'Mlk00', 
@@ -352,13 +388,18 @@
             let usuarioNome = '';
             let redirecionarPara = '';
 
+            // VERIFICAÇÃO POR TIPO
             if (tipoAtual === 'membro' && membros[usuario] === senha) { 
                 credenciaisValidas = true; 
                 usuarioNome = usuario;
-                redirecionarPara = 'painel-usuario.html';
+                redirecionarPara = 'painel-membro.html';
             }
-            
-            if (tipoAtual === 'adm' && adms[usuario] === senha) { 
+            else if (tipoAtual === 'equipe' && equipes[usuario] === senha) { 
+                credenciaisValidas = true; 
+                usuarioNome = usuario;
+                redirecionarPara = 'painel-equipe.html';
+            }
+            else if (tipoAtual === 'adm' && adms[usuario] === senha) { 
                 credenciaisValidas = true; 
                 usuarioNome = usuario;
                 
@@ -370,13 +411,45 @@
                 }
             }
 
+            // VERIFICAÇÃO DE USUÁRIOS CADASTRADOS NO LOCALSTORAGE
+            if (!credenciaisValidas) {
+                // Verificar membros cadastrados
+                const membroSalvo = localStorage.getItem(`usuario_${usuario}`);
+                if (membroSalvo && tipoAtual === 'membro') {
+                    const dadosMembro = JSON.parse(membroSalvo);
+                    if (dadosMembro.senha === senha) {
+                        credenciaisValidas = true;
+                        usuarioNome = usuario;
+                        redirecionarPara = 'painel-membro.html';
+                    }
+                }
+
+                // Verificar equipes cadastradas
+                const equipeSalva = localStorage.getItem(`equipe_${usuario}`);
+                if (equipeSalva && tipoAtual === 'equipe') {
+                    const dadosEquipe = JSON.parse(equipeSalva);
+                    if (dadosEquipe.senha === senha) {
+                        credenciaisValidas = true;
+                        usuarioNome = usuario;
+                        redirecionarPara = 'painel-equipe.html';
+                    }
+                }
+            }
+
             if (credenciaisValidas) {
+                // Salvar sessão atual
+                localStorage.setItem('usuarioLogado', JSON.stringify({
+                    tipo: tipoAtual,
+                    nome: usuarioNome,
+                    loginTime: new Date().toISOString()
+                }));
+
                 mensagem.textContent = `✅ Login realizado! Redirecionando ${usuarioNome}...`;
                 mensagem.className = 'mensagem sucesso';
                 mensagem.style.display = 'block';
                 
                 setTimeout(() => {
-                    window.location.href = `${redirecionarPara}?usuario=${encodeURIComponent(usuarioNome)}`;
+                    window.location.href = `${redirecionarPara}?usuario=${encodeURIComponent(usuarioNome)}&tipo=${tipoAtual}`;
                 }, 1500);
                 
             } else {
@@ -384,6 +457,28 @@
                 mensagem.className = 'mensagem erro';
                 mensagem.style.display = 'block';
                 setTimeout(() => mensagem.style.display = 'none', 3000);
+            }
+        });
+
+        // Verificar se há usuário logado e redirecionar
+        window.addEventListener('DOMContentLoaded', function() {
+            const usuarioLogado = localStorage.getItem('usuarioLogado');
+            if (usuarioLogado) {
+                const dados = JSON.parse(usuarioLogado);
+                const mensagem = document.getElementById('mensagem');
+                mensagem.textContent = `⚠️ Você já está logado como ${dados.nome}. Redirecionando...`;
+                mensagem.className = 'mensagem sucesso';
+                mensagem.style.display = 'block';
+                
+                setTimeout(() => {
+                    let pagina = '';
+                    switch(dados.tipo) {
+                        case 'membro': pagina = 'painel-membro.html'; break;
+                        case 'equipe': pagina = 'painel-equipe.html'; break;
+                        case 'adm': pagina = dados.nome === 'FURIAGOD' ? 'adm-supremo.html' : 'adm-gerais.html'; break;
+                    }
+                    window.location.href = `${pagina}?usuario=${encodeURIComponent(dados.nome)}`;
+                }, 2000);
             }
         });
     </script>
