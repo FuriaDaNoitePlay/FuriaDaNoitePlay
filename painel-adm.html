@@ -1,578 +1,234 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 PAINEL ADM SUPREMO - Furia da Noite Play</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --adm-vermelho: #ff0000;
-            --adm-amarelo: #ffff00;
-            --adm-verde: #00ff00;
-            --adm-azul: #0066ff;
-            --fundo-escuro: #0a0a0a;
-        }
+    document.body.appendChild(clip);
+    
+    setTimeout(() => {
+        clip.remove();
+    }, 1000);
+}
 
-        body {
-            background: linear-gradient(135deg, #1a0a0a, #0a0a0a, #001a0a);
-            color: #ffff00;
-            font-family: 'Courier New', monospace;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
+// FUNÇÕES PRINCIPAIS DO PAINEL ADM
+function abrirChatGalatico() {
+    showClip('🚀', 'amarelo');
+    alert('🌌 CHAT GALÁTICO ATIVADO!\n\nSistema de comunicação intergaláctica inicializado!');
+}
 
-        .painel-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+function gerenciarMembros() {
+    showClip('👥', 'verde');
+    document.querySelector('.secao-adm').scrollIntoView({ behavior: 'smooth' });
+}
 
-        /* HEADER DO PAINEL ADM */
-        .painel-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 15px;
-            border: 3px solid var(--adm-amarelo);
-            box-shadow: 0 0 30px var(--adm-amarelo);
-            position: relative;
-            overflow: hidden;
-        }
+function gerenciarCampeonatos() {
+    showClip('🏆', 'amarelo');
+    alert('🏆 Módulo de Campeonatos\n\nCriar novo campeonato?');
+}
 
-        .painel-header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 0, 0.1), transparent);
-            animation: brilho-adm 8s linear infinite;
-        }
+function gerenciarPartidas() {
+    showClip('🎮', 'vermelho');
+    alert('🎮 Gerenciar Partidas\n\nAgendar nova partida?');
+}
 
-        @keyframes brilho-adm {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+function gerenciarTabelas() {
+    showClip('📊', 'amarelo');
+    alert('📊 Sistema de Tabelas\n\nAtualizar classificações?');
+}
 
-        .painel-title {
-            font-size: 2.8rem;
-            color: var(--adm-amarelo);
-            text-shadow: 0 0 20px var(--adm-amarelo);
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
-        }
+// GERENCIAMENTO DE MEMBROS
+function adicionarMembro() {
+    const nome = document.getElementById('nomeMembro').value;
+    const nick = document.getElementById('nickMembro').value;
+    const hierarquia = document.getElementById('hierarquiaMembro').value;
+    const jogo = document.getElementById('jogoMembro').value;
+    
+    if (!nome || !nick || !hierarquia || !jogo) {
+        alert('❌ Preencha todos os campos!');
+        return;
+    }
+    
+    const tabela = document.getElementById('tabelaMembros');
+    const novaLinha = document.createElement('tr');
+    
+    // Emojis para hierarquia
+    const emojiHierarquia = {
+        'lider': '👑',
+        'vice': '⭐', 
+        'oficial': '🔰',
+        'lider-equipe': '🎯',
+        'veterano': '🛡️',
+        'membro': '👤',
+        'anciao': '🧙'
+    };
+    
+    // Emojis para jogos
+    const emojiJogo = {
+        'cfn': '⚔️',
+        'cr': '🏰',
+        'mlbb': '🗡️'
+    };
+    
+    novaLinha.innerHTML = `
+        <td>${nick}</td>
+        <td>${emojiHierarquia[hierarquia]} ${hierarquia.toUpperCase()}</td>
+        <td>${emojiJogo[jogo]} ${jogo.toUpperCase()}</td>
+        <td style="color: var(--adm-verde);">🟢 Online</td>
+        <td>
+            <button class="acao-btn editar" onclick="editarMembro('${nick}')">✏️ Editar</button>
+            <button class="acao-btn excluir" onclick="excluirMembro('${nick}')">🗑️ Excluir</button>
+        </td>
+    `;
+    
+    tabela.appendChild(novaLinha);
+    showClip('✅', 'verde');
+    
+    // Atualizar contador
+    const totalMembros = document.getElementById('totalMembros');
+    totalMembros.textContent = parseInt(totalMembros.textContent) + 1;
+    
+    // Limpar formulário
+    document.getElementById('nomeMembro').value = '';
+    document.getElementById('nickMembro').value = '';
+    document.getElementById('emailMembro').value = '';
+    document.getElementById('whatsappMembro').value = '';
+    document.getElementById('hierarquiaMembro').value = '';
+    document.getElementById('jogoMembro').value = '';
+    
+    alert(`✅ MEMBRO ADICIONADO!\n\n${nick} foi adicionado ao clã!`);
+}
 
-        .painel-subtitle {
-            color: var(--adm-vermelho);
-            text-shadow: 0 0 10px var(--adm-vermelho);
-            font-size: 1.2rem;
-            position: relative;
-            z-index: 2;
-        }
+function editarMembro(nick) {
+    showClip('✏️', 'amarelo');
+    alert(`✏️ EDITANDO MEMBRO: ${nick}\n\nFunção de edição ativada!`);
+}
 
-        /* BOTÃO GALÁTICO PNG */
-        .btn-galatico-png {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #ff00ff, #6600ff, #0066ff);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 0 20px #6600ff, 0 0 40px #ff00ff;
-            transition: all 0.3s ease;
-            margin: 15px;
-            border: 2px solid #ffffff;
-            position: relative;
-            overflow: hidden;
-            font-family: 'Courier New', monospace;
-        }
+function excluirMembro(nick) {
+    if (confirm(`🗑️ CONFIRMAR EXCLUSÃO?\n\nDeseja realmente remover ${nick} do clã?`)) {
+        showClip('🗑️', 'vermelho');
+        
+        // Atualizar contador
+        const totalMembros = document.getElementById('totalMembros');
+        totalMembros.textContent = Math.max(0, parseInt(totalMembros.textContent) - 1);
+        
+        alert(`✅ MEMBRO REMOVIDO!\n\n${nick} foi removido do clã.`);
+    }
+}
 
-        .btn-galatico-png::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-galatico-png:hover::before {
-            left: 100%;
-        }
-
-        .btn-galatico-png:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 30px #6600ff, 0 0 60px #ff00ff;
-        }
-
-        .galatico-icon {
-            width: 32px;
-            height: 32px;
-            filter: drop-shadow(0 0 5px white);
-            animation: pulsar-galatico 2s infinite;
-        }
-
-        @keyframes pulsar-galatico {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        /* INFO CARDS */
-        .info-adm {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .info-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px;
-        }
-
-        .info-card.membros { border-color: var(--adm-verde); box-shadow: 0 0 15px var(--adm-verde); }
-        .info-card.equipes { border-color: var(--adm-amarelo); box-shadow: 0 0 15px var(--adm-amarelo); }
-        .info-card.partidas { border-color: var(--adm-vermelho); box-shadow: 0 0 15px var(--adm-vermelho); }
-        .info-card.campeonatos { border-color: var(--adm-azul); box-shadow: 0 0 15px var(--adm-azul); }
-
-        .info-card:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 25px;
-        }
-
-        .info-numero {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px;
-        }
-
-        .info-card.membros .info-numero { color: var(--adm-verde); }
-        .info-card.equipes .info-numero { color: var(--adm-amarelo); }
-        .info-card.partidas .info-numero { color: var(--adm-vermelho); }
-        .info-card.campeonatos .info-numero { color: var(--adm-azul); }
-
-        /* GRID DE FUNCIONALIDADES */
-        .adm-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .adm-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .adm-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .adm-card:hover::before {
-            left: 100%;
-        }
-
-        .adm-card.vermelho { border-color: var(--adm-vermelho); box-shadow: 0 0 20px var(--adm-vermelho); }
-        .adm-card.azul { border-color: var(--adm-azul); box-shadow: 0 0 20px var(--adm-azul); }
-        .adm-card.verde { border-color: var(--adm-verde); box-shadow: 0 0 20px var(--adm-verde); }
-        .adm-card.roxo { border-color: #ff00ff; box-shadow: 0 0 20px #ff00ff; }
-
-        .adm-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 0 30px;
-        }
-
-        .adm-icon {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px);
-        }
-
-        .adm-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px;
-        }
-
-        .adm-card.vermelho h3 { color: var(--adm-vermelho); }
-        .adm-card.azul h3 { color: var(--adm-azul); }
-        .adm-card.verde h3 { color: var(--adm-verde); }
-        .adm-card.roxo h3 { color: #ff00ff; }
-
-        /* SEÇÕES DO PAINEL */
-        .secao-adm {
-            background: rgba(0, 0, 0, 0.9);
-            border: 3px solid var(--adm-amarelo);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 0 25px var(--adm-amarelo);
-        }
-
-        .secao-titulo {
-            color: var(--adm-amarelo);
-            text-shadow: 0 0 15px var(--adm-amarelo);
-            margin-bottom: 25px;
-            text-align: center;
-            font-size: 1.8rem;
-        }
-
-        /* FORMULÁRIOS */
-        .form-adm {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
-        }
-
-        .input-adm {
-            padding: 15px;
-            border: 2px solid var(--adm-amarelo);
-            border-radius: 10px;
-            background: rgba(255, 255, 0, 0.1);
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: 'Courier New', monospace;
-        }
-
-        .input-adm:focus {
-            outline: none;
-            border-color: var(--adm-verde);
-            box-shadow: 0 0 20px var(--adm-verde);
-            transform: scale(1.02);
-        }
-
-        .full-width {
-            grid-column: 1 / -1;
-        }
-
-        /* TABELAS */
-        .tabela-adm {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid var(--adm-amarelo);
-        }
-
-        .tabela-adm th, .tabela-adm td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 0, 0.3);
-        }
-
-        .tabela-adm th {
-            background: rgba(255, 255, 0, 0.2);
-            color: var(--adm-amarelo);
-            font-weight: bold;
-            text-shadow: 0 0 10px var(--adm-amarelo);
-        }
-
-        .tabela-adm tr:hover {
-            background: rgba(255, 255, 0, 0.1);
-        }
-
-        /* BOTÕES DE AÇÃO */
-        .acao-btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 2px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            font-family: 'Courier New', monospace;
-        }
-
-        .editar { 
-            background: var(--adm-amarelo); 
-            color: #000; 
-            box-shadow: 0 0 10px var(--adm-amarelo);
-        }
-
-        .excluir { 
-            background: var(--adm-vermelho); 
-            color: white; 
-            box-shadow: 0 0 10px var(--adm-vermelho);
-        }
-
-        .confirmar { 
-            background: var(--adm-verde); 
-            color: #000; 
-            box-shadow: 0 0 10px var(--adm-verde);
-        }
-
-        .acao-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px;
-        }
-
-        /* BOTÕES PRINCIPAIS */
-        .btn-painel {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 10px;
-            font-family: 'Courier New', monospace;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-painel.backup {
-            background: linear-gradient(45deg, var(--adm-amarelo), var(--adm-verde));
-            color: #000;
-            box-shadow: 0 0 20px var(--adm-amarelo);
-        }
-
-        .btn-painel.voltar {
-            background: linear-gradient(45deg, var(--adm-vermelho), #ff6b6b);
-            color: white;
-            box-shadow: 0 0 20px var(--adm-vermelho);
-        }
-
-        .btn-painel.sair {
-            background: linear-gradient(45deg, #ff0000, #cc0000);
-            color: white;
-            box-shadow: 0 0 20px var(--adm-vermelho);
-        }
-
-        .btn-painel:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px;
-        }
-
-        /* CLIPES ANIMADOS */
-        .clip-painel {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            font-size: 4rem;
-            z-index: 1000;
-            animation: clip-pop 0.5s ease-out;
-        }
-
-        @keyframes clip-pop {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-
-        /* RESPONSIVO */
-        @media (max-width: 768px) {
-            .painel-title { font-size: 2rem; }
-            .adm-grid { grid-template-columns: 1fr; }
-            .form-adm { grid-template-columns: 1fr; }
-            .info-adm { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
-</head>
-<body>
-    <div class="painel-container">
-        <!-- HEADER DO PAINEL ADM -->
-        <header class="painel-header">
-            <h1 class="painel-title">👑 PAINEL ADM SUPREMO</h1>
-            <p class="painel-subtitle">Controle Total - Furia da Noite Play</p>
-            
-            <!-- BOTÃO GALÁTICO PNG -->
-            <div style="text-align: center; margin: 20px 0;">
-                <a href="#" class="btn-galatico-png" onclick="abrirChatGalatico()">
-                    <img src="https://i.imgur.com/9zJ3Y7c.png" alt="Galático" class="galatico-icon">
-                    CHAT GALÁTICO
-                </a>
-            </div>
-            
-            <!-- INFO CARDS -->
-            <div class="info-adm">
-                <div class="info-card membros">
-                    <div class="info-numero" id="totalMembros">47</div>
-                    <div>👥 MEMBROS</div>
-                </div>
-                <div class="info-card equipes">
-                    <div class="info-numero" id="totalEquipes">12</div>
-                    <div>🏆 EQUIPES</div>
-                </div>
-                <div class="info-card partidas">
-                    <div class="info-numero" id="partidasHoje">8</div>
-                    <div>🎮 PARTIDAS HOJE</div>
-                </div>
-                <div class="info-card campeonatos">
-                    <div class="info-numero" id="campeonatos">5</div>
-                    <div>🏅 CAMPEONATOS</div>
-                </div>
-            </div>
-        </header>
-
-        <!-- GRID DE FUNCIONALIDADES ADM -->
-        <div class="adm-grid">
-            <div class="adm-card vermelho" onclick="gerenciarMembros()">
-                <div class="adm-icon">👥</div>
-                <h3>GERENCIAR MEMBROS</h3>
-                <p>Adicionar, editar ou remover membros</p>
-                <div style="color: var(--adm-vermelho); font-size: 0.9em; margin-top: 10px;">🔴 Acesso Total</div>
-            </div>
-            
-            <div class="adm-card azul" onclick="gerenciarCampeonatos()">
-                <div class="adm-icon">🏆</div>
-                <h3>CAMPEONATOS</h3>
-                <p>Criar e gerenciar competições</p>
-                <div style="color: var(--adm-azul); font-size: 0.9em; margin-top: 10px;">🔵 Configurações</div>
-            </div>
-            
-            <div class="adm-card verde" onclick="gerenciarPartidas()">
-                <div class="adm-icon">🎮</div>
-                <h3>PARTIDAS</h3>
-                <p>Agendar e confirmar jogos</p>
-                <div style="color: var(--adm-verde); font-size: 0.9em; margin-top: 10px;">🟢 Ao Vivo</div>
-            </div>
-            
-            <div class="adm-card roxo" onclick="gerenciarTabelas()">
-                <div class="adm-icon">📊</div>
-                <h3>TABELAS</h3>
-                <p>Atualizar classificações</p>
-                <div style="color: #ff00ff; font-size: 0.9em; margin-top: 10px;">💜 Estatísticas</div>
-            </div>
+// SISTEMA DE BACKUP
+function fazerBackup() {
+    showClip('💾', 'verde');
+    
+    const progresso = document.createElement('div');
+    progresso.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.9);
+        color: var(--adm-verde);
+        padding: 30px;
+        border-radius: 15px;
+        border: 3px solid var(--adm-verde);
+        box-shadow: 0 0 30px var(--adm-verde);
+        z-index: 10000;
+        text-align: center;
+        font-size: 1.2rem;
+    `;
+    
+    progresso.innerHTML = `
+        <h3>💾 BACKUP EM ANDAMENTO</h3>
+        <p>Salvando dados do sistema...</p>
+        <div style="background: rgba(255,255,255,0.1); height: 20px; border-radius: 10px; margin: 15px 0; overflow: hidden;">
+            <div id="barraProgresso" style="height: 100%; background: var(--adm-verde); width: 0%; transition: width 2s;"></div>
         </div>
+    `;
+    
+    document.body.appendChild(progresso);
+    
+    // Simular progresso
+    setTimeout(() => {
+        document.getElementById('barraProgresso').style.width = '100%';
+    }, 100);
+    
+    setTimeout(() => {
+        progresso.remove();
+        showClip('✅', 'verde');
+        alert('✅ BACKUP CONCLUÍDO!\n\nTodos os dados foram salvos com sucesso!');
+    }, 2000);
+}
 
-        <!-- SEÇÃO: GERENCIAR MEMBROS -->
-        <div class="secao-adm">
-            <h2 class="secao-titulo">👥 GERENCIAMENTO DE MEMBROS</h2>
-            
-            <div class="form-adm">
-                <input type="text" class="input-adm" placeholder="Nome do Membro" id="nomeMembro">
-                <input type="text" class="input-adm" placeholder="Nick no Jogo" id="nickMembro">
-                <input type="email" class="input-adm" placeholder="E-mail" id="emailMembro">
-                <input type="tel" class="input-adm" placeholder="WhatsApp" id="whatsappMembro">
-                <select class="input-adm" id="hierarquiaMembro">
-                    <option value="">Selecionar Hierarquia</option>
-                    <option value="lider">👑 Líder</option>
-                    <option value="vice">⭐ Vice-Líder</option>
-                    <option value="oficial">🔰 Oficial</option>
-                    <option value="lider-equipe">🎯 Líder de Equipe</option>
-                    <option value="veterano">🛡️ Veterano</option>
-                    <option value="membro">👤 Membro</option>
-                    <option value="anciao">🧙 Ancião</option>
-                </select>
-                <select class="input-adm" id="jogoMembro">
-                    <option value="">🎮 Jogo Principal</option>
-                    <option value="cfn">⚔️ CFN - Clash of Clan</option>
-                    <option value="cr">🏰 CR - Clash Royale</option>
-                    <option value="mlbb">🗡️ MLBB - Mobile Legends</option>
-                </select>
-                <button class="btn-painel backup full-width" onclick="adicionarMembro()">
-                    ➕ ADICIONAR MEMBRO
-                </button>
-            </div>
+// NAVEGAÇÃO
+function voltarInicio() {
+    showClip('🏠', 'amarelo');
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 1000);
+}
 
-            <table class="tabela-adm">
-                <thead>
-                    <tr>
-                        <th>NICK</th>
-                        <th>HIERARQUIA</th>
-                        <th>JOGO</th>
-                        <th>STATUS</th>
-                        <th>AÇÕES</th>
-                    </tr>
-                </thead>
-                <tbody id="tabelaMembros">
-                    <tr>
-                        <td>FRØN</td>
-                        <td>👑 Líder</td>
-                        <td>🗡️ MLBB</td>
-                        <td style="color: var(--adm-verde);">🟢 Online</td>
-                        <td>
-                            <button class="acao-btn editar" onclick="editarMembro('FRØN')">✏️ Editar</button>
-                            <button class="acao-btn excluir" onclick="excluirMembro('FRØN')">🗑️ Excluir</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ToxicSkull√</td>
-                        <td>⭐ Vice-Líder</td>
-                        <td>⚔️ CFN</td>
-                        <td style="color: var(--adm-amarelo);">🟡 Ausente</td>
-                        <td>
-                            <button class="acao-btn editar" onclick="editarMembro('ToxicSkull√')">✏️ Editar</button>
-                            <button class="acao-btn excluir" onclick="excluirMembro('ToxicSkull√')">🗑️ Excluir</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+function sairPainel() {
+    if (confirm('🚪 SAIR DO PAINEL ADM?\n\nDeseja realmente sair do painel administrativo?')) {
+        showClip('👋', 'vermelho');
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1500);
+    }
+}
 
-        <!-- BOTÕES DE AÇÃO -->
-        <div style="text-align: center; margin-top: 40px;">
-            <button class="btn-painel backup" onclick="fazerBackup()">
-                💾 FAZER BACKUP DO SISTEMA
-            </button>
-            <button class="btn-painel voltar" onclick="voltarInicio()">
-                🏠 VOLTAR AO INÍCIO
-            </button>
-            <button class="btn-painel sair" onclick="sairPainel()">
-                🚪 SAIR DO PAINEL ADM
-            </button>
-        </div>
-    </div>
+// ATUALIZAÇÃO AUTOMÁTICA DE ESTATÍSTICAS
+function atualizarEstatisticas() {
+    // Simular dados dinâmicos
+    const partidas = document.getElementById('partidasHoje');
+    const randomPartidas = Math.floor(Math.random() * 5) + 6; // 6-10
+    partidas.textContent = randomPartidas;
+    
+    // Atualizar a cada 30 segundos
+    setTimeout(atualizarEstatisticas, 30000);
+}
 
-    <script>
-        // SISTEMA DE CLIPES
-        function showClip(emoji, cor) {
-            const clip = document.createElement('div');
-            clip.className = 'clip-painel';
-            clip.textContent = emoji;
-            
-            if (cor === 'vermelho') {
-                clip.style.color = 'var(--adm-vermelho)';
-                clip.style.textShadow = '0 0 20px var(--adm-vermelho)';
-            } else if (cor === 'amarelo') {
-                clip.style.color = 'var(--adm-amarelo)';
-                clip.style.textShadow = '0 0 20px var(--adm-amarelo)';
-            } else {
-                clip.style.color = 'var(--adm-verde)';
-                clip.style.textShadow = '0 0 20px var(--adm-verde)';
-            }
-            
-            docum
+// INICIALIZAÇÃO DO SISTEMA
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('👑 PAINEL ADM SUPREMO INICIADO');
+    console.log('🔥 Sistema FuriaDaNoitePlay - Modo Administrativo');
+    
+    // Iniciar atualização de estatísticas
+    atualizarEstatisticas();
+    
+    // Efeito de digitação no título
+    const titulo = document.querySelector('.painel-title');
+    const textoOriginal = titulo.textContent;
+    titulo.textContent = '';
+    let i = 0;
+    
+    function digitar() {
+        if (i < textoOriginal.length) {
+            titulo.textContent += textoOriginal.charAt(i);
+            i++;
+            setTimeout(digitar, 100);
+        }
+    }
+    setTimeout(digitar, 500);
+});
+
+// CONTROLE DE ACESSO ADM
+const urlParams = new URLSearchParams(window.location.search);
+const usuario = urlParams.get('usuario') || 'ADMIN';
+
+if (!usuario) {
+    alert('🚫 ACESSO NEGADO!\n\nRedirecionando para login...');
+    window.location.href = 'login.html';
+} else {
+    console.log(`🔐 Acesso concedido para: ${usuario}`);
+    
+    // Mostrar usuário atual no console
+    const userInfo = document.createElement('div');
+    userInfo.style.cssText = `
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(0,0,0,0.8);
+        color: var(--adm-amarelo);
+        padding: 10px 15px;
+        border-radius: 10px;
+        border: 2px solid var(--adm-amarelo);
+        font-size: 0.9rem;
+        z-index: 9999;
+    `;
+    userInfo.textContent = `👤 ${usuario}`;
+    document.body.appendChild(userInfo);
+}
