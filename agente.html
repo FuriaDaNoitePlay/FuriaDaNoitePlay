@@ -101,7 +101,7 @@
 
     /* ===== CONTEÚDO PRINCIPAL ===== */
     main {
-      max-width: 1200px;
+      max-width: 800px;
       margin: 0 auto;
       padding: 30px 20px;
     }
@@ -121,57 +121,18 @@
       100% { text-shadow: 0 0 20px var(--neon-vermelho); }
     }
 
-    /* ===== SISTEMA DE MEMBROS ===== */
-    .hierarquia-info {
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid var(--neon-vermelho);
-      border-radius: 12px;
-      box-shadow: 0 0 25px var(--neon-vermelho);
-      padding: 25px;
-      margin: 30px 0;
-      text-align: left;
+    /* ===== SISTEMA DE MEMBROS EM COLUNA ===== */
+    .membros-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      padding: 20px 0;
     }
 
-    .hierarquia-info h2 {
-      color: var(--neon-vermelho);
-      text-shadow: 0 0 15px var(--neon-vermelho);
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .hierarquia-lista {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .cargo-item {
-      background: rgba(255, 0, 0, 0.1);
-      padding: 15px;
-      border-radius: 8px;
-      border-left: 4px solid var(--neon-vermelho);
-    }
-
-    .cargo-item strong {
-      color: var(--neon-vermelho);
-      text-shadow: 0 0 10px var(--neon-vermelho);
-    }
-
-    /* ===== GRID DE MEMBROS ===== */
-    .membros-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      padding: 30px;
-      perspective: 1000px;
-    }
-
-    .membro-card {
+    .membro-item {
       background: linear-gradient(145deg, #1a0000, #0a0000);
       border-radius: 20px;
-      padding: 25px;
-      text-align: center;
+      padding: 0;
       border: 3px solid;
       box-shadow: 
           0 10px 30px rgba(255, 0, 0, 0.4),
@@ -183,7 +144,7 @@
       cursor: pointer;
     }
 
-    .membro-card::before {
+    .membro-item::before {
       content: '';
       position: absolute;
       top: 0;
@@ -192,17 +153,15 @@
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.2), transparent);
       transition: left 0.6s;
+      z-index: 2;
     }
 
-    .membro-card:hover::before {
+    .membro-item:hover::before {
       left: 100%;
     }
 
-    .membro-card:hover {
-      transform: 
-          translateY(-15px) 
-          rotateX(5deg) 
-          scale(1.08);
+    .membro-item:hover {
+      transform: translateY(-10px) scale(1.02);
       box-shadow: 
           0 25px 50px rgba(255, 0, 0, 0.6),
           0 0 80px rgba(255, 0, 0, 0.3),
@@ -235,54 +194,43 @@
       box-shadow: 0 0 30px var(--neon-azul);
     }
 
-    .membro-card:hover.membro-dono {
+    .membro-item:hover.membro-dono {
       border-color: #ff3333;
       box-shadow: 0 0 50px #ff0000;
     }
 
-    .membro-card:hover.membro-dona {
+    .membro-item:hover.membro-dona {
       border-color: #ff66ff;
       box-shadow: 0 0 50px var(--neon-rosa);
     }
 
-    .membro-card:hover.membro-lider {
+    .membro-item:hover.membro-lider {
       border-color: #ffff66;
       box-shadow: 0 0 50px var(--neon-amarelo);
     }
 
-    .membro-card:hover.membro-colid {
+    .membro-item:hover.membro-colid {
       border-color: #66ff66;
       box-shadow: 0 0 50px var(--neon-verde);
     }
 
-    .membro-card:hover.membro-anciao {
+    .membro-item:hover.membro-anciao {
       border-color: #66ffff;
       box-shadow: 0 0 50px var(--neon-azul);
     }
 
-    /* ===== IMAGEM DO MEMBRO ===== */
-    .membro-imagem {
+    /* ===== FOTO DO MEMBRO ===== */
+    .membro-foto {
       width: 100%;
-      height: 200px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      border: 3px solid;
-      background: linear-gradient(135deg, #330000, #660000, #990000);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ff6666;
-      font-weight: bold;
-      font-size: 1.2em;
+      height: 300px;
       position: relative;
       overflow: hidden;
       background-size: cover !important;
       background-position: center !important;
       background-repeat: no-repeat !important;
-      transition: all 0.4s ease;
     }
 
-    .membro-imagem::before {
+    .membro-foto::before {
       content: "";
       position: absolute;
       top: -50%;
@@ -299,6 +247,7 @@
       );
       animation: brilho-holografico 4s linear infinite;
       transform: rotate(45deg);
+      z-index: 1;
     }
 
     @keyframes brilho-holografico {
@@ -306,7 +255,7 @@
       100% { transform: rotate(45deg) translateX(100%); }
     }
 
-    .membro-imagem::after {
+    .membro-foto::after {
       content: "";
       position: absolute;
       top: 0;
@@ -321,49 +270,46 @@
       );
       opacity: 0;
       transition: opacity 0.3s;
+      z-index: 1;
     }
 
-    .membro-card:hover .membro-imagem::after {
+    .membro-item:hover .membro-foto::after {
       opacity: 1;
     }
 
+    .badge-cargo {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9em;
+      z-index: 2;
+      border: 2px solid;
+    }
+
+    .badge-dono { border-color: #ff0000; color: #ff0000; }
+    .badge-dona { border-color: var(--neon-rosa); color: var(--neon-rosa); }
+    .badge-lider { border-color: var(--neon-amarelo); color: var(--neon-amarelo); }
+    .badge-colid { border-color: var(--neon-verde); color: var(--neon-verde); }
+    .badge-anciao { border-color: var(--neon-azul); color: var(--neon-azul); }
+
     /* ===== INFORMAÇÕES DO MEMBRO ===== */
+    .membro-conteudo {
+      padding: 20px;
+      text-align: left;
+    }
+
     .membro-nome {
       color: #ff3333;
       font-weight: bold;
-      font-size: 1.3em;
+      font-size: 1.5em;
       text-shadow: 
           0 0 10px #ff0000,
-          0 0 20px #ff0000,
-          0 0 30px #ff0000;
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
-      padding: 12px 15px;
-      border-radius: 12px;
-      border: 2px solid #ff0000;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
+          0 0 20px #ff0000;
       margin-bottom: 10px;
-    }
-
-    .membro-nome::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.3), transparent);
-      transition: left 0.5s;
-    }
-
-    .membro-card:hover .membro-nome::before {
-      left: 100%;
-    }
-
-    .membro-card:hover .membro-nome {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
     }
 
     .membro-cargo {
@@ -384,36 +330,34 @@
 
     .membro-info {
       color: #ccc;
-      font-size: 0.9em;
-      line-height: 1.4;
-      margin-top: 10px;
-      text-align: left;
+      font-size: 0.95em;
+      line-height: 1.5;
     }
 
     .membro-titulo {
       color: var(--neon-vermelho);
       font-weight: bold;
-      margin: 5px 0;
+      margin: 8px 0 5px 0;
     }
 
     .membro-local {
       color: #ff9999;
       font-style: italic;
-      margin: 3px 0;
+      margin: 5px 0;
     }
 
     .membro-conquistas {
       color: #ffd700;
-      margin: 3px 0;
-      font-size: 0.85em;
+      margin: 5px 0;
+      font-size: 0.9em;
     }
 
     /* ===== BOTÕES DE AÇÃO ===== */
     .botoes-acao {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-top: 15px;
+      gap: 15px;
+      margin-top: 20px;
       flex-wrap: wrap;
     }
 
@@ -421,18 +365,20 @@
       background: rgba(255, 0, 0, 0.2);
       color: #fff;
       border: 1px solid var(--neon-vermelho);
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-size: 0.8em;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 0.9em;
       cursor: pointer;
       transition: all 0.3s ease;
       text-decoration: none;
+      font-weight: bold;
     }
 
     .btn-acao:hover {
       background: var(--neon-vermelho);
       color: #000;
       transform: scale(1.05);
+      box-shadow: 0 0 15px var(--neon-vermelho);
     }
 
     /* ===== RODAPÉ ===== */
@@ -481,20 +427,17 @@
 
     /* ===== RESPONSIVIDADE ===== */
     @media (max-width: 768px) {
-      .membros-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        padding: 20px;
+      main {
+        max-width: 95%;
+        padding: 15px 10px;
       }
       
-      .membro-imagem {
-        height: 160px;
-        font-size: 1.1em;
+      .membro-foto {
+        height: 250px;
       }
       
       .membro-nome {
-        font-size: 1.1em;
-        padding: 10px;
+        font-size: 1.3em;
       }
       
       nav {
@@ -505,6 +448,15 @@
       nav a {
         width: 80%;
         text-align: center;
+      }
+      
+      .botoes-acao {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn-acao {
+        width: 80%;
       }
     }
   </style>
@@ -527,164 +479,190 @@
   <main>
     <h1 class="titulo-pagina">🌙 AGENTE DA NOITE 🌙</h1>
     
-    <!-- Informações da Hierarquia -->
-    <div class="hierarquia-info">
-      <h2>🏰 HIERARQUIA DA EQUIPE</h2>
-      <div class="hierarquia-lista">
-        <div class="cargo-item">
-          <strong>👑 DONO/DONA</strong> - Liderança máxima da equipe
-        </div>
-        <div class="cargo-item">
-          <strong>⭐ LÍDER</strong> - Comando direto das operações
-        </div>
-        <div class="cargo-item">
-          <strong>🌟 CO-LÍDER</strong> - Suporte à liderança
-        </div>
-        <div class="cargo-item">
-          <strong>💎 ANCIÃO</strong> - Membros veteranos e experientes
-        </div>
-      </div>
-    </div>
-
-    <!-- Grid de Membros -->
-    <div class="membros-grid">
+    <!-- Lista de Membros em Coluna -->
+    <div class="membros-lista">
       <!-- DONO 1 - ToxicSkuliv -->
-      <div class="membro-card membro-dono" onclick="mostrarPerfil(1)">
-        <div class="membro-imagem" style="background: url('membros1.png') center/cover;">
-          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
-            👑 DONO
+      <div class="membro-item membro-dono" onclick="mostrarPerfil(1)">
+        <div class="membro-foto" style="background: url('membros1.png') center/cover;">
+          <div class="badge-cargo badge-dono">👑 DONO</div>
+        </div>
+        <div class="membro-conteudo">
+          <div class="membro-nome">ToxicSkuliv</div>
+          <div class="membro-cargo cargo-dono">👑 FUNDADOR</div>
+          <div class="membro-info">
+            <div class="membro-titulo">FuriaDaNoitePlay</div>
+            <div class="membro-conquistas">🎯 Colecionador Renomado 1</div>
+            <div class="membro-conquistas">🏆 Brazil Top 128</div>
           </div>
-        </div>
-        <div class="membro-nome">ToxicSkuliv</div>
-        <div class="membro-cargo cargo-dono">👑 FUNDADOR</div>
-        <div class="membro-info">
-          <div class="membro-titulo">FuriaDaNoitePlay</div>
-          <div class="membro-conquistas">Colecionador Renomado 1</div>
-          <div class="membro-conquistas">Brazil Top 128</div>
-        </div>
-        <div class="botoes-acao">
-          <button class="btn-acao">👀 Ver Perfil</button>
-          <button class="btn-acao">🎮 Convidar</button>
+          <div class="botoes-acao">
+            <button class="btn-acao">👀 Ver Perfil Completo</button>
+            <button class="btn-acao">🎮 Convidar para Jogar</button>
+            <button class="btn-acao">💬 Enviar Mensagem</button>
+          </div>
         </div>
       </div>
 
       <!-- DONA 2 - Neterpirou -->
-      <div class="membro-card membro-dona" onclick="mostrarPerfil(2)">
-        <div class="membro-imagem" style="background: url('membros2.png') center/cover;">
-          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
-            👑 DONA
+      <div class="membro-item membro-dona" onclick="mostrarPerfil(2)">
+        <div class="membro-foto" style="background: url('membros2.png') center/cover;">
+          <div class="badge-cargo badge-dona">👑 DONA</div>
+        </div>
+        <div class="membro-conteudo">
+          <div class="membro-nome">Neterpirou</div>
+          <div class="membro-cargo cargo-dona">👑 CO-FUNDADORA</div>
+          <div class="membro-info">
+            <div class="membro-titulo">FuriaDaNoitePlay</div>
+            <div class="membro-local">📍 Brazil/Rio Grande do Norte</div>
           </div>
-        </div>
-        <div class="membro-nome">Neterpirou</div>
-        <div class="membro-cargo cargo-dona">👑 CO-FUNDADORA</div>
-        <div class="membro-info">
-          <div class="membro-titulo">FuriaDaNoitePlay</div>
-          <div class="membro-local">Brazil/Rio Grande do Norte</div>
-        </div>
-        <div class="botoes-acao">
-          <button class="btn-acao">👀 Ver Perfil</button>
-          <button class="btn-acao">🎮 Convidar</button>
+          <div class="botoes-acao">
+            <button class="btn-acao">👀 Ver Perfil Completo</button>
+            <button class="btn-acao">🎮 Convidar para Jogar</button>
+            <button class="btn-acao">💬 Enviar Mensagem</button>
+          </div>
         </div>
       </div>
 
       <!-- DONO 3 - Scorpions game -->
-      <div class="membro-card membro-dono" onclick="mostrarPerfil(3)">
-        <div class="membro-imagem" style="background: url('membros3.png') center/cover;">
-          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
-            👑 DONO
+      <div class="membro-item membro-dono" onclick="mostrarPerfil(3)">
+        <div class="membro-foto" style="background: url('membros3.png') center/cover;">
+          <div class="badge-cargo badge-dono">👑 DONO</div>
+        </div>
+        <div class="membro-conteudo">
+          <div class="membro-nome">Scorpions game</div>
+          <div class="membro-cargo cargo-dono">👑 MEGA COLEcionador</div>
+          <div class="membro-info">
+            <div class="membro-titulo">FuriaDaNoitePlay</div>
+            <div class="membro-conquistas">💎 Mega Colecionador IV</div>
+            <div class="membro-local">🌎 Ecuador/Guayas</div>
           </div>
-        </div>
-        <div class="membro-nome">Scorpions game</div>
-        <div class="membro-cargo cargo-dono">👑 MEGA COLEcionador</div>
-        <div class="membro-info">
-          <div class="membro-titulo">FuriaDaNoitePlay</div>
-          <div class="membro-conquistas">Mega Colecionador IV</div>
-          <div class="membro-local">Ecuador/Guayas</div>
-        </div>
-        <div class="botoes-acao">
-          <button class="btn-acao">👀 Ver Perfil</button>
-          <button class="btn-acao">🎮 Convidar</button>
+          <div class="botoes-acao">
+            <button class="btn-acao">👀 Ver Perfil Completo</button>
+            <button class="btn-acao">🎮 Convidar para Jogar</button>
+            <button class="btn-acao">💬 Enviar Mensagem</button>
+          </div>
         </div>
       </div>
 
       <!-- LÍDER 4 - Son_king -->
-      <div class="membro-card membro-lider" onclick="mostrarPerfil(4)">
-        <div class="membro-imagem" style="background: url('membros4.png') center/cover;">
-          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
-            ⭐ LÍDER
+      <div class="membro-item membro-lider" onclick="mostrarPerfil(4)">
+        <div class="membro-foto" style="background: url('membros4.png') center/cover;">
+          <div class="badge-cargo badge-lider">⭐ LÍDER</div>
+        </div>
+        <div class="membro-conteudo">
+          <div class="membro-nome">Son_king</div>
+          <div class="membro-cargo cargo-lider">⭐ LÍDER GERAL</div>
+          <div class="membro-info">
+            <div class="membro-titulo">FuriaDaNoitePlay</div>
+            <div class="membro-conquistas">🎯 Colecionador Especialista!</div>
+            <div class="membro-conquistas">⚔️ Aniquilador Nv.5</div>
+            <div class="membro-local">📍 Brazil/Rondonia</div>
           </div>
-        </div>
-        <div class="membro-nome">Son_king</div>
-        <div class="membro-cargo cargo-lider">⭐ LÍDER GERAL</div>
-        <div class="membro-info">
-          <div class="membro-titulo">FuriaDaNoitePlay</div>
-          <div class="membro-conquistas">Colecionador Especialista!</div>
-          <div class="membro-conquistas">Aniquilador Nv.5</div>
-          <div class="membro-local">Brazil/Rondonia</div>
-        </div>
-        <div class="botoes-acao">
-          <button class="btn-acao">👀 Ver Perfil</button>
-          <button class="btn-acao">🎮 Convidar</button>
+          <div class="botoes-acao">
+            <button class="btn-acao">👀 Ver Perfil Completo</button>
+            <button class="btn-acao">🎮 Convidar para Jogar</button>
+            <button class="btn-acao">💬 Enviar Mensagem</button>
+          </div>
         </div>
       </div>
 
       <!-- CO-LÍDER 5 - JOKER -->
-      <div class="membro-card membro-colid" onclick="mostrarPerfil(5)">
-        <div class="membro-imagem" style="background: url('membros5.png') center/cover;">
-          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
-            🌟 VETERANO
+      <div class="membro-item membro-colid" onclick="mostrarPerfil(5)">
+        <div class="membro-foto" style="background: url('membros5.png') center/cover;">
+          <div class="badge-cargo badge-colid">🌟 VETERANO</div>
+        </div>
+        <div class="membro-conteudo">
+          <div class="membro-nome">JOKER</div>
+          <div class="membro-cargo cargo-colid">🌟 CO-LÍDER</div>
+          <div class="membro-info">
+            <div class="membro-titulo">FuriaDaNoitePlay</div>
+            <div class="membro-conquistas">🎯 Colecionator Especialista IV</div>
+            <div class="membro-conquistas">🛡️ Guardiao Nv.5</div>
+            <div class="membro-local">📍 Brazil/Minas Gerais</div>
           </div>
-        </div>
-        <div class="membro-nome">JOKER</div>
-        <div class="membro-cargo cargo-colid">🌟 CO-LÍDER</div>
-        <div class="membro-info">
-          <div class="membro-titulo">FuriaDaNoitePlay</div>
-          <div class="membro-conquistas">Colecionator Especialista IV</div>
-          <div class="membro-conquistas">Guardiao Nv.5</div>
-          <div class="membro-local">Brazil/Minas Gerais</div>
-        </div>
-        <div class="botoes-acao">
-          <button class="btn-acao">👀 Ver Perfil</button>
-          <button class="btn-acao">🎮 Convidar</button>
+          <div class="botoes-acao">
+            <button class="btn-acao">👀 Ver Perfil Completo</button>
+            <button class="btn-acao">🎮 Convidar para Jogar</button>
+            <button class="btn-acao">💬 Enviar Mensagem</button>
+          </div>
         </div>
       </div>
 
       <!-- ANCIÃO 6 - SDOLLARS -->
-      <div class="membro-card membro-anciao" onclick="mostrarPerfil(6)">
-        <div class="membro-imagem" style="background: url('membros6.png') center/cover;">
-          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
-            💎 ANCIÃO
+      <div class="membro-item membro-anciao" onclick="mostrarPerfil(6)">
+        <div class="membro-foto" style="background: url('membros6.png') center/cover;">
+          <div class="badge-cargo badge-anciao">💎 ANCIÃO</div>
+        </div>
+        <div class="membro-conteudo">
+          <div class="membro-nome">SDOLLARS</div>
+          <div class="membro-cargo cargo-anciao">💎 ANCIÃO VETERANO</div>
+          <div class="membro-info">
+            <div class="membro-titulo">FuriaDaNoitePlay</div>
+            <div class="membro-conquistas">⚔️ Aniquilador Nv.5</div>
           </div>
-        </div>
-        <div class="membro-nome">SDOLLARS</div>
-        <div class="membro-cargo cargo-anciao">💎 ANCIÃO VETERANO</div>
-        <div class="membro-info">
-          <div class="membro-titulo">FuriaDaNoitePlay</div>
-          <div class="membro-conquistas">Aniquilador Nv.5</div>
-        </div>
-        <div class="botoes-acao">
-          <button class="btn-acao">👀 Ver Perfil</button>
-          <button class="btn-acao">🎮 Convidar</button>
+          <div class="botoes-acao">
+            <button class="btn-acao">👀 Ver Perfil Completo</button>
+            <button class="btn-acao">🎮 Convidar para Jogar</button>
+            <button class="btn-acao">💬 Enviar Mensagem</button>
+          </div>
         </div>
       </div>
 
       <!-- ANCIÃO 7 - 021_Zoro_mibb -->
-      <div class="membro-card membro-anciao" onclick="mostrarPerfil(7)">
-        <div class="membro-imagem" style="background: url('membros7.png') center/cover;">
-          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
-            💎 ANCIÃO
+      <div class="membro-item membro-anciao" onclick="mostrarPerfil(7)">
+        <div class="membro-foto" style="background: url('membros7.png') center/cover;">
+          <div class="badge-cargo badge-anciao">💎 ANCIÃO</div>
+        </div>
+        <div class="membro-conteudo">
+          <div class="membro-nome">021_Zoro_mibb</div>
+          <div class="membro-cargo cargo-anciao">💎 ANCIÃO ESPECIAL</div>
+          <div class="membro-info">
+            <div class="membro-titulo">FuriaDaNoitePlay</div>
+            <div class="membro-conquistas">🎯 Colecionador Especialista IV</div>
+            <div class="membro-conquistas">🔱 Tria Nv.2</div>
+            <div class="membro-conquistas">👑 Top 1 Benedetta - Capim</div>
+          </div>
+          <div class="botoes-acao">
+            <button class="btn-acao">👀 Ver Perfil Completo</button>
+            <button class="btn-acao">🎮 Convidar para Jogar</button>
+            <button class="btn-acao">💬 Enviar Mensagem</button>
           </div>
         </div>
-        <div class="membro-nome">021_Zoro_mibb</div>
-        <div class="membro-cargo cargo-anciao">💎 ANCIÃO ESPECIAL</div>
-        <div class="membro-info">
-          <div class="membro-titulo">FuriaDaNoitePlay</div>
-          <div class="membro-conquistas">Colecionador Especialista IV</div>
-          <div class="membro-conquistas">Tria Nv.2</div>
-          <div class="membro-conquistas">Top 1 Benedetta - Capim</div>
-        </div>
-        <div class="botoes-acao">
-          <button class="btn-acao">👀 Ver Perfil</button>
-          <button class="btn-acao">🎮 Convidar</button>
-        </div>
       </div>
+    </div>
+  </main>
+
+  <!-- BOTÃO VOLTAR AO INÍCIO -->
+  <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <i class="fas fa-arrow-up"></i> INÍCIO
+  </button>
+
+  <footer>
+    <p>© 2024 <span class="destaque">FURIA DA NOITE PLAY</span> - Todos os direitos reservados</p>
+    <p class="assinatura">Agente Da Noite - Hierarquia Oficial</p>
+  </footer>
+
+  <script>
+    // Efeito de digitação no título
+    document.addEventListener('DOMContentLoaded', function() {
+      const titulo = document.querySelector('.titulo-pagina');
+      const textoOriginal = titulo.textContent;
+      titulo.textContent = '';
+      
+      let i = 0;
+      const digitar = () => {
+        if (i < textoOriginal.length) {
+          titulo.textContent += textoOriginal.charAt(i);
+          i++;
+          setTimeout(digitar, 100);
+        }
+      };
+      
+      setTimeout(digitar, 500);
+    });
+
+    // Efeito de brilho aleatório nos cards
+    setInterval(() => {
+      const items = document.querySelectorAll('.membro-item');
+      const randomItem = items[Math.floor(Math.random() * items.length)];
+      
+      randomItem.style.boxShadow = '0 0 60px rgba(255, 0,
