@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 ADM SUPREMO - Sistema Liberado</title>
+    <title>👑 PAINEL ADM SUPREMO - FuriaDaNoite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,6 +13,7 @@
             --adm-amarelo: #ffff00;
             --adm-verde: #00ff00;
             --adm-roxo: #8a2be2;
+            --adm-azul: #0066ff;
             --fundo-escuro: #0a0a0a;
             --fundo-medio: #1a1a1a;
             --texto-brilho: #ffffff;
@@ -30,399 +31,328 @@
             font-family: 'Orbitron', sans-serif;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             overflow-x: hidden;
         }
 
-        /* ===== CONTAINER PRINCIPAL ===== */
+        /* ===== LAYOUT PRINCIPAL ===== */
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* ===== HEADER ADM SUPREMO ===== */
-        .adm-header {
-            text-align: center;
-            padding: 40px 30px;
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
-            border-radius: 20px;
-            border: 3px solid var(--adm-verde);
-            box-shadow: 
-                0 0 50px var(--adm-verde),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-            animation: pulsar-header 4s infinite alternate;
-        }
-
-        @keyframes pulsar-header {
-            0% { box-shadow: 0 0 50px var(--adm-verde); }
-            100% { box-shadow: 0 0 80px var(--adm-verde), 0 0 120px rgba(0, 255, 0, 0.3); }
-        }
-
-        .adm-header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
-            animation: brilho-adm 8s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes brilho-adm {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .adm-title {
-            font-size: 3rem;
-            color: var(--adm-verde);
-            text-shadow: 
-                0 0 20px var(--adm-verde),
-                0 0 40px var(--adm-verde),
-                0 0 60px var(--adm-verde);
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 2;
-            animation: brilho-texto 2s infinite alternate;
-        }
-
-        @keyframes brilho-texto {
-            0% { text-shadow: 0 0 20px var(--adm-verde); }
-            100% { text-shadow: 0 0 30px var(--adm-verde), 0 0 50px var(--adm-verde); }
-        }
-
-        .adm-subtitle {
-            color: var(--adm-verde);
-            text-shadow: 0 0 15px var(--adm-verde);
-            font-size: 1.3rem;
-            position: relative;
-            z-index: 2;
-            font-weight: 300;
-        }
-
-        /* ===== STATUS DO SISTEMA ===== */
-        .status-sistema {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
         }
 
-        .status-item {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(10, 0, 0, 0.8));
-            padding: 25px 15px;
-            border-radius: 15px;
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a0a0a 100%);
+            border-right: 3px solid var(--adm-vermelho);
+            box-shadow: 5px 0 25px rgba(255, 0, 0, 0.3);
+            padding: 30px 20px;
+            position: fixed;
+            width: 280px;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .user-info {
             text-align: center;
-            border: 2px solid var(--adm-verde);
-            box-shadow: 0 0 20px var(--adm-verde);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .status-item:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 0 40px var(--adm-verde), 0 0 60px rgba(0, 255, 0, 0.2);
-        }
-
-        .status-indicator {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            background: var(--adm-verde);
-            box-shadow: 0 0 15px var(--adm-verde);
-            animation: pulsar-indicador 2s infinite alternate;
-        }
-
-        @keyframes pulsar-indicador {
-            0% { transform: scale(1); box-shadow: 0 0 15px var(--adm-verde); }
-            100% { transform: scale(1.2); box-shadow: 0 0 25px var(--adm-verde); }
-        }
-
-        .status-item div:not(.status-indicator) {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: var(--adm-verde);
-            text-shadow: 0 0 10px var(--adm-verde);
-        }
-
-        .status-item small {
-            color: #cccccc;
-            font-size: 0.85rem;
-        }
-
-        /* ===== ACESSO LIVRE ===== */
-        .acesso-livre {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 100, 0, 0.2));
-            border: 3px solid var(--adm-verde);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-            text-align: center;
-            box-shadow: 
-                0 0 30px var(--adm-verde),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .acesso-livre::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
-            transition: left 0.6s;
-        }
-
-        .acesso-livre:hover::before {
-            left: 100%;
-        }
-
-        .acesso-livre h3 {
-            color: var(--adm-verde);
-            text-shadow: 0 0 15px var(--adm-verde);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .acesso-livre p {
-            color: #cccccc;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        /* ===== FORMULÁRIO LOGIN ADM ===== */
-        .login-container {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
-            padding: 40px;
-            border-radius: 20px;
-            border: 3px solid var(--adm-verde);
-            box-shadow: 
-                0 0 40px var(--adm-verde),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--adm-vermelho);
             margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .login-container::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.05), transparent);
-            animation: brilho-login 10s linear infinite;
-        }
-
-        @keyframes brilho-login {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .input-group label {
-            color: var(--adm-verde);
-            font-weight: bold;
-            text-shadow: 0 0 10px var(--adm-verde);
-            font-size: 1.2rem;
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--adm-vermelho);
+            box-shadow: 0 0 20px var(--adm-vermelho);
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            font-size: 2rem;
         }
 
-        .input-group input {
-            padding: 18px 20px;
-            border: 2px solid var(--adm-verde);
-            border-radius: 12px;
-            background: rgba(0, 255, 0, 0.1);
-            color: white;
-            font-size: 1.1rem;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            font-family: 'Orbitron', sans-serif;
-            box-shadow: 
-                0 0 15px rgba(0, 255, 0, 0.3),
-                inset 0 2px 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--adm-verde);
-            box-shadow: 
-                0 0 25px var(--adm-verde),
-                inset 0 2px 5px rgba(0, 0, 0, 0.5);
-            background: rgba(0, 255, 0, 0.15);
-            transform: scale(1.02);
-        }
-
-        .input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* ===== BOTÕES ===== */
-        .btn-adm {
-            padding: 20px 35px;
-            border: none;
-            border-radius: 25px;
+        .user-name {
+            color: var(--adm-vermelho);
+            font-size: 1.3rem;
             font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(135deg, var(--adm-verde), #00cc00, #009900);
-            color: #000;
-            box-shadow: 
-                0 0 25px var(--adm-verde),
-                0 5px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-adm::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-adm:hover::before {
-            left: 100%;
-        }
-
-        .btn-adm:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 
-                0 0 40px var(--adm-verde),
-                0 10px 25px rgba(0, 0, 0, 0.4);
-            background: linear-gradient(135deg, #00ff00, var(--adm-verde), #00cc00);
-        }
-
-        .btn-livre {
-            background: linear-gradient(135deg, #ff0000, #ffff00, #ffaa00);
-            box-shadow: 0 0 25px #ffff00;
-            margin: 10px;
-        }
-
-        .btn-livre:hover {
-            box-shadow: 0 0 40px #ffff00;
-        }
-
-        .back-btn {
-            background: transparent;
-            color: var(--adm-verde);
-            border: 2px solid var(--adm-verde);
-            padding: 15px 30px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.4s ease;
-            margin-top: 15px;
-            width: 100%;
-            font-family: 'Orbitron', sans-serif;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
-        }
-
-        .back-btn:hover {
-            background: rgba(0, 255, 0, 0.1);
-            box-shadow: 0 0 25px var(--adm-verde);
-            transform: translateY(-3px);
-        }
-
-        /* ===== LOGINS RÁPIDOS ===== */
-        .logins-rapidos {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.2));
-            border: 3px solid var(--adm-roxo);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 0 30px var(--adm-roxo);
-        }
-
-        .logins-rapidos h3 {
-            color: var(--adm-roxo);
-            text-shadow: 0 0 15px var(--adm-roxo);
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.5rem;
-        }
-
-        .lista-logins {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
-        .login-item {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid var(--adm-roxo);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .login-item:hover {
-            background: rgba(138, 43, 226, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
-        }
-
-        .login-item strong {
-            color: var(--adm-roxo);
-            display: block;
+            text-shadow: 0 0 10px var(--adm-vermelho);
             margin-bottom: 5px;
         }
 
-        .login-item span {
-            color: #cccccc;
+        .user-role {
+            color: var(--adm-amarelo);
             font-size: 0.9rem;
+            text-shadow: 0 0 8px var(--adm-amarelo);
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            border: 2px solid var(--adm-vermelho);
+            border-radius: 10px;
+            color: var(--texto-brilho);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: bold;
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--adm-vermelho);
+            color: #000;
+            box-shadow: 0 0 20px var(--adm-vermelho);
+            transform: translateX(5px);
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            width: 25px;
+        }
+
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        .main-content {
+            grid-column: 2;
+            padding: 30px;
+            margin-left: 280px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
+            padding: 25px 30px;
+            border-radius: 15px;
+            border: 2px solid var(--adm-vermelho);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            color: var(--adm-vermelho);
+            font-size: 2.2rem;
+            text-shadow: 0 0 20px var(--adm-vermelho);
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid var(--adm-vermelho);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            color: var(--adm-verde);
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--adm-verde);
+        }
+
+        .stat-label {
+            color: #cccccc;
+            font-size: 0.8rem;
+        }
+
+        /* ===== SEÇÕES DO PAINEL ===== */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid var(--adm-vermelho);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--adm-vermelho), #cc0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px var(--adm-vermelho);
+        }
+
+        .card-title {
+            color: var(--adm-vermelho);
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--adm-vermelho);
+        }
+
+        /* ===== BOTÕES ===== */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--adm-vermelho), #cc0000);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #cc0000, var(--adm-vermelho));
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--adm-verde), #00cc00);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--adm-amarelo), #ffaa00);
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* ===== LISTAS E TABELAS ===== */
+        .user-list, .team-list {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .user-item, .team-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .user-item:hover, .team-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .user-info-small, .team-info-small {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar-small {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--adm-vermelho), #cc0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        /* ===== FORMULÁRIOS ===== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--adm-vermelho);
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--adm-vermelho);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--adm-vermelho);
+            border-radius: 8px;
+            background: rgba(255, 0, 0, 0.1);
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--adm-amarelo);
+            box-shadow: 0 0 15px var(--adm-amarelo);
+            background: rgba(255, 255, 0, 0.1);
         }
 
         /* ===== MENSAGENS ===== */
         .mensagem {
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
             text-align: center;
             font-weight: bold;
-            font-size: 1.1rem;
             display: none;
             animation: slideIn 0.5s ease-out;
-            position: relative;
-            z-index: 100;
         }
 
         @keyframes slideIn {
-            from { transform: translateY(-30px); opacity: 0; }
+            from { transform: translateY(-20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
@@ -430,200 +360,214 @@
             background: rgba(0, 255, 0, 0.2);
             border: 2px solid var(--adm-verde);
             color: var(--adm-verde);
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
         }
 
         .mensagem.erro {
             background: rgba(255, 0, 0, 0.2);
             border: 2px solid var(--adm-vermelho);
             color: var(--adm-vermelho);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
         }
 
         /* ===== RESPONSIVIDADE ===== */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .container {
-                padding: 10px;
-            }
-            
-            .status-sistema {
                 grid-template-columns: 1fr;
-                gap: 15px;
             }
             
-            .adm-title {
-                font-size: 2.2rem;
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
             }
             
-            .adm-subtitle {
-                font-size: 1.1rem;
+            .main-content {
+                margin-left: 0;
+                grid-column: 1;
             }
             
-            .login-container {
-                padding: 25px;
-            }
-            
-            .btn-adm {
-                padding: 18px 25px;
-                font-size: 1.1rem;
-            }
-            
-            .lista-logins {
+            .dashboard {
                 grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 480px) {
-            .adm-title {
-                font-size: 1.8rem;
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
             }
             
-            .adm-header {
-                padding: 30px 20px;
+            .header-stats {
+                justify-content: center;
             }
             
-            .login-container {
-                padding: 20px;
-            }
-            
-            .input-group input {
-                padding: 15px;
+            .main-content {
+                padding: 20px 15px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- HEADER ADM SUPREMO -->
-        <header class="adm-header">
-            <h1 class="adm-title">👑 SISTEMA LIBERADO</h1>
-            <p class="adm-subtitle">ACESSO TOTAL ATIVADO - Modo Público</p>
-        </header>
-
-        <!-- STATUS DO SISTEMA -->
-        <div class="status-sistema">
-            <div class="status-item">
-                <div class="status-indicator"></div>
-                <div>🌐 SITE ONLINE</div>
-                <small>VERDE = ACESSO LIVRE</small>
+        <!-- SIDEBAR -->
+        <nav class="sidebar">
+            <div class="user-info">
+                <div class="user-avatar">
+                    👑
+                </div>
+                <div class="user-name" id="currentUser">FURIAGOD</div>
+                <div class="user-role">ADMINISTRADOR SUPREMO</div>
             </div>
-            
-            <div class="status-item">
-                <div class="status-indicator"></div>
-                <div>💾 DATABASE</div>
-                <small>VERDE = ATIVADA</small>
+
+            <div class="nav-menu">
+                <a href="#" class="nav-item active" onclick="mostrarSecao('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    DASHBOARD
+                </a>
+                <a href="#" class="nav-item" onclick="mostrarSecao('usuarios')">
+                    <i class="fas fa-users"></i>
+                    GERENCIAR USUÁRIOS
+                </a>
+                <a href="#" class="nav-item" onclick="mostrarSecao('equipes')">
+                    <i class="fas fa-people-group"></i>
+                    GERENCIAR EQUIPES
+                </a>
+                <a href="#" class="nav-item" onclick="mostrarSecao('campeonatos')">
+                    <i class="fas fa-trophy"></i>
+                    CAMPEONATOS
+                </a>
+                <a href="#" class="nav-item" onclick="mostrarSecao('confrontos')">
+                    <i class="fas fa-fist-raised"></i>
+                    CONFRONTOS
+                </a>
+                <a href="#" class="nav-item" onclick="mostrarSecao('chat')">
+                    <i class="fas fa-comments"></i>
+                    CHAT ADMIN
+                </a>
+                <a href="#" class="nav-item" onclick="mostrarSecao('configuracoes')">
+                    <i class="fas fa-cogs"></i>
+                    CONFIGURAÇÕES
+                </a>
+                <a href="login.html" class="nav-item" style="background: rgba(255, 0, 0, 0.3);">
+                    <i class="fas fa-sign-out-alt"></i>
+                    SAIR
+                </a>
             </div>
-            
-            <div class="status-item">
-                <div class="status-indicator"></div>
-                <div>🛡️ SEGURANÇA</div>
-                <small>VERDE = MODO PÚBLICO</small>
-            </div>
-        </div>
+        </nav>
 
-        <!-- ACESSO LIVRE -->
-        <div class="acesso-livre">
-            <h3>🎯 ACESSO IMEDIATO LIBERADO</h3>
-            <p>O sistema está em <strong>MODO PÚBLICO</strong> - Todos podem acessar!</p>
-            <button class="btn-adm btn-livre" onclick="acessoDireto()">
-                🎮 ENTRAR DIRETO NO JOGO
-            </button>
-        </div>
-
-        <!-- FORMULÁRIO LOGIN ADM -->
-        <div class="login-container">
-            <div class="login-form">
-                <div class="input-group">
-                    <label><i class="fas fa-crown"></i> USUÁRIO ADM:</label>
-                    <input type="text" id="usuarioAdm" placeholder="Digite usuário ADM" value="FURIAGOD">
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="header">
+                <h1 class="header-title" id="sectionTitle">PAINEL DE CONTROLE - ADM SUPREMO</h1>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="onlineCount">147</div>
+                        <div class="stat-label">ONLINE</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="matchesCount">23</div>
+                        <div class="stat-label">PARTIDAS</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="teamsCount">18</div>
+                        <div class="stat-label">EQUIPES</div>
+                    </div>
                 </div>
-                
-                <div class="input-group">
-                    <label><i class="fas fa-key"></i> SENHA ADM:</label>
-                    <input type="password" id="senhaAdm" placeholder="Digite senha ADM" value="Furia2025_$">
-                </div>
-                
-                <button class="btn-adm" onclick="fazerLoginAdm()">
-                    🚀 ACESSAR PAINEL ADM COMPLETO
-                </button>
-                
-                <button class="back-btn" onclick="voltarInicio()">
-                    ⬅️ VOLTAR AO INÍCIO
-                </button>
-            </div>
-        </div>
+            </header>
 
-        <!-- LOGINS RÁPIDOS -->
-        <div class="logins-rapidos">
-            <h3>🔓 LOGINS PRONTOS - CLIQUE PARA USAR</h3>
-            <div class="lista-logins">
-                <div class="login-item" onclick="preencherLogin('FURIAGOD', 'Furia2025_$')">
-                    <strong>FURIAGOD</strong>
-                    <span>Senha: Furia2025_$</span>
-                </div>
-                <div class="login-item" onclick="preencherLogin('Scorpion', 'Mlk00')">
-                    <strong>Scorpion</strong>
-                    <span>Senha: Mlk00</span>
-                </div>
-                <div class="login-item" onclick="preencherLogin('.Son King', 'God19')">
-                    <strong>.Son King</strong>
-                    <span>Senha: God19</span>
-                </div>
-                <div class="login-item" onclick="preencherLogin('NeferpitouI', 'Ana025')">
-                    <strong>NeferpitouI</strong>
-                    <span>Senha: Ana025</span>
-                </div>
-                <div class="login-item" onclick="preencherLogin('PNTS', 'pNtS')">
-                    <strong>PNTS</strong>
-                    <span>Senha: pNtS</span>
-                </div>
-                <div class="login-item" onclick="preencherLogin('VISITANTE', '123456')">
-                    <strong>VISITANTE</strong>
-                    <span>Senha: 123456</span>
-                </div>
-            </div>
-        </div>
+            <!-- MENSAGEM -->
+            <div id="mensagem" class="mensagem"></div>
 
-        <!-- MENSAGEM -->
-        <div id="mensagem" class="mensagem"></div>
-    </div>
+            <!-- SEÇÕES DO PAINEL -->
+            <div id="secoes">
+                <!-- DASHBOARD -->
+                <section id="dashboard" class="secao ativa">
+                    <div class="dashboard">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    👤
+                                </div>
+                                <h3 class="card-title">GERENCIAR USUÁRIOS</h3>
+                            </div>
+                            <p>Banir, editar nicks, resetar senhas e gerenciar permissões de usuários.</p>
+                            <div class="user-list">
+                                <div class="user-item">
+                                    <div class="user-info-small">
+                                        <div class="user-avatar-small">TS</div>
+                                        <div>
+                                            <strong>ToxicSkull√</strong>
+                                            <div style="font-size: 0.8rem; color: #ccc;">Online</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-warning" onclick="editarUsuario('ToxicSkull√')">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </button>
+                                        <button class="btn btn-danger" onclick="banirUsuario('ToxicSkull√')">
+                                            <i class="fas fa-ban"></i> Banir
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Mais usuários... -->
+                            </div>
+                            <button class="btn btn-primary" style="margin-top: 15px; width: 100%;" onclick="mostrarSecao('usuarios')">
+                                <i class="fas fa-cog"></i> GERENCIAR TODOS OS USUÁRIOS
+                            </button>
+                        </div>
 
-    <script>
-        // =============================================
-        // SISTEMA ADM SUPREMO - COMPLETO E SINCRONIZADO
-        // =============================================
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    🏆
+                                </div>
+                                <h3 class="card-title">CAMPEONATOS ATIVOS</h3>
+                            </div>
+                            <p>Crie e gerencie campeonatos, agende confrontos e defina resultados.</p>
+                            <div style="margin: 15px 0;">
+                                <strong>Campeonatos Ativos:</strong>
+                                <div style="color: #ccc; margin-top: 8px;">
+                                    • TRUCU 4x4 - Fase de Grupos<br>
+                                    • MLBB - Quartas de Final<br>
+                                    • Free Fire - Semifinal
+                                </div>
+                            </div>
+                            <button class="btn btn-success" onclick="mostrarSecao('campeonatos')">
+                                <i class="fas fa-plus"></i> NOVO CAMPEONATO
+                            </button>
+                            <button class="btn btn-primary" onclick="mostrarSecao('confrontos')">
+                                <i class="fas fa-calendar"></i> AGENDAR CONFRONTOS
+                            </button>
+                        </div>
 
-        // VARIÁVEIS DO SISTEMA
-        let siteAtualizado = true;
-        let tentativasLogin = 0;
-        const mensagem = document.getElementById('mensagem');
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    💬
+                                </div>
+                                <h3 class="card-title">CHAT E MODERAÇÃO</h3>
+                            </div>
+                            <p>Modere o chat global, visualize conversas e gerencie denúncias.</p>
+                            <div style="margin: 15px 0;">
+                                <strong>Status do Chat:</strong>
+                                <div style="color: var(--adm-verde); margin-top: 8px;">
+                                    ✅ Chat Online - 45 usuários ativos
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="mostrarSecao('chat')">
+                                <i class="fas fa-comments"></i> ACESSAR CHAT ADMIN
+                            </button>
+                            <button class="btn btn-warning" onclick="abrirModeracao()">
+                                <i class="fas fa-shield-alt"></i> PAINEL DE MODERAÇÃO
+                            </button>
+                        </div>
 
-        // CREDENCIAIS ADM COMPLETAS (SINCRONIZADAS)
-        const adms = {
-            'FURIAGOD': 'Furia2025_$',
-            'Scorpion': 'Mlk00',
-            '.Son King': 'God19',
-            'NeferpitouI': 'Ana025',
-            'PNTS': 'pNtS',
-            'ToxicSkull√': 'L@!on',
-            'ADMIN': 'admin123',
-            'MODERADOR': 'mod123',
-            'VISITANTE': '123456',
-            'TESTE': 'teste123',
-            'FURIA': 'furia2024',
-            'ROOT': 'rootAccess'
-        };
-
-        // ACESSO DIRETO SEM LOGIN (MODO PÚBLICO)
-        function acessoDireto() {
-            mostrarMensagem('🎉 ACESSO LIVRE ATIVADO! Redirecionando para o jogo...', 'sucesso');
-            
-            setTimeout(() => {
-                // Redireciona direto para o jogo sem login
-                window.location.href = 'jogo-trucu.html?acesso=livre&modo=publico&usuario=VISITANTE';
-            }, 1500);
-        }
-
-        // LOGIN ADM COMPLETO
-        function fazerLoginAdm() {
-            const usuario = document.getElementById('usuarioAdm').value.trim()
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    ⚙️
+                                </div>
+                                <h3 class="card-title">CONFIGURAÇÕES DO SISTEMA</h3>
