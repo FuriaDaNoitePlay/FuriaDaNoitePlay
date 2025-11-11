@@ -619,49 +619,84 @@
       </div>
     </section>
 
-    <!-- ====== PLAYER DE MÚSICA ATUALIZADO ====== -->
-    <section class="player-musica">
-      <h2>🎵 Trilha Sonora da Fúria</h2>
-      
-      <div class="player-header">
-        <img id="capaAtual" src="https://i.imgur.com/placeholder.jpg" alt="Capa da Música" class="capa-musica">
-        <div class="info-musica">
-          <h3 id="tituloMusica">The Perfect Girl</h3>
-          <p id="artistaMusica">Mareux</p>
-          <p id="albumMusica">The Perfect Girl (Single)</p>
-        </div>
-      </div>
-      
-      <div class="barra-progresso" id="barraProgresso">
-        <div class="progresso" id="progresso"></div>
-      </div>
-      
-      <div class="tempo-musica">
-        <span id="tempoAtual">0:00</span>
-        <span id="tempoTotal">0:00</span>
-      </div>
-      
-      <div class="controles-musica">
-        <button class="btn-musica" onclick="mudarMusica(-1)">
-          <i class="fas fa-step-backward"></i>
-        </button>
-        <button class="btn-musica" onclick="toggleMusica()" id="btnPlay">
-          <i class="fas fa-play"></i>
-        </button>
-        <button class="btn-musica" onclick="mudarMusica(1)">
-          <i class="fas fa-step-forward"></i>
-        </button>
-      </div>
-      
-      <div class="playlist">
-        <h3>Playlist da Fúria</h3>
-        <div id="listaMusicas">
-          <!-- As músicas serão carregadas via JavaScript -->
-        </div>
-      </div>
-      
-      <audio id="musica"></audio>
-    </section>
+    <!-- ====== PLAYER FRØN MUSIC ====== -->
+<section class="player-musica">
+  <h2>🎵 FRØN Music</h2>
+  
+  <div class="player-header">
+    <img id="capaAtual" src="musicaT.png" alt="Capa da Música" class="capa-musica">
+    <div class="info-musica">
+      <h3 id="tituloMusica">Nathalia</h3>
+      <p id="artistaMusica">FuriaDaNoitePlay</p>
+      <p id="albumMusica">Tema Oficial</p>
+    </div>
+  </div>
+  
+  <div class="barra-progresso" id="barraProgresso">
+    <div class="progresso" id="progresso"></div>
+  </div>
+  
+  <div class="tempo-musica">
+    <span id="tempoAtual">0:00</span>
+    <span id="tempoTotal">0:00</span>
+  </div>
+  
+  <div class="controles-musica">
+    <button class="btn-musica principal" onclick="tocarPausar()" id="btnPlay">
+      <i class="fas fa-play"></i>
+    </button>
+  </div>
+  
+  <audio id="musica" src="Nathalia.m4a"></audio>
+</section>
+
+<script>
+  const musica = document.getElementById('musica');
+  const btnPlay = document.getElementById('btnPlay');
+  const progresso = document.getElementById('progresso');
+  const barraProgresso = document.getElementById('barraProgresso');
+  const tempoAtual = document.getElementById('tempoAtual');
+  const tempoTotal = document.getElementById('tempoTotal');
+
+  musica.volume = 1.0;
+
+  musica.addEventListener('loadedmetadata', () => {
+    tempoTotal.textContent = formatarTempo(musica.duration);
+  });
+
+  musica.addEventListener('timeupdate', () => {
+    const progressoPercent = (musica.currentTime / musica.duration) * 100;
+    progresso.style.width = progressoPercent + '%';
+    tempoAtual.textContent = formatarTempo(musica.currentTime);
+  });
+
+  barraProgresso.addEventListener('click', (e) => {
+    const largura = barraProgresso.clientWidth;
+    const clique = e.offsetX;
+    const novaPosicao = (clique / largura) * musica.duration;
+    musica.currentTime = novaPosicao;
+  });
+
+  function tocarPausar() {
+    if (musica.paused) {
+      musica.play();
+      btnPlay.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+      musica.pause();
+      btnPlay.innerHTML = '<i class="fas fa-play"></i>';
+    }
+  }
+
+  musica.onended = () => {
+    btnPlay.innerHTML = '<i class="fas fa-play"></i>';
+  };
+
+  function formatarTempo(segundos) {
+    const minutos = Math.floor(segundos / 60);
+    const segs = Math.floor(segundos % 60);
+    return `${minutos}:${segs < 10 ? '0' : ''}${segs}`;
+  }
+</script>
 
     <!-- ====== EQUIPE ADM ====== -->
     <section class="adm-box">
