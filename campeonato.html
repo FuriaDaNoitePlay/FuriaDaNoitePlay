@@ -16,16 +16,22 @@
             background-color: #121212;
             color: #fff;
             padding: 20px;
+            background-image: linear-gradient(135deg, #1a0a0a 0%, #0a0a0a 50%, #001a0a 100%);
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
         header {
             text-align: center;
             margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.8);
+            border-radius: 15px;
+            border: 2px solid #ff003c;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.3);
         }
         
         h1 {
@@ -40,14 +46,15 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
         
         .nav-btn {
-            padding: 10px 20px;
+            padding: 12px 25px;
             background-color: #1e1e1e;
             border: 2px solid #333;
             color: #fff;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
@@ -55,23 +62,33 @@
         
         .nav-btn:hover {
             background-color: #333;
+            transform: translateY(-3px);
         }
         
         .nav-btn.active {
             background-color: #ff003c;
             border-color: #ff003c;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.5);
         }
         
         .championship-section {
             display: none;
-            background-color: #1e1e1e;
+            background-color: rgba(30, 30, 30, 0.9);
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            border: 1px solid #333;
         }
         
         .championship-section.active {
             display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .section-title {
@@ -79,6 +96,7 @@
             margin-bottom: 20px;
             font-size: 1.8rem;
             color: #ff003c;
+            text-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
         }
         
         .classification-table {
@@ -88,6 +106,11 @@
         
         .classification-table tr {
             border-bottom: 1px solid #333;
+            transition: background-color 0.3s;
+        }
+        
+        .classification-table tr:hover {
+            background-color: rgba(255, 0, 60, 0.1);
         }
         
         .classification-table tr:last-child {
@@ -137,6 +160,7 @@
         
         .circle.red {
             background-color: #ff003c;
+            box-shadow: 0 0 8px #ff003c;
         }
         
         .circle.white {
@@ -148,19 +172,263 @@
             color: #aaa;
             font-size: 0.9rem;
         }
+        
+        /* Área de Confrontos */
+        .confrontos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .confronto-card {
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #333;
+            transition: all 0.3s;
+        }
+        
+        .confronto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 0, 60, 0.2);
+        }
+        
+        .confronto-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .confronto-time {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .confronto-vs {
+            text-align: center;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #ff003c;
+        }
+        
+        .confronto-info {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #aaa;
+            text-align: center;
+        }
+        
+        /* Área de Chat */
+        .chat-container {
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid #333;
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background: rgba(255, 0, 60, 0.1);
+            border-left: 3px solid #ff003c;
+        }
+        
+        .message.system {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid #aaa;
+            font-style: italic;
+        }
+        
+        .message.admin {
+            background: rgba(0, 100, 255, 0.1);
+            border-left: 3px solid #0064ff;
+        }
+        
+        .message-user {
+            font-weight: bold;
+            color: #ff003c;
+        }
+        
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: #ff003c;
+        }
+        
+        .chat-send {
+            padding: 10px 20px;
+            background: #ff003c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .chat-send:hover {
+            background: #cc002f;
+            transform: scale(1.05);
+        }
+        
+        /* Painel de Login */
+        .login-container {
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 400px;
+            margin: 50px auto;
+            border: 1px solid #333;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
+        }
+        
+        .login-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff003c;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .login-input {
+            padding: 12px 15px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+        
+        .login-input:focus {
+            outline: none;
+            border-color: #ff003c;
+        }
+        
+        .login-btn {
+            padding: 12px;
+            background: #ff003c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            background: #cc002f;
+        }
+        
+        .admin-panel {
+            display: none;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid #0064ff;
+        }
+        
+        .admin-title {
+            color: #0064ff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .admin-btn {
+            padding: 8px 15px;
+            background: #0064ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .admin-btn:hover {
+            background: #0052cc;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .navigation {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .confrontos-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>CLASSIFICAÇÃO</h1>
-            <p>Campeonato de eSports</p>
+            <h1>CLASSIFICAÇÃO - CAMPEONATO ESPORTS</h1>
+            <p>Sistema de Classificação, Confrontos e Chat Administrativo</p>
         </header>
         
         <div class="navigation">
             <button class="nav-btn" data-target="serie-a">Série A</button>
             <button class="nav-btn active" data-target="serie-b">Série B</button>
             <button class="nav-btn" data-target="serie-c">Série C</button>
+            <button class="nav-btn" data-target="confrontos">Confrontos</button>
+            <button class="nav-btn" data-target="chat">Chat Galáctico</button>
+            <button class="nav-btn" data-target="admin">Painel ADM</button>
         </div>
         
         <section id="serie-a" class="championship-section serie-a">
@@ -288,27 +556,78 @@
                 </tr>
             </table>
         </section>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navButtons = document.querySelectorAll('.nav-btn');
-            const sections = document.querySelectorAll('.championship-section');
-            
-            navButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const targetId = this.getAttribute('data-target');
-                    
-                    // Remove active class from all buttons and sections
-                    navButtons.forEach(btn => btn.classList.remove('active'));
-                    sections.forEach(section => section.classList.remove('active'));
-                    
-                    // Add active class to clicked button and target section
-                    this.classList.add('active');
-                    document.getElementById(targetId).classList.add('active');
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+        
+        <!-- Área de Confrontos -->
+        <section id="confrontos" class="championship-section">
+            <h2 class="section-title">PRÓXIMOS CONFRONTOS</h2>
+            <div class="confrontos-container">
+                <div class="confronto-card">
+                    <div class="confronto-header">
+                        <span>SÉRIE A</span>
+                        <span>15/11 - 20:00</span>
+                    </div>
+                    <div class="confronto-time">
+                        <span class="circle red"></span>
+                        <span class="team-name">FÚRIA DA NOITE</span>
+                    </div>
+                    <div class="confronto-vs">VS</div>
+                    <div class="confronto-time">
+                        <span class="circle white"></span>
+                        <span class="team-name">NEON ESPORTS</span>
+                    </div>
+                    <div class="confronto-info">Melhor de 3 • Transmissão ao vivo</div>
+                </div>
+                
+                <div class="confronto-card">
+                    <div class="confronto-header">
+                        <span>SÉRIE B</span>
+                        <span>16/11 - 19:00</span>
+                    </div>
+                    <div class="confronto-time">
+                        <span class="circle red"></span>
+                        <span class="team-name">ECHO TEAM ACADEMY</span>
+                    </div>
+                    <div class="confronto-vs">VS</div>
+                    <div class="confronto-time">
+                        <span class="circle white"></span>
+                        <span class="team-name">OLIMPO YAKUZA</span>
+                    </div>
+                    <div class="confronto-info">Semifinal • Transmissão ao vivo</div>
+                </div>
+                
+                <div class="confronto-card">
+                    <div class="confronto-header">
+                        <span>SÉRIE C</span>
+                        <span>17/11 - 18:00</span>
+                    </div>
+                    <div class="confronto-time">
+                        <span class="circle red"></span>
+                        <span class="team-name">PHOENIX RISING</span>
+                    </div>
+                    <div class="confronto-vs">VS</div>
+                    <div class="confronto-time">
+                        <span class="circle white"></span>
+                        <span class="team-name">WOLF PACK GAMING</span>
+                    </div>
+                    <div class="confronto-info">Quartas de final • Transmissão ao vivo</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Área de Chat -->
+        <section id="chat" class="championship-section">
+            <h2 class="section-title">CHAT GALÁCTICO</h2>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3>Chat em Tempo Real</h3>
+                    <span>Usuários Online: <span id="online-count">24</span></span>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message system">
+                        Bem-vindo ao Chat Galáctico! Converse com outros fãs do campeonato.
+                    </div>
+                    <div class="message">
+                        <span class="message-user">FuriaFan:</span> Vamos Fúria da Noite! 🔥
+                    </div>
+                    <div class="message">
+              
