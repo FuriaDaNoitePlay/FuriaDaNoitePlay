@@ -3,176 +3,583 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 ADM SUPREMO - FuriaDaNoitePlay</title>
+    <title>👑 PAINEL ADM SUPREMO - FuriaDaNoitePlay</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: linear-gradient(135deg, #0a0a0a, #1a0a0a, #001a0a);
-            color: white; 
-            font-family: 'Arial', sans-serif;
+        /* ===== VARIÁVEIS E RESET ===== */
+        :root {
+            --adm-vermelho: #ff0000;
+            --adm-amarelo: #ffff00;
+            --adm-verde: #00ff00;
+            --adm-roxo: #8a2be2;
+            --adm-azul: #0066ff;
+            --fundo-escuro: #0a0a0a;
+            --fundo-medio: #1a1a1a;
+            --texto-brilho: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #001a0a 100%);
+            color: var(--texto-brilho);
+            font-family: 'Orbitron', sans-serif;
             min-height: 100vh;
             padding: 20px;
         }
-        
-        .container { max-width: 1200px; margin: 0 auto; }
-        
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
         .header {
             text-align: center;
-            padding: 30px;
-            margin-bottom: 30px;
-            background: rgba(0,255,0,0.1);
-            border: 3px solid #00ff00;
+            padding: 40px 30px;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
             border-radius: 20px;
-            box-shadow: 0 0 30px #00ff00;
+            border: 3px solid var(--adm-verde);
+            box-shadow: 
+                0 0 50px var(--adm-verde),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: pulsar-header 4s infinite alternate;
         }
-        
+
+        @keyframes pulsar-header {
+            0% { box-shadow: 0 0 50px var(--adm-verde); }
+            100% { box-shadow: 0 0 80px var(--adm-verde), 0 0 120px rgba(0, 255, 0, 0.3); }
+        }
+
         .header h1 {
-            color: #00ff00;
-            text-shadow: 0 0 20px #00ff00;
-            font-size: 2.5em;
+            font-size: 3rem;
+            color: var(--adm-verde);
+            text-shadow: 
+                0 0 20px var(--adm-verde),
+                0 0 40px var(--adm-verde),
+                0 0 60px var(--adm-verde);
             margin-bottom: 10px;
         }
-        
+
+        .user-info {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(0, 255, 0, 0.2);
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: 2px solid var(--adm-verde);
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--adm-verde);
+        }
+
+        /* ===== STATUS GRID ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             margin-bottom: 30px;
         }
-        
+
         .stat-card {
-            background: rgba(0,255,0,0.1);
-            padding: 20px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(10, 0, 0, 0.8));
+            padding: 25px;
             border-radius: 15px;
-            border: 2px solid #00ff00;
             text-align: center;
+            border: 2px solid var(--adm-verde);
+            box-shadow: 0 0 20px var(--adm-verde);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 0 40px var(--adm-verde), 0 0 60px rgba(0, 255, 0, 0.2);
+        }
+
         .stat-number {
-            color: #00ff00;
-            font-size: 2em;
+            font-size: 2.5rem;
+            color: var(--adm-verde);
             font-weight: bold;
-            text-shadow: 0 0 10px #00ff00;
+            text-shadow: 0 0 15px var(--adm-verde);
+            margin-bottom: 10px;
         }
-        
+
+        /* ===== AÇÕES PRINCIPAIS ===== */
         .actions-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            gap: 20px;
             margin-bottom: 30px;
         }
-        
+
         .btn {
-            padding: 20px;
+            padding: 25px 20px;
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             color: white;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
         }
-        
+
         .btn-supremo {
-            background: linear-gradient(45deg, #00ff00, #008800);
-            box-shadow: 0 0 20px #00ff00;
+            background: linear-gradient(135deg, var(--adm-verde), #00cc00, #009900);
+            color: #000;
+            box-shadow: 0 0 25px var(--adm-verde);
         }
-        
+
         .btn-supremo:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 30px #00ff00;
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 0 40px var(--adm-verde), 0 0 60px rgba(0, 255, 0, 0.3);
+            background: linear-gradient(135deg, #00ff00, var(--adm-verde), #00cc00);
         }
-        
+
+        .btn-supremo::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-supremo:hover::before {
+            left: 100%;
+        }
+
+        /* ===== SEÇÕES DO PAINEL ===== */
+        .admin-sections {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
         .admin-section {
-            background: rgba(0,0,0,0.8);
-            padding: 25px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(20, 0, 0, 0.85));
+            padding: 30px;
             border-radius: 15px;
-            border: 2px solid #00ff00;
+            border: 2px solid var(--adm-verde);
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3);
+        }
+
+        .admin-section h2 {
+            color: var(--adm-verde);
+            text-shadow: 0 0 15px var(--adm-verde);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--adm-verde);
+            padding-bottom: 10px;
+        }
+
+        .feature-list {
+            list-style: none;
             margin-bottom: 20px;
         }
-        
-        .admin-section h2 {
-            color: #00ff00;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px #00ff00;
+
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-        
-        .user-info {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0,255,0,0.2);
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: 2px solid #00ff00;
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list i {
+            color: var(--adm-verde);
+            text-shadow: 0 0 10px var(--adm-verde);
+            width: 20px;
+        }
+
+        /* ===== BOTÕES DE AÇÃO ===== */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .btn-action {
+            padding: 15px;
+            border: 2px solid var(--adm-verde);
+            border-radius: 10px;
+            background: rgba(0, 255, 0, 0.1);
+            color: var(--adm-verde);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+        }
+
+        .btn-action:hover {
+            background: var(--adm-verde);
+            color: #000;
+            box-shadow: 0 0 20px var(--adm-verde);
+            transform: translateY(-3px);
+        }
+
+        /* ===== CONTROLES RÁPIDOS ===== */
+        .quick-controls {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.2));
+            border: 3px solid var(--adm-roxo);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 30px var(--adm-roxo);
+        }
+
+        .quick-controls h2 {
+            color: var(--adm-roxo);
+            text-shadow: 0 0 15px var(--adm-roxo);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .control-btn {
+            padding: 15px;
+            border: 2px solid var(--adm-roxo);
+            border-radius: 10px;
+            background: rgba(138, 43, 226, 0.1);
+            color: var(--adm-roxo);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .control-btn:hover {
+            background: var(--adm-roxo);
+            color: white;
+            box-shadow: 0 0 20px var(--adm-roxo);
+            transform: translateY(-3px);
+        }
+
+        /* ===== MENSAGENS ===== */
+        .mensagem {
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .mensagem.sucesso {
+            background: rgba(0, 255, 0, 0.2);
+            border: 2px solid var(--adm-verde);
+            color: var(--adm-verde);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-sections {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .user-info {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 25px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="user-info">
-            👑 FURIAGOD | ADM SUPREMO
-        </div>
-        
+        <!-- HEADER -->
         <div class="header">
+            <div class="user-info">
+                👑 FURIAGOD | ADM SUPREMO
+            </div>
             <h1>👑 PAINEL ADM SUPREMO</h1>
             <p>Acesso Total ao Sistema FuriaDaNoitePlay</p>
         </div>
-        
+
+        <!-- MENSAGEM -->
+        <div id="mensagem" class="mensagem"></div>
+
+        <!-- STATUS DO SISTEMA -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-number">1.2K</div>
-                <div>USUÁRIOS</div>
+                <div class="stat-number" id="totalUsuarios">1.2K</div>
+                <div>USUÁRIOS CADASTRADOS</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">47</div>
-                <div>ADMs</div>
+                <div class="stat-number" id="usuariosOnline">847</div>
+                <div>USUÁRIOS ONLINE</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">89%</div>
-                <div>ONLINE</div>
+                <div class="stat-number" id="totalADMs">47</div>
+                <div>ADMs ATIVOS</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">24/7</div>
-                <div>SISTEMA</div>
+                <div class="stat-number" id="partidasAtivas">23</div>
+                <div>PARTIDAS ATIVAS</div>
             </div>
         </div>
-        
+
+        <!-- AÇÕES PRINCIPAIS -->
         <div class="actions-grid">
             <button class="btn btn-supremo" onclick="gerenciarSistema()">
+                <i class="fas fa-cogs"></i><br>
                 ⚙️ GERENCIAR SISTEMA
             </button>
             <button class="btn btn-supremo" onclick="gerenciarADMs()">
+                <i class="fas fa-users-cog"></i><br>
                 👥 GERENCIAR ADMs
             </button>
             <button class="btn btn-supremo" onclick="backupTotal()">
+                <i class="fas fa-database"></i><br>
                 💾 BACKUP TOTAL
             </button>
         </div>
-        
-        <div class="admin-section">
-            <h2>🔧 CONTROLE SUPREMO</h2>
-            <p>• Acesso a todos os dados do sistema</p>
-            <p>• Criar/Remover ADMs Gerais</p>
-            <p>• Backup completo do banco de dados</p>
-            <p>• Configurações do servidor</p>
-            <p>• Logs de segurança completos</p>
+
+        <!-- SEÇÕES DO PAINEL -->
+        <div class="admin-sections">
+            <!-- GERENCIAMENTO DE USUÁRIOS -->
+            <div class="admin-section">
+                <h2>👤 GERENCIAR USUÁRIOS</h2>
+                <ul class="feature-list">
+                    <li><i class="fas fa-ban"></i> Banir/Desbanir usuários</li>
+                    <li><i class="fas fa-edit"></i> Editar nicks e dados</li>
+                    <li><i class="fas fa-key"></i> Resetar senhas</li>
+                    <li><i class="fas fa-chart-line"></i> Ver estatísticas</li>
+                    <li><i class="fas fa-search"></i> Buscar usuários</li>
+                </ul>
+                <div class="action-buttons">
+                    <button class="btn-action" onclick="banirUsuario()">
+                        <i class="fas fa-ban"></i> BANIR USUÁRIO
+                    </button>
+                    <button class="btn-action" onclick="editarUsuario()">
+                        <i class="fas fa-edit"></i> EDITAR USUÁRIO
+                    </button>
+                </div>
+            </div>
+
+            <!-- GERENCIAMENTO DE EQUIPES -->
+            <div class="admin-section">
+                <h2>🏆 GERENCIAR EQUIPES</h2>
+                <ul class="feature-list">
+                    <li><i class="fas fa-plus"></i> Criar novas equipes</li>
+                    <li><i class="fas fa-trash"></i> Remover equipes</li>
+                    <li><i class="fas fa-edit"></i> Editar dados</li>
+                    <li><i class="fas fa-trophy"></i> Gerenciar rankings</li>
+                    <li><i class="fas fa-users"></i> Controlar membros</li>
+                </ul>
+                <div class="action-buttons">
+                    <button class="btn-action" onclick="criarEquipe()">
+                        <i class="fas fa-plus"></i> NOVA EQUIPE
+                    </button>
+                    <button class="btn-action" onclick="gerenciarEquipes()">
+                        <i class="fas fa-cog"></i> GERENCIAR
+                    </button>
+                </div>
+            </div>
+
+            <!-- CAMPEONATOS E CONFRONTOS -->
+            <div class="admin-section">
+                <h2>⚔️ CAMPEONATOS</h2>
+                <ul class="feature-list">
+                    <li><i class="fas fa-calendar-plus"></i> Criar campeonatos</li>
+                    <li><i class="fas fa-clock"></i> Agendar confrontos</li>
+                    <li><i class="fas fa-flag-checkered"></i> Definir resultados</li>
+                    <li><i class="fas fa-table"></i> Gerenciar tabelas</li>
+                    <li><i class="fas fa-award"></i> Distribuir prêmios</li>
+                </ul>
+                <div class="action-buttons">
+                    <button class="btn-action" onclick="criarCampeonato()">
+                        <i class="fas fa-plus"></i> NOVO CAMPEONATO
+                    </button>
+                    <button class="btn-action" onclick="agendarConfronto()">
+                        <i class="fas fa-calendar"></i> AGENDAR
+                    </button>
+                </div>
+            </div>
+
+            <!-- CHAT E MODERAÇÃO -->
+            <div class="admin-section">
+                <h2>💬 CHAT E MODERAÇÃO</h2>
+                <ul class="feature-list">
+                    <li><i class="fas fa-comments"></i> Acesso ao chat global</li>
+                    <li><i class="fas fa-eye"></i> Monitorar conversas</li>
+                    <li><i class="fas fa-shield-alt"></i> Sistema de denúncias</li>
+                    <li><i class="fas fa-microphone-slash"></i> Silenciar usuários</li>
+                    <li><i class="fas fa-history"></i> Ver histórico</li>
+                </ul>
+                <div class="action-buttons">
+                    <button class="btn-action" onclick="acessarChat()">
+                        <i class="fas fa-comments"></i> CHAT ADMIN
+                    </button>
+                    <button class="btn-action" onclick="moderacao()">
+                        <i class="fas fa-shield-alt"></i> MODERAÇÃO
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTROLES RÁPIDOS -->
+        <div class="quick-controls">
+            <h2>⚡ CONTROLES RÁPIDOS</h2>
+            <div class="controls-grid">
+                <button class="control-btn" onclick="modoManutencao()">
+                    <i class="fas fa-tools"></i><br>MODO MANUTENÇÃO
+                </button>
+                <button class="control-btn" onclick="limparCache()">
+                    <i class="fas fa-broom"></i><br>LIMPAR CACHE
+                </button>
+                <button class="control-btn" onclick="verLogs()">
+                    <i class="fas fa-clipboard-list"></i><br>VER LOGS
+                </button>
+                <button class="control-btn" onclick="sairSistema()">
+                    <i class="fas fa-sign-out-alt"></i><br>SAIR
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
+        // =============================================
+        // SISTEMA ADM SUPREMO - FUNCIONALIDADES
+        // =============================================
+
+        // ATUALIZAR ESTATÍSTICAS EM TEMPO REAL
+        function atualizarEstatisticas() {
+            // Simular dados dinâmicos
+            setInterval(() => {
+                const online = Math.floor(Math.random() * 100) + 800;
+                const partidas = Math.floor(Math.random() * 10) + 20;
+                
+                document.getElementById('usuariosOnline').textContent = online;
+                document.getElementById('partidasAtivas').textContent = partidas;
+            }, 5000);
+        }
+
+        // FUNÇÕES PRINCIPAIS
         function gerenciarSistema() {
-            alert('⚙️ SISTEMA: Acesso total ao painel de configurações!');
+            mostrarMensagem('⚙️ Acessando painel completo de gerenciamento do sistema...');
+            // Redirecionar para painel de sistema
+            setTimeout(() => window.location.href = 'sistema-config.html', 1000);
         }
-        
+
         function gerenciarADMs() {
-            alert('👥 ADMs: Gerenciamento completo de administradores!');
+            mostrarMensagem('👥 Abrindo gerenciamento de administradores...');
+            // Redirecionar para gerenciamento de ADMs
+            setTimeout(() => window.location.href = 'adm-gerenciamento.html', 1000);
         }
-        
+
         function backupTotal() {
-            alert('💾 BACKUP: Iniciando backup completo do sistema...');
+            mostrarMensagem('💾 Iniciando backup completo do sistema...');
+            // Simular processo de backup
+            setTimeout(() => {
+                mostrarMensagem('✅ Backup concluído com sucesso!', 'sucesso');
+            }, 3000);
         }
-    </script>
-</body>
-</html>
+
+        // FUNÇÕES DE USUÁRIOS
+        function banirUsuario() {
+            const usuario = prompt('Digite o nick do usuário a ser banido:');
+            if (usuario) {
+                mostrarMensagem(`🚫 Usuário ${usuario} banido com sucesso!`);
+            }
+        }
+
+        function editarUsuario() {
+            mostrarMensagem('📝 Abrindo editor de usuários...');
+            setTimeout(() => window.location.href = 'editar-usuarios.html', 1000);
+        }
+
+        // FUNÇÕES DE EQUIPES
+        function criarEquipe() {
+            mostrarMensagem('🏆 Criando nova equipe...');
+            // Implementar criação de equipe
+        }
+
+        function gerenciarEquipes() {
+            mostrarMensagem('👥 Acessando gerenciamento de equipes...');
+            setTimeout(() => window.location.href = 'gerenciar-equipes.html', 1000);
+        }
+
+        // FUNÇÕES DE CAMPEONATOS
+        function criarCampeonato() {
+            mostrarMensagem('⚔️ Iniciando criação de campeonat
