@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⭐ ADMs GERAIS - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: linear-gradient(135deg, #0a0a0a, #1a0a1a, #0a001a);
+            color: white; 
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .header {
+            text-align: center;
+            padding: 30px;
+            margin-bottom: 30px;
+            background: rgba(138,43,226,0.1);
+            border: 3px solid #8a2be2;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #8a2be2;
+        }
+        
+        .header h1 {
+            color: #8a2be2;
+            text-shadow: 0 0 20px #8a2be2;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .admin-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .admin-card {
+            background: rgba(138,43,226,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #8a2be2;
+            text-align: center;
+        }
+        
+        .admin-name {
+            color: #8a2be2;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #8a2be2;
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .btn-admin {
+            background: linear-gradient(45deg, #8a2be2, #6a0dad);
+            box-shadow: 0 0 20px #8a2be2;
+        }
+        
+        .btn-admin:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px #8a2be2;
+        }
+        
+        .admin-section {
+            background: rgba(0,0,0,0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #8a2be2;
+            margin-bottom: 20px;
+        }
+        
+        .admin-section h2 {
+            color: #8a2be2;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #8a2be2;
+        }
+        
+        .user-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(138,43,226,0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid #8a2be2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="user-info">
+            ⭐ ADM GERAL | Scorpion
+        </div>
+        
+        <div class="header">
+            <h1>⭐ PAINEL ADMs GERAIS</h1>
+            <p>Gerenciamento de Conteúdo e Moderadores</p>
+        </div>
+        
+        <div class="admin-list">
+            <div class="admin-card">
+                <div class="admin-name">Scorpion</div>
+                <div>Status: 🟢 Online</div>
+            </div>
+            <div class="admin-card">
+                <div class="admin-name">.Son King</div>
+                <div>Status: 🟢 Online</div>
+            </div>
+            <div class="admin-card">
+                <div class="admin-name">NeferpitouI</div>
+                <div>Status: 🟡 Ausente</div>
+            </div>
+            <div class="admin-card">
+                <div class="admin-name">PNTS</div>
+                <div>Status: 🟢 Online</div>
+            </div>
+        </div>
+        
+        <div class="actions-grid">
+            <button class="btn btn-admin" onclick="gerenciarUsuarios()">
+                👥 GERENCIAR USUÁRIOS
+            </button>
+            <button class="btn btn-admin" onclick="gerenciarConteudo()">
+                📝 GERENCIAR CONTEÚDO
+            </button>
+            <button class="btn btn-admin" onclick="moderarChat()">
+                💬 MODERAR CHAT
+            </button>
+            <button class="btn btn-admin" onclick="verEstatisticas()">
+                📊 VER ESTATÍSTICAS
+            </button>
+        </div>
+        
+        <div class="admin-section">
+            <h2>🎯 PERMISSÕES ADM GERAL</h2>
+            <p>• Gerenciar usuários comuns</p>
+            <p>• Moderar conteúdo e chats</p>
+            <p>• Visualizar estatísticas</p>
+            <p>• Gerenciar partidas</p>
+            <p>• Acesso a relatórios</p>
+        </div>
+    </div>
+
+    <script>
+        function gerenciarUsuarios() {
+            alert('👥 USUÁRIOS: Painel de gerenciamento de usuários!');
+        }
+        
+        function gerenciarConteudo() {
+            alert('📝 CONTEÚDO: Moderar posts e conteúdo!');
+        }
+        
+        function moderarChat() {
+            alert('💬 CHAT: Sistema de moderação do chat!');
+        }
+        
+        function verEstatisticas() {
+            alert('📊 ESTATÍSTICAS: Visualizar dados do sistema!');
+        }
+    </script>
+</body>
+</html>
