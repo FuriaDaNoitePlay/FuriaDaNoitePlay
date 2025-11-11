@@ -24,6 +24,9 @@
       --cinza-escuro: #1a1a2e;
       --neon-vermelho: #ff0000;
       --neon-azul: #00f2ea;
+      --neon-rosa: #ff00ff;
+      --neon-amarelo: #ffff00;
+      --neon-verde: #00ff00;
     }
     
     body {
@@ -158,7 +161,7 @@
     /* ===== GRID DE MEMBROS ===== */
     .membros-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 30px;
       padding: 30px;
       perspective: 1000px;
@@ -177,6 +180,7 @@
       position: relative;
       overflow: hidden;
       transform-style: preserve-3d;
+      cursor: pointer;
     }
 
     .membro-card::before {
@@ -212,18 +216,18 @@
     }
 
     .membro-dona {
-      border-color: #ff00ff;
-      box-shadow: 0 0 30px #ff00ff;
+      border-color: var(--neon-rosa);
+      box-shadow: 0 0 30px var(--neon-rosa);
     }
 
     .membro-lider {
-      border-color: #ffff00;
-      box-shadow: 0 0 30px #ffff00;
+      border-color: var(--neon-amarelo);
+      box-shadow: 0 0 30px var(--neon-amarelo);
     }
 
     .membro-colid {
-      border-color: #00ff00;
-      box-shadow: 0 0 30px #00ff00;
+      border-color: var(--neon-verde);
+      box-shadow: 0 0 30px var(--neon-verde);
     }
 
     .membro-anciao {
@@ -238,17 +242,17 @@
 
     .membro-card:hover.membro-dona {
       border-color: #ff66ff;
-      box-shadow: 0 0 50px #ff00ff;
+      box-shadow: 0 0 50px var(--neon-rosa);
     }
 
     .membro-card:hover.membro-lider {
       border-color: #ffff66;
-      box-shadow: 0 0 50px #ffff00;
+      box-shadow: 0 0 50px var(--neon-amarelo);
     }
 
     .membro-card:hover.membro-colid {
       border-color: #66ff66;
-      box-shadow: 0 0 50px #00ff00;
+      box-shadow: 0 0 50px var(--neon-verde);
     }
 
     .membro-card:hover.membro-anciao {
@@ -373,16 +377,62 @@
     }
 
     .cargo-dono { background: linear-gradient(135deg, #ff0000, #cc0000); }
-    .cargo-dona { background: linear-gradient(135deg, #ff00ff, #cc00cc); }
-    .cargo-lider { background: linear-gradient(135deg, #ffff00, #cccc00); color: #000; }
-    .cargo-colid { background: linear-gradient(135deg, #00ff00, #00cc00); color: #000; }
+    .cargo-dona { background: linear-gradient(135deg, var(--neon-rosa), #cc00cc); }
+    .cargo-lider { background: linear-gradient(135deg, var(--neon-amarelo), #cccc00); color: #000; }
+    .cargo-colid { background: linear-gradient(135deg, var(--neon-verde), #00cc00); color: #000; }
     .cargo-anciao { background: linear-gradient(135deg, var(--neon-azul), #00a0a0); }
 
-    .membro-descricao {
+    .membro-info {
       color: #ccc;
       font-size: 0.9em;
       line-height: 1.4;
       margin-top: 10px;
+      text-align: left;
+    }
+
+    .membro-titulo {
+      color: var(--neon-vermelho);
+      font-weight: bold;
+      margin: 5px 0;
+    }
+
+    .membro-local {
+      color: #ff9999;
+      font-style: italic;
+      margin: 3px 0;
+    }
+
+    .membro-conquistas {
+      color: #ffd700;
+      margin: 3px 0;
+      font-size: 0.85em;
+    }
+
+    /* ===== BOTÕES DE AÇÃO ===== */
+    .botoes-acao {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn-acao {
+      background: rgba(255, 0, 0, 0.2);
+      color: #fff;
+      border: 1px solid var(--neon-vermelho);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-acao:hover {
+      background: var(--neon-vermelho);
+      color: #000;
+      transform: scale(1.05);
     }
 
     /* ===== RODAPÉ ===== */
@@ -468,8 +518,9 @@
       <a href="agente.html">Agente Da Noite</a>
       <a href="FR0N.html">FRØN</a>
       <a href="campeonato.html">Campeonato</a>
-      <a href="TRUCU.html">🎴 TRUCU</a>
+      <a href="regras.html">Regras</a>
       <a href="login.html">Login</a>
+      <a href="TRUCU.html">🎴 TRUCU</a>
     </nav>
   </header>
 
@@ -497,133 +548,143 @@
 
     <!-- Grid de Membros -->
     <div class="membros-grid">
-      <!-- DONO 1 -->
-      <div class="membro-card membro-dono">
-        <div class="membro-imagem" style="background: linear-gradient(135deg, #ff0000, #cc0000);">
-          <span>DONO</span>
+      <!-- DONO 1 - ToxicSkuliv -->
+      <div class="membro-card membro-dono" onclick="mostrarPerfil(1)">
+        <div class="membro-imagem" style="background: url('membros1.png') center/cover;">
+          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
+            👑 DONO
+          </div>
         </div>
-        <div class="membro-nome">FURIA DA NOITE</div>
+        <div class="membro-nome">ToxicSkuliv</div>
         <div class="membro-cargo cargo-dono">👑 FUNDADOR</div>
-        <div class="membro-descricao">
-          Líder máximo e fundador da FuriaDaNoitePlay. Comanda todas as operações e estratégias.
+        <div class="membro-info">
+          <div class="membro-titulo">FuriaDaNoitePlay</div>
+          <div class="membro-conquistas">Colecionador Renomado 1</div>
+          <div class="membro-conquistas">Brazil Top 128</div>
+        </div>
+        <div class="botoes-acao">
+          <button class="btn-acao">👀 Ver Perfil</button>
+          <button class="btn-acao">🎮 Convidar</button>
         </div>
       </div>
 
-      <!-- DONA 2 -->
-      <div class="membro-card membro-dona">
-        <div class="membro-imagem" style="background: linear-gradient(135deg, #ff00ff, #cc00cc);">
-          <span>DONA</span>
+      <!-- DONA 2 - Neterpirou -->
+      <div class="membro-card membro-dona" onclick="mostrarPerfil(2)">
+        <div class="membro-imagem" style="background: url('membros2.png') center/cover;">
+          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
+            👑 DONA
+          </div>
         </div>
-        <div class="membro-nome">LUA DA NOITE</div>
+        <div class="membro-nome">Neterpirou</div>
         <div class="membro-cargo cargo-dona">👑 CO-FUNDADORA</div>
-        <div class="membro-descricao">
-          Co-fundadora e estrategista principal. Especialista em táticas avançadas.
+        <div class="membro-info">
+          <div class="membro-titulo">FuriaDaNoitePlay</div>
+          <div class="membro-local">Brazil/Rio Grande do Norte</div>
+        </div>
+        <div class="botoes-acao">
+          <button class="btn-acao">👀 Ver Perfil</button>
+          <button class="btn-acao">🎮 Convidar</button>
         </div>
       </div>
 
-      <!-- DONO 3 -->
-      <div class="membro-card membro-dono">
-        <div class="membro-imagem" style="background: linear-gradient(135deg, #ff3333, #cc0000);">
-          <span>DONO</span>
+      <!-- DONO 3 - Scorpions game -->
+      <div class="membro-card membro-dono" onclick="mostrarPerfil(3)">
+        <div class="membro-imagem" style="background: url('membros3.png') center/cover;">
+          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
+            👑 DONO
+          </div>
         </div>
-        <div class="membro-nome">SOMBRA NOTURNA</div>
-        <div class="membro-cargo cargo-dono">👑 CO-FUNDADOR</div>
-        <div class="membro-descricao">
-          Co-fundador e especialista em operações especiais. Mestre em estratégias furtivas.
+        <div class="membro-nome">Scorpions game</div>
+        <div class="membro-cargo cargo-dono">👑 MEGA COLEcionador</div>
+        <div class="membro-info">
+          <div class="membro-titulo">FuriaDaNoitePlay</div>
+          <div class="membro-conquistas">Mega Colecionador IV</div>
+          <div class="membro-local">Ecuador/Guayas</div>
+        </div>
+        <div class="botoes-acao">
+          <button class="btn-acao">👀 Ver Perfil</button>
+          <button class="btn-acao">🎮 Convidar</button>
         </div>
       </div>
 
-      <!-- LÍDER 4 -->
-      <div class="membro-card membro-lider">
-        <div class="membro-imagem" style="background: linear-gradient(135deg, #ffff00, #cccc00);">
-          <span>LÍDER</span>
+      <!-- LÍDER 4 - Son_king -->
+      <div class="membro-card membro-lider" onclick="mostrarPerfil(4)">
+        <div class="membro-imagem" style="background: url('membros4.png') center/cover;">
+          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
+            ⭐ LÍDER
+          </div>
         </div>
-        <div class="membro-nome">TROVÃO NOTURNO</div>
+        <div class="membro-nome">Son_king</div>
         <div class="membro-cargo cargo-lider">⭐ LÍDER GERAL</div>
-        <div class="membro-descricao">
-          Líder de operações. Responsável pelo comando direto em campo e treinamento.
+        <div class="membro-info">
+          <div class="membro-titulo">FuriaDaNoitePlay</div>
+          <div class="membro-conquistas">Colecionador Especialista!</div>
+          <div class="membro-conquistas">Aniquilador Nv.5</div>
+          <div class="membro-local">Brazil/Rondonia</div>
+        </div>
+        <div class="botoes-acao">
+          <button class="btn-acao">👀 Ver Perfil</button>
+          <button class="btn-acao">🎮 Convidar</button>
         </div>
       </div>
 
-      <!-- CO-LÍDER 5 -->
-      <div class="membro-card membro-colid">
-        <div class="membro-imagem" style="background: linear-gradient(135deg, #00ff00, #00cc00);">
-          <span>CO-LÍDER</span>
+      <!-- CO-LÍDER 5 - JOKER -->
+      <div class="membro-card membro-colid" onclick="mostrarPerfil(5)">
+        <div class="membro-imagem" style="background: url('membros5.png') center/cover;">
+          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
+            🌟 VETERANO
+          </div>
         </div>
-        <div class="membro-nome">VENTO DA NOITE</div>
+        <div class="membro-nome">JOKER</div>
         <div class="membro-cargo cargo-colid">🌟 CO-LÍDER</div>
-        <div class="membro-descricao">
-          Vice-líder e especialista em logística. Coordena as equipes em missões.
+        <div class="membro-info">
+          <div class="membro-titulo">FuriaDaNoitePlay</div>
+          <div class="membro-conquistas">Colecionator Especialista IV</div>
+          <div class="membro-conquistas">Guardiao Nv.5</div>
+          <div class="membro-local">Brazil/Minas Gerais</div>
+        </div>
+        <div class="botoes-acao">
+          <button class="btn-acao">👀 Ver Perfil</button>
+          <button class="btn-acao">🎮 Convidar</button>
         </div>
       </div>
 
-      <!-- ANCIÃO 6 -->
-      <div class="membro-card membro-anciao">
-        <div class="membro-imagem" style="background: linear-gradient(135deg, var(--neon-azul), #00a0a0);">
-          <span>ANCIÃO</span>
+      <!-- ANCIÃO 6 - SDOLLARS -->
+      <div class="membro-card membro-anciao" onclick="mostrarPerfil(6)">
+        <div class="membro-imagem" style="background: url('membros6.png') center/cover;">
+          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
+            💎 ANCIÃO
+          </div>
         </div>
-        <div class="membro-nome">SABIO NOTURNO</div>
+        <div class="membro-nome">SDOLLARS</div>
         <div class="membro-cargo cargo-anciao">💎 ANCIÃO VETERANO</div>
-        <div class="membro-descricao">
-          Membro veterano com vasta experiência. Conselheiro estratégico da equipe.
+        <div class="membro-info">
+          <div class="membro-titulo">FuriaDaNoitePlay</div>
+          <div class="membro-conquistas">Aniquilador Nv.5</div>
+        </div>
+        <div class="botoes-acao">
+          <button class="btn-acao">👀 Ver Perfil</button>
+          <button class="btn-acao">🎮 Convidar</button>
         </div>
       </div>
 
-      <!-- ANCIÃO 7 -->
-      <div class="membro-card membro-anciao">
-        <div class="membro-imagem" style="background: linear-gradient(135deg, #66ffff, #00a0a0);">
-          <span>ANCIÃO</span>
+      <!-- ANCIÃO 7 - 021_Zoro_mibb -->
+      <div class="membro-card membro-anciao" onclick="mostrarPerfil(7)">
+        <div class="membro-imagem" style="background: url('membros7.png') center/cover;">
+          <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px;">
+            💎 ANCIÃO
+          </div>
         </div>
-        <div class="membro-nome">GUARDIÃO DA NOITE</div>
-        <div class="membro-cargo cargo-anciao">💎 ANCIÃO GUARDIÃO</div>
-        <div class="membro-descricao">
-          Guardião das tradições da equipe. Especialista em defesa e proteção.
+        <div class="membro-nome">021_Zoro_mibb</div>
+        <div class="membro-cargo cargo-anciao">💎 ANCIÃO ESPECIAL</div>
+        <div class="membro-info">
+          <div class="membro-titulo">FuriaDaNoitePlay</div>
+          <div class="membro-conquistas">Colecionador Especialista IV</div>
+          <div class="membro-conquistas">Tria Nv.2</div>
+          <div class="membro-conquistas">Top 1 Benedetta - Capim</div>
+        </div>
+        <div class="botoes-acao">
+          <button class="btn-acao">👀 Ver Perfil</button>
+          <button class="btn-acao">🎮 Convidar</button>
         </div>
       </div>
-    </div>
-  </main>
-
-  <!-- BOTÃO VOLTAR AO INÍCIO -->
-  <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-    <i class="fas fa-arrow-up"></i> INÍCIO
-  </button>
-
-  <footer>
-    <p>© 2024 <span class="destaque">FURIA DA NOITE PLAY</span> - Todos os direitos reservados</p>
-    <p class="assinatura">Agente Da Noite - Hierarquia Oficial</p>
-  </footer>
-
-  <script>
-    // Efeito de digitação no título
-    document.addEventListener('DOMContentLoaded', function() {
-      const titulo = document.querySelector('.titulo-pagina');
-      const textoOriginal = titulo.textContent;
-      titulo.textContent = '';
-      
-      let i = 0;
-      const digitar = () => {
-        if (i < textoOriginal.length) {
-          titulo.textContent += textoOriginal.charAt(i);
-          i++;
-          setTimeout(digitar, 100);
-        }
-      };
-      
-      // Iniciar efeito de digitação
-      setTimeout(digitar, 500);
-    });
-
-    // Efeito de brilho aleatório nos cards
-    setInterval(() => {
-      const cards = document.querySelectorAll('.membro-card');
-      const randomCard = cards[Math.floor(Math.random() * cards.length)];
-      
-      randomCard.style.boxShadow = '0 0 60px rgba(255, 0, 0, 0.8)';
-      
-      setTimeout(() => {
-        randomCard.style.boxShadow = '';
-      }, 1000);
-    }, 3000);
-  </script>
-</body>
-</html>
