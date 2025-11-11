@@ -352,5 +352,92 @@
             }
         });
     </script>
+// NO FINAL DO SEU ARQUIVO LOGIN.HTML - Substitua o script por este:
+
+<script>
+    let tipoAtual = 'membro';
+
+    function atualizarStatusAoVivo() {
+        const jogadores = Math.floor(Math.random() * 30) + 100;
+        const partidas = Math.floor(jogadores / 3);
+        document.getElementById('jogadoresOnline').textContent = jogadores;
+        document.getElementById('partidasAtivas').textContent = partidas;
+    }
+
+    setInterval(atualizarStatusAoVivo, 5000);
+    atualizarStatusAoVivo();
+
+    function selecionarTipo(tipo) {
+        document.querySelectorAll('.tipo-btn').forEach(btn => btn.classList.remove('ativo'));
+        document.querySelector(`[onclick="selecionarTipo('${tipo}')"]`).classList.add('ativo');
+        tipoAtual = tipo;
+        const usuarioInput = document.getElementById('usuario');
+        usuarioInput.placeholder = tipo === 'membro' ? "Digite seu nick ou usuário" : "Usuário ADM (ex: FURIAGOD)";
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const usuario = document.getElementById('usuario').value.trim();
+        const senha = document.getElementById('senha').value;
+        const mensagem = document.getElementById('mensagem');
+
+        // CREDENCIAIS ATUALIZADAS
+        const membros = { 
+            'ToxicSkull√': 'L@!on', 
+            'Scorpion': 'Mlk00', 
+            'NeferpitouI': 'Ana025', 
+            '.Son King': 'God19',
+            'PNTS': 'pNtS',
+            'visitante': '123456' 
+        };
+        
+        const adms = { 
+            'FURIAGOD': 'Furia2025_$', 
+            'Scorpion': 'Mlk00', 
+            '.Son King': 'God19', 
+            'NeferpitouI': 'Ana025', 
+            'PNTS': 'pNtS',
+            'ADMIN': 'admin123' 
+        };
+
+        let credenciaisValidas = false;
+        let usuarioNome = '';
+        let redirecionarPara = '';
+
+        if (tipoAtual === 'membro' && membros[usuario] === senha) { 
+            credenciaisValidas = true; 
+            usuarioNome = usuario;
+            redirecionarPara = 'painel-usuario.html';
+        }
+        
+        if (tipoAtual === 'adm' && adms[usuario] === senha) { 
+            credenciaisValidas = true; 
+            usuarioNome = usuario;
+            
+            // DETECTAR TIPO DE ADM
+            if (usuario === 'FURIAGOD') {
+                redirecionarPara = 'adm-supremo.html';
+            } else {
+                redirecionarPara = 'adm-gerais.html';
+            }
+        }
+
+        if (credenciaisValidas) {
+            mensagem.textContent = `✅ Login realizado! Redirecionando ${usuarioNome}...`;
+            mensagem.className = 'mensagem sucesso';
+            mensagem.style.display = 'block';
+            
+            setTimeout(() => {
+                window.location.href = `${redirecionarPara}?usuario=${encodeURIComponent(usuarioNome)}`;
+            }, 1500);
+            
+        } else {
+            mensagem.textContent = '❌ Usuário ou senha incorretos!';
+            mensagem.className = 'mensagem erro';
+            mensagem.style.display = 'block';
+            setTimeout(() => mensagem.style.display = 'none', 3000);
+        }
+    });
+</script>
 </body>
 </html>
