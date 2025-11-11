@@ -402,6 +402,30 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* ===== BOTÃO INÍCIO ===== */
+        .botao-inicio {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #FFD700;
+            color: #000;
+            border: none;
+            border-radius: 30px;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 0 25px #FFD700;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            z-index: 999;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .botao-inicio:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px #FFD700;
+        }
+
         /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
             .cadastros-container {
@@ -477,6 +501,11 @@
                     </div>
                     
                     <div class="input-group">
+                        <label>🔒 Senha:</label>
+                        <input type="password" id="senha-membro" placeholder="Crie uma senha" required>
+                    </div>
+                    
+                    <div class="input-group">
                         <label>📧 E-mail:</label>
                         <input type="email" id="email-membro" placeholder="seu@email.com">
                     </div>
@@ -538,6 +567,11 @@
                     </div>
                     
                     <div class="input-group">
+                        <label>🔒 Senha (Nome da Equipe):</label>
+                        <input type="password" id="senha-equipe" placeholder="Use o nome da equipe como senha" required>
+                    </div>
+                    
+                    <div class="input-group">
                         <label>🎮 Seu Nick (Líder):</label>
                         <input type="text" id="nick-lider" placeholder="Seu nick como líder" required>
                     </div>
@@ -557,26 +591,4 @@
                         <select id="jogo-equipe" required>
                             <option value="">Selecione o jogo</option>
                             <option value="trucu">🎰 TRUCU da Fúria</option>
-                            <option value="cfn">⚔️ CFN - Clash of Clan</option>
-                            <option value="cr">👑 CR - Clash Royale</option>
-                            <option value="mlbb">🗡️ MLBB - Mobile Legends</option>
-                            <option value="freefire">🔫 Free Fire</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label>👥 Quantidade de Membros:</label>
-                        <input type="number" id="qtd-membros" placeholder="Número de membros" min="2" max="10" required>
-                    </div>
-
-                    <!-- BENEFÍCIOS DA EQUIPE -->
-                    <div class="beneficios">
-                        <h4>🏅 VANTAGENS DA EQUIPE:</h4>
-                        <p>✅ Campeonatos exclusivos</p>
-                        <p>✅ Premiações em dinheiro</p>
-                        <p>✅ Reconhecimento da comunidade</p>
-                        <p>✅ Patrocínios e parcerias</p>
-                        <p>✅ Ranking de equipes</p>
-                    </div>
-                    
-                    <button class="neon-btn btn-equipe" onclick="cadastrarEquipe()
+  
