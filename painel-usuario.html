@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 USUÁRIO - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: linear-gradient(135deg, #0a0a0a, #1a1a0a, #0a1a0a);
+            color: white; 
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .header {
+            text-align: center;
+            padding: 30px;
+            margin-bottom: 30px;
+            background: rgba(255,165,0,0.1);
+            border: 3px solid #ffa500;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #ffa500;
+        }
+        
+        .header h1 {
+            color: #ffa500;
+            text-shadow: 0 0 20px #ffa500;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .profile-info {
+            background: rgba(255,165,0,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #ffa500;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .profile-name {
+            color: #ffa500;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ffa500;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255,165,0,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #ffa500;
+            text-align: center;
+        }
+        
+        .stat-number {
+            color: #ffa500;
+            font-size: 1.8em;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ffa500;
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .btn-user {
+            background: linear-gradient(45deg, #ffa500, #cc8400);
+            box-shadow: 0 0 20px #ffa500;
+        }
+        
+        .btn-user:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px #ffa500;
+        }
+        
+        .user-section {
+            background: rgba(0,0,0,0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #ffa500;
+        }
+        
+        .user-section h2 {
+            color: #ffa500;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #ffa500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 PAINEL DO USUÁRIO</h1>
+            <p>Bem-vindo à Comunidade FuriaDaNoitePlay!</p>
+        </div>
+        
+        <div class="profile-info">
+            <div class="profile-name">ToxicSkull√</div>
+            <div>🎯 Nível: 25 | ⭐ XP: 1,847</div>
+            <div>🏆 Vitórias: 89 | 💀 Derrotas: 23</div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">89%</div>
+                <div>TAXA VITÓRIA</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">47</div>
+                <div>AMIGOS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div>CONQUISTAS</div>
+            </div>
+        </div>
+        
+        <div class="actions-grid">
+            <button class="btn btn-user" onclick="jogarAgora()">
+                🎮 JOGAR AGORA
+            </button>
+            <button class="btn btn-user" onclick="verPerfil()">
+                👤 VER PERFIL
+            </button>
+            <button class="btn btn-user" onclick="verAmigos()">
+                👥 VER AMIGOS
+            </button>
+            <button class="btn btn-user" onclick="configuracoes()">
+                ⚙️ CONFIGURAÇÕES
+            </button>
+        </div>
+        
+        <div class="user-section">
+            <h2>🎯 FUNÇÕES DO USUÁRIO</h2>
+            <p>• Jogar partidas online</p>
+            <p>• Adicionar/remover amigos</p>
+            <p>• Personalizar perfil</p>
+            <p>• Participar de torneios</p>
+            <p>• Chat com a comunidade</p>
+        </div>
+    </div>
+
+    <script>
+        function jogarAgora() {
+            alert('🎮 Iniciando partida... Boa sorte!');
+        }
+        
+        function verPerfil() {
+            alert('👤 Abrindo perfil do usuário...');
+        }
+        
+        function verAmigos() {
+            alert('👥 Lista de amigos carregada!');
+        }
+        
+        function configuracoes() {
+            alert('⚙️ Configurações do usuário!');
+        }
+    </script>
+</body>
+</html>
