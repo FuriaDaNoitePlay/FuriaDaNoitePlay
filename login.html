@@ -10,7 +10,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             background: linear-gradient(135deg, #0a0a2a, #00008b, #2a0a4a);
             color: #00ffff;
@@ -21,7 +21,7 @@
             align-items: center;
             padding: 20px;
         }
-
+        
         .login-container {
             background: rgba(0, 0, 0, 0.95);
             padding: 40px;
@@ -34,7 +34,7 @@
             position: relative;
             overflow: hidden;
         }
-
+        
         .login-container::before {
             content: "";
             position: absolute;
@@ -46,31 +46,35 @@
             animation: brilho 8s linear infinite;
             z-index: 1;
         }
-
+        
         @keyframes brilho {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
-
+        
         .logo {
             margin-bottom: 30px;
             position: relative;
             z-index: 2;
         }
-
+        
         .logo h1 {
             font-size: 2.5em;
             color: #ff0000;
             text-shadow: 0 0 25px #ff0000;
             margin-bottom: 10px;
         }
-
+        
         .logo p {
             color: #ff4444;
             font-style: italic;
             font-size: 1.1em;
         }
-
+        
         /* STATUS DO SISTEMA */
         .status-sistema {
             display: grid;
@@ -80,7 +84,7 @@
             position: relative;
             z-index: 2;
         }
-
+        
         .status-item {
             background: rgba(0, 0, 0, 0.7);
             padding: 12px;
@@ -89,30 +93,30 @@
             text-align: center;
             box-shadow: 0 0 10px #ff0000;
         }
-
+        
         .status-numero {
             font-size: 1.3em;
             font-weight: bold;
             color: #ff0000;
         }
-
+        
         .status-label {
             font-size: 0.8em;
             color: #cccccc;
         }
-
+        
         /* FORMULÁRIO DE LOGIN */
         .form-login {
             margin: 25px 0;
             position: relative;
             z-index: 2;
         }
-
+        
         .input-group {
             margin: 20px 0;
             text-align: left;
         }
-
+        
         .input-group label {
             display: block;
             margin-bottom: 8px;
@@ -121,7 +125,7 @@
             font-size: 1.1em;
             text-shadow: 0 0 10px #ff0000;
         }
-
+        
         .input-group input {
             width: 100%;
             padding: 15px;
@@ -133,14 +137,14 @@
             transition: all 0.3s;
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
         }
-
+        
         .input-group input:focus {
             outline: none;
             border-color: #ff4444;
             box-shadow: 0 0 20px #ff4444;
             background: rgba(255, 0, 0, 0.1);
         }
-
+        
         .btn-login {
             width: 100%;
             padding: 15px;
@@ -155,13 +159,13 @@
             margin: 20px 0;
             box-shadow: 0 0 25px #ff0000;
         }
-
+        
         .btn-login:hover {
             transform: scale(1.05);
             box-shadow: 0 0 35px #ff0000;
             background: linear-gradient(45deg, #cc0000, #ff0000);
         }
-
+        
         /* TIPOS DE LOGIN */
         .tipo-login {
             display: grid;
@@ -171,7 +175,7 @@
             position: relative;
             z-index: 2;
         }
-
+        
         .tipo-btn {
             padding: 12px;
             background: rgba(255, 0, 0, 0.15);
@@ -179,16 +183,17 @@
             border-radius: 8px;
             color: #ff0000;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 00.3s;
             font-weight: bold;
         }
-
-        .tipo-btn:hover, .tipo-btn.ativo {
+        
+        .tipo-btn:hover,
+        .tipo-btn.ativo {
             background: #ff0000;
             color: white;
             box-shadow: 0 0 20px #ff0000;
         }
-
+        
         /* LINKS */
         .links {
             display: grid;
@@ -198,7 +203,7 @@
             position: relative;
             z-index: 2;
         }
-
+        
         .link {
             color: #ff0000;
             text-decoration: none;
@@ -210,13 +215,13 @@
             font-weight: bold;
             background: rgba(255, 0, 0, 0.1);
         }
-
+        
         .link:hover {
             background: #ff0000;
             color: white;
             box-shadow: 0 0 15px #ff0000;
         }
-
+        
         /* MENSAGENS */
         .mensagem {
             margin-top: 15px;
@@ -229,231 +234,69 @@
             z-index: 2;
             animation: slideIn 0.5s ease-out;
         }
-
+        
         @keyframes slideIn {
-            from { transform: translateX(-100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
-
+        
         .mensagem.sucesso {
             background: rgba(0, 255, 0, 0.2);
             border: 2px solid #00ff00;
             color: #00ff00;
         }
-
+        
         .mensagem.erro {
             background: rgba(255, 0, 0, 0.2);
             border: 2px solid #ff4444;
             color: #ff4444;
         }
-
+        
         /* RESPONSIVIDADE */
         @media (max-width: 768px) {
             .login-container {
                 padding: 30px 20px;
             }
-            
             .logo h1 {
                 font-size: 2em;
             }
-            
             .tipo-login {
                 grid-template-columns: 1fr;
             }
-            
             .links {
                 grid-template-columns: 1fr;
             }
         }
-
+        
         @media (max-width: 480px) {
             .login-container {
                 padding: 20px 15px;
             }
-            
             .logo h1 {
                 font-size: 1.8em;
             }
-            
             .status-sistema {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <div class="logo">
             <h1>🌙 FÚRIA DA NOITE</h1>
             <p>Sistema de Acesso - Membros & ADMs</p>
         </div>
-
+        
         <!-- STATUS DO SISTEMA -->
         <div class="status-sistema">
             <div class="status-item">
                 <div class="status-numero" id="jogadoresOnline">127</div>
-                <div class="status-label">ONLINE AGORA</div>
-            </div>
-            <div class="status-item">
-                <div class="status-numero" id="partidasAtivas">42</div>
-                <div class="status-label">PARTIDAS ATIVAS</div>
-            </div>
-        </div>
-
-        <!-- TIPOS DE LOGIN -->
-        <div class="tipo-login">
-            <button class="tipo-btn ativo" onclick="selecionarTipo('membro')">
-                👥 MEMBRO
-            </button>
-            <button class="tipo-btn" onclick="selecionarTipo('adm')">
-                👑 ADMIN
-            </button>
-        </div>
-
-        <!-- FORMULÁRIO DE LOGIN -->
-        <div class="form-login">
-            <form id="loginForm">
-                <div class="input-group">
-                    <label for="usuario">👤 Usuário:</label>
-                    <input type="text" id="usuario" placeholder="Digite seu usuário" required>
-                </div>
-
-                <div class="input-group">
-                    <label for="senha">🔒 Senha:</label>
-                    <input type="password" id="senha" placeholder="Digite sua senha" required>
-                </div>
-
-                <button type="submit" class="btn-login">🎮 ENTRAR NO SISTEMA</button>
-            </form>
-        </div>
-
-        <!-- LINKS DE NAVEGAÇÃO -->
-        <div class="links">
-            <a href="cadastro.html" class="link">📝 CADASTRAR</a>
-            <a href="index.html" class="link">🏠 INÍCIO</a>
-            <a href="recuperar.html" class="link">🔑 RECUPERAR</a>
-            <a href="regras.html" class="link">📜 REGRAS</a>
-        </div>
-
-        <div id="mensagem" class="mensagem"></div>
-    </div>
-
-    <script>
-        // SISTEMA DE LOGIN SIMPLIFICADO
-        let tipoAtual = 'membro';
-
-        // ATUALIZAR STATUS AO VIVO
-        function atualizarStatusAoVivo() {
-            const jogadores = Math.floor(Math.random() * 30) + 100;
-            const partidas = Math.floor(jogadores / 3);
-            
-            document.getElementById('jogadoresOnline').textContent = jogadores;
-            document.getElementById('partidasAtivas').textContent = partidas;
-        }
-
-        setInterval(atualizarStatusAoVivo, 5000);
-        atualizarStatusAoVivo();
-
-        // SELECIONAR TIPO DE LOGIN
-        function selecionarTipo(tipo) {
-            // Remover classe ativo de todos os botões
-            document.querySelectorAll('.tipo-btn').forEach(btn => {
-                btn.classList.remove('ativo');
-            });
-            
-            // Ativar tipo selecionado
-            document.querySelector(`[onclick="selecionarTipo('${tipo}')"]`).classList.add('ativo');
-            tipoAtual = tipo;
-            
-            // Atualizar placeholder do usuário
-            const usuarioInput = document.getElementById('usuario');
-            if (tipo === 'membro') {
-                usuarioInput.placeholder = "Digite seu nick ou usuário";
-            } else {
-                usuarioInput.placeholder = "Usuário ADM (ex: ToxicSkull√)";
-            }
-        }
-
-        // SISTEMA DE LOGIN
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const usuario = document.getElementById('usuario').value.trim();
-            const senha = document.getElementById('senha').value;
-            const mensagem = document.getElementById('mensagem');
-
-            // CREDENCIAIS DOS MEMBROS
-            const membros = {
-                'ToxicSkull√': 'furia123',
-                'Scorpion': 'scorpion123',
-                'NeferpitouI': 'nefer123',
-                'Son_king': 'sonking123',
-                'visitante': '123456'
-            };
-
-            // CREDENCIAIS DOS ADMs
-            const adms = {
-                'FURIAGOD': 'Furia2025_$',
-                'ToxicSkull√': 'L@!on',
-                'Scorpion': 'Mlk00',
-                'NeferpitouI': 'Ana025',
-                'Son_king': 'God19',
-                'ADMIN': 'admin123'
-            };
-
-            let credenciaisValidas = false;
-            let usuarioNome = '';
-
-            if (tipoAtual === 'membro') {
-                // Verificar login de membro
-                if (membros[usuario] && membros[usuario] === senha) {
-                    credenciaisValidas = true;
-                    usuarioNome = usuario;
-                }
-            } else {
-                // Verificar login de ADM
-                if (adms[usuario] && adms[usuario] === senha) {
-                    credenciaisValidas = true;
-                    usuarioNome = usuario;
-                }
-            }
-
-            if (credenciaisValidas) {
-                mensagem.textContent = `✅ Login realizado com sucesso! Bem-vindo, ${usuarioNome}`;
-                mensagem.className = 'mensagem sucesso';
-                mensagem.style.display = 'block';
-                
-                // Redirecionar após 2 segundos
-                setTimeout(() => {
-                    if (tipoAtual === 'membro') {
-                        window.location.href = 'sistema-membros.html';
-                    } else {
-                        window.location.href = 'painel-adm.html';
-                    }
-                }, 2000);
-            } else {
-                mensagem.textContent = '❌ Usuário ou senha incorretos!';
-                mensagem.className = 'mensagem erro';
-                mensagem.style.display = 'block';
-                
-                // Limpar mensagem após 3 segundos
-                setTimeout(() => {
-                    mensagem.style.display = 'none';
-                }, 3000);
-            }
-        });
-
-        // FOCO AUTOMÁTICO NO CAMPO DE USUÁRIO
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('usuario').focus();
-        });
-
-        // ENTER PARA SUBMIT
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
-            }
-        });
-    </script>
-</body>
-</html>
+                <div class="status-label">ONLINE AGORA</div
