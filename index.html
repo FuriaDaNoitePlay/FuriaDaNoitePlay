@@ -180,102 +180,6 @@
       transform: scale(1.05);
     }
 
-    /* ===== SEÇÃO SUPER ADM (OCULTA INICIALMENTE) ===== */
-    .super-adm-section {
-      background: rgba(0, 0, 0, 0.9);
-      border: 3px solid #ffd700;
-      border-radius: 15px;
-      box-shadow: 0 0 35px #ffd700;
-      padding: 30px;
-      margin: 40px 0;
-      position: relative;
-      overflow: hidden;
-      display: none; /* OCULTO ATÉ O LOGIN */
-    }
-
-    .super-adm-section::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-      animation: brilho-ouro 6s linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes brilho-ouro {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .super-adm-title {
-      color: #ffd700;
-      font-size: 2.5rem;
-      text-shadow: 0 0 25px #ffd700;
-      margin-bottom: 25px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .adm-controls {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin-bottom: 25px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .adm-card {
-      background: rgba(255, 215, 0, 0.1);
-      border: 2px solid #ffd700;
-      border-radius: 12px;
-      padding: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .adm-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px #ffd700;
-    }
-
-    .adm-card h4 {
-      color: #ffd700;
-      margin-bottom: 15px;
-      font-size: 1.3rem;
-    }
-
-    .btn-adm {
-      background: linear-gradient(135deg, #ffd700, #ffaa00);
-      color: #000;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin: 5px;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .btn-adm:hover {
-      background: linear-gradient(135deg, #ffaa00, #ffd700);
-      box-shadow: 0 0 15px #ffd700;
-      transform: scale(1.05);
-    }
-
-    .btn-adm-danger {
-      background: linear-gradient(135deg, #ff0000, #cc0000);
-      color: white;
-    }
-
-    .btn-adm-success {
-      background: linear-gradient(135deg, #00ff00, #008800);
-      color: #000;
-    }
-
     /* ===== SEÇÃO DE VÍDEO ===== */
     .video-box {
       background: rgba(0, 0, 0, 0.7);
@@ -553,10 +457,6 @@
         text-align: center;
       }
       
-      .adm-controls {
-        grid-template-columns: 1fr;
-      }
-      
       .video-musica {
         max-width: 100%;
       }
@@ -570,20 +470,18 @@
 
 <body>
 
-  <!-- ==== CABEÇALHO ===== -->
-<header>  
-  <img src="fúria.png" alt="Logo Fúria" class="logo">
-  <h1 class="titulo">🌕FuriaDaNoitePlay🌕</h1>
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="agente.html">Agente Da Noite</a>
-    <a href="FR0N.html">FR0N</a>
-    <a href="campeonato.html">campeonato</a>
-    <a href="regras.html">regras</a>
-    <a href="login.html" id="loginLink">login</a>
-    <a href="TRUCU.html">TRUCU</a>
-  </nav>
-</header>
+  <!-- ====== CABEÇALHO ====== -->
+  <header>
+    <img src="fúria.png" alt="Logo Fúria da Noite" class="logo">
+    <h1 class="titulo">🌕 FuriaDaNoitePlay 🌕</h1>
+    <nav>
+      <a href="FR0N.html">FRØN</a>
+      <a href="campeonato.html">Campeonato</a>
+      <a href="regras.html">Regras</a>
+      <a href="login.html">Login</a>
+      <a href="TRUCU.html">🎴 TRUCU</a>
+    </nav>
+  </header>
 
   <!-- ====== CONTEÚDO PRINCIPAL ====== -->
   <main>
@@ -629,58 +527,6 @@
         </button>
       </div>
     </div>
-
-    <!-- ====== SEÇÃO SUPER ADM (APENAS PARA ADMs LOGADOS) ====== -->
-    <section class="super-adm-section" id="superAdmSection">
-      <h2 class="super-adm-title">👑 PAINEL SUPER ADM - PRINEL</h2>
-      
-      <div class="adm-controls">
-        <div class="adm-card">
-          <h4>🎮 Gerenciar Campeonatos</h4>
-          <button class="btn-adm" onclick="criarCampeonato()">
-            <i class="fas fa-trophy"></i> Criar Campeonato
-          </button>
-          <button class="btn-adm" onclick="editarCampeonato()">
-            <i class="fas fa-edit"></i> Editar Campeonato
-          </button>
-          <button class="btn-adm" onclick="gerenciarResultados()">
-            <i class="fas fa-chart-bar"></i> Resultados
-          </button>
-        </div>
-
-        <div class="adm-card">
-          <h4>👥 Gerenciar Usuários</h4>
-          <button class="btn-adm" onclick="adicionarAdm()">
-            <i class="fas fa-user-plus"></i> Adicionar ADM
-          </button>
-          <button class="btn-adm btn-adm-danger" onclick="banirUsuario()">
-            <i class="fas fa-ban"></i> Banir Usuário
-          </button>
-          <button class="btn-adm" onclick="visualizarLogs()">
-            <i class="fas fa-scroll"></i> Ver Logs
-          </button>
-        </div>
-
-        <div class="adm-card">
-          <h4>⚙️ Configurações</h4>
-          <button class="btn-adm" onclick="configurarSistema()">
-            <i class="fas fa-cogs"></i> Sistema
-          </button>
-          <button class="btn-adm btn-adm-success" onclick="backupSistema()">
-            <i class="fas fa-download"></i> Backup
-          </button>
-          <button class="btn-adm btn-adm-danger" onclick="modoEmergencia()">
-            <i class="fas fa-exclamation-triangle"></i> Emergência
-          </button>
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: 20px;">
-        <button class="btn-adm" style="background: linear-gradient(135deg, #8a2be2, #6a1bb2);" onclick="acessoTotal()">
-          <i class="fas fa-crown"></i> ACESSO TOTAL DO SISTEMA
-        </button>
-      </div>
-    </section>
 
     <!-- ====== VÍDEO SEÇÃO ====== -->
     <section class="video-box">
@@ -758,14 +604,109 @@
   <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">🏠 Início</button>
 
   <script>
-    // ===== SISTEMA DE LOGIN =====
-    let usuarioLogado = false;
-    let isSuperAdm = false;
+    // ===== CONTROLE DO PLAYER DE MÚSICA =====
+    let videoTocando = false;
 
-    // Verificar se há um ADM logado (simulação)
-    function verificarLogin() {
-      // Simulação - na prática isso viria de uma sessão ou localStorage
-      const admSalvo = localStorage.getItem('superAdmLogado');
-      if (admSalvo === 'true') {
-        usuarioLogado = true;
-        isSuperAdm = true;
+    function tocarMusica() {
+      const videoMusica = document.getElementById('videoMusica');
+      const btnPlay = document.getElementById('btnPlay');
+      
+      if (!videoTocando) {
+        // Mostra o quadrado do vídeo
+        videoMusica.classList.add('ativo');
+        
+        // Atualiza o botão
+        btnPlay.innerHTML = '<i class="fas fa-pause"></i>';
+        btnPlay.style.background = 'linear-gradient(135deg, #00ff00, #008800)';
+        
+        // Adiciona autoplay ao iframe
+        const iframe = videoMusica.querySelector('iframe');
+        const currentSrc = iframe.src;
+        if (!currentSrc.includes('autoplay=1')) {
+          iframe.src = currentSrc + (currentSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+        }
+        
+        videoTocando = true;
+      } else {
+        pausarMusica();
+      }
+    }
+
+    function pausarMusica() {
+      const btnPlay = document.getElementById('btnPlay');
+      
+      if (videoTocando) {
+        // Remove autoplay do iframe
+        const iframe = document.querySelector('#videoMusica iframe');
+        iframe.src = iframe.src.replace('&autoplay=1', '');
+        
+        // Atualiza o botão
+        btnPlay.innerHTML = '<i class="fas fa-play"></i>';
+        btnPlay.style.background = 'linear-gradient(135deg, #ff0000, #cc0000)';
+        
+        videoTocando = false;
+      }
+    }
+
+    function pararMusica() {
+      const videoMusica = document.getElementById('videoMusica');
+      const btnPlay = document.getElementById('btnPlay');
+      
+      // Esconde o quadrado do vídeo
+      videoMusica.classList.remove('ativo');
+      
+      // Remove autoplay do iframe
+      const iframe = document.querySelector('#videoMusica iframe');
+      iframe.src = iframe.src.replace('&autoplay=1', '');
+      
+      // Atualiza o botão
+      btnPlay.innerHTML = '<i class="fas fa-play"></i>';
+      btnPlay.style.background = 'linear-gradient(135deg, #ff0000, #cc0000)';
+      
+      videoTocando = false;
+    }
+
+    // ===== EFEITOS VISUAIS =====
+    document.addEventListener('DOMContentLoaded', function() {
+      // Adiciona efeito de digitação no título
+      const titulo = document.querySelector('.titulo');
+      const textoOriginal = titulo.textContent;
+      titulo.textContent = '';
+      
+      let i = 0;
+      const typingEffect = setInterval(() => {
+        if (i < textoOriginal.length) {
+          titulo.textContent += textoOriginal.charAt(i);
+          i++;
+        } else {
+          clearInterval(typingEffect);
+        }
+      }, 100);
+      
+      // Efeito de entrada para os elementos
+      const elementos = document.querySelectorAll('.texto-intro, .quadrado-social, .video-box, .player-musica, .adm-box');
+      
+      elementos.forEach((elemento, index) => {
+        elemento.style.opacity = '0';
+        elemento.style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+          elemento.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+          elemento.style.opacity = '1';
+          elemento.style.transform = 'translateY(0)';
+        }, 300 + (index * 200));
+      });
+    });
+
+    // ===== BOTÃO VOLTAR AO TOPO =====
+    window.addEventListener('scroll', function() {
+      const botaoInicio = document.querySelector('.botao-inicio');
+      if (window.scrollY > 300) {
+        botaoInicio.style.display = 'block';
+      } else {
+        botaoInicio.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
