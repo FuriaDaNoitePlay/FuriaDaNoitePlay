@@ -1,573 +1,336 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 PAINEL ADM SUPREMO - FuriaDaNoite</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* ===== VARIÁVEIS E RESET ===== */
-        :root {
-            --adm-vermelho: #ff0000;
-            --adm-amarelo: #ffff00;
-            --adm-verde: #00ff00;
-            --adm-roxo: #8a2be2;
-            --adm-azul: #0066ff;
-            --fundo-escuro: #0a0a0a;
-            --fundo-medio: #1a1a1a;
-            --texto-brilho: #ffffff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #001a0a 100%);
-            color: var(--texto-brilho);
-            font-family: 'Orbitron', sans-serif;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        /* ===== LAYOUT PRINCIPAL ===== */
-        .container {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            min-height: 100vh;
-        }
-
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            background: linear-gradient(180deg, #0a0a0a 0%, #1a0a0a 100%);
-            border-right: 3px solid var(--adm-vermelho);
-            box-shadow: 5px 0 25px rgba(255, 0, 0, 0.3);
-            padding: 30px 20px;
-            position: fixed;
-            width: 280px;
-            height: 100vh;
-            overflow-y: auto;
-            z-index: 1000;
-        }
-
-        .user-info {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 2px solid var(--adm-vermelho);
-            margin-bottom: 30px;
-        }
-
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid var(--adm-vermelho);
-            box-shadow: 0 0 20px var(--adm-vermelho);
-            margin: 0 auto 15px;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-        }
-
-        .user-name {
-            color: var(--adm-vermelho);
-            font-size: 1.3rem;
-            font-weight: bold;
-            text-shadow: 0 0 10px var(--adm-vermelho);
-            margin-bottom: 5px;
-        }
-
-        .user-role {
-            color: var(--adm-amarelo);
-            font-size: 0.9rem;
-            text-shadow: 0 0 8px var(--adm-amarelo);
-        }
-
-        .nav-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .nav-item {
-            padding: 15px 20px;
-            border: 2px solid var(--adm-vermelho);
-            border-radius: 10px;
-            color: var(--texto-brilho);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: bold;
-            background: rgba(255, 0, 0, 0.1);
-        }
-
-        .nav-item:hover, .nav-item.active {
-            background: var(--adm-vermelho);
-            color: #000;
-            box-shadow: 0 0 20px var(--adm-vermelho);
-            transform: translateX(5px);
-        }
-
-        .nav-item i {
-            font-size: 1.2rem;
-            width: 25px;
-        }
-
-        /* ===== CONTEÚDO PRINCIPAL ===== */
-        .main-content {
-            grid-column: 2;
-            padding: 30px;
-            margin-left: 280px;
-        }
-
-        /* ===== HEADER ===== */
-        .header {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
-            padding: 25px 30px;
-            border-radius: 15px;
-            border: 2px solid var(--adm-vermelho);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-title {
-            color: var(--adm-vermelho);
-            font-size: 2.2rem;
-            text-shadow: 0 0 20px var(--adm-vermelho);
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 20px;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 10px 20px;
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid var(--adm-vermelho);
-            border-radius: 8px;
-        }
-
-        .stat-number {
-            color: var(--adm-verde);
-            font-size: 1.4rem;
-            font-weight: bold;
-            text-shadow: 0 0 10px var(--adm-verde);
-        }
-
-        .stat-label {
-            color: #cccccc;
-            font-size: 0.8rem;
-        }
-
-        /* ===== SEÇÕES DO PAINEL ===== */
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid var(--adm-vermelho);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.3);
-        }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--adm-vermelho), #cc0000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 0 15px var(--adm-vermelho);
-        }
-
-        .card-title {
-            color: var(--adm-vermelho);
-            font-size: 1.3rem;
-            font-weight: bold;
-            text-shadow: 0 0 10px var(--adm-vermelho);
-        }
-
-        /* ===== BOTÕES ===== */
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--adm-vermelho), #cc0000);
-            color: white;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #cc0000, var(--adm-vermelho));
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, var(--adm-verde), #00cc00);
-            color: #000;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--adm-amarelo), #ffaa00);
-            color: #000;
-            box-shadow: 0 0 15px rgba(255, 255, 0, 0.4);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #ff4444, #cc0000);
-            color: white;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-        }
-
-        /* ===== LISTAS E TABELAS ===== */
-        .user-list, .team-list {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 15px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .user-item, .team-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .user-item:hover, .team-item:hover {
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 5px;
-        }
-
-        .user-info-small, .team-info-small {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .user-avatar-small {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--adm-vermelho), #cc0000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-        }
-
-        /* ===== FORMULÁRIOS ===== */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            color: var(--adm-vermelho);
-            margin-bottom: 8px;
-            font-weight: bold;
-            text-shadow: 0 0 8px var(--adm-vermelho);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--adm-vermelho);
-            border-radius: 8px;
-            background: rgba(255, 0, 0, 0.1);
-            color: white;
-            font-family: 'Orbitron', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--adm-amarelo);
-            box-shadow: 0 0 15px var(--adm-amarelo);
-            background: rgba(255, 255, 0, 0.1);
-        }
-
-        /* ===== MENSAGENS ===== */
-        .mensagem {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin: 15px 0;
-            text-align: center;
-            font-weight: bold;
-            display: none;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .mensagem.sucesso {
-            background: rgba(0, 255, 0, 0.2);
-            border: 2px solid var(--adm-verde);
-            color: var(--adm-verde);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
-        }
-
-        .mensagem.erro {
-            background: rgba(255, 0, 0, 0.2);
-            border: 2px solid var(--adm-vermelho);
-            color: var(--adm-vermelho);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-        }
-
-        /* ===== RESPONSIVIDADE ===== */
-        @media (max-width: 1024px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-            }
-            
-            .main-content {
-                margin-left: 0;
-                grid-column: 1;
-            }
-            
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-            
-            .header-stats {
-                justify-content: center;
-            }
-            
-            .main-content {
-                padding: 20px 15px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- SIDEBAR -->
-        <nav class="sidebar">
-            <div class="user-info">
-                <div class="user-avatar">
-                    👑
-                </div>
-                <div class="user-name" id="currentUser">FURIAGOD</div>
-                <div class="user-role">ADMINISTRADOR SUPREMO</div>
-            </div>
-
-            <div class="nav-menu">
-                <a href="#" class="nav-item active" onclick="mostrarSecao('dashboard')">
-                    <i class="fas fa-tachometer-alt"></i>
-                    DASHBOARD
-                </a>
-                <a href="#" class="nav-item" onclick="mostrarSecao('usuarios')">
-                    <i class="fas fa-users"></i>
-                    GERENCIAR USUÁRIOS
-                </a>
-                <a href="#" class="nav-item" onclick="mostrarSecao('equipes')">
-                    <i class="fas fa-people-group"></i>
-                    GERENCIAR EQUIPES
-                </a>
-                <a href="#" class="nav-item" onclick="mostrarSecao('campeonatos')">
-                    <i class="fas fa-trophy"></i>
-                    CAMPEONATOS
-                </a>
-                <a href="#" class="nav-item" onclick="mostrarSecao('confrontos')">
-                    <i class="fas fa-fist-raised"></i>
-                    CONFRONTOS
-                </a>
-                <a href="#" class="nav-item" onclick="mostrarSecao('chat')">
-                    <i class="fas fa-comments"></i>
-                    CHAT ADMIN
-                </a>
-                <a href="#" class="nav-item" onclick="mostrarSecao('configuracoes')">
-                    <i class="fas fa-cogs"></i>
-                    CONFIGURAÇÕES
-                </a>
-                <a href="login.html" class="nav-item" style="background: rgba(255, 0, 0, 0.3);">
-                    <i class="fas fa-sign-out-alt"></i>
-                    SAIR
-                </a>
-            </div>
-        </nav>
-
-        <!-- CONTEÚDO PRINCIPAL -->
-        <main class="main-content">
-            <!-- HEADER -->
-            <header class="header">
-                <h1 class="header-title" id="sectionTitle">PAINEL DE CONTROLE - ADM SUPREMO</h1>
-                <div class="header-stats">
-                    <div class="stat-item">
-                        <div class="stat-number" id="onlineCount">147</div>
-                        <div class="stat-label">ONLINE</div>
+                            </div>
+                            <p>Configure as regras do sistema, pontos, temporadas e configurações avançadas.</p>
+                            <div style="margin: 15px 0;">
+                                <strong>Configurações Ativas:</strong>
+                                <div style="color: #ccc; margin-top: 8px;">
+                                    • Pontos por vitória: 3<br>
+                                    • Temporada: 2024.2<br>
+                                    • Sistema de ban: Ativo
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="mostrarSecao('configuracoes')">
+                                <i class="fas fa-sliders-h"></i> CONFIGURAÇÕES COMPLETAS
+                            </button>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="matchesCount">23</div>
-                        <div class="stat-label">PARTIDAS</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="teamsCount">18</div>
-                        <div class="stat-label">EQUIPES</div>
-                    </div>
-                </div>
-            </header>
+                </section>
 
-            <!-- MENSAGEM -->
-            <div id="mensagem" class="mensagem"></div>
+                <!-- GERENCIAR USUÁRIOS -->
+                <section id="usuarios" class="secao">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                👥
+                            </div>
+                            <h3 class="card-title">GERENCIAMENTO DE USUÁRIOS</h3>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Pesquisar Usuário:</label>
+                            <input type="text" class="form-input" id="pesquisaUsuario" placeholder="Digite o nome do usuário...">
+                        </div>
 
-            <!-- SEÇÕES DO PAINEL -->
-            <div id="secoes">
-                <!-- DASHBOARD -->
-                <section id="dashboard" class="secao ativa">
+                        <div class="user-list">
+                            <div class="user-item">
+                                <div class="user-info-small">
+                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #ff0000, #cc0000);">FG</div>
+                                    <div>
+                                        <strong>FURIAGOD</strong>
+                                        <div style="font-size: 0.8rem; color: var(--adm-amarelo);">👑 ADM Supremo</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
+                                    <button class="btn btn-warning" onclick="editarUsuario('FURIAGOD')">
+                                        <i class="fas fa-crown"></i> Supremo
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="user-item">
+                                <div class="user-info-small">
+                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #0066ff, #0044cc);">SC</div>
+                                    <div>
+                                        <strong>Scorpion</strong>
+                                        <div style="font-size: 0.8rem; color: var(--adm-azul);">🔧 ADM Geral</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
+                                    <button class="btn btn-warning" onclick="editarUsuario('Scorpion')">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn btn-danger" onclick="rebaixarAdm('Scorpion')">
+                                        <i class="fas fa-arrow-down"></i> Rebaixar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="user-item">
+                                <div class="user-info-small">
+                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #8a2be2, #6a1bb2);">SK</div>
+                                    <div>
+                                        <strong>.Son King</strong>
+                                        <div style="font-size: 0.8rem; color: var(--adm-roxo);">🔧 ADM Geral</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
+                                    <button class="btn btn-warning" onclick="editarUsuario('.Son King')">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn btn-danger" onclick="rebaixarAdm('.Son King')">
+                                        <i class="fas fa-arrow-down"></i> Rebaixar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="user-item">
+                                <div class="user-info-small">
+                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #ff4444, #cc2222);">TS</div>
+                                    <div>
+                                        <strong>ToxicSkull√</strong>
+                                        <div style="font-size: 0.8rem; color: #ccc;">🎮 Membro</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
+                                    <button class="btn btn-success" onclick="promoverAdm('ToxicSkull√')">
+                                        <i class="fas fa-arrow-up"></i> Promover
+                                    </button>
+                                    <button class="btn btn-danger" onclick="banirUsuario('ToxicSkull√')">
+                                        <i class="fas fa-ban"></i> Banir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                            <button class="btn btn-success" onclick="adicionarUsuario()">
+                                <i class="fas fa-user-plus"></i> ADICIONAR USUÁRIO
+                            </button>
+                            <button class="btn btn-primary" onclick="exportarUsuarios()">
+                                <i class="fas fa-download"></i> EXPORTAR LISTA
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GERENCIAR EQUIPES -->
+                <section id="equipes" class="secao">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                🏆
+                            </div>
+                            <h3 class="card-title">GERENCIAMENTO DE EQUIPES</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Filtrar por Série:</label>
+                            <select class="form-input" id="filtroSerie" onchange="filtrarEquipes()">
+                                <option value="todas">Todas as Séries</option>
+                                <option value="a">Série A</option>
+                                <option value="b">Série B</option>
+                                <option value="c">Série C</option>
+                            </select>
+                        </div>
+
+                        <div class="team-list">
+                            <div class="team-item">
+                                <div class="user-info-small">
+                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #ff0000, #cc0000);">FN</div>
+                                    <div>
+                                        <strong>FÚRIA DA NOITE</strong>
+                                        <div style="font-size: 0.8rem; color: var(--adm-vermelho);">👑 Série A • 36 pontos</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-warning" onclick="editarEquipe('FÚRIA DA NOITE')">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn btn-primary" onclick="transferirEquipe('FÚRIA DA NOITE')">
+                                        <i class="fas fa-exchange-alt"></i> Transferir
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="team-item">
+                                <div class="user-info-small">
+                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #0066ff, #0044cc);">NE</div>
+                                    <div>
+                                        <strong>NEON ESPORTS</strong>
+                                        <div style="font-size: 0.8rem; color: var(--adm-azul);">⚡ Série A • 34 pontos</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-warning" onclick="editarEquipe('NEON ESPORTS')">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn btn-primary" onclick="transferirEquipe('NEON ESPORTS')">
+                                        <i class="fas fa-exchange-alt"></i> Transferir
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="team-item">
+                                <div class="user-info-small">
+                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #00ff00, #00cc00);">ETA</div>
+                                    <div>
+                                        <strong>ECHO TEAM ACADEMY</strong>
+                                        <div style="font-size: 0.8rem; color: var(--adm-verde);">🎯 Série B • 34 pontos</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-warning" onclick="editarEquipe('ECHO TEAM ACADEMY')">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn btn-primary" onclick="transferirEquipe('ECHO TEAM ACADEMY')">
+                                        <i class="fas fa-exchange-alt"></i> Transferir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                            <button class="btn btn-success" onclick="criarNovaEquipe()">
+                                <i class="fas fa-plus"></i> NOVA EQUIPE
+                            </button>
+                            <button class="btn btn-primary" onclick="gerarTabela()">
+                                <i class="fas fa-table"></i> GERAR TABELA
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CAMPEONATOS -->
+                <section id="campeonatos" class="secao">
                     <div class="dashboard">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-icon">
-                                    👤
+                                    🏅
                                 </div>
-                                <h3 class="card-title">GERENCIAR USUÁRIOS</h3>
+                                <h3 class="card-title">CRIAR NOVO CAMPEONATO</h3>
                             </div>
-                            <p>Banir, editar nicks, resetar senhas e gerenciar permissões de usuários.</p>
-                            <div class="user-list">
-                                <div class="user-item">
-                                    <div class="user-info-small">
-                                        <div class="user-avatar-small">TS</div>
-                                        <div>
-                                            <strong>ToxicSkull√</strong>
-                                            <div style="font-size: 0.8rem; color: #ccc;">Online</div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-warning" onclick="editarUsuario('ToxicSkull√')">
-                                            <i class="fas fa-edit"></i> Editar
-                                        </button>
-                                        <button class="btn btn-danger" onclick="banirUsuario('ToxicSkull√')">
-                                            <i class="fas fa-ban"></i> Banir
-                                        </button>
-                                    </div>
-                                </div>
-                                <!-- Mais usuários... -->
+                            
+                            <div class="form-group">
+                                <label class="form-label">Nome do Campeonato:</label>
+                                <input type="text" class="form-input" id="nomeCampeonato" placeholder="Ex: TRUCU 4x4 - Temporada 2024">
                             </div>
-                            <button class="btn btn-primary" style="margin-top: 15px; width: 100%;" onclick="mostrarSecao('usuarios')">
-                                <i class="fas fa-cog"></i> GERENCIAR TODOS OS USUÁRIOS
+
+                            <div class="form-group">
+                                <label class="form-label">Jogo:</label>
+                                <select class="form-input" id="jogoCampeonato">
+                                    <option value="trucu">TRUCU 4x4</option>
+                                    <option value="mlbb">Mobile Legends</option>
+                                    <option value="freefire">Free Fire</option>
+                                    <option value="lol">League of Legends</option>
+                                    <option value="valorant">Valorant</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Formato:</label>
+                                <select class="form-input" id="formatoCampeonato">
+                                    <option value="grupos">Fase de Grupos + Mata-mata</option>
+                                    <option value="mata-mata">Mata-mata Direto</option>
+                                    <option value="liga">Liga (Todos contra todos)</option>
+                                    <option value="swiss">Sistema Suíço</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-success" style="width: 100%;" onclick="criarCampeonato()">
+                                <i class="fas fa-trophy"></i> CRIAR CAMPEONATO
                             </button>
                         </div>
 
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-icon">
-                                    🏆
+                                    📊
                                 </div>
                                 <h3 class="card-title">CAMPEONATOS ATIVOS</h3>
                             </div>
-                            <p>Crie e gerencie campeonatos, agende confrontos e defina resultados.</p>
-                            <div style="margin: 15px 0;">
-                                <strong>Campeonatos Ativos:</strong>
-                                <div style="color: #ccc; margin-top: 8px;">
-                                    • TRUCU 4x4 - Fase de Grupos<br>
-                                    • MLBB - Quartas de Final<br>
-                                    • Free Fire - Semifinal
+
+                            <div class="user-list">
+                                <div class="user-item">
+                                    <div class="user-info-small">
+                                        <div class="user-avatar-small" style="background: linear-gradient(135deg, #ff0000, #cc0000);">T4</div>
+                                        <div>
+                                            <strong>TRUCU 4x4 - Fase de Grupos</strong>
+                                            <div style="font-size: 0.8rem; color: var(--adm-verde);">✅ Ativo • 12 equipes</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary" onclick="gerenciarCampeonato('trucu')">
+                                            <i class="fas fa-cog"></i> Gerenciar
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="user-item">
+                                    <div class="user-info-small">
+                                        <div class="user-avatar-small" style="background: linear-gradient(135deg, #0066ff, #0044cc);">ML</div>
+                                        <div>
+                                            <strong>MLBB Championship</strong>
+                                            <div style="font-size: 0.8rem; color: var(--adm-verde);">✅ Ativo • 8 equipes</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary" onclick="gerenciarCampeonato('mlbb')">
+                                            <i class="fas fa-cog"></i> Gerenciar
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="user-item">
+                                    <div class="user-info-small">
+                                        <div class="user-avatar-small" style="background: linear-gradient(135deg, #ffaa00, #cc8800);">FF</div>
+                                        <div>
+                                            <strong>Free Fire Series</strong>
+                                            <div style="font-size: 0.8rem; color: var(--adm-amarelo);">⏳ Em Breve</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-warning" onclick="configurarCampeonato('freefire')">
+                                            <i class="fas fa-wrench"></i> Configurar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <button class="btn btn-success" onclick="mostrarSecao('campeonatos')">
-                                <i class="fas fa-plus"></i> NOVO CAMPEONATO
-                            </button>
-                            <button class="btn btn-primary" onclick="mostrarSecao('confrontos')">
-                                <i class="fas fa-calendar"></i> AGENDAR CONFRONTOS
-                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CONFIGURAÇÕES -->
+                <section id="configuracoes" class="secao">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                ⚙️
+                            </div>
+                            <h3 class="card-title">CONFIGURAÇÕES DO SISTEMA</h3>
                         </div>
 
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    💬
+                        <div class="dashboard" style="grid-template-columns: 1fr;">
+                            <div class="card">
+                                <h4 style="color: var(--adm-vermelho); margin-bottom: 15px;">🔧 CONFIGURAÇÕES DE PONTUAÇÃO</h4>
+                                <div class="form-group">
+                                    <label class="form-label">Pontos por Vitória:</label>
+                                    <input type="number" class="form-input" value="3" min="1" max="10">
                                 </div>
-                                <h3 class="card-title">CHAT E MODERAÇÃO</h3>
-                            </div>
-                            <p>Modere o chat global, visualize conversas e gerencie denúncias.</p>
-                            <div style="margin: 15px 0;">
-                                <strong>Status do Chat:</strong>
-                                <div style="color: var(--adm-verde); margin-top: 8px;">
-                                    ✅ Chat Online - 45 usuários ativos
+                                <div class="form-group">
+                                    <label class="form-label">Pontos por Empate:</label>
+                                    <input type="number" class="form-input" value="1" min="0" max="5">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Pontos por Derrota:</label>
+                                    <input type="number" class="form-input" value="0" min="0" max="2">
                                 </div>
                             </div>
-                            <button class="btn btn-primary" onclick="mostrarSecao('chat')">
-                                <i class="fas fa-comments"></i> ACESSAR CHAT ADMIN
-                            </button>
-                            <button class="btn btn-warning" onclick="abrirModeracao()">
-                                <i class="fas fa-shield-alt"></i> PAINEL DE MODERAÇÃO
-                            </button>
-                        </div>
 
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    ⚙️
-                                </div>
-                                <h3 class="card-title">CONFIGURAÇÕES DO SISTEMA</h3>
+                            <div class="card">
+                                <h4 style="color: var(--adm-vermelho); margin-bottom: 15px;">🛡️ CONFIGURAÇÕES DE MODERAÇÃO</h4>
+                                <div class="form-group">
+                                    <label class="for
