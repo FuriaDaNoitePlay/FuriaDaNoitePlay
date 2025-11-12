@@ -396,7 +396,94 @@
         .admin-btn:hover {
             background: #0052cc;
         }
-        
+
+        /* Área de Administração */
+        .admin-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        .admin-section h3 {
+            color: #0064ff;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #0064ff;
+        }
+
+        .btn-primary {
+            background: #0064ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background: #0052cc;
+        }
+
+        .btn-danger {
+            background: #ff003c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-danger:hover {
+            background: #cc002f;
+        }
+
+        .team-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .team-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .team-actions {
+            display: flex;
+            gap: 5px;
+            margin-left: auto;
+        }
+
         /* Responsividade */
         @media (max-width: 768px) {
             .navigation {
@@ -411,6 +498,10 @@
             
             .confrontos-container {
                 grid-template-columns: 1fr;
+            }
+
+            .admin-controls {
+                flex-direction: column;
             }
         }
     </style>
@@ -431,203 +522,121 @@
             <button class="nav-btn" data-target="admin">Painel ADM</button>
         </div>
         
-        <section id="serie-a" class="championship-section serie-a">
-            <h2 class="section-title">SÉRIE A</h2>
-            <table class="classification-table">
-                <tr>
-                    <td class="position">1</td>
-                    <td>
-                        <span class="circle red"></span>
-                        <span class="team-name">FÚRIA DA NOITE</span>
-                        <span class="team-tag">(C) PLAY</span>
-                    </td>
-                    <td class="points">36</td>
-                </tr>
-                <tr>
-                    <td class="position">2</td>
-                    <td>
-                        <span class="circle white"></span>
-                        <span class="team-name">NEON ESPORTS</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">34</td>
-                </tr>
-                <tr>
-                    <td class="position">3</td>
-                    <td>
-                        <span class="circle white"></span>
-                        <span class="team-name">TEAM VORTEX</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">32</td>
-                </tr>
-                <tr>
-                    <td class="position">4</td>
-                    <td>
-                        <span class="circle white"></span>
-                        <span class="team-name">DRAGON FORCE</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">30</td>
-                </tr>
-            </table>
-        </section>
-        
-        <section id="serie-b" class="championship-section serie-b active">
-            <h2 class="section-title">SÉRIE B</h2>
-            <table class="classification-table">
-                <tr>
-                    <td class="position">1</td>
-                    <td>
-                        <span class="circle red"></span>
-                        <span class="team-name">ECHO TEAM ACADEMY</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">34</td>
-                </tr>
-                <tr>
-                    <td class="position">2</td>
-                    <td>
-                        <span class="circle white"></span>
-                        <span class="team-name">OLIMPO YAKUZA</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">34</td>
-                </tr>
-                <tr>
-                    <td class="position">3</td>
-                    <td>
-                        <span class="circle white"></span>
-                        <span class="team-name">BEEZEEKAY ESPORTS</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">32</td>
-                </tr>
-                <tr>
-                    <td class="position">4</td>
-                    <td>
-                        <span class="circle white"></span>
-                        <span class="team-name">THUNDER STRIKE</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">31</td>
-                </tr>
-            </table>
-        </section>
-        
-        <section id="serie-c" class="championship-section serie-c">
-            <h2 class="section-title">SÉRIE C</h2>
-            <table class="classification-table">
-                <tr>
-                    <td class="position">1</td>
-                    <td>
-                        <span class="circle red"></span>
-                        <span class="team-name">PHOENIX RISING</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">35</td>
-                </tr>
-                <tr>
-                    <td class="position">2</td>
-                    <td>
-                        <span class="circle white"></span>
-                        <span class="team-name">WOLF PACK GAMING</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">33</td>
-                </tr>
-                <tr>
-                    <td class="position">3</td>
-                    <td>
-                        <span class="circle white"></span>
-                        <span class="team-name">SHADOW CLAN</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">32</td>
-                </tr>
-                <tr>
-                    <td class="position">4</td>
-                    <td>
-                        <span class="circle white"></span>
-                        <span class="team-name">INFERNO SQUAD</span>
-                        <span class="team-tag">(C)</span>
-                    </td>
-                    <td class="points">30</td>
-                </tr>
-            </table>
-        </section>
-        
-        <!-- Área de Confrontos -->
-        <section id="confrontos" class="championship-section">
-            <h2 class="section-title">PRÓXIMOS CONFRONTOS</h2>
-            <div class="confrontos-container">
-                <div class="confronto-card">
-                    <div class="confronto-header">
-                        <span>SÉRIE A</span>
-                        <span>15/11 - 20:00</span>
-                    </div>
-                    <div class="confronto-time">
-                        <span class="circle red"></span>
-                        <span class="team-name">FÚRIA DA NOITE</span>
-                    </div>
-                    <div class="confronto-vs">VS</div>
-                    <div class="confronto-time">
-                        <span class="circle white"></span>
-                        <span class="team-name">NEON ESPORTS</span>
-                    </div>
-                    <div class="confronto-info">Melhor de 3 • Transmissão ao vivo</div>
+        <!-- Área de Login -->
+        <div id="login-area" class="login-container">
+            <h2 class="login-title">ACESSO ADMINISTRATIVO</h2>
+            <form class="login-form" id="login-form">
+                <input type="text" class="login-input" id="admin-username" placeholder="Usuário ADM" required>
+                <input type="password" class="login-input" id="admin-password" placeholder="Senha" required>
+                <button type="submit" class="login-btn">ENTRAR COMO ADM</button>
+            </form>
+            <div id="login-message" style="color: #ff003c; text-align: center; margin-top: 15px;"></div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div id="main-content" style="display: none;">
+            <!-- Seções das Séries -->
+            <section id="serie-a" class="championship-section serie-a">
+                <h2 class="section-title">SÉRIE A</h2>
+                <table class="classification-table" id="table-serie-a">
+                    <!-- Dados serão preenchidos via JavaScript -->
+                </table>
+            </section>
+            
+            <section id="serie-b" class="championship-section serie-b active">
+                <h2 class="section-title">SÉRIE B</h2>
+                <table class="classification-table" id="table-serie-b">
+                    <!-- Dados serão preenchidos via JavaScript -->
+                </table>
+            </section>
+            
+            <section id="serie-c" class="championship-section serie-c">
+                <h2 class="section-title">SÉRIE C</h2>
+                <table class="classification-table" id="table-serie-c">
+                    <!-- Dados serão preenchidos via JavaScript -->
+                </table>
+            </section>
+            
+            <!-- Área de Confrontos -->
+            <section id="confrontos" class="championship-section">
+                <h2 class="section-title">PRÓXIMOS CONFRONTOS</h2>
+                <div class="confrontos-container" id="confrontos-list">
+                    <!-- Confrontos serão adicionados via JavaScript -->
                 </div>
-                
-                <div class="confronto-card">
-                    <div class="confronto-header">
-                        <span>SÉRIE B</span>
-                        <span>16/11 - 19:00</span>
+            </section>
+            
+            <!-- Área de Chat -->
+            <section id="chat" class="championship-section">
+                <h2 class="section-title">CHAT GALÁCTICO</h2>
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h3>Chat em Tempo Real</h3>
+                        <span>Usuários Online: <span id="online-count">24</span></span>
                     </div>
-                    <div class="confronto-time">
-                        <span class="circle red"></span>
-                        <span class="team-name">ECHO TEAM ACADEMY</span>
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message system">
+                            Bem-vindo ao Chat Galáctico! Converse com outros fãs do campeonato.
+                        </div>
                     </div>
-                    <div class="confronto-vs">VS</div>
-                    <div class="confronto-time">
-                        <span class="circle white"></span>
-                        <span class="team-name">OLIMPO YAKUZA</span>
+                    <div class="chat-input-container">
+                        <input type="text" class="chat-input" id="chat-input" placeholder="Digite sua mensagem...">
+                        <button class="chat-send" id="chat-send">Enviar</button>
                     </div>
-                    <div class="confronto-info">Semifinal • Transmissão ao vivo</div>
                 </div>
-                
-                <div class="confronto-card">
-                    <div class="confronto-header">
-                        <span>SÉRIE C</span>
-                        <span>17/11 - 18:00</span>
+            </section>
+            
+            <!-- Painel Administrativo -->
+            <section id="admin" class="championship-section">
+                <h2 class="section-title">PAINEL ADMINISTRATIVO</h2>
+                <div class="admin-panel" id="admin-panel">
+                    <h3 class="admin-title">CONTROLE DO CAMPEONATO</h3>
+                    
+                    <div class="admin-controls">
+                        <button class="admin-btn" onclick="showAdminSection('teams')">Gerenciar Times</button>
+                        <button class="admin-btn" onclick="showAdminSection('matches')">Gerenciar Confrontos</button>
+                        <button class="admin-btn" onclick="showAdminSection('series')">Gerenciar Séries</button>
+                        <button class="admin-btn" onclick="showAdminSection('points')">Atualizar Pontuações</button>
                     </div>
-                    <div class="confronto-time">
-                        <span class="circle red"></span>
-                        <span class="team-name">PHOENIX RISING</span>
+                    
+                    <!-- Gerenciar Times -->
+                    <div id="admin-teams" class="admin-section">
+                        <h3>Gerenciar Times</h3>
+                        <div class="form-group">
+                            <label>Adicionar Time:</label>
+                            <input type="text" class="form-control" id="new-team-name" placeholder="Nome do Time">
+                            <select class="form-control" id="new-team-series" style="margin-top: 10px;">
+                                <option value="serie-a">Série A</option>
+                                <option value="serie-b">Série B</option>
+                                <option value="serie-c">Série C</option>
+                            </select>
+                            <button class="btn-primary" onclick="addTeam()" style="margin-top: 10px;">Adicionar Time</button>
+                        </div>
+                        <div id="teams-list">
+                            <!-- Lista de times será gerada aqui -->
+                        </div>
                     </div>
-                    <div class="confronto-vs">VS</div>
-                    <div class="confronto-time">
-                        <span class="circle white"></span>
-                        <span class="team-name">WOLF PACK GAMING</span>
+                    
+                    <!-- Gerenciar Confrontos -->
+                    <div id="admin-matches" class="admin-section" style="display: none;">
+                        <h3>Gerenciar Confrontos</h3>
+                        <div class="form-group">
+                            <label>Time 1:</label>
+                            <select class="form-control" id="match-team1"></select>
+                            <label>Time 2:</label>
+                            <select class="form-control" id="match-team2"></select>
+                            <label>Data e Hora:</label>
+                            <input type="datetime-local" class="form-control" id="match-date">
+                            <label>Série:</label>
+                            <select class="form-control" id="match-series">
+                                <option value="serie-a">Série A</option>
+                                <option value="serie-b">Série B</option>
+                                <option value="serie-c">Série C</option>
+                            </select>
+                            <button class="btn-primary" onclick="addMatch()" style="margin-top: 10px;">Adicionar Confronto</button>
+                        </div>
                     </div>
-                    <div class="confronto-info">Quartas de final • Transmissão ao vivo</div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Área de Chat -->
-        <section id="chat" class="championship-section">
-            <h2 class="section-title">CHAT GALÁCTICO</h2>
-            <div class="chat-container">
-                <div class="chat-header">
-                    <h3>Chat em Tempo Real</h3>
-                    <span>Usuários Online: <span id="online-count">24</span></span>
-                </div>
-                <div class="chat-messages" id="chat-messages">
-                    <div class="message system">
-                        Bem-vindo ao Chat Galáctico! Converse com outros fãs do campeonato.
-                    </div>
-                    <div class="message">
-                        <span class="message-user">FuriaFan:</span> Vamos Fúria da Noite! 🔥
-                    </div>
-                    <div class="message">
-              
+                    
+                    <!-- Gerenciar Séries -->
+                    <div id="admin-series" class="admin-section" style="display: none;">
+                        <h3>Gerenciar Séries</h3>
+         
