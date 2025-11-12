@@ -180,7 +180,7 @@
       transform: scale(1.05);
     }
 
-    /* ===== SEÇÃO SUPER ADM ===== */
+    /* ===== SEÇÃO SUPER ADM (OCULTA INICIALMENTE) ===== */
     .super-adm-section {
       background: rgba(0, 0, 0, 0.9);
       border: 3px solid #ffd700;
@@ -190,6 +190,7 @@
       margin: 40px 0;
       position: relative;
       overflow: hidden;
+      display: none; /* OCULTO ATÉ O LOGIN */
     }
 
     .super-adm-section::before {
@@ -273,67 +274,6 @@
     .btn-adm-success {
       background: linear-gradient(135deg, #00ff00, #008800);
       color: #000;
-    }
-
-    /* ===== MODAL SUPER ADM ===== */
-    .modal-adm {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 10000;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background: linear-gradient(135deg, #0a0a0a, #1a0a0a);
-      border: 3px solid #ffd700;
-      border-radius: 15px;
-      padding: 30px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 0 50px #ffd700;
-      position: relative;
-    }
-
-    .modal-title {
-      color: #ffd700;
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 1.8rem;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .form-label {
-      color: #ffd700;
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #ffd700;
-      border-radius: 8px;
-      background: rgba(255, 215, 0, 0.1);
-      color: white;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 25px;
     }
 
     /* ===== SEÇÃO DE VÍDEO ===== */
@@ -624,9 +564,8 @@
     <a href="FR0N.html">FR0N</a>
     <a href="campeonato.html">campeonato</a>
     <a href="regras.html">regras</a>
-    <a href="login.html">login</a>
+    <a href="login.html" id="loginLink">login</a>
     <a href="TRUCU.html">TRUCU</a>
-    <a href="adm-supremo.html" style="background: rgba(255, 215, 0, 0.3); border-color: #ffd700;">👑 ADM</a>
   </nav>
 </header>
 
@@ -675,17 +614,17 @@
       </div>
     </div>
 
-    <!-- ====== SEÇÃO SUPER ADM ====== -->
+    <!-- ====== SEÇÃO SUPER ADM (APENAS PARA ADMs LOGADOS) ====== -->
     <section class="super-adm-section" id="superAdmSection">
-      <h2 class="super-adm-title">👑 PAINEL SUPER ADM</h2>
+      <h2 class="super-adm-title">👑 PAINEL SUPER ADM - PRINEL</h2>
       
       <div class="adm-controls">
         <div class="adm-card">
           <h4>🎮 Gerenciar Campeonatos</h4>
-          <button class="btn-adm" onclick="abrirModal('criarCampeonato')">
+          <button class="btn-adm" onclick="criarCampeonato()">
             <i class="fas fa-trophy"></i> Criar Campeonato
           </button>
-          <button class="btn-adm" onclick="abrirModal('editarCampeonato')">
+          <button class="btn-adm" onclick="editarCampeonato()">
             <i class="fas fa-edit"></i> Editar Campeonato
           </button>
           <button class="btn-adm" onclick="gerenciarResultados()">
@@ -695,10 +634,10 @@
 
         <div class="adm-card">
           <h4>👥 Gerenciar Usuários</h4>
-          <button class="btn-adm" onclick="abrirModal('adicionarAdm')">
+          <button class="btn-adm" onclick="adicionarAdm()">
             <i class="fas fa-user-plus"></i> Adicionar ADM
           </button>
-          <button class="btn-adm btn-adm-danger" onclick="abrirModal('banirUsuario')">
+          <button class="btn-adm btn-adm-danger" onclick="banirUsuario()">
             <i class="fas fa-ban"></i> Banir Usuário
           </button>
           <button class="btn-adm" onclick="visualizarLogs()">
@@ -708,7 +647,7 @@
 
         <div class="adm-card">
           <h4>⚙️ Configurações</h4>
-          <button class="btn-adm" onclick="abrirModal('configurarSistema')">
+          <button class="btn-adm" onclick="configurarSistema()">
             <i class="fas fa-cogs"></i> Sistema
           </button>
           <button class="btn-adm btn-adm-success" onclick="backupSistema()">
@@ -753,13 +692,13 @@
       </div>
       
       <div class="controles-musica">
-        <button class="btn-musica" onclick="pausarVideo()">
+        <button class="btn-musica" onclick="pausarMusica()">
           <i class="fas fa-pause"></i>
         </button>
-        <button class="btn-musica" onclick="tocarVideo()" id="btnPlay">
+        <button class="btn-musica" onclick="tocarMusica()" id="btnPlay">
           <i class="fas fa-play"></i>
         </button>
-        <button class="btn-musica" onclick="pararVideo()">
+        <button class="btn-musica" onclick="pararMusica()">
           <i class="fas fa-stop"></i>
         </button>
       </div>
@@ -782,4 +721,43 @@
         <li><strong>@ToxicSkull√</strong> — "A noite brilha sob nossa fúria." 🌙🔥</li>
         <li><strong>Scorpion Game</strong> — "Veneno no foco, vitória na mira." 🦂</li>
         <li><strong>NeferpitouI</strong> — "Caos e controle na mesma energia." 💫</li>
-        <li><strong>༄Son_king</strong> — "Re
+        <li><strong>༄Son_king</strong> — "Rei das sombras, dono da noite." 👑</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- ====== BOTÃO WHATSAPP ====== -->
+  <a href="https://wa.me/553197319008" target="_blank" class="btn-whatsapp pulse">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- ====== RODAPÉ ====== -->
+  <footer>
+    <p>© 2025 <span class="destaque">FuriaDaNoitePlay</span> — 
+    <span class="assinatura">@ToxicSkull√</span></p>
+  </footer>
+
+  <!-- ====== BOTÃO FIXO ====== -->
+  <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">🏠 Início</button>
+
+  <script>
+    // ===== SISTEMA DE LOGIN =====
+    let usuarioLogado = false;
+    let isSuperAdm = false;
+
+    // Verificar se há um ADM logado (simulação)
+    function verificarLogin() {
+      // Simulação - na prática isso viria de uma sessão ou localStorage
+      const admSalvo = localStorage.getItem('superAdmLogado');
+      if (admSalvo === 'true') {
+        usuarioLogado = true;
+        isSuperAdm = true;
+        mostrarPainelAdm();
+      }
+    }
+
+    function mostrarPainelAdm() {
+      if (isSuperAdm) {
+        document.getElementById('superAdmSection').style.display = 'block';
+        document.getElementById('loginLink').innerHTML = '👑 ADM';
+        document.getElementById('loginLink').style.background = 'rg
