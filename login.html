@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 Login - FuriaDaNoitePlay</title>
+    <title>👑 Login ADM - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,45 +13,128 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        :root {
+            --vermelho-neon: #ff0000;
+            --vermelho-escuro: #cc0000;
+            --amarelo-neon: #FFD700;
+            --verde-neon: #00ff00;
+            --azul-neon: #0066ff;
+            --preto: #000000;
+            --preto-escuro: #0a0a0a;
+            --branco: #ffffff;
+        }
+        
         body {
-            background-color: #0a0a0a;
-            color: #fff;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0000 100%);
+            color: var(--branco);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-image: linear-gradient(135deg, #1a0a0a 0%, #0a0a0a 50%, #001a0a 100%);
             padding: 20px;
         }
         
         .login-container {
             width: 100%;
-            max-width: 450px;
-            background: rgba(30, 30, 30, 0.95);
-            border-radius: 15px;
+            max-width: 500px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
             padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 3px solid #ffd700;
+            border: 3px solid var(--vermelho-neon);
+            box-shadow: 
+                0 0 50px rgba(255, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            animation: brilho 8s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes brilho {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .logo {
-            font-size: 3rem;
+            font-size: 4rem;
             margin-bottom: 10px;
-            color: #ffd700;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            color: var(--amarelo-neon);
+            text-shadow: 
+                0 0 20px var(--amarelo-neon),
+                0 0 40px var(--amarelo-neon);
+            position: relative;
+            z-index: 2;
         }
         
         h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 5px;
-            color: #ffd700;
+            color: var(--vermelho-neon);
+            text-shadow: 0 0 15px var(--vermelho-neon);
+            position: relative;
+            z-index: 2;
         }
         
         .subtitle {
-            color: #ccc;
+            color: var(--amarelo-neon);
             margin-bottom: 30px;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px var(--amarelo-neon);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--vermelho-neon);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            cursor: pointer;
+            color: #ccc;
+            font-weight: bold;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            background: rgba(255, 0, 0, 0.1);
+        }
+        
+        .tab.active {
+            color: var(--amarelo-neon);
+            border-bottom-color: var(--amarelo-neon);
+            background: rgba(255, 215, 0, 0.1);
+            text-shadow: 0 0 10px var(--amarelo-neon);
+        }
+        
+        .tab-content {
+            display: none;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .form-group {
@@ -61,115 +145,32 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #ffd700;
+            color: var(--amarelo-neon);
             font-weight: bold;
+            text-shadow: 0 0 8px var(--amarelo-neon);
         }
         
         .form-control {
             width: 100%;
             padding: 15px;
-            border-radius: 8px;
-            border: 2px solid #333;
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
+            border-radius: 10px;
+            border: 2px solid var(--vermelho-neon);
+            background: rgba(255, 0, 0, 0.1);
+            color: var(--branco);
             font-size: 1rem;
             transition: all 0.3s;
+            box-shadow: 
+                inset 0 2px 10px rgba(0, 0, 0, 0.3),
+                0 0 15px rgba(255, 0, 0, 0.2);
         }
         
         .form-control:focus {
             outline: none;
-            border-color: #ffd700;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            font-size: 1.1rem;
-            margin-top: 10px;
-        }
-        
-        .btn-primary {
-            background: #ffd700;
-            color: #000;
-        }
-        
-        .btn-primary:hover {
-            background: #ffed4e;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: #ffd700;
-            border: 2px solid #ffd700;
-        }
-        
-        .btn-secondary:hover {
+            border-color: var(--amarelo-neon);
+            box-shadow: 
+                inset 0 2px 10px rgba(0, 0, 0, 0.3),
+                0 0 25px var(--amarelo-neon);
             background: rgba(255, 215, 0, 0.1);
-        }
-        
-        .form-footer {
-            margin-top: 25px;
-            color: #ccc;
-            font-size: 0.9rem;
-        }
-        
-        .form-footer a {
-            color: #ffd700;
-            text-decoration: none;
-        }
-        
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
-        
-        .error-message {
-            color: #ff4444;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            display: none;
-        }
-        
-        .tabs {
-            display: flex;
-            margin-bottom: 25px;
-            border-bottom: 1px solid #333;
-        }
-        
-        .tab {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            color: #ccc;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        
-        .tab.active {
-            color: #ffd700;
-            border-bottom: 3px solid #ffd700;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
         
         .password-container {
@@ -183,19 +184,192 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: #ccc;
+            color: var(--amarelo-neon);
             cursor: pointer;
+            font-size: 1.2rem;
         }
-
+        
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--amarelo-neon), #ffaa00);
+            color: var(--preto);
+            box-shadow: 
+                0 5px 25px rgba(255, 215, 0, 0.4),
+                0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 35px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(135deg, #ffaa00, var(--amarelo-neon));
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--vermelho-neon);
+            border: 2px solid var(--vermelho-neon);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--vermelho-neon);
+            color: var(--preto);
+            box-shadow: 0 0 25px var(--vermelho-neon);
+        }
+        
+        .error-message {
+            color: #ff4444;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+            text-shadow: 0 0 10px #ff4444;
+        }
+        
         .admin-info {
             background: rgba(255, 215, 0, 0.1);
-            border: 1px solid #ffd700;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #ccc;
+            border: 2px solid var(--amarelo-neon);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: var(--amarelo-neon);
             text-align: left;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .admin-info strong {
+            color: var(--vermelho-neon);
+            text-shadow: 0 0 10px var(--vermelho-neon);
+        }
+        
+        .form-footer {
+            margin-top: 25px;
+            color: #ccc;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-footer a {
+            color: var(--amarelo-neon);
+            text-decoration: none;
+            text-shadow: 0 0 8px var(--amarelo-neon);
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .access-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .access-btn {
+            padding: 15px;
+            border: 2px solid var(--azul-neon);
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--azul-neon);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--azul-neon);
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.3);
+        }
+
+        .access-btn:hover {
+            background: var(--azul-neon);
+            color: var(--preto);
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px var(--azul-neon);
+        }
+
+        .access-btn.user {
+            border-color: var(--verde-neon);
+            background: rgba(0, 255, 0, 0.1);
+            color: var(--verde-neon);
+            text-shadow: 0 0 8px var(--verde-neon);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        .access-btn.user:hover {
+            background: var(--verde-neon);
+            color: var(--preto);
+            box-shadow: 0 0 25px var(--verde-neon);
+        }
+
+        .success-message {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid var(--verde-neon);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            color: var(--verde-neon);
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            display: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .file-system-preview {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            border: 2px solid var(--azul-neon);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .file-system-preview h3 {
+            color: var(--azul-neon);
+            text-shadow: 0 0 10px var(--azul-neon);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .file-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .file-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .file-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--amarelo-neon);
         }
     </style>
 </head>
@@ -203,23 +377,23 @@
     <div class="login-container">
         <div class="logo">👑</div>
         <h1>FURIA DA NOITE PLAY</h1>
-        <p class="subtitle">PAINEL ADMINISTRATIVO</p>
+        <p class="subtitle">SISTEMA ADMINISTRATIVO UNIFICADO</p>
         
         <div class="tabs">
-            <div class="tab active" data-tab="login">LOGIN ADM</div>
-            <div class="tab" data-tab="register">CADASTRO</div>
+            <div class="tab active" data-tab="login">🔐 LOGIN ADM</div>
+            <div class="tab" data-tab="register">⭐ CADASTRO</div>
         </div>
         
-        <!-- Formulário de Login -->
+        <!-- Formulário de Login ADM -->
         <div id="login-tab" class="tab-content active">
             <form id="login-form">
                 <div class="form-group">
-                    <label for="login-username">Usuário ADM:</label>
+                    <label for="login-username">👑 Usuário ADM:</label>
                     <input type="text" id="login-username" class="form-control" placeholder="Digite seu usuário ADM" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="login-password">Senha ADM:</label>
+                    <label for="login-password">🔒 Senha ADM:</label>
                     <div class="password-container">
                         <input type="password" id="login-password" class="form-control" placeholder="Digite sua senha ADM" required>
                         <button type="button" class="toggle-password" onclick="togglePassword('login-password')">👁️</button>
@@ -228,21 +402,64 @@
                 
                 <div class="error-message" id="login-error"></div>
                 
-                <button type="submit" class="btn btn-primary">🔐 ENTRAR NO PAINEL ADM</button>
+                <button type="submit" class="btn btn-primary">
+                    🚀 ACESSAR PAINEL ADM
+                </button>
             </form>
 
+            <div class="access-buttons">
+                <button class="access-btn user" onclick="acessarPainelUsuario()">
+                    👤 PAINEL USUÁRIO
+                </button>
+                <button class="access-btn" onclick="acessarPainelEquipe()">
+                    🏆 PAINEL EQUIPE
+                </button>
+            </div>
+
             <div class="admin-info">
-                <strong>👑 ADMs AUTORIZADOS:</strong><br>
-                • FURIAGOD (Supremo)<br>
-                • Scorpion (ADM Geral)<br>
-                • .Son King (ADM Geral)<br>
-                • NeferpitouI (ADM Geral)<br>
-                • PNTS (ADM Geral)<br>
-                • ToxicSkull√ (Teste)
+                <strong>👑 ADMs AUTORIZADOS:</strong><br><br>
+                <strong>SUPREMO:</strong><br>
+                • FURIAGOD<br><br>
+                <strong>ADMs GERAIS:</strong><br>
+                • Scorpion<br>
+                • .Son King<br>
+                • NeferpitouI<br>
+                • PNTS<br>
+                • ToxicSkull√
+            </div>
+
+            <div class="file-system-preview">
+                <h3>📁 ESTRUTURA DO SISTEMA</h3>
+                <div class="file-list">
+                    <div class="file-item">
+                        <div class="file-icon">🏠</div>
+                        <div>index.html</div>
+                    </div>
+                    <div class="file-item">
+                        <div class="file-icon">👑</div>
+                        <div>login-adm.html</div>
+                    </div>
+                    <div class="file-item">
+                        <div class="file-icon">🛡️</div>
+                        <div>painel-adm.html</div>
+                    </div>
+                    <div class="file-item">
+                        <div class="file-icon">👤</div>
+                        <div>painel-usuario.html</div>
+                    </div>
+                    <div class="file-item">
+                        <div class="file-icon">🏆</div>
+                        <div>painel-equipe.html</div>
+                    </div>
+                    <div class="file-item">
+                        <div class="file-icon">⚙️</div>
+                        <div>script.js</div>
+                    </div>
+                </div>
             </div>
             
             <div class="form-footer">
-                <a href="#" onclick="showForgotPassword()">Recuperar acesso ADM</a>
+                <a href="#" onclick="showForgotPassword()">🔑 Recuperar acesso ADM</a>
             </div>
         </div>
         
@@ -250,17 +467,17 @@
         <div id="register-tab" class="tab-content">
             <form id="register-form">
                 <div class="form-group">
-                    <label for="register-username">Novo Usuário:</label>
-                    <input type="text" id="register-username" class="form-control" placeholder="Escolha um usuário" required>
+                    <label for="register-username">🎮 Nick no Jogo:</label>
+                    <input type="text" id="register-username" class="form-control" placeholder="Seu nick nos games" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="register-email">E-mail:</label>
-                    <input type="email" id="register-email" class="form-control" placeholder="Seu e-mail" required>
+                    <label for="register-email">📧 E-mail:</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="seu@email.com" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="register-password">Senha:</label>
+                    <label for="register-password">🔒 Senha:</label>
                     <div class="password-container">
                         <input type="password" id="register-password" class="form-control" placeholder="Crie uma senha forte" required>
                         <button type="button" class="toggle-password" onclick="togglePassword('register-password')">👁️</button>
@@ -268,38 +485,65 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="register-confirm-password">Confirmar Senha:</label>
+                    <label for="register-confirm-password">✅ Confirmar Senha:</label>
                     <div class="password-container">
                         <input type="password" id="register-confirm-password" class="form-control" placeholder="Digite a senha novamente" required>
                         <button type="button" class="toggle-password" onclick="togglePassword('register-confirm-password')">👁️</button>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="register-type">🎯 Tipo de Cadastro:</label>
+                    <select id="register-type" class="form-control" required>
+                        <option value="">Selecione o tipo</option>
+                        <option value="membro">👤 Membro Individual</option>
+                        <option value="equipe">🏆 Líder de Equipe</option>
+                    </select>
+                </div>
                 
                 <div class="error-message" id="register-error"></div>
                 
-                <button type="submit" class="btn btn-primary">CRIAR CONTA</button>
+                <button type="submit" class="btn btn-primary">
+                    ⭐ REALIZAR CADASTRO
+                </button>
             </form>
             
+            <div class="success-message" id="register-success">
+                ✅ Cadastro realizado com sucesso!<br>
+                Redirecionando para o sistema...
+            </div>
+            
+            <div class="admin-info">
+                <strong>🎯 BENEFÍCIOS DO CADASTRO:</strong><br><br>
+                ✅ Acesso ao sistema completo<br>
+                ✅ Participação em campeonatos<br>
+                ✅ Rankeamento competitivo<br>
+                ✅ Cashback em apostas<br>
+                ✅ Suporte da comunidade
+            </div>
+            
             <div class="form-footer">
-                Ao criar uma conta, você concorda com nossos <a href="#">Termos de Uso</a>
+                Ao criar uma conta, você concorda com nossos <a href="#">📋 Termos de Uso</a>
             </div>
         </div>
     </div>
 
     <script>
-        // Credenciais dos ADMs atualizadas
+        // =============================================
+        // SISTEMA UNIFICADO - LOGIN ADM FuriaDaNoitePlay
+        // =============================================
+
+        // Credenciais dos ADMs com hierarquia
         const adminCredentials = {
-            // ADM SUPREMO
-            'FURIAGOD': 'Furia2025_$',
+            // ADM SUPREMO - Acesso total
+            'FURIAGOD': { password: 'Furia2025_$', role: 'supremo' },
             
-            // ADMs GERAIS
-            'Scorpion': 'Mlk00',
-            '.Son King': 'God19', 
-            'NeferpitouI': 'Ana025',
-            'PNTS': 'pNtS',
-            
-            // USUÁRIO TESTE
-            'ToxicSkull√': 'L@!on'
+            // ADMs GERAIS - Acesso limitado
+            'Scorpion': { password: 'Mlk00', role: 'geral' },
+            '.Son King': { password: 'God19', role: 'geral' },
+            'NeferpitouI': { password: 'Ana025', role: 'geral' },
+            'PNTS': { password: 'pNtS', role: 'geral' },
+            'ToxicSkull√': { password: 'L@!on', role: 'geral' }
         };
 
         // Alternar entre abas de login e cadastro
@@ -317,85 +561,20 @@
         // Alternar visibilidade da senha
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
+            const button = input.parentNode.querySelector('.toggle-password');
+            
             if (input.type === 'password') {
                 input.type = 'text';
+                button.textContent = '🔒';
             } else {
                 input.type = 'password';
+                button.textContent = '👁️';
             }
         }
         
-        // Processar formulário de login
+        // Processar formulário de login ADM
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const username = document.getElementById('login-username').value;
-            const password = document.getElementById('login-password').value;
-            const errorElement = document.getElementById('login-error');
-            
-            // Limpar mensagem de erro
-            errorElement.style.display = 'none';
-            
-            // Verificar credenciais ADM
-            if (adminCredentials[username] && adminCredentials[username] === password) {
-                // Login bem-sucedido - redirecionar para o painel
-                alert(`👑 Bem-vindo, ${username}! Acessando painel ADM...`);
-                window.location.href = 'adm.html';
-            } else {
-                // Exibir erro
-                errorElement.textContent = 'Usuário ADM ou senha incorretos!';
-                errorElement.style.display = 'block';
-            }
-        });
-        
-        // Processar formulário de cadastro
-        document.getElementById('register-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('register-username').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            const confirmPassword = document.getElementById('register-confirm-password').value;
-            const errorElement = document.getElementById('register-error');
-            
-            // Limpar mensagem de erro
-            errorElement.style.display = 'none';
-            
-            // Validações
-            if (password !== confirmPassword) {
-                errorElement.textContent = 'As senhas não coincidem!';
-                errorElement.style.display = 'block';
-                return;
-            }
-            
-            if (password.length < 6) {
-                errorElement.textContent = 'A senha deve ter pelo menos 6 caracteres!';
-                errorElement.style.display = 'block';
-                return;
-            }
-            
-            // Verificar se usuário já existe como ADM
-            if (adminCredentials[username]) {
-                errorElement.textContent = 'Este usuário já é um ADM. Use a aba de login ADM.';
-                errorElement.style.display = 'block';
-                return;
-            }
-            
-            // Simular cadastro bem-sucedido
-            alert('Cadastro realizado com sucesso! Aguarde aprovação de um ADM.');
-            
-            // Limpar formulário
-            document.getElementById('register-form').reset();
-        });
-        
-        // Função para recuperação de senha
-        function showForgotPassword() {
-            const username = prompt('Digite seu usuário ADM para recuperação:');
-            if (username && adminCredentials[username]) {
-                alert(`Entre em contato com o ADM Supremo para redefinir a senha de: ${username}`);
-            } else {
-                alert('Usuário ADM não encontrado!');
-            }
-        }
-    </script>
-</body>
-</html>
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-passw
