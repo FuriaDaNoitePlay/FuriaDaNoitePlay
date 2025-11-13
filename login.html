@@ -186,6 +186,17 @@
             color: #ccc;
             cursor: pointer;
         }
+
+        .admin-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #ccc;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -195,7 +206,7 @@
         <p class="subtitle">PAINEL ADMINISTRATIVO</p>
         
         <div class="tabs">
-            <div class="tab active" data-tab="login">LOGIN</div>
+            <div class="tab active" data-tab="login">LOGIN ADM</div>
             <div class="tab" data-tab="register">CADASTRO</div>
         </div>
         
@@ -203,25 +214,35 @@
         <div id="login-tab" class="tab-content active">
             <form id="login-form">
                 <div class="form-group">
-                    <label for="login-username">Usuário:</label>
-                    <input type="text" id="login-username" class="form-control" placeholder="Digite seu usuário" required>
+                    <label for="login-username">Usuário ADM:</label>
+                    <input type="text" id="login-username" class="form-control" placeholder="Digite seu usuário ADM" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="login-password">Senha:</label>
+                    <label for="login-password">Senha ADM:</label>
                     <div class="password-container">
-                        <input type="password" id="login-password" class="form-control" placeholder="Digite sua senha" required>
+                        <input type="password" id="login-password" class="form-control" placeholder="Digite sua senha ADM" required>
                         <button type="button" class="toggle-password" onclick="togglePassword('login-password')">👁️</button>
                     </div>
                 </div>
                 
                 <div class="error-message" id="login-error"></div>
                 
-                <button type="submit" class="btn btn-primary">ENTRAR NO PAINEL</button>
+                <button type="submit" class="btn btn-primary">🔐 ENTRAR NO PAINEL ADM</button>
             </form>
+
+            <div class="admin-info">
+                <strong>👑 ADMs AUTORIZADOS:</strong><br>
+                • FURIAGOD (Supremo)<br>
+                • Scorpion (ADM Geral)<br>
+                • .Son King (ADM Geral)<br>
+                • NeferpitouI (ADM Geral)<br>
+                • PNTS (ADM Geral)<br>
+                • ToxicSkull√ (Teste)
+            </div>
             
             <div class="form-footer">
-                <a href="#" onclick="showForgotPassword()">Esqueci minha senha</a>
+                <a href="#" onclick="showForgotPassword()">Recuperar acesso ADM</a>
             </div>
         </div>
         
@@ -229,7 +250,7 @@
         <div id="register-tab" class="tab-content">
             <form id="register-form">
                 <div class="form-group">
-                    <label for="register-username">Usuário:</label>
+                    <label for="register-username">Novo Usuário:</label>
                     <input type="text" id="register-username" class="form-control" placeholder="Escolha um usuário" required>
                 </div>
                 
@@ -266,14 +287,27 @@
     </div>
 
     <script>
+        // Credenciais dos ADMs atualizadas
+        const adminCredentials = {
+            // ADM SUPREMO
+            'FURIAGOD': 'Furia2025_$',
+            
+            // ADMs GERAIS
+            'Scorpion': 'Mlk00',
+            '.Son King': 'God19', 
+            'NeferpitouI': 'Ana025',
+            'PNTS': 'pNtS',
+            
+            // USUÁRIO TESTE
+            'ToxicSkull√': 'L@!on'
+        };
+
         // Alternar entre abas de login e cadastro
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', function() {
-                // Remover classe ativa de todas as abas
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 
-                // Adicionar classe ativa à aba clicada
                 this.classList.add('active');
                 const tabId = this.getAttribute('data-tab') + '-tab';
                 document.getElementById(tabId).classList.add('active');
@@ -301,13 +335,14 @@
             // Limpar mensagem de erro
             errorElement.style.display = 'none';
             
-            // Verificar credenciais (simulação)
-            if (username === 'FURIAGOD' && password === 'admin123') {
+            // Verificar credenciais ADM
+            if (adminCredentials[username] && adminCredentials[username] === password) {
                 // Login bem-sucedido - redirecionar para o painel
+                alert(`👑 Bem-vindo, ${username}! Acessando painel ADM...`);
                 window.location.href = 'adm.html';
             } else {
                 // Exibir erro
-                errorElement.textContent = 'Usuário ou senha incorretos!';
+                errorElement.textContent = 'Usuário ADM ou senha incorretos!';
                 errorElement.style.display = 'block';
             }
         });
@@ -338,25 +373,27 @@
                 return;
             }
             
+            // Verificar se usuário já existe como ADM
+            if (adminCredentials[username]) {
+                errorElement.textContent = 'Este usuário já é um ADM. Use a aba de login ADM.';
+                errorElement.style.display = 'block';
+                return;
+            }
+            
             // Simular cadastro bem-sucedido
-            alert('Cadastro realizado com sucesso! Faça login para acessar o painel.');
+            alert('Cadastro realizado com sucesso! Aguarde aprovação de um ADM.');
             
-            // Mudar para a aba de login
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            document.querySelector('.tab[data-tab="login"]').classList.add('active');
-            document.getElementById('login-tab').classList.add('active');
-            
-            // Preencher automaticamente o campo de usuário no login
-            document.getElementById('login-username').value = username;
+            // Limpar formulário
+            document.getElementById('register-form').reset();
         });
         
         // Função para recuperação de senha
         function showForgotPassword() {
-            const email = prompt('Digite seu e-mail para recuperação de senha:');
-            if (email) {
-                alert(`Instruções de recuperação enviadas para: ${email}`);
+            const username = prompt('Digite seu usuário ADM para recuperação:');
+            if (username && adminCredentials[username]) {
+                alert(`Entre em contato com o ADM Supremo para redefinir a senha de: ${username}`);
+            } else {
+                alert('Usuário ADM não encontrado!');
             }
         }
     </script>
