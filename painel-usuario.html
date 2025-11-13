@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👤 Painel do Usuário - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIÁVEIS E RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --vermelho-neon: #ff0000;
+            --vermelho-escuro: #cc0000;
+            --amarelo-neon: #FFD700;
+            --verde-neon: #00ff00;
+            --azul-neon: #0066ff;
+            --roxo-neon: #8A2BE2;
+            --preto: #000000;
+            --preto-escuro: #0a0a0a;
+            --branco: #ffffff;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0000 100%);
+            color: var(--branco);
+            font-family: 'Orbitron', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
+            padding: 20px 40px;
+            border-bottom: 3px solid var(--vermelho-neon);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 20px var(--amarelo-neon);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--vermelho-neon);
+            text-shadow: 0 0 15px var(--vermelho-neon);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 0, 0, 0.2);
+            padding: 12px 25px;
+            border-radius: 15px;
+            border: 2px solid var(--vermelho-neon);
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--amarelo-neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--preto);
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px var(--amarelo-neon);
+        }
+
+        .user-details h3 {
+            color: var(--amarelo-neon);
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px var(--amarelo-neon);
+        }
+
+        .user-details p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* ===== NAVEGAÇÃO ===== */
+        .nav {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 40px;
+            border-bottom: 2px solid var(--amarelo-neon);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: var(--branco);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 10px var(--amarelo-neon);
+            border-color: var(--amarelo-neon);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 215, 0, 0.3);
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 10px var(--amarelo-neon);
+            border: 1px solid var(--amarelo-neon);
+            box-shadow: 0 0 15px var(--amarelo-neon);
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, var(--vermelho-neon), var(--vermelho-escuro));
+            color: var(--preto);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--vermelho-neon);
+        }
+
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        .main-content {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 40px;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid var(--vermelho-neon);
+            box-shadow: 
+                0 0 40px rgba(255, 0, 0, 0.4),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            animation: brilho 8s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes brilho {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 20px var(--amarelo-neon);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-subtitle {
+            color: var(--branco);
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== CARDS DE ESTATÍSTICAS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--vermelho-neon);
+            box-shadow: 
+                0 0 25px rgba(255, 0, 0, 0.3),
+                inset 0 0 15px rgba(255, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 0 35px rgba(255, 0, 0, 0.5),
+                0 0 50px rgba(255, 0, 0, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 15px var(--amarelo-neon);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--vermelho-neon);
+            text-shadow: 0 0 15px var(--vermelho-neon);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        /* ===== SEÇÕES DO PAINEL ===== */
+        .section {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--vermelho-neon);
+            box-shadow: 
+                0 0 25px rgba(255, 0, 0, 0.3),
+                inset 0 0 15px rgba(255, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: var(--amarelo-neon);
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px var(--amarelo-neon);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--vermelho-neon);
+            padding-bottom: 10px;
+        }
+
+        /* ===== GRADE DE JOGOS ===== */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .game-card {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid var(--vermelho-neon);
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--amarelo-neon);
+            box-shadow: 0 0 20px var(--amarelo-neon);
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .game-name {
+            color: var(--amarelo-neon);
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px var(--amarelo-neon);
+        }
+
+        .game-stats {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* ===== LISTA DE EVENTOS ===== */
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .event-item {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--vermelho-neon);
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .event-item:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateX(5px);
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-title {
+            color: var(--amarelo-neon);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .event-desc {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .event-date {
+            color: var(--vermelho-neon);
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--vermelho-neon);
+        }
+
+        .join-btn {
+            background: linear-gradient(135deg, var(--verde-neon), #00cc00);
+            color: var(--preto);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .join-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--verde-neon);
+        }
+
+        /* ===== AMIGOS ONLINE ===== */
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .friend-card {
+            background: rgba(255, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--vermelho-neon);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .friend-card:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .friend-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--azul-neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--preto);
+            font-weight: bold;
+            margin: 0 auto 10px;
+            box-shadow: 0 0 10px var(--azul-neon);
+        }
+
+        .friend-name {
+            color: var(--amarelo-neon);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .friend-status {
+            color: var(--verde-neon);
+            font-size: 0.8rem;
+            text-shadow: 0 0 5px var(--verde-neon);
+        }
+
+        /* ===== RODAPÉ ===== */
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px 40px;
+            border-top: 3px solid var(--vermelho-neon);
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 10px var(--amarelo-neon);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 8px var(--amarelo-neon);
+        }
+
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .header-content, .nav-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .main-content {
+                padding: 0 20px;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header, .nav {
+                padding: 15px 20px;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.6rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">👤</div>
+                <div class="logo-text">FuriaDaNoitePlay</div>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">JD</div>
+                <div class="user-details">
+                    <h3>JogadorDemon</h3>
+                    <p>⭐ Nível 25 • 🏆 Platinum</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVEGAÇÃO -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-links">
+                <a href="#" class="nav-link active"><i class="fas fa-home"></i> Início</a>
+                <a href="#" class="nav-link"><i class="fas fa-gamepad"></i> Meus Jogos</a>
+                <a href="#" class="nav-link"><i class="fas fa-trophy"></i> Torneios</a>
+                <a href="#" class="nav-link"><i class="fas fa-users"></i> Amigos</a>
+                <a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Estatísticas</a>
+                <a href="#" class="nav-link"><i class="fas fa-cog"></i> Configurações</a>
+            </div>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        <!-- SEÇÃO DE BOAS-VINDAS -->
+        <section class="welcome-section">
+            <h1 class="welcome-title">👊 BEM-VINDO, JOGADORDEMON!</h1>
+            <p class="welcome-subtitle">Sua jornada na Furia da Noite está apenas começando. Domine os jogos, conquiste rankings e faça história!</p>
+        </section>
+
+        <!-- ESTATÍSTICAS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-value">15</div>
+                <div class="stat-label">Torneios Jogados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value">87%</div>
+                <div class="stat-label">Taxa de Vitória</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value">256</div>
+                <div class="stat-label">Partidas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👑</div>
+                <div class="stat-value">#24</div>
+                <div class="stat-label">Ranking Global</div>
+            </div>
+        </div>
+
+        <!-- MEUS JOGOS -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-gamepad"></i> MEUS JOGOS</h2>
+            <div class="games-grid">
+                <div class="game-card" onclick="abrirJogo('trucu')">
+                    <div class="game-icon">🎰</div>
+                    <div class="game-name">TRUCU</div>
+                    <div class="game-stats">🏆 5 Torneios<br>⭐ 92% Vitórias</div>
+                </div>
+                <div class="game-card" onclick="abrirJogo('mlbb')">
+                    <div class="game-icon">🗡️</div>
+                    <div class="game-name">MLBB</div>
+                    <div class="game-stats">🏆 8 Torneios<br>⭐ 85% Vitórias</div>
+                </div>
+                <div class="game-card" onclick="abrirJogo('freefire')">
+                    <div class="game-icon">🔫</div>
+                    <div class="game-name">Free Fire</div>
+                    <div class="game-stats">🏆 3 Torneios<br>⭐ 78% Vitórias</div>
+                </div>
+                <div class="game-card" onclick="abrirJogo('clashroyale')">
+                    <div class="game-icon">👑</div>
+                    <div class="game-name">Clash Royale</div>
+                    <div class="game-stats">🏆 6 Torneios<br>⭐ 90% Vitórias</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TORNEIOS DISPONÍVEIS -->
+        <section class="secti
