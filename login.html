@@ -1,54 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔐 Login - FuriaDaNoitePlay</title>
+    <title>🔐 Login Unificado - FuriaDaNoitePlay</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ===== VARIÁVEIS E RESET ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         :root {
             --vermelho-neon: #ff0000;
+            --vermelho-escuro: #cc0000;
             --amarelo-neon: #FFD700;
             --verde-neon: #00ff00;
             --azul-neon: #0066ff;
             --roxo-neon: #8A2BE2;
             --preto: #000000;
+            --preto-escuro: #0a0a0a;
             --branco: #ffffff;
         }
         
         body {
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0000 100%);
             color: var(--branco);
+            font-family: 'Orbitron', sans-serif;
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 20px;
         }
         
-        .login-container {
+        .container {
             width: 100%;
-            max-width: 500px;
-            background: rgba(0, 0, 0, 0.9);
-            border-radius: 20px;
+            max-width: 1400px;
+        }
+
+        /* ===== HEADER NEON ===== */
+        .neon-header {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
             padding: 40px 30px;
+            border-radius: 20px;
             border: 3px solid var(--vermelho-neon);
             box-shadow: 
                 0 0 50px rgba(255, 0, 0, 0.5),
                 inset 0 0 20px rgba(255, 0, 0, 0.1);
             text-align: center;
+            margin-bottom: 40px;
             position: relative;
             overflow: hidden;
         }
 
-        .login-container::before {
+        .neon-header::before {
             content: "";
             position: absolute;
             top: -50%;
@@ -56,512 +65,558 @@
             width: 200%;
             height: 200%;
             background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
-            animation: brilho 8s linear infinite;
+            animation: brilho-header 8s linear infinite;
             z-index: 1;
         }
 
-        @keyframes brilho {
+        @keyframes brilho-header {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
-        .logo {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            color: var(--amarelo-neon);
-            text-shadow: 
-                0 0 20px var(--amarelo-neon),
-                0 0 40px var(--amarelo-neon);
-            position: relative;
-            z-index: 2;
-        }
-        
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
+
+        .neon-text {
+            font-size: 3rem;
             color: var(--vermelho-neon);
-            text-shadow: 0 0 15px var(--vermelho-neon);
+            text-shadow: 
+                0 0 20px var(--vermelho-neon),
+                0 0 40px var(--vermelho-neon),
+                0 0 60px var(--vermelho-neon);
+            margin-bottom: 15px;
             position: relative;
             z-index: 2;
+            animation: pulsar-texto 2s infinite alternate;
         }
-        
+
+        @keyframes pulsar-texto {
+            0% { text-shadow: 0 0 20px var(--vermelho-neon); }
+            100% { text-shadow: 0 0 30px var(--vermelho-neon), 0 0 50px var(--vermelho-neon); }
+        }
+
         .subtitle {
             color: var(--amarelo-neon);
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            text-shadow: 0 0 10px var(--amarelo-neon);
+            font-style: italic;
+            font-size: 1.4rem;
+            text-shadow: 0 0 15px var(--amarelo-neon);
             position: relative;
             z-index: 2;
         }
-        
-        .tabs {
-            display: flex;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--vermelho-neon);
-            position: relative;
-            z-index: 2;
+
+        /* ===== BOTÕES DE ACESSO RÁPIDO ===== */
+        .acesso-rapido {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
         }
-        
-        .tab {
-            flex: 1;
-            padding: 15px;
+
+        .botao-acesso {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(20, 0, 0, 0.85));
+            padding: 25px 20px;
+            border-radius: 15px;
+            border: 2px solid var(--vermelho-neon);
+            box-shadow: 
+                0 0 30px rgba(255, 0, 0, 0.3),
+                inset 0 0 15px rgba(255, 0, 0, 0.1);
+            text-align: center;
             cursor: pointer;
-            color: #ccc;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .botao-acesso::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .botao-acesso:hover::before {
+            left: 100%;
+        }
+
+        .botao-acesso:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 0 50px rgba(255, 0, 0, 0.5),
+                0 0 70px rgba(255, 0, 0, 0.2),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
+        }
+
+        .botao-acesso.usuario {
+            border-color: var(--verde-neon);
+            box-shadow: 
+                0 0 30px rgba(0, 255, 0, 0.3),
+                inset 0 0 15px rgba(0, 255, 0, 0.1);
+        }
+
+        .botao-acesso.usuario:hover {
+            box-shadow: 
+                0 0 50px rgba(0, 255, 0, 0.5),
+                0 0 70px rgba(0, 255, 0, 0.2);
+        }
+
+        .botao-acesso.equipe {
+            border-color: var(--azul-neon);
+            box-shadow: 
+                0 0 30px rgba(0, 102, 255, 0.3),
+                inset 0 0 15px rgba(0, 102, 255, 0.1);
+        }
+
+        .botao-acesso.equipe:hover {
+            box-shadow: 
+                0 0 50px rgba(0, 102, 255, 0.5),
+                0 0 70px rgba(0, 102, 255, 0.2);
+        }
+
+        .botao-acesso.adm {
+            border-color: var(--roxo-neon);
+            box-shadow: 
+                0 0 30px rgba(138, 43, 226, 0.3),
+                inset 0 0 15px rgba(138, 43, 226, 0.1);
+        }
+
+        .botao-acesso.adm:hover {
+            box-shadow: 
+                0 0 50px rgba(138, 43, 226, 0.5),
+                0 0 70px rgba(138, 43, 226, 0.2);
+        }
+
+        .icone-botao {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .botao-acesso.usuario .icone-botao { color: var(--verde-neon); }
+        .botao-acesso.equipe .icone-botao { color: var(--azul-neon); }
+        .botao-acesso.adm .icone-botao { color: var(--roxo-neon); }
+        .botao-acesso.cadastro .icone-botao { color: var(--amarelo-neon); }
+
+        .titulo-botao {
+            font-size: 1.3rem;
             font-weight: bold;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-            background: rgba(255, 0, 0, 0.1);
+            margin-bottom: 10px;
         }
-        
-        .tab.active {
-            color: var(--amarelo-neon);
-            border-bottom-color: var(--amarelo-neon);
-            background: rgba(255, 215, 0, 0.1);
-            text-shadow: 0 0 10px var(--amarelo-neon);
+
+        .descricao-botao {
+            font-size: 0.9rem;
+            color: #ccc;
         }
-        
-        .tab-content {
+
+        /* ===== CONTAINER DE FORMULÁRIOS ===== */
+        .formularios-container {
             display: none;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid var(--vermelho-neon);
+            box-shadow: 
+                0 0 50px rgba(255, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .formularios-container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            animation: brilho-header 8s linear infinite;
+            z-index: 1;
+        }
+
+        .formularios-container.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .cabecalho-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
             position: relative;
             z-index: 2;
         }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
+
+        .titulo-form {
+            color: var(--amarelo-neon);
+            font-size: 2.2rem;
+            text-shadow: 0 0 15px var(--amarelo-neon);
+        }
+
+        .btn-voltar {
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid var(--vermelho-neon);
+            color: var(--branco);
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-voltar:hover {
+            background: var(--vermelho-neon);
+            color: var(--preto);
+            box-shadow: 0 0 20px var(--vermelho-neon);
+        }
+
+        /* ===== FORMULÁRIOS ===== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
+        .input-group label {
             color: var(--amarelo-neon);
             font-weight: bold;
             text-shadow: 0 0 8px var(--amarelo-neon);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .form-control {
-            width: 100%;
-            padding: 15px;
-            border-radius: 10px;
+        .input-group input, .input-group select, .input-group textarea {
+            padding: 15px 18px;
             border: 2px solid var(--vermelho-neon);
+            border-radius: 12px;
             background: rgba(255, 0, 0, 0.1);
-            color: var(--branco);
+            color: white;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
             box-shadow: 
                 inset 0 2px 10px rgba(0, 0, 0, 0.3),
                 0 0 15px rgba(255, 0, 0, 0.2);
         }
         
-        .form-control:focus {
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
             outline: none;
             border-color: var(--amarelo-neon);
             box-shadow: 
                 inset 0 2px 10px rgba(0, 0, 0, 0.3),
                 0 0 25px var(--amarelo-neon);
             background: rgba(255, 215, 0, 0.1);
+            transform: scale(1.02);
         }
-        
-        .password-container {
-            position: relative;
+
+        .input-group.full-width {
+            grid-column: 1 / -1;
         }
-        
-        .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
+
+        /* ===== BOTÕES NEON ===== */
+        .neon-btn {
+            padding: 18px 35px;
+            background: linear-gradient(135deg, var(--vermelho-neon), var(--vermelho-escuro));
             border: none;
-            color: var(--amarelo-neon);
-            cursor: pointer;
+            color: var(--preto);
+            border-radius: 15px;
             font-size: 1.2rem;
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 18px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s;
-            font-size: 1.1rem;
-            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-align: center;
+            box-shadow: 
+                0 5px 25px rgba(255, 0, 0, 0.4),
+                0 0 30px rgba(255, 0, 0, 0.3);
+            margin: 25px 0 15px 0;
             position: relative;
             overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            grid-column: 1 / -1;
         }
-        
-        .btn-primary {
+
+        .neon-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .neon-btn:hover::before {
+            left: 100%;
+        }
+
+        .neon-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 8px 35px rgba(255, 0, 0, 0.6),
+                0 0 40px rgba(255, 0, 0, 0.4);
+            background: linear-gradient(135deg, var(--vermelho-escuro), var(--vermelho-neon));
+        }
+
+        .btn-equipe {
+            background: linear-gradient(135deg, var(--azul-neon), #0066cc);
+        }
+
+        .btn-adm {
+            background: linear-gradient(135deg, var(--roxo-neon), #6a0dad);
+        }
+
+        .btn-cadastro {
             background: linear-gradient(135deg, var(--amarelo-neon), #ffaa00);
-            color: var(--preto);
+        }
+
+        /* ===== BENEFÍCIOS ===== */
+        .beneficios {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.15), rgba(200, 0, 0, 0.1));
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid var(--vermelho-neon);
             box-shadow: 
-                0 5px 25px rgba(255, 215, 0, 0.4),
-                0 0 30px rgba(255, 215, 0, 0.3);
+                0 0 25px rgba(255, 0, 0, 0.3),
+                inset 0 0 15px rgba(255, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            grid-column: 1 / -1;
         }
         
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 
-                0 8px 35px rgba(255, 215, 0, 0.6),
-                0 0 40px rgba(255, 215, 0, 0.4);
+        .beneficios h4 {
+            color: var(--amarelo-neon);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--amarelo-neon);
+            font-size: 1.3rem;
+            text-align: center;
         }
-        
-        .access-buttons {
+
+        .beneficios-lista {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .access-btn {
-            padding: 15px;
-            border: 2px solid var(--azul-neon);
-            background: rgba(0, 102, 255, 0.1);
-            color: var(--azul-neon);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
-            text-shadow: 0 0 8px var(--azul-neon);
-            box-shadow: 0 0 15px rgba(0, 102, 255, 0.3);
-        }
-
-        .access-btn:hover {
-            background: var(--azul-neon);
-            color: var(--preto);
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px var(--azul-neon);
-        }
-
-        .access-btn.user {
-            border-color: var(--verde-neon);
-            background: rgba(0, 255, 0, 0.1);
-            color: var(--verde-neon);
-            text-shadow: 0 0 8px var(--verde-neon);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
-        }
-
-        .access-btn.user:hover {
-            background: var(--verde-neon);
-            color: var(--preto);
-            box-shadow: 0 0 25px var(--verde-neon);
-        }
-
-        .access-btn.adm {
-            border-color: var(--roxo-neon);
-            background: rgba(138, 43, 226, 0.1);
-            color: var(--roxo-neon);
-            text-shadow: 0 0 8px var(--roxo-neon);
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-        }
-
-        .access-btn.adm:hover {
-            background: var(--roxo-neon);
-            color: var(--branco);
-            box-shadow: 0 0 25px var(--roxo-neon);
-        }
-
-        .user-type-selector {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 10px;
-            margin-bottom: 20px;
         }
 
-        .user-type-btn {
-            padding: 12px;
-            border: 2px solid var(--azul-neon);
-            background: rgba(0, 102, 255, 0.1);
-            color: var(--azul-neon);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .beneficios p {
+            margin: 10px 0;
+            color: var(--branco);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ===== MENSAGENS ===== */
+        .mensagem {
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: none;
+            text-align: center;
             font-weight: bold;
-            text-align: center;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+            animation: slideIn 0.5s ease-out;
+            grid-column: 1 / -1;
         }
 
-        .user-type-btn.active {
-            border-color: var(--amarelo-neon);
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--amarelo-neon);
-            box-shadow: 0 0 15px var(--amarelo-neon);
-        }
-
-        .error-message {
-            color: #ff4444;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            display: none;
-            text-shadow: 0 0 10px #ff4444;
-        }
-
-        .success-message {
-            background: rgba(0, 255, 0, 0.1);
+        .mensagem.sucesso {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.1));
             border: 2px solid var(--verde-neon);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 25px;
             color: var(--verde-neon);
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-            display: none;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3);
         }
 
-        .system-info {
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px solid var(--amarelo-neon);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 25px;
-            font-size: 0.9rem;
-            color: var(--amarelo-neon);
-            text-align: left;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        .mensagem.erro {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.1));
+            border: 2px solid #ff4444;
+            color: #ff4444;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+        }
+
+        /* ===== LOADING ===== */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+            grid-column: 1 / -1;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--vermelho-neon);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .acesso-rapido {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .formularios-container {
+                padding: 25px;
+            }
+            
+            .neon-text {
+                font-size: 2.2rem;
+            }
+            
+            .neon-btn {
+                padding: 16px 25px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .acesso-rapido {
+                grid-template-columns: 1fr;
+            }
+            
+            .neon-text {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .formularios-container {
+                padding: 20px;
+            }
+            
+            .titulo-form {
+                font-size: 1.6rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo">👑</div>
-        <h1>FURIA DA NOITE PLAY</h1>
-        <p class="subtitle">SISTEMA UNIFICADO DE ACESSO</p>
-        
-        <div class="tabs">
-            <div class="tab active" data-tab="login">🔐 LOGIN</div>
-            <div class="tab" data-tab="register">⭐ CADASTRO</div>
-        </div>
-        
-        <!-- Formulário de Login -->
-        <div id="login-tab" class="tab-content active">
-            <div class="user-type-selector">
-                <div class="user-type-btn active" data-type="user">👤 Usuário</div>
-                <div class="user-type-btn" data-type="equipe">🏆 Equipe</div>
-                <div class="user-type-btn" data-type="adm">👑 ADM</div>
-            </div>
+    <div class="container">
+        <!-- HEADER NEON -->
+        <header class="neon-header">
+            <h1 class="neon-text">🔐 FURIA DA NOITE PLAY</h1>
+            <p class="subtitle">Sistema Unificado de Acesso - Escolha seu caminho!</p>
+        </header>
 
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="login-username">🎮 Usuário:</label>
-                    <input type="text" id="login-username" class="form-control" placeholder="Digite seu usuário" required>
+        <!-- BOTÕES DE ACESSO RÁPIDO -->
+        <div class="acesso-rapido">
+            <div class="botao-acesso usuario" onclick="abrirFormulario('login-usuario')">
+                <div class="icone-botao">👤</div>
+                <div class="titulo-botao">ACESSO USUÁRIO</div>
+                <div class="descricao-botao">Jogadores individuais</div>
+            </div>
+            
+            <div class="botao-acesso equipe" onclick="abrirFormulario('login-equipe')">
+                <div class="icone-botao">🏆</div>
+                <div class="titulo-botao">ACESSO EQUIPE</div>
+                <div class="descricao-botao">Líderes de equipe</div>
+            </div>
+            
+            <div class="botao-acesso adm" onclick="abrirFormulario('login-adm')">
+                <div class="icone-botao">👑</div>
+                <div class="titulo-botao">ACESSO ADM</div>
+                <div class="descricao-botao">Administradores</div>
+            </div>
+            
+            <div class="botao-acesso cadastro" onclick="abrirFormulario('cadastro')">
+                <div class="icone-botao">⭐</div>
+                <div class="titulo-botao">NOVO CADASTRO</div>
+                <div class="descricao-botao">Junte-se à Fúria!</div>
+            </div>
+        </div>
+
+        <!-- FORMULÁRIO DE LOGIN USUÁRIO -->
+        <div id="login-usuario" class="formularios-container">
+            <div class="cabecalho-form">
+                <h2 class="titulo-form">👤 LOGIN - USUÁRIO</h2>
+                <button class="btn-voltar" onclick="voltarMenu()">← VOLTAR</button>
+            </div>
+            
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>🎮 Nick no Jogo:</label>
+                    <input type="text" id="nick-usuario" placeholder="Seu nick nos games" required>
                 </div>
                 
-                <div class="form-group">
-                    <label for="login-password">🔒 Senha:</label>
-                    <div class="password-container">
-                        <input type="password" id="login-password" class="form-control" placeholder="Digite sua senha" required>
-                        <button type="button" class="toggle-password" onclick="togglePassword('login-password')">👁️</button>
+                <div class="input-group">
+                    <label>🔒 Senha:</label>
+                    <input type="password" id="senha-usuario" placeholder="Sua senha" required>
+                </div>
+                
+                <div class="beneficios">
+                    <h4>🎯 ACESSO AO PAINEL DO USUÁRIO</h4>
+                    <div class="beneficios-lista">
+                        <p>✅ Perfil personalizado</p>
+                        <p>✅ Histórico de partidas</p>
+                        <p>✅ Estatísticas detalhadas</p>
+                        <p>✅ Ranking competitivo</p>
+                        <p>✅ Chat com a comunidade</p>
+                        <p>✅ Participação em eventos</p>
                     </div>
                 </div>
                 
-                <div class="error-message" id="login-error"></div>
-                
-                <button type="submit" class="btn btn-primary" id="login-button">
-                    🚀 ACESSAR SISTEMA
+                <button class="neon-btn" onclick="fazerLogin('usuario')">
+                    🚀 ACESSAR PAINEL USUÁRIO
                 </button>
-            </form>
-
-            <div class="access-buttons">
-                <button class="access-btn user" onclick="acessarComoVisitante('user')">
-                    👤 ACESSO USUÁRIO
-                </button>
-                <button class="access-btn" onclick="acessarComoVisitante('equipe')">
-                    🏆 ACESSO EQUIPE
-                </button>
-                <button class="access-btn adm" onclick="acessarComoVisitante('adm')">
-                    👑 ACESSO ADM
-                </button>
-            </div>
-
-            <div class="system-info">
-                <strong>🎯 SISTEMA SINCRONIZADO:</strong><br><br>
-                ✅ <strong>Login Principal</strong> - Redirecionamento inteligente<br>
-                ✅ <strong>Painel ADM</strong> - adm supremo.html + adm-gerais.html<br>
-                ✅ <strong>Painel Usuário</strong> - painel-usuario.html<br>
-                ✅ <strong>Painel Equipe</strong> - painel-equipe.html<br>
-                ✅ <strong>Sistema Completo</strong> - Todas as páginas integradas
             </div>
         </div>
-        
-        <!-- Formulário de Cadastro -->
-        <div id="register-tab" class="tab-content">
-            <form id="register-form">
-                <div class="form-group">
-                    <label for="register-username">🎮 Nick no Jogo:</label>
-                    <input type="text" id="register-username" class="form-control" placeholder="Seu nick nos games" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="register-email">📧 E-mail:</label>
-                    <input type="email" id="register-email" class="form-control" placeholder="seu@email.com" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="register-password">🔒 Senha:</label>
-                    <div class="password-container">
-                        <input type="password" id="register-password" class="form-control" placeholder="Crie uma senha forte" required>
-                        <button type="button" class="toggle-password" onclick="togglePassword('register-password')">👁️</button>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="register-type">🎯 Tipo de Conta:</label>
-                    <select id="register-type" class="form-control" required>
-                        <option value="">Selecione o tipo</option>
-                        <option value="user">👤 Usuário Comum</option>
-                        <option value="equipe">🏆 Líder de Equipe</option>
-                        <option value="adm">👑 Solicitar ADM</option>
-                    </select>
-                </div>
-                
-                <div class="error-message" id="register-error"></div>
-                
-                <button type="submit" class="btn btn-primary">
-                    ⭐ REALIZAR CADASTRO
-                </button>
-            </form>
-            
-            <div class="success-message" id="register-success">
-                ✅ Cadastro realizado com sucesso!<br>
-                Redirecionando para o sistema...
+
+        <!-- FORMULÁRIO DE LOGIN EQUIPE -->
+        <div id="login-equipe" class="formularios-container">
+            <div class="cabecalho-form">
+                <h2 class="titulo-form">🏆 LOGIN - EQUIPE</h2>
+                <button class="btn-voltar" onclick="voltarMenu()">← VOLTAR</button>
             </div>
             
-            <div class="system-info">
-                <strong>📁 PÁGINAS DO SISTEMA:</strong><br><br>
-                • <strong>login.html</strong> - Página principal de acesso<br>
-                • <strong>login-adm.html</strong> - Login administrativo<br>
-                • <strong>painel-adm.html</strong> - Painel administrativo<br>
-                • <strong>painel-usuario.html</strong> - Painel do usuário<br>
-                • <strong>painel-equipe.html</strong> - Painel de equipes<br>
-                • <strong>adm supremo.html</strong> - ADM Supremo<br>
-                • <strong>adm-gerais.html</strong> - ADMs Gerais
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // =============================================
-        // SISTEMA UNIFICADO - LOGIN PRINCIPAL
-        // =============================================
-
-        let currentUserType = 'user';
-
-        // Credenciais do sistema
-        const credentials = {
-            // ADMs
-            'FURIAGOD': { password: 'Furia2025_$', type: 'adm-supremo' },
-            'Scorpion': { password: 'Mlk00', type: 'adm-geral' },
-            '.Son King': { password: 'God19', type: 'adm-geral' },
-            
-            // Usuários comuns
-            'player1': { password: '123456', type: 'user' },
-            'gamer': { password: 'senha123', type: 'user' },
-            
-            // Equipes
-            'furia_team': { password: 'furia123', type: 'equipe' },
-            'volvaco_squad': { password: 'volvaco', type: 'equipe' }
-        };
-
-        // Alternar entre abas
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>🏷️ Nome da Equipe:</label>
+                    <input type="text" id="nome-equipe-login" placeholder="Nome da sua equipe" required>
+                </div>
                 
-                this.classList.add('active');
-                const tabId = this.getAttribute('data-tab') + '-tab';
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-
-        // Selecionar tipo de usuário
-        document.querySelectorAll('.user-type-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.user-type-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentUserType = this.getAttribute('data-type');
-                updateLoginButton();
-            });
-        });
-
-        function updateLoginButton() {
-            const button = document.getElementById('login-button');
-            const icons = {
-                'user': '👤',
-                'equipe': '🏆', 
-                'adm': '👑'
-            };
-            button.innerHTML = `${icons[currentUserType]} ACESSAR ${currentUserType.toUpperCase()}`;
-        }
-
-        // Alternar visibilidade da senha
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const button = input.parentNode.querySelector('.toggle-password');
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                button.textContent = '🔒';
-            } else {
-                input.type = 'password';
-                button.textContent = '👁️';
-            }
-        }
-        
-        // Processar login
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('login-username').value.trim();
-            const password = document.getElementById('login-password').value;
-            const errorElement = document.getElementById('login-error');
-            
-            errorElement.style.display = 'none';
-            
-            // Verificar credenciais
-            if (credentials[username] && credentials[username].password === password) {
-                const userData = credentials[username];
-                fazerLogin(userData.type, username);
-            } else {
-                showError('❌ Usuário ou senha incorretos!');
-            }
-            
-            function showError(message) {
-                errorElement.textContent = message;
-                errorElement.style.display = 'block';
-            }
-        });
-
-        // Fazer login e redirecionar
-        function fazerLogin(tipo, username) {
-            let redirectPage = '';
-            
-            switch(tipo) {
-                case 'adm-supremo':
-                    redirectPage = 'adm supremo.html';
-                    break;
-                case 'adm-geral':
-                    redirectPage = 'adm-gerais.html';
-                    break;
-                case 'equipe':
-                    redirectPage = 'painel-equipe.html';
-                    break;
-                default:
-                    redirectPage = 'painel-usuario.html';
-            }
-            
-            // Efeito visual
-            const effect = document.createElement('div');
-            effect.style.cssText = `
-                position: fixed;
-                top
+                <div class="input-group">
+                    <label>🔒 Senha da Equipe:</label>
+                    <input type="password" id="senha-equipe-login" placeholder="Senha da equipe" required>
+                </div>
+                
+                <div class="beneficios">
+               
