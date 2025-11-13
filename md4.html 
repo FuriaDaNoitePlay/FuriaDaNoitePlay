@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 MD4 - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIÁVEIS E RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --vermelho-neon: #ff0000;
+            --vermelho-escuro: #cc0000;
+            --amarelo-neon: #FFD700;
+            --verde-neon: #00ff00;
+            --azul-neon: #0066ff;
+            --roxo-neon: #8A2BE2;
+            --preto: #000000;
+            --preto-escuro: #0a0a0a;
+            --branco: #ffffff;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0000 100%);
+            color: var(--branco);
+            font-family: 'Orbitron', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
+            padding: 20px 40px;
+            border-bottom: 3px solid var(--roxo-neon);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.4);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 20px var(--amarelo-neon);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--roxo-neon);
+            text-shadow: 0 0 15px var(--roxo-neon);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-link {
+            color: var(--branco);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(138, 43, 226, 0.1);
+            border: 1px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 10px var(--amarelo-neon);
+            border-color: var(--amarelo-neon);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 215, 0, 0.3);
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 10px var(--amarelo-neon);
+            border: 1px solid var(--amarelo-neon);
+            box-shadow: 0 0 15px var(--amarelo-neon);
+        }
+
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        .main-content {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
+            padding: 60px 40px;
+            border-radius: 20px;
+            border: 3px solid var(--roxo-neon);
+            box-shadow: 
+                0 0 40px rgba(138, 43, 226, 0.4),
+                inset 0 0 20px rgba(138, 43, 226, 0.1);
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            animation: brilho 8s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes brilho {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            color: var(--amarelo-neon);
+            text-shadow: 
+                0 0 20px var(--amarelo-neon),
+                0 0 40px var(--amarelo-neon);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            animation: pulsar 2s infinite alternate;
+        }
+
+        @keyframes pulsar {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--branco);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+            line-height: 1.6;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 2px solid var(--amarelo-neon);
+            font-weight: bold;
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 10px var(--amarelo-neon);
+        }
+
+        /* ===== GRID DE FUNCIONALIDADES ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
+            padding: 40px 30px;
+            border-radius: 15px;
+            border: 2px solid var(--roxo-neon);
+            box-shadow: 
+                0 0 25px rgba(138, 43, 226, 0.3),
+                inset 0 0 15px rgba(138, 43, 226, 0.1);
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 0 35px rgba(138, 43, 226, 0.5),
+                0 0 50px rgba(138, 43, 226, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 20px var(--amarelo-neon);
+        }
+
+        .feature-title {
+            font-size: 1.8rem;
+            color: var(--roxo-neon);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--roxo-neon);
+        }
+
+        .feature-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feature-btn {
+            background: linear-gradient(135deg, var(--roxo-neon), #6a0dad);
+            color: var(--branco);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .feature-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--roxo-neon);
+        }
+
+        /* ===== SEÇÃO DE JOGOS ===== */
+        .games-section {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid var(--roxo-neon);
+            box-shadow: 
+                0 0 25px rgba(138, 43, 226, 0.3),
+                inset 0 0 15px rgba(138, 43, 226, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            color: var(--amarelo-neon);
+            font-size: 2.2rem;
+            text-shadow: 0 0 15px var(--amarelo-neon);
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 2px solid var(--roxo-neon);
+            padding-bottom: 15px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .game-card {
+            background: rgba(138, 43, 226, 0.1);
+            padding: 30px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--roxo-neon);
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--amarelo-neon);
+            box-shadow: 0 0 20px var(--amarelo-neon);
+        }
+
+        .game-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .game-name {
+            color: var(--amarelo-neon);
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px var(--amarelo-neon);
+        }
+
+        .game-stats {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* ===== SEÇÃO DE RANKING ===== */
+        .ranking-section {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid var(--roxo-neon);
+            box-shadow: 
+                0 0 25px rgba(138, 43, 226, 0.3),
+                inset 0 0 15px rgba(138, 43, 226, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .ranking-table th {
+            background: rgba(138, 43, 226, 0.3);
+            color: var(--amarelo-neon);
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid var(--roxo-neon);
+        }
+
+        .ranking-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .ranking-table tr:hover {
+            background: rgba(138, 43, 226, 0.1);
+        }
+
+        .rank-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .rank-1 {
+            background: rgba(255, 215, 0, 0.3);
+            color: var(--amarelo-neon);
+            border: 1px solid var(--amarelo-neon);
+        }
+
+        .rank-2 {
+            background: rgba(192, 192, 192, 0.3);
+            color: #c0c0c0;
+            border: 1px solid #c0c0c0;
+        }
+
+        .rank-3 {
+            background: rgba(205, 127, 50, 0.3);
+            color: #cd7f32;
+            border: 1px solid #cd7f32;
+        }
+
+        /* ===== SEÇÃO DE NOVIDADES ===== */
+        .news-section {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid var(--roxo-neon);
+            box-shadow: 
+                0 0 25px rgba(138, 43, 226, 0.3),
+                inset 0 0 15px rgba(138, 43, 226, 0.1);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .news-card {
+            background: rgba(138, 43, 226, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--roxo-neon);
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--amarelo-neon);
+        }
+
+        .news-title {
+            color: var(--amarelo-neon);
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px var(--amarelo-neon);
+        }
+
+        .news-date {
+            color: var(--roxo-neon);
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .news-content {
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        /* ===== RODAPÉ ===== */
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-top: 3px solid var(--roxo-neon);
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--amarelo-neon);
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--amarelo-neon);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--amarelo-neon);
+            text-shadow: 0 0 8px var(--amarelo-neon);
+        }
+
+        .copyright {
+            text-align: center;
+            color: #777;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .main-content {
+                padding: 0 20px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🎮</div>
+                <div class="logo-text">MD4 - FuriaDaNoitePlay</div>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Início</a>
+                <a href="login.html" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <a href="painel-usuario.html" class="nav-link"><i class="fas fa-user"></i> Usuário</a>
+                <a href="painel-equipe.html" class="nav-link"><i class="fas fa-users"></i> Equipes</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <h1 class="hero-title">🎮 MD4 - MODULO 4</h1>
+            <p class="hero-subtitle">
+                Sistema avançado de gerenciamento e competição. Controle total sobre torneios, 
+                estatísticas e performance dos jogadores. A evolução do gaming competitivo!
+            </p>
+            <div class="hero-badges">
+                <div class="hero-badge">⚡ Alta Performance</div>
+                <div class="hero-badge">🎯 Estatísticas Detalhadas</div>
+                <div class="hero-badge">🏆 Sistema de Ranking</div>
+                <div class="hero-badge">🔧 Ferramentas Avançadas</div>
+            </div>
+        </section>
+
+        <!-- FUNCIONALIDADES -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">ANÁLISE DE PERFORMANCE</h3>
+                <p class="feature-description">
+                    Estatísticas detalhadas de cada jogador. KPIs, taxas de vitória, 
+                    performance por jogo e muito mais.
+                </p>
+                <button class="feature-btn" onclick="abrirAnalise()">Ver Estatísticas</button>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚔️</div>
+                <h3 class="feature-title">TORNEIOS MD4</h3>
+                <p class="feature-description">
+                    Sistema exclusivo de torneios com formato MD4. 
+                    Competições balanceadas e premiações especiais.
+                </p>
+                <button class="feature-btn" onclick="abrirTorneios()">Ver Torneios</button>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3 class="feature-title">SCOUTING AVANÇADO</h3>
+                <p class="feature-description">
+                    Ferramentas de análise de adversários. Estude estratégias, 
+                    pontos fortes e fracos dos oponentes.
+                </p>
+                <button class="feature-btn" onclick="abrirScouting()">Analisar Adversários</button>
+            </div>
+        </div>
+
+        <!-- JOGOS DO MD4 -->
+        <section class="games-section">
+            <h2 class="section-title">🎯 JOGOS DO SISTEMA MD4</h2>
+            <div class="games-grid">
+                <div class="game-card" onclick="abrirJogo('trucu')">
+                    <div class="game-icon">🎰</div>
+                    <div class="game-name">TRUCU MD4</div>
+                    <div class="game-stats">
+                        🏆 45 Torneios<br>
+                        ⭐ 2.5K Jogadores<br>
+                        💰 R$ 15K em Prêmios
+                    </div>
+                </div>
+                <div class="game-card" onclick="abrirJogo('mlbb')">
+                    <div class="game-icon">🗡️</div>
+                    <div class="game-name">MLBB MD4</div>
+                    <div class="game-stats">
+                        🏆 28 Torneios<br>
+                        ⭐ 1.8K Jogadores<br>
+                        💰 R$ 25K em Prêmios
+                    </div>
+                </div>
+                <div class="game-card" onclick="abrirJogo('freefire')">
+                    <div class="game-icon">🔫</div>
+                    <div class="game-name">FREE FIRE MD4</div>
+                    <div class="game-stats">
+                        🏆 32 Torneios<br>
+                        ⭐ 3.2K Jogadores<br>
+                        💰 R$ 18K em Prêmios
+                    </div>
+                </div>
+                <div class="game-card" onclick="abrirJogo('clash')">
+                    <div class="game-icon">👑</div>
+                    
