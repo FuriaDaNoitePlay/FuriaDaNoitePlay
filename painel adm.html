@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👑 Painel ADM - FuriaDaNoitePlay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --adm-vermelho: #ff4444;
+            --adm-verde: #44ff44;
+            --adm-amarelo: #ffd700;
+            --adm-azul: #4444ff;
+            --adm-roxo: #aa44ff;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            background-image: linear-gradient(135deg, #1a0a0a 0%, #0a0a0a 50%, #001a0a 100%);
+        }
+        
+        .admin-header {
+            background: rgba(20, 20, 20, 0.95);
+            border-bottom: 3px solid var(--adm-amarelo);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            color: var(--adm-amarelo);
+        }
+        
+        .admin-info {
+            text-align: right;
+        }
+        
+        .admin-name {
+            color: var(--adm-amarelo);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .admin-role {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: rgba(30, 30, 30, 0.9);
+            border-bottom: 1px solid #333;
+            padding: 0 30px;
+        }
+        
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            color: #ccc;
+            font-weight: bold;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .nav-tab:hover {
+            color: var(--adm-amarelo);
+            background: rgba(255, 215, 0, 0.1);
+        }
+        
+        .nav-tab.active {
+            color: var(--adm-amarelo);
+            border-bottom-color: var(--adm-amarelo);
+            background: rgba(255, 215, 0, 0.05);
+        }
+        
+        .main-content {
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .secao {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .secao.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            color: var(--adm-amarelo);
+        }
+        
+        .card-title {
+            color: var(--adm-amarelo);
+            font-size: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--adm-amarelo);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        
+        .btn-primary {
+            background: var(--adm-amarelo);
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            background: #ffed4e;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: var(--adm-verde);
+            color: #000;
+        }
+        
+        .btn-danger {
+            background: var(--adm-vermelho);
+            color: #fff;
+        }
+        
+        .btn-warning {
+            background: var(--adm-amarelo);
+            color: #000;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--adm-amarelo);
+            font-weight: bold;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 2px solid #333;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--adm-amarelo);
+        }
+        
+        .user-list, .team-list {
+            margin-top: 20px;
+        }
+        
+        .user-item, .team-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+        }
+        
+        .user-info-small {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .permission-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .badge-supremo {
+            background: var(--adm-vermelho);
+            color: white;
+        }
+        
+        .badge-geral {
+            background: var(--adm-azul);
+            color: white;
+        }
+        
+        .badge-superman {
+            background: var(--adm-roxo);
+            color: white;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--adm-amarelo);
+            color: var(--adm-amarelo);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: var(--adm-amarelo);
+            color: #000;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho do Painel -->
+    <header class="admin-header">
+        <div class="logo-area">
+            <div class="logo">👑</div>
+            <div>
+                <h1>FURIA DA NOITE PLAY</h1>
+                <p style="color: #ccc;">PAINEL ADMINISTRATIVO</p>
+            </div>
+        </div>
+        <div class="admin-info">
+            <div class="admin-name" id="current-admin">FURIAGOD</div>
+            <div class="admin-role" id="current-role">ADM Supremo</div>
+            <button class="btn btn-danger" onclick="logout()" style="margin-top: 10px; padding: 8px 15px;">
+                🚪 Sair
+            </button>
+        </div>
+    </header>
+
+    <!-- Navegação -->
+    <nav class="nav-tabs">
+        <div class="nav-tab active" onclick="mostrarSecao('dashboard')">📊 Dashboard</div>
+        <div class="nav-tab" onclick="mostrarSecao('usuarios')">👥 Gerenciar Usuários</div>
+        <div class="nav-tab" onclick="mostrarSecao('equipes')">🏆 Gerenciar Equipes</div>
+        <div class="nav-tab" onclick="mostrarSecao('tabelas')">📈 Tabelas & Confrontos</div>
+        <div class="nav-tab" onclick="mostrarSecao('campeonatos')">🏅 Campeonatos</div>
+        <div class="nav-tab" onclick="mostrarSecao('configuracoes')">⚙️ Configurações</div>
+        <div class="nav-tab" onclick="mostrarSecao('admins')">🛡️ Gerenciar ADMs</div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="secao active">
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📊</div>
+                        <h3 class="card-title">VISÃO GERAL DO SISTEMA</h3>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-equipes">24</div>
+                            <div class="stat-label">Equipes Ativas</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-jogadores">186</div>
+                            <div class="stat-label">Jogadores</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="campeonatos-ativos">3</div>
+                            <div class="stat-label">Campeonatos Ativos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⚡</div>
+                        <h3 class="card-title">AÇÕES RÁPIDAS</h3>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="action-btn" onclick="criarNovoCampeonato()">
+                            🏅<br>Novo Campeonato
+                        </div>
+                        <div class="action-btn" onclick="adicionarEquipe()">
+                            ➕<br>Nova Equipe
+                        </div>
+                        <div class="action-btn" onclick="gerarTabela()">
+                            📋<br>Gerar Tabela
+                        </div>
+                        <div class="action-btn" onclick="criarNovoAdm()">
+                            👑<br>Novo ADM
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ATIVIDADES RECENTES -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🕐</div>
+                    <h3 class="card-title">ATIVIDADES RECENTES</h3>
+                </div>
+                <div class="user-list">
+                    <div class="user-item">
+                        <div>✅ Equipe <strong>NEON ESPORTS</strong> foi aceita no sistema</div>
+                        <div style="color: #ccc; font-size: 0.9rem;">Há 5 minutos</div>
+                    </div>
+                    <div class="user-item">
+                        <div>🎯 Jogador <strong>ToxicSkull√</strong> foi promovido a ADM</div>
+                        <div style="color: #ccc; font-size: 0.9rem;">Há 15 minutos</div>
+                    </div>
+                    <div class="user-item">
+                        <div>⚠️ Equipe <strong>DRAGONS</strong> recebeu advertência</div>
+                        <div style="color: #ccc; font-size: 0.9rem;">Há 1 hora</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GERENCIAR ADMs -->
+        <section id="admins" class="secao">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🛡️</div>
+                    <h3 class="card-title">GERENCIAMENTO DE ADMINISTRADORES</h3>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Pesquisar ADM:</label>
+                    <input type="text" class="form-input" id="pesquisaAdm" placeholder="Digite o nome do ADM...">
+                </div>
+
+                <div class="user-list">
+                    <!-- ADM SUPREMO -->
+                    <div class="user-item">
+                        <div class="user-info-small">
+                            <div class="user-avatar-small" style="background: linear-gradient(135deg, #ff0000, #cc0000);">FG</div>
+                            <div>
+                                <strong>FURIAGOD</strong>
+                                <div class="permission-badge badge-supremo">👑 SUPREMO</div>
+                            </div>
+                        </div>
+                        <div>
+                            <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
+                            <button class="btn btn-warning" onclick="editarAdm('FURIAGOD')">
+                                👑 Supremo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ADMs GERAIS -->
+                    <div class="user-item">
+                        <div class="user-info-small">
+                            <div class="user-avatar-small" style="background: linear-gradient(135deg, #0066ff, #0044cc);">SC</div>
+                            <div>
+                                <strong>Scorpion</strong>
+                                <div class="permission-badge badge-geral">🔧 ADM GERAL</div>
+                            </div>
+                        </div>
+                        <div>
+                            <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
+                            <button class="btn btn-warning" onclick="editarAdm('Scorpion')">
+                                ✏️ Editar
+                            </button>
+                            <button class="btn btn-danger" onclick="rebaixarAdm('Scorpion')" id="btn-rebaixar-scorpion">
+                                ⬇️ Rebaixar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="user-item">
+                        <div class="user-info-small">
+                            <div class="user-avatar-small" style="background: linear-gradient(135deg, #8a2be2, #6a1bb2);">SK</div>
+                            <div>
+                                <strong>.Son King</strong>
+                                <div class="permission-badge badge-geral">🔧 ADM GERAL</div>
+                            </div>
+                        </div>
+                        <div>
+                            <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
+                            <button class="btn btn-warning" onclick="editarAdm('.Son King')">
+                                ✏️ Editar
+                            </button>
+                            <button class="btn btn-danger" onclick="rebaixarAdm('.Son King')">
+                                ⬇️ Rebaixar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- SUPERMAN -->
+                    <div class="user-item">
+                        <div class="user-info-small">
+                            <div class="user-avatar-small" style="background: linear-gradient(135deg, #00ff00, #00cc00);">SM</div>
+                            <div>
+                                <strong>Superman</strong>
+                                <div class="permission-badge badge-superman">🦸 SUPERMAN</div>
+                            </div>
+                        </div>
+                        <div>
+                            <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
+                            <button class="btn btn-warning" onclick="editarAdm('Superman')">
+                                ✏️ Editar
+                            </button>
+                            <button class="btn btn-danger" onclick="rebaixarAdm('Superman')">
+                                ⬇️ Rebaixar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                    <button class="btn btn-success" onclick="criarNovoAdm()">
+                        👨‍💼 CRIAR NOVO ADM
+                    </button>
+                    <button class="btn btn-primary" onclick="exportarLogsAdm()">
+                        📊 EXPORTAR LOGS
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- OUTRAS SEÇÕES (usuarios, equipes, etc.) -->
+        <!-- [O restante do código das outras seções viria aqui] -->
+        
+    </main>
+
+    <script>
+        // Sistema de Permissões
+        const permissions = {
+            'FURIAGOD': 'supremo',
+            'Scorpion': 'geral', 
+            '.Son King': 'geral',
+            'NeferpitouI': 'geral',
+            'PNTS': 'geral',
+            'ToxicSkull√': 'geral',
+            'Superman': 'superman'
+        };
+
+        let currentUser = 'FURIAGOD';
+        let currentRole = 'supremo';
+
+        // Função para mostrar seções
+        function mostrarSecao(secao) {
+            // Esconder todas as seções
+            document.querySelectorAll('.secao').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            
+            // Mostrar seção selecionada
+            document.getElementById(secao).classList.add('active');
+            
+            // Ativar aba correspondente
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                if (tab.onclick && tab.onclick.toString().includes(secao)) {
+                    tab.classList.add('active');
+                }
+            });
+
+            // Verificar permissões para a seção de ADMs
+            if (secao === 'admins' && currentRole !== 'supremo') {
+                alert('⚠️ Apenas ADMs Supremos podem acessar o gerenciamento de ADMs!');
+                mostrarSecao('dashboard');
+                return;
+            }
+        }
+
+        // Função para criar novo ADM (apenas supremo)
+        function criarNovoAdm() {
+            if (currentRole !== 'supremo') {
+                alert('⚠️ Apenas ADMs Supremos podem criar novos administradores!');
+                return;
+            }
+
+            const username = prompt('Digite o nome de usuário do novo ADM:');
+            if (!username) return;
+
+            const password = prompt('Digite a senha do novo ADM:');
+            if (!password) return;
+
+            const role = prompt('Tipo de ADM (geral/superman):');
+            if (!role || !['geral', 'superman'].includes(role)) {
+                alert('Tipo inválido! Use "geral" ou "superman"');
+                return;
+            }
+
+            // Adicionar ao sistema (simulação)
+            per
