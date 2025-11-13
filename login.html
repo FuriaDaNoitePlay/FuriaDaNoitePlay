@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 Login ADM - FuriaDaNoitePlay</title>
+    <title>🔐 Login - FuriaDaNoitePlay</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -15,12 +15,11 @@
         
         :root {
             --vermelho-neon: #ff0000;
-            --vermelho-escuro: #cc0000;
             --amarelo-neon: #FFD700;
             --verde-neon: #00ff00;
             --azul-neon: #0066ff;
+            --roxo-neon: #8A2BE2;
             --preto: #000000;
-            --preto-escuro: #0a0a0a;
             --branco: #ffffff;
         }
         
@@ -201,7 +200,6 @@
             margin-top: 10px;
             position: relative;
             overflow: hidden;
-            font-family: inherit;
         }
         
         .btn-primary {
@@ -217,67 +215,8 @@
             box-shadow: 
                 0 8px 35px rgba(255, 215, 0, 0.6),
                 0 0 40px rgba(255, 215, 0, 0.4);
-            background: linear-gradient(135deg, #ffaa00, var(--amarelo-neon));
         }
         
-        .btn-secondary {
-            background: transparent;
-            color: var(--vermelho-neon);
-            border: 2px solid var(--vermelho-neon);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--vermelho-neon);
-            color: var(--preto);
-            box-shadow: 0 0 25px var(--vermelho-neon);
-        }
-        
-        .error-message {
-            color: #ff4444;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            display: none;
-            text-shadow: 0 0 10px #ff4444;
-        }
-        
-        .admin-info {
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px solid var(--amarelo-neon);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 25px;
-            font-size: 0.9rem;
-            color: var(--amarelo-neon);
-            text-align: left;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-            position: relative;
-            z-index: 2;
-        }
-        
-        .admin-info strong {
-            color: var(--vermelho-neon);
-            text-shadow: 0 0 10px var(--vermelho-neon);
-        }
-        
-        .form-footer {
-            margin-top: 25px;
-            color: #ccc;
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .form-footer a {
-            color: var(--amarelo-neon);
-            text-decoration: none;
-            text-shadow: 0 0 8px var(--amarelo-neon);
-        }
-        
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
-
         .access-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -319,6 +258,54 @@
             box-shadow: 0 0 25px var(--verde-neon);
         }
 
+        .access-btn.adm {
+            border-color: var(--roxo-neon);
+            background: rgba(138, 43, 226, 0.1);
+            color: var(--roxo-neon);
+            text-shadow: 0 0 8px var(--roxo-neon);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .access-btn.adm:hover {
+            background: var(--roxo-neon);
+            color: var(--branco);
+            box-shadow: 0 0 25px var(--roxo-neon);
+        }
+
+        .user-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .user-type-btn {
+            padding: 12px;
+            border: 2px solid var(--azul-neon);
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--azul-neon);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .user-type-btn.active {
+            border-color: var(--amarelo-neon);
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--amarelo-neon);
+            box-shadow: 0 0 15px var(--amarelo-neon);
+        }
+
+        .error-message {
+            color: #ff4444;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+            text-shadow: 0 0 10px #ff4444;
+        }
+
         .success-message {
             background: rgba(0, 255, 0, 0.1);
             border: 2px solid var(--verde-neon);
@@ -329,47 +316,18 @@
             text-align: center;
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
             display: none;
-            position: relative;
-            z-index: 2;
         }
 
-        .file-system-preview {
-            background: rgba(0, 0, 0, 0.7);
+        .system-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--amarelo-neon);
             border-radius: 12px;
             padding: 20px;
             margin-top: 25px;
-            border: 2px solid var(--azul-neon);
-            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
-            position: relative;
-            z-index: 2;
-        }
-
-        .file-system-preview h3 {
-            color: var(--azul-neon);
-            text-shadow: 0 0 10px var(--azul-neon);
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .file-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 10px;
-        }
-
-        .file-item {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            font-size: 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .file-icon {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
+            font-size: 0.9rem;
             color: var(--amarelo-neon);
+            text-align: left;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
     </style>
 </head>
@@ -377,89 +335,61 @@
     <div class="login-container">
         <div class="logo">👑</div>
         <h1>FURIA DA NOITE PLAY</h1>
-        <p class="subtitle">SISTEMA ADMINISTRATIVO UNIFICADO</p>
+        <p class="subtitle">SISTEMA UNIFICADO DE ACESSO</p>
         
         <div class="tabs">
-            <div class="tab active" data-tab="login">🔐 LOGIN ADM</div>
+            <div class="tab active" data-tab="login">🔐 LOGIN</div>
             <div class="tab" data-tab="register">⭐ CADASTRO</div>
         </div>
         
-        <!-- Formulário de Login ADM -->
+        <!-- Formulário de Login -->
         <div id="login-tab" class="tab-content active">
+            <div class="user-type-selector">
+                <div class="user-type-btn active" data-type="user">👤 Usuário</div>
+                <div class="user-type-btn" data-type="equipe">🏆 Equipe</div>
+                <div class="user-type-btn" data-type="adm">👑 ADM</div>
+            </div>
+
             <form id="login-form">
                 <div class="form-group">
-                    <label for="login-username">👑 Usuário ADM:</label>
-                    <input type="text" id="login-username" class="form-control" placeholder="Digite seu usuário ADM" required>
+                    <label for="login-username">🎮 Usuário:</label>
+                    <input type="text" id="login-username" class="form-control" placeholder="Digite seu usuário" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="login-password">🔒 Senha ADM:</label>
+                    <label for="login-password">🔒 Senha:</label>
                     <div class="password-container">
-                        <input type="password" id="login-password" class="form-control" placeholder="Digite sua senha ADM" required>
+                        <input type="password" id="login-password" class="form-control" placeholder="Digite sua senha" required>
                         <button type="button" class="toggle-password" onclick="togglePassword('login-password')">👁️</button>
                     </div>
                 </div>
                 
                 <div class="error-message" id="login-error"></div>
                 
-                <button type="submit" class="btn btn-primary">
-                    🚀 ACESSAR PAINEL ADM
+                <button type="submit" class="btn btn-primary" id="login-button">
+                    🚀 ACESSAR SISTEMA
                 </button>
             </form>
 
             <div class="access-buttons">
-                <button class="access-btn user" onclick="acessarPainelUsuario()">
-                    👤 PAINEL USUÁRIO
+                <button class="access-btn user" onclick="acessarComoVisitante('user')">
+                    👤 ACESSO USUÁRIO
                 </button>
-                <button class="access-btn" onclick="acessarPainelEquipe()">
-                    🏆 PAINEL EQUIPE
+                <button class="access-btn" onclick="acessarComoVisitante('equipe')">
+                    🏆 ACESSO EQUIPE
+                </button>
+                <button class="access-btn adm" onclick="acessarComoVisitante('adm')">
+                    👑 ACESSO ADM
                 </button>
             </div>
 
-            <div class="admin-info">
-                <strong>👑 ADMs AUTORIZADOS:</strong><br><br>
-                <strong>SUPREMO:</strong><br>
-                • FURIAGOD<br><br>
-                <strong>ADMs GERAIS:</strong><br>
-                • Scorpion<br>
-                • .Son King<br>
-                • NeferpitouI<br>
-                • PNTS<br>
-                • ToxicSkull√
-            </div>
-
-            <div class="file-system-preview">
-                <h3>📁 ESTRUTURA DO SISTEMA</h3>
-                <div class="file-list">
-                    <div class="file-item">
-                        <div class="file-icon">🏠</div>
-                        <div>index.html</div>
-                    </div>
-                    <div class="file-item">
-                        <div class="file-icon">👑</div>
-                        <div>login-adm.html</div>
-                    </div>
-                    <div class="file-item">
-                        <div class="file-icon">🛡️</div>
-                        <div>painel-adm.html</div>
-                    </div>
-                    <div class="file-item">
-                        <div class="file-icon">👤</div>
-                        <div>painel-usuario.html</div>
-                    </div>
-                    <div class="file-item">
-                        <div class="file-icon">🏆</div>
-                        <div>painel-equipe.html</div>
-                    </div>
-                    <div class="file-item">
-                        <div class="file-icon">⚙️</div>
-                        <div>script.js</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-footer">
-                <a href="#" onclick="showForgotPassword()">🔑 Recuperar acesso ADM</a>
+            <div class="system-info">
+                <strong>🎯 SISTEMA SINCRONIZADO:</strong><br><br>
+                ✅ <strong>Login Principal</strong> - Redirecionamento inteligente<br>
+                ✅ <strong>Painel ADM</strong> - adm supremo.html + adm-gerais.html<br>
+                ✅ <strong>Painel Usuário</strong> - painel-usuario.html<br>
+                ✅ <strong>Painel Equipe</strong> - painel-equipe.html<br>
+                ✅ <strong>Sistema Completo</strong> - Todas as páginas integradas
             </div>
         </div>
         
@@ -485,19 +415,12 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="register-confirm-password">✅ Confirmar Senha:</label>
-                    <div class="password-container">
-                        <input type="password" id="register-confirm-password" class="form-control" placeholder="Digite a senha novamente" required>
-                        <button type="button" class="toggle-password" onclick="togglePassword('register-confirm-password')">👁️</button>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="register-type">🎯 Tipo de Cadastro:</label>
+                    <label for="register-type">🎯 Tipo de Conta:</label>
                     <select id="register-type" class="form-control" required>
                         <option value="">Selecione o tipo</option>
-                        <option value="membro">👤 Membro Individual</option>
+                        <option value="user">👤 Usuário Comum</option>
                         <option value="equipe">🏆 Líder de Equipe</option>
+                        <option value="adm">👑 Solicitar ADM</option>
                     </select>
                 </div>
                 
@@ -513,40 +436,43 @@
                 Redirecionando para o sistema...
             </div>
             
-            <div class="admin-info">
-                <strong>🎯 BENEFÍCIOS DO CADASTRO:</strong><br><br>
-                ✅ Acesso ao sistema completo<br>
-                ✅ Participação em campeonatos<br>
-                ✅ Rankeamento competitivo<br>
-                ✅ Cashback em apostas<br>
-                ✅ Suporte da comunidade
-            </div>
-            
-            <div class="form-footer">
-                Ao criar uma conta, você concorda com nossos <a href="#">📋 Termos de Uso</a>
+            <div class="system-info">
+                <strong>📁 PÁGINAS DO SISTEMA:</strong><br><br>
+                • <strong>login.html</strong> - Página principal de acesso<br>
+                • <strong>login-adm.html</strong> - Login administrativo<br>
+                • <strong>painel-adm.html</strong> - Painel administrativo<br>
+                • <strong>painel-usuario.html</strong> - Painel do usuário<br>
+                • <strong>painel-equipe.html</strong> - Painel de equipes<br>
+                • <strong>adm supremo.html</strong> - ADM Supremo<br>
+                • <strong>adm-gerais.html</strong> - ADMs Gerais
             </div>
         </div>
     </div>
 
     <script>
         // =============================================
-        // SISTEMA UNIFICADO - LOGIN ADM FuriaDaNoitePlay
+        // SISTEMA UNIFICADO - LOGIN PRINCIPAL
         // =============================================
 
-        // Credenciais dos ADMs com hierarquia
-        const adminCredentials = {
-            // ADM SUPREMO - Acesso total
-            'FURIAGOD': { password: 'Furia2025_$', role: 'supremo' },
+        let currentUserType = 'user';
+
+        // Credenciais do sistema
+        const credentials = {
+            // ADMs
+            'FURIAGOD': { password: 'Furia2025_$', type: 'adm-supremo' },
+            'Scorpion': { password: 'Mlk00', type: 'adm-geral' },
+            '.Son King': { password: 'God19', type: 'adm-geral' },
             
-            // ADMs GERAIS - Acesso limitado
-            'Scorpion': { password: 'Mlk00', role: 'geral' },
-            '.Son King': { password: 'God19', role: 'geral' },
-            'NeferpitouI': { password: 'Ana025', role: 'geral' },
-            'PNTS': { password: 'pNtS', role: 'geral' },
-            'ToxicSkull√': { password: 'L@!on', role: 'geral' }
+            // Usuários comuns
+            'player1': { password: '123456', type: 'user' },
+            'gamer': { password: 'senha123', type: 'user' },
+            
+            // Equipes
+            'furia_team': { password: 'furia123', type: 'equipe' },
+            'volvaco_squad': { password: 'volvaco', type: 'equipe' }
         };
 
-        // Alternar entre abas de login e cadastro
+        // Alternar entre abas
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', function() {
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -557,7 +483,27 @@
                 document.getElementById(tabId).classList.add('active');
             });
         });
-        
+
+        // Selecionar tipo de usuário
+        document.querySelectorAll('.user-type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.user-type-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentUserType = this.getAttribute('data-type');
+                updateLoginButton();
+            });
+        });
+
+        function updateLoginButton() {
+            const button = document.getElementById('login-button');
+            const icons = {
+                'user': '👤',
+                'equipe': '🏆', 
+                'adm': '👑'
+            };
+            button.innerHTML = `${icons[currentUserType]} ACESSAR ${currentUserType.toUpperCase()}`;
+        }
+
         // Alternar visibilidade da senha
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
@@ -572,9 +518,50 @@
             }
         }
         
-        // Processar formulário de login ADM
+        // Processar login
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const username = document.getElementById('login-username').value.trim();
-            const password = document.getElementById('login-passw
+            const password = document.getElementById('login-password').value;
+            const errorElement = document.getElementById('login-error');
+            
+            errorElement.style.display = 'none';
+            
+            // Verificar credenciais
+            if (credentials[username] && credentials[username].password === password) {
+                const userData = credentials[username];
+                fazerLogin(userData.type, username);
+            } else {
+                showError('❌ Usuário ou senha incorretos!');
+            }
+            
+            function showError(message) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        });
+
+        // Fazer login e redirecionar
+        function fazerLogin(tipo, username) {
+            let redirectPage = '';
+            
+            switch(tipo) {
+                case 'adm-supremo':
+                    redirectPage = 'adm supremo.html';
+                    break;
+                case 'adm-geral':
+                    redirectPage = 'adm-gerais.html';
+                    break;
+                case 'equipe':
+                    redirectPage = 'painel-equipe.html';
+                    break;
+                default:
+                    redirectPage = 'painel-usuario.html';
+            }
+            
+            // Efeito visual
+            const effect = document.createElement('div');
+            effect.style.cssText = `
+                position: fixed;
+                top
