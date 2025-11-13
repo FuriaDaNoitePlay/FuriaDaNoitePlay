@@ -1,585 +1,615 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 PAINEL ADM SUPREMO - FuriaDaNoitePlay</title>
+    <title>👑 Painel ADM - FuriaDaNoitePlay</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== VARIÁVEIS E RESET ===== */
-        :root {
-            --adm-vermelho: #ff0000;
-            --adm-amarelo: #ffff00;
-            --adm-verde: #00ff00;
-            --adm-roxo: #8a2be2;
-            --adm-azul: #0066ff;
-            --fundo-escuro: #0a0a0a;
-            --fundo-medio: #1a1a1a;
-            --texto-brilho: #ffffff;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
+        :root {
+            --adm-vermelho: #ff4444;
+            --adm-verde: #44ff44;
+            --adm-amarelo: #ffd700;
+            --adm-azul: #4444ff;
+            --adm-roxo: #aa44ff;
+            --preto: #0a0a0a;
+            --cinza-escuro: #1a1a1a;
+        }
+        
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #001a0a 100%);
-            color: var(--texto-brilho);
-            font-family: 'Orbitron', sans-serif;
+            background-color: var(--preto);
+            color: #fff;
             min-height: 100vh;
-            padding: 20px;
+            background-image: linear-gradient(135deg, #1a0a0a 0%, #0a0a0a 50%, #001a0a 100%);
         }
-
-        .container {
+        
+        .admin-header {
+            background: rgba(20, 20, 20, 0.95);
+            border-bottom: 3px solid var(--adm-amarelo);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            color: var(--adm-amarelo);
+        }
+        
+        .admin-info {
+            text-align: right;
+        }
+        
+        .admin-name {
+            color: var(--adm-amarelo);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .admin-role {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: rgba(30, 30, 30, 0.9);
+            border-bottom: 1px solid #333;
+            padding: 0 30px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            color: #ccc;
+            font-weight: bold;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .nav-tab:hover {
+            color: var(--adm-amarelo);
+            background: rgba(255, 215, 0, 0.1);
+        }
+        
+        .nav-tab.active {
+            color: var(--adm-amarelo);
+            border-bottom-color: var(--adm-amarelo);
+            background: rgba(255, 215, 0, 0.05);
+        }
+        
+        .main-content {
+            padding: 30px;
             max-width: 1400px;
             margin: 0 auto;
         }
-
-        /* ===== HEADER ===== */
-        .header {
-            text-align: center;
-            padding: 40px 30px;
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
-            border-radius: 20px;
-            border: 3px solid var(--adm-verde);
-            box-shadow: 
-                0 0 50px var(--adm-verde),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-            animation: pulsar-header 4s infinite alternate;
+        
+        .secao {
+            display: none;
+            animation: fadeIn 0.5s ease;
         }
-
-        @keyframes pulsar-header {
-            0% { box-shadow: 0 0 50px var(--adm-verde); }
-            100% { box-shadow: 0 0 80px var(--adm-verde), 0 0 120px rgba(0, 255, 0, 0.3); }
+        
+        .secao.active {
+            display: block;
         }
-
-        .header h1 {
-            font-size: 3rem;
-            color: var(--adm-verde);
-            text-shadow: 
-                0 0 20px var(--adm-verde),
-                0 0 40px var(--adm-verde),
-                0 0 60px var(--adm-verde);
-            margin-bottom: 10px;
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .user-info {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            background: rgba(0, 255, 0, 0.2);
-            padding: 12px 25px;
-            border-radius: 25px;
-            border: 2px solid var(--adm-verde);
-            font-weight: bold;
-            box-shadow: 0 0 15px var(--adm-verde);
-        }
-
-        /* ===== STATUS GRID ===== */
-        .stats-grid {
+        
+        .dashboard {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 30px;
         }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(10, 0, 0, 0.8));
+        
+        .card {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 10px;
             padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            border: 2px solid var(--adm-verde);
-            box-shadow: 0 0 20px var(--adm-verde);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            border: 2px solid #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-
-        .stat-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 0 40px var(--adm-verde), 0 0 60px rgba(0, 255, 0, 0.2);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            color: var(--adm-verde);
-            font-weight: bold;
-            text-shadow: 0 0 15px var(--adm-verde);
-            margin-bottom: 10px;
-        }
-
-        /* ===== AÇÕES PRINCIPAIS ===== */
-        .actions-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            padding: 25px 20px;
-            border: none;
-            border-radius: 15px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-supremo {
-            background: linear-gradient(135deg, var(--adm-verde), #00cc00, #009900);
-            color: #000;
-            box-shadow: 0 0 25px var(--adm-verde);
-        }
-
-        .btn-supremo:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 0 40px var(--adm-verde), 0 0 60px rgba(0, 255, 0, 0.3);
-            background: linear-gradient(135deg, #00ff00, var(--adm-verde), #00cc00);
-        }
-
-        .btn-supremo::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-supremo:hover::before {
-            left: 100%;
-        }
-
-        /* ===== SEÇÕES DO PAINEL ===== */
-        .admin-sections {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .admin-section {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(20, 0, 0, 0.85));
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid var(--adm-verde);
-            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3);
-        }
-
-        .admin-section h2 {
-            color: var(--adm-verde);
-            text-shadow: 0 0 15px var(--adm-verde);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            border-bottom: 2px solid var(--adm-verde);
-            padding-bottom: 10px;
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-bottom: 20px;
-        }
-
-        .feature-list li {
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+        
+        .card-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-
-        .feature-list li:last-child {
-            border-bottom: none;
-        }
-
-        .feature-list i {
-            color: var(--adm-verde);
-            text-shadow: 0 0 10px var(--adm-verde);
-            width: 20px;
-        }
-
-        /* ===== BOTÕES DE AÇÃO ===== */
-        .action-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
-            margin-top: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
         }
-
-        .btn-action {
-            padding: 15px;
-            border: 2px solid var(--adm-verde);
-            border-radius: 10px;
-            background: rgba(0, 255, 0, 0.1);
-            color: var(--adm-verde);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
+        
+        .card-icon {
+            font-size: 2rem;
+            color: var(--adm-amarelo);
+        }
+        
+        .card-title {
+            color: var(--adm-amarelo);
+            font-size: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
             font-weight: bold;
+            color: var(--adm-amarelo);
+            margin-bottom: 5px;
         }
-
-        .btn-action:hover {
+        
+        .stat-label {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 5px;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: var(--adm-amarelo);
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            background: #ffed4e;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
             background: var(--adm-verde);
             color: #000;
-            box-shadow: 0 0 20px var(--adm-verde);
-            transform: translateY(-3px);
         }
-
-        /* ===== CONTROLES RÁPIDOS ===== */
-        .quick-controls {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.2));
-            border: 3px solid var(--adm-roxo);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 30px var(--adm-roxo);
+        
+        .btn-danger {
+            background: var(--adm-vermelho);
+            color: #fff;
         }
-
-        .quick-controls h2 {
-            color: var(--adm-roxo);
-            text-shadow: 0 0 15px var(--adm-roxo);
+        
+        .btn-warning {
+            background: var(--adm-amarelo);
+            color: #000;
+        }
+        
+        .btn-info {
+            background: var(--adm-azul);
+            color: #fff;
+        }
+        
+        .form-group {
             margin-bottom: 20px;
-            text-align: center;
         }
-
-        .controls-grid {
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--adm-amarelo);
+            font-weight: bold;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 2px solid #333;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--adm-amarelo);
+        }
+        
+        .user-list, .team-list {
+            margin-top: 20px;
+        }
+        
+        .user-item, .team-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+            flex-wrap: wrap;
+        }
+        
+        .user-info-small {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .permission-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .badge-supremo {
+            background: var(--adm-vermelho);
+            color: white;
+        }
+        
+        .badge-geral {
+            background: var(--adm-azul);
+            color: white;
+        }
+        
+        .badge-superman {
+            background: var(--adm-roxo);
+            color: white;
+        }
+        
+        .quick-actions {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
+            margin-top: 20px;
         }
-
-        .control-btn {
-            padding: 15px;
-            border: 2px solid var(--adm-roxo);
-            border-radius: 10px;
-            background: rgba(138, 43, 226, 0.1);
-            color: var(--adm-roxo);
-            cursor: pointer;
-            transition: all 0.3s ease;
+        
+        .action-btn {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--adm-amarelo);
+            color: var(--adm-amarelo);
+            padding: 20px;
+            border-radius: 8px;
             text-align: center;
-            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-
-        .control-btn:hover {
-            background: var(--adm-roxo);
-            color: white;
-            box-shadow: 0 0 20px var(--adm-roxo);
+        
+        .action-btn:hover {
+            background: var(--adm-amarelo);
+            color: #000;
             transform: translateY(-3px);
         }
-
-        /* ===== MENSAGENS ===== */
-        .mensagem {
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            display: none;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .mensagem.sucesso {
-            background: rgba(0, 255, 0, 0.2);
-            border: 2px solid var(--adm-verde);
+        
+        .status-online {
             color: var(--adm-verde);
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
         }
-
-        /* ===== RESPONSIVIDADE ===== */
-        @media (max-width: 1024px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .actions-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .admin-sections {
-                grid-template-columns: 1fr;
-            }
-            
-            .controls-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        
+        .status-offline {
+            color: var(--adm-vermelho);
         }
-
+        
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        
+        th {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--adm-amarelo);
+        }
+        
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
+            .dashboard {
+                grid-template-columns: 1fr;
             }
             
-            .user-info {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin-bottom: 20px;
-                display: inline-block;
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .nav-tab {
+                text-align: center;
+            }
+            
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .user-item, .team-item {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
             }
             
             .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-buttons {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .header {
-                padding: 25px 15px;
-            }
-            
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .controls-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- HEADER -->
-        <div class="header">
-            <div class="user-info">
-                👑 FURIAGOD | ADM SUPREMO
-            </div>
-            <h1>👑 PAINEL ADM SUPREMO</h1>
-            <p>Acesso Total ao Sistema FuriaDaNoitePlay</p>
-        </div>
-
-        <!-- MENSAGEM -->
-        <div id="mensagem" class="mensagem"></div>
-
-        <!-- STATUS DO SISTEMA -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" id="totalUsuarios">1.2K</div>
-                <div>USUÁRIOS CADASTRADOS</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="usuariosOnline">847</div>
-                <div>USUÁRIOS ONLINE</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="totalADMs">47</div>
-                <div>ADMs ATIVOS</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="partidasAtivas">23</div>
-                <div>PARTIDAS ATIVAS</div>
+    <!-- Cabeçalho do Painel -->
+    <header class="admin-header">
+        <div class="logo-area">
+            <div class="logo">👑</div>
+            <div>
+                <h1>FURIA DA NOITE PLAY</h1>
+                <p style="color: #ccc;">PAINEL ADMINISTRATIVO</p>
             </div>
         </div>
-
-        <!-- AÇÕES PRINCIPAIS -->
-        <div class="actions-grid">
-            <button class="btn btn-supremo" onclick="gerenciarSistema()">
-                <i class="fas fa-cogs"></i><br>
-                ⚙️ GERENCIAR SISTEMA
-            </button>
-            <button class="btn btn-supremo" onclick="gerenciarADMs()">
-                <i class="fas fa-users-cog"></i><br>
-                👥 GERENCIAR ADMs
-            </button>
-            <button class="btn btn-supremo" onclick="backupTotal()">
-                <i class="fas fa-database"></i><br>
-                💾 BACKUP TOTAL
+        <div class="admin-info">
+            <div class="admin-name" id="current-admin">FURIAGOD</div>
+            <div class="admin-role" id="current-role">ADM Supremo</div>
+            <button class="btn btn-danger" onclick="logout()" style="margin-top: 10px; padding: 8px 15px;">
+                🚪 Sair
             </button>
         </div>
+    </header>
 
-        <!-- SEÇÕES DO PAINEL -->
-        <div class="admin-sections">
-            <!-- GERENCIAMENTO DE USUÁRIOS -->
-            <div class="admin-section">
-                <h2>👤 GERENCIAR USUÁRIOS</h2>
-                <ul class="feature-list">
-                    <li><i class="fas fa-ban"></i> Banir/Desbanir usuários</li>
-                    <li><i class="fas fa-edit"></i> Editar nicks e dados</li>
-                    <li><i class="fas fa-key"></i> Resetar senhas</li>
-                    <li><i class="fas fa-chart-line"></i> Ver estatísticas</li>
-                    <li><i class="fas fa-search"></i> Buscar usuários</li>
-                </ul>
-                <div class="action-buttons">
-                    <button class="btn-action" onclick="banirUsuario()">
-                        <i class="fas fa-ban"></i> BANIR USUÁRIO
-                    </button>
-                    <button class="btn-action" onclick="editarUsuario()">
-                        <i class="fas fa-edit"></i> EDITAR USUÁRIO
-                    </button>
+    <!-- Navegação -->
+    <nav class="nav-tabs">
+        <div class="nav-tab active" onclick="mostrarSecao('dashboard')">📊 Dashboard</div>
+        <div class="nav-tab" onclick="mostrarSecao('usuarios')">👥 Gerenciar Usuários</div>
+        <div class="nav-tab" onclick="mostrarSecao('equipes')">🏆 Gerenciar Equipes</div>
+        <div class="nav-tab" onclick="mostrarSecao('tabelas')">📈 Tabelas & Confrontos</div>
+        <div class="nav-tab" onclick="mostrarSecao('campeonatos')">🏅 Campeonatos</div>
+        <div class="nav-tab" onclick="mostrarSecao('configuracoes')">⚙️ Configurações</div>
+        <div class="nav-tab" onclick="mostrarSecao('admins')">🛡️ Gerenciar ADMs</div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="secao active">
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📊</div>
+                        <h3 class="card-title">VISÃO GERAL DO SISTEMA</h3>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-equipes">24</div>
+                            <div class="stat-label">Equipes Ativas</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-jogadores">186</div>
+                            <div class="stat-label">Jogadores</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="campeonatos-ativos">3</div>
+                            <div class="stat-label">Campeonatos Ativos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⚡</div>
+                        <h3 class="card-title">AÇÕES RÁPIDAS</h3>
+                    </div>
+                    <div class="quick-actions">
+                        <div class="action-btn" onclick="criarNovoCampeonato()">
+                            🏅<br>Novo Campeonato
+                        </div>
+                        <div class="action-btn" onclick="adicionarEquipe()">
+                            ➕<br>Nova Equipe
+                        </div>
+                        <div class="action-btn" onclick="gerarTabela()">
+                            📋<br>Gerar Tabela
+                        </div>
+                        <div class="action-btn" onclick="criarNovoAdm()">
+                            👑<br>Novo ADM
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- GERENCIAMENTO DE EQUIPES -->
-            <div class="admin-section">
-                <h2>🏆 GERENCIAR EQUIPES</h2>
-                <ul class="feature-list">
-                    <li><i class="fas fa-plus"></i> Criar novas equipes</li>
-                    <li><i class="fas fa-trash"></i> Remover equipes</li>
-                    <li><i class="fas fa-edit"></i> Editar dados</li>
-                    <li><i class="fas fa-trophy"></i> Gerenciar rankings</li>
-                    <li><i class="fas fa-users"></i> Controlar membros</li>
-                </ul>
-                <div class="action-buttons">
-                    <button class="btn-action" onclick="criarEquipe()">
+            <!-- ATIVIDADES RECENTES -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🕐</div>
+                    <h3 class="card-title">ATIVIDADES RECENTES</h3>
+                </div>
+                <div class="user-list">
+                    <div class="user-item">
+                        <div>✅ Equipe <strong>NEON ESPORTS</strong> foi aceita no sistema</div>
+                        <div style="color: #ccc; font-size: 0.9rem;">Há 5 minutos</div>
+                    </div>
+                    <div class="user-item">
+                        <div>🎯 Jogador <strong>ToxicSkull√</strong> foi promovido a ADM</div>
+                        <div style="color: #ccc; font-size: 0.9rem;">Há 15 minutos</div>
+                    </div>
+                    <div class="user-item">
+                        <div>⚠️ Equipe <strong>DRAGONS</strong> recebeu advertência</div>
+                        <div style="color: #ccc; font-size: 0.9rem;">Há 1 hora</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GERENCIAR USUÁRIOS -->
+        <section id="usuarios" class="secao">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">👥</div>
+                    <h3 class="card-title">GERENCIAMENTO DE USUÁRIOS</h3>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Pesquisar Usuário:</label>
+                    <input type="text" class="form-input" id="pesquisaUsuario" placeholder="Digite o nome do usuário..." onkeyup="filtrarUsuarios()">
+                </div>
+
+                <div class="user-list" id="lista-usuarios">
+                    <!-- Lista de usuários será preenchida via JavaScript -->
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                    <button class="btn btn-success" onclick="adicionarUsuario()">
+                        <i class="fas fa-user-plus"></i> ADICIONAR USUÁRIO
+                    </button>
+                    <button class="btn btn-primary" onclick="exportarUsuarios()">
+                        <i class="fas fa-download"></i> EXPORTAR LISTA
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- GERENCIAR EQUIPES -->
+        <section id="equipes" class="secao">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🏆</div>
+                    <h3 class="card-title">GERENCIAMENTO DE EQUIPES</h3>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Filtrar por Série:</label>
+                    <select class="form-input" id="filtroSerie" onchange="filtrarEquipes()">
+                        <option value="todas">Todas as Séries</option>
+                        <option value="a">Série A</option>
+                        <option value="b">Série B</option>
+                        <option value="c">Série C</option>
+                    </select>
+                </div>
+
+                <div class="team-list" id="lista-equipes">
+                    <!-- Lista de equipes será preenchida via JavaScript -->
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                    <button class="btn btn-success" onclick="criarNovaEquipe()">
                         <i class="fas fa-plus"></i> NOVA EQUIPE
                     </button>
-                    <button class="btn-action" onclick="gerenciarEquipes()">
-                        <i class="fas fa-cog"></i> GERENCIAR
+                    <button class="btn btn-primary" onclick="gerarTabela()">
+                        <i class="fas fa-table"></i> GERAR TABELA
                     </button>
                 </div>
             </div>
+        </section>
 
-            <!-- CAMPEONATOS E CONFRONTOS -->
-            <div class="admin-section">
-                <h2>⚔️ CAMPEONATOS</h2>
-                <ul class="feature-list">
-                    <li><i class="fas fa-calendar-plus"></i> Criar campeonatos</li>
-                    <li><i class="fas fa-clock"></i> Agendar confrontos</li>
-                    <li><i class="fas fa-flag-checkered"></i> Definir resultados</li>
-                    <li><i class="fas fa-table"></i> Gerenciar tabelas</li>
-                    <li><i class="fas fa-award"></i> Distribuir prêmios</li>
-                </ul>
-                <div class="action-buttons">
-                    <button class="btn-action" onclick="criarCampeonato()">
-                        <i class="fas fa-plus"></i> NOVO CAMPEONATO
+        <!-- TABELAS E CONFRONTOS -->
+        <section id="tabelas" class="secao">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📈</div>
+                    <h3 class="card-title">TABELAS E CONFRONTOS</h3>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Posição</th>
+                                <th>Equipe</th>
+                                <th>Pontos</th>
+                                <th>Jogos</th>
+                                <th>Vitórias</th>
+                                <th>Derrotas</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-classificacao">
+                            <!-- Dados da tabela serão preenchidos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-success" onclick="adicionarConfronto()">
+                        <i class="fas fa-plus"></i> ADICIONAR CONFRONTO
                     </button>
-                    <button class="btn-action" onclick="agendarConfronto()">
-                        <i class="fas fa-calendar"></i> AGENDAR
+                    <button class="btn btn-primary" onclick="atualizarTabela()">
+                        <i class="fas fa-sync"></i> ATUALIZAR TABELA
                     </button>
                 </div>
             </div>
+        </section>
 
-            <!-- CHAT E MODERAÇÃO -->
-            <div class="admin-section">
-                <h2>💬 CHAT E MODERAÇÃO</h2>
-                <ul class="feature-list">
-                    <li><i class="fas fa-comments"></i> Acesso ao chat global</li>
-                    <li><i class="fas fa-eye"></i> Monitorar conversas</li>
-                    <li><i class="fas fa-shield-alt"></i> Sistema de denúncias</li>
-                    <li><i class="fas fa-microphone-slash"></i> Silenciar usuários</li>
-                    <li><i class="fas fa-history"></i> Ver histórico</li>
-                </ul>
-                <div class="action-buttons">
-                    <button class="btn-action" onclick="acessarChat()">
-                        <i class="fas fa-comments"></i> CHAT ADMIN
-                    </button>
-                    <button class="btn-action" onclick="moderacao()">
-                        <i class="fas fa-shield-alt"></i> MODERAÇÃO
-                    </button>
+        <!-- GERENCIAR ADMs -->
+        <section id="admins" class="secao">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🛡️</div>
+                    <h3 class="card-title">GERENCIAMENTO DE ADMINISTRADORES</h3>
                 </div>
-            </div>
-        </div>
-
-        <!-- CONTROLES RÁPIDOS -->
-        <div class="quick-controls">
-            <h2>⚡ CONTROLES RÁPIDOS</h2>
-            <div class="controls-grid">
-                <button class="control-btn" onclick="modoManutencao()">
-                    <i class="fas fa-tools"></i><br>MODO MANUTENÇÃO
-                </button>
-                <button class="control-btn" onclick="limparCache()">
-                    <i class="fas fa-broom"></i><br>LIMPAR CACHE
-                </button>
-                <button class="control-btn" onclick="verLogs()">
-                    <i class="fas fa-clipboard-list"></i><br>VER LOGS
-                </button>
-                <button class="control-btn" onclick="sairSistema()">
-                    <i class="fas fa-sign-out-alt"></i><br>SAIR
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // =============================================
-        // SISTEMA ADM SUPREMO - FUNCIONALIDADES
-        // =============================================
-
-        // ATUALIZAR ESTATÍSTICAS EM TEMPO REAL
-        function atualizarEstatisticas() {
-            // Simular dados dinâmicos
-            setInterval(() => {
-                const online = Math.floor(Math.random() * 100) + 800;
-                const partidas = Math.floor(Math.random() * 10) + 20;
                 
-                document.getElementById('usuariosOnline').textContent = online;
-                document.getElementById('partidasAtivas').textContent = partidas;
-            }, 5000);
-        }
+                <div class="form-group">
+                    <label class="form-label">Pesquisar ADM:</label>
+                    <input type="text" class="form-input" id="pesquisaAdm" placeholder="Digite o nome do ADM..." onkeyup="filtrarADMs()">
+                </div>
 
-        // FUNÇÕES PRINCIPAIS
-        function gerenciarSistema() {
-            mostrarMensagem('⚙️ Acessando painel completo de gerenciamento do sistema...');
-            // Redirecionar para painel de sistema
-            setTimeout(() => window.location.href = 'sistema-config.html', 1000);
-        }
+                <div class="user-list" id="lista-adms">
+                    <!-- Lista de ADMs será preenchida via JavaScript -->
+                </div>
 
-        function gerenciarADMs() {
-            mostrarMensagem('👥 Abrindo gerenciamento de administradores...');
-            // Redirecionar para gerenciamento de ADMs
-            setTimeout(() => window.location.href = 'adm-gerenciamento.html', 1000);
-        }
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                    <button class="btn btn-success" onclick="criarNovoAdm()">
+                        👨‍💼 CRIAR NOVO ADM
+                    </button>
+                    <button class="btn btn-primary" onclick="exportarLogsAdm()">
+                        📊 EXPORTAR LOGS
+                    </button>
+                </div>
+            </div>
+        </section>
 
-        function backupTotal() {
-            mostrarMensagem('💾 Iniciando backup completo do sistema...');
-            // Simular processo de backup
-            setTimeout(() => {
-                mostrarMensagem('✅ Backup concluído com sucesso!', 'sucesso');
-            }, 3000);
-        }
-
-        // FUNÇÕES DE USUÁRIOS
-        function banirUsuario() {
-            const usuario = prompt('Digite o nick do usuário a ser banido:');
-            if (usuario) {
-                mostrarMensagem(`🚫 Usuário ${usuario} banido com sucesso!`);
-            }
-        }
-
-        function editarUsuario() {
-            mostrarMensagem('📝 Abrindo editor de usuários...');
-            setTimeout(() => window.location.href = 'editar-usuarios.html', 1000);
-        }
-
-        // FUNÇÕES DE EQUIPES
-        function criarEquipe() {
-            mostrarMensagem('🏆 Criando nova equipe...');
-            // Implementar criação de equipe
-        }
-
-        function gerenciarEquipes() {
-            mostrarMensagem('👥 Acessando gerenciamento de equipes...');
-            setTimeout(() => window.location.href = 'gerenciar-equipes.html', 1000);
-        }
-
-        // FUNÇÕES DE CAMPEONATOS
-        function criarCampeonato() {
-            mostrarMensagem('⚔️ Iniciando criação de campeonat
+        <!-- CONFIGURAÇÕES -->
+        <section id="configuracoes" class="secao">
+            <div class="card">
+                <div class="card-header">
+            
