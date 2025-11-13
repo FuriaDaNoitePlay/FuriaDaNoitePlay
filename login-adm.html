@@ -1,336 +1,396 @@
-                            </div>
-                            <p>Configure as regras do sistema, pontos, temporadas e configurações avançadas.</p>
-                            <div style="margin: 15px 0;">
-                                <strong>Configurações Ativas:</strong>
-                                <div style="color: #ccc; margin-top: 8px;">
-                                    • Pontos por vitória: 3<br>
-                                    • Temporada: 2024.2<br>
-                                    • Sistema de ban: Ativo
-                                </div>
-                            </div>
-                            <button class="btn btn-primary" onclick="mostrarSecao('configuracoes')">
-                                <i class="fas fa-sliders-h"></i> CONFIGURAÇÕES COMPLETAS
-                            </button>
-                        </div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👑 Login - FuriaDaNoitePlay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(135deg, #1a0a0a 0%, #0a0a0a 50%, #001a0a 100%);
+            padding: 20px;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 3px solid #ffd700;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #ffd700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: #ffd700;
+        }
+        
+        .subtitle {
+            color: #ccc;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #333;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        .btn-primary {
+            background: #ffd700;
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            background: #ffed4e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #ffd700;
+            border: 2px solid #ffd700;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+        
+        .form-footer {
+            margin-top: 25px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .form-footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #ff4444;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            color: #ccc;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            color: #ffd700;
+            border-bottom: 3px solid #ffd700;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .admin-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">👑</div>
+        <h1>FURIA DA NOITE PLAY</h1>
+        <p class="subtitle">PAINEL ADMINISTRATIVO</p>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="login">LOGIN ADM</div>
+            <div class="tab" data-tab="register">CADASTRO</div>
+        </div>
+        
+        <!-- Formulário de Login -->
+        <div id="login-tab" class="tab-content active">
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Usuário ADM:</label>
+                    <input type="text" id="login-username" class="form-control" placeholder="Digite seu usuário ADM" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Senha ADM:</label>
+                    <div class="password-container">
+                        <input type="password" id="login-password" class="form-control" placeholder="Digite sua senha ADM" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('login-password')">👁️</button>
                     </div>
-                </section>
+                </div>
+                
+                <div class="error-message" id="login-error"></div>
+                
+                <button type="submit" class="btn btn-primary">🔐 ENTRAR NO PAINEL ADM</button>
+            </form>
 
-                <!-- GERENCIAR USUÁRIOS -->
-                <section id="usuarios" class="secao">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                👥
-                            </div>
-                            <h3 class="card-title">GERENCIAMENTO DE USUÁRIOS</h3>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Pesquisar Usuário:</label>
-                            <input type="text" class="form-input" id="pesquisaUsuario" placeholder="Digite o nome do usuário...">
-                        </div>
-
-                        <div class="user-list">
-                            <div class="user-item">
-                                <div class="user-info-small">
-                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #ff0000, #cc0000);">FG</div>
-                                    <div>
-                                        <strong>FURIAGOD</strong>
-                                        <div style="font-size: 0.8rem; color: var(--adm-amarelo);">👑 ADM Supremo</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
-                                    <button class="btn btn-warning" onclick="editarUsuario('FURIAGOD')">
-                                        <i class="fas fa-crown"></i> Supremo
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="user-item">
-                                <div class="user-info-small">
-                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #0066ff, #0044cc);">SC</div>
-                                    <div>
-                                        <strong>Scorpion</strong>
-                                        <div style="font-size: 0.8rem; color: var(--adm-azul);">🔧 ADM Geral</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
-                                    <button class="btn btn-warning" onclick="editarUsuario('Scorpion')">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </button>
-                                    <button class="btn btn-danger" onclick="rebaixarAdm('Scorpion')">
-                                        <i class="fas fa-arrow-down"></i> Rebaixar
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="user-item">
-                                <div class="user-info-small">
-                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #8a2be2, #6a1bb2);">SK</div>
-                                    <div>
-                                        <strong>.Son King</strong>
-                                        <div style="font-size: 0.8rem; color: var(--adm-roxo);">🔧 ADM Geral</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
-                                    <button class="btn btn-warning" onclick="editarUsuario('.Son King')">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </button>
-                                    <button class="btn btn-danger" onclick="rebaixarAdm('.Son King')">
-                                        <i class="fas fa-arrow-down"></i> Rebaixar
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="user-item">
-                                <div class="user-info-small">
-                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #ff4444, #cc2222);">TS</div>
-                                    <div>
-                                        <strong>ToxicSkull√</strong>
-                                        <div style="font-size: 0.8rem; color: #ccc;">🎮 Membro</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <span style="color: var(--adm-verde); margin-right: 15px;">● ONLINE</span>
-                                    <button class="btn btn-success" onclick="promoverAdm('ToxicSkull√')">
-                                        <i class="fas fa-arrow-up"></i> Promover
-                                    </button>
-                                    <button class="btn btn-danger" onclick="banirUsuario('ToxicSkull√')">
-                                        <i class="fas fa-ban"></i> Banir
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
-                            <button class="btn btn-success" onclick="adicionarUsuario()">
-                                <i class="fas fa-user-plus"></i> ADICIONAR USUÁRIO
-                            </button>
-                            <button class="btn btn-primary" onclick="exportarUsuarios()">
-                                <i class="fas fa-download"></i> EXPORTAR LISTA
-                            </button>
-                        </div>
+            <div class="admin-info">
+                <strong>👑 ADMs AUTORIZADOS:</strong><br>
+                • FURIAGOD | Scorpion | .Son King<br>
+                • NeferpitouI | PNTS | ToxicSkull√
+            </div>
+            
+            <div class="form-footer">
+                <a href="#" onclick="showForgotPassword()">Recuperar acesso ADM</a>
+            </div>
+        </div>
+        
+        <!-- Formulário de Cadastro -->
+        <div id="register-tab" class="tab-content">
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-username">Novo Usuário:</label>
+                    <input type="text" id="register-username" class="form-control" placeholder="Escolha um usuário" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-email">E-mail:</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="Seu e-mail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password">Senha:</label>
+                    <div class="password-container">
+                        <input type="password" id="register-password" class="form-control" placeholder="Crie uma senha forte" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('register-password')">👁️</button>
                     </div>
-                </section>
-
-                <!-- GERENCIAR EQUIPES -->
-                <section id="equipes" class="secao">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                🏆
-                            </div>
-                            <h3 class="card-title">GERENCIAMENTO DE EQUIPES</h3>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Filtrar por Série:</label>
-                            <select class="form-input" id="filtroSerie" onchange="filtrarEquipes()">
-                                <option value="todas">Todas as Séries</option>
-                                <option value="a">Série A</option>
-                                <option value="b">Série B</option>
-                                <option value="c">Série C</option>
-                            </select>
-                        </div>
-
-                        <div class="team-list">
-                            <div class="team-item">
-                                <div class="user-info-small">
-                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #ff0000, #cc0000);">FN</div>
-                                    <div>
-                                        <strong>FÚRIA DA NOITE</strong>
-                                        <div style="font-size: 0.8rem; color: var(--adm-vermelho);">👑 Série A • 36 pontos</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button class="btn btn-warning" onclick="editarEquipe('FÚRIA DA NOITE')">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </button>
-                                    <button class="btn btn-primary" onclick="transferirEquipe('FÚRIA DA NOITE')">
-                                        <i class="fas fa-exchange-alt"></i> Transferir
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="team-item">
-                                <div class="user-info-small">
-                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #0066ff, #0044cc);">NE</div>
-                                    <div>
-                                        <strong>NEON ESPORTS</strong>
-                                        <div style="font-size: 0.8rem; color: var(--adm-azul);">⚡ Série A • 34 pontos</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button class="btn btn-warning" onclick="editarEquipe('NEON ESPORTS')">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </button>
-                                    <button class="btn btn-primary" onclick="transferirEquipe('NEON ESPORTS')">
-                                        <i class="fas fa-exchange-alt"></i> Transferir
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="team-item">
-                                <div class="user-info-small">
-                                    <div class="user-avatar-small" style="background: linear-gradient(135deg, #00ff00, #00cc00);">ETA</div>
-                                    <div>
-                                        <strong>ECHO TEAM ACADEMY</strong>
-                                        <div style="font-size: 0.8rem; color: var(--adm-verde);">🎯 Série B • 34 pontos</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button class="btn btn-warning" onclick="editarEquipe('ECHO TEAM ACADEMY')">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </button>
-                                    <button class="btn btn-primary" onclick="transferirEquipe('ECHO TEAM ACADEMY')">
-                                        <i class="fas fa-exchange-alt"></i> Transferir
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
-                            <button class="btn btn-success" onclick="criarNovaEquipe()">
-                                <i class="fas fa-plus"></i> NOVA EQUIPE
-                            </button>
-                            <button class="btn btn-primary" onclick="gerarTabela()">
-                                <i class="fas fa-table"></i> GERAR TABELA
-                            </button>
-                        </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirmar Senha:</label>
+                    <div class="password-container">
+                        <input type="password" id="register-confirm-password" class="form-control" placeholder="Digite a senha novamente" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('register-confirm-password')">👁️</button>
                     </div>
-                </section>
+                </div>
+                
+                <div class="error-message" id="register-error"></div>
+                
+                <button type="submit" class="btn btn-primary">CRIAR CONTA</button>
+            </form>
+            
+            <div class="form-footer">
+                Ao criar uma conta, você concorda com nossos <a href="#">Termos de Uso</a>
+            </div>
+        </div>
+    </div>
 
-                <!-- CAMPEONATOS -->
-                <section id="campeonatos" class="secao">
-                    <div class="dashboard">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    🏅
-                                </div>
-                                <h3 class="card-title">CRIAR NOVO CAMPEONATO</h3>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Nome do Campeonato:</label>
-                                <input type="text" class="form-input" id="nomeCampeonato" placeholder="Ex: TRUCU 4x4 - Temporada 2024">
-                            </div>
+    <script>
+        // Credenciais dos ADMs
+        const adminCredentials = {
+            // ADM SUPREMO
+            'FURIAGOD': 'Furia2025_$',
+            
+            // ADMs GERAIS
+            'Scorpion': 'Mlk00',
+            '.Son King': 'God19', 
+            'NeferpitouI': 'Ana025',
+            'PNTS': 'pNtS',
+            
+            // ADM SUPREMO
+            'ToxicSkull√': 'L@!on'
+        };
 
-                            <div class="form-group">
-                                <label class="form-label">Jogo:</label>
-                                <select class="form-input" id="jogoCampeonato">
-                                    <option value="trucu">TRUCU 4x4</option>
-                                    <option value="mlbb">Mobile Legends</option>
-                                    <option value="freefire">Free Fire</option>
-                                    <option value="lol">League of Legends</option>
-                                    <option value="valorant">Valorant</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Formato:</label>
-                                <select class="form-input" id="formatoCampeonato">
-                                    <option value="grupos">Fase de Grupos + Mata-mata</option>
-                                    <option value="mata-mata">Mata-mata Direto</option>
-                                    <option value="liga">Liga (Todos contra todos)</option>
-                                    <option value="swiss">Sistema Suíço</option>
-                                </select>
-                            </div>
-
-                            <button class="btn btn-success" style="width: 100%;" onclick="criarCampeonato()">
-                                <i class="fas fa-trophy"></i> CRIAR CAMPEONATO
-                            </button>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    📊
-                                </div>
-                                <h3 class="card-title">CAMPEONATOS ATIVOS</h3>
-                            </div>
-
-                            <div class="user-list">
-                                <div class="user-item">
-                                    <div class="user-info-small">
-                                        <div class="user-avatar-small" style="background: linear-gradient(135deg, #ff0000, #cc0000);">T4</div>
-                                        <div>
-                                            <strong>TRUCU 4x4 - Fase de Grupos</strong>
-                                            <div style="font-size: 0.8rem; color: var(--adm-verde);">✅ Ativo • 12 equipes</div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-primary" onclick="gerenciarCampeonato('trucu')">
-                                            <i class="fas fa-cog"></i> Gerenciar
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="user-item">
-                                    <div class="user-info-small">
-                                        <div class="user-avatar-small" style="background: linear-gradient(135deg, #0066ff, #0044cc);">ML</div>
-                                        <div>
-                                            <strong>MLBB Championship</strong>
-                                            <div style="font-size: 0.8rem; color: var(--adm-verde);">✅ Ativo • 8 equipes</div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-primary" onclick="gerenciarCampeonato('mlbb')">
-                                            <i class="fas fa-cog"></i> Gerenciar
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="user-item">
-                                    <div class="user-info-small">
-                                        <div class="user-avatar-small" style="background: linear-gradient(135deg, #ffaa00, #cc8800);">FF</div>
-                                        <div>
-                                            <strong>Free Fire Series</strong>
-                                            <div style="font-size: 0.8rem; color: var(--adm-amarelo);">⏳ Em Breve</div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-warning" onclick="configurarCampeonato('freefire')">
-                                            <i class="fas fa-wrench"></i> Configurar
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- CONFIGURAÇÕES -->
-                <section id="configuracoes" class="secao">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                ⚙️
-                            </div>
-                            <h3 class="card-title">CONFIGURAÇÕES DO SISTEMA</h3>
-                        </div>
-
-                        <div class="dashboard" style="grid-template-columns: 1fr;">
-                            <div class="card">
-                                <h4 style="color: var(--adm-vermelho); margin-bottom: 15px;">🔧 CONFIGURAÇÕES DE PONTUAÇÃO</h4>
-                                <div class="form-group">
-                                    <label class="form-label">Pontos por Vitória:</label>
-                                    <input type="number" class="form-input" value="3" min="1" max="10">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Pontos por Empate:</label>
-                                    <input type="number" class="form-input" value="1" min="0" max="5">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Pontos por Derrota:</label>
-                                    <input type="number" class="form-input" value="0" min="0" max="2">
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <h4 style="color: var(--adm-vermelho); margin-bottom: 15px;">🛡️ CONFIGURAÇÕES DE MODERAÇÃO</h4>
-                                <div class="form-group">
-                                    <label class="for
+        // Alternar entre abas de login e cadastro
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab') + '-tab';
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Alternar visibilidade da senha
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+        
+        // Processar formulário de login
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            const errorElement = document.getElementById('login-error');
+            
+            // Limpar mensagem de erro
+            errorElement.style.display = 'none';
+            
+            // Verificar credenciais ADM
+            if (adminCredentials[username] && adminCredentials[username] === password) {
+                // Login bem-sucedido - redirecionar para o painel
+                alert(`👑 Bem-vindo, ${username}! Acessando painel ADM...`);
+                window.location.href = 'adm.html';
+            } else {
+                // Exibir erro
+                errorElement.textContent = 'Usuário ADM ou senha incorretos!';
+                errorElement.style.display = 'block';
+            }
+        });
+        
+        // Processar formulário de cadastro
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            const errorElement = document.getElementById('register-error');
+            
+            // Limpar mensagem de erro
+            errorElement.style.display = 'none';
+            
+            // Validações
+            if (password !== confirmPassword) {
+                errorElement.textContent = 'As senhas não coincidem!';
+                errorElement.style.display = 'block';
+                return;
+            }
+            
+            if (password.length < 6) {
+                errorElement.textContent = 'A senha deve ter pelo menos 6 caracteres!';
+                errorElement.style.display = 'block';
+                return;
+            }
+            
+            // Verificar se usuário já existe como ADM
+            if (adminCredentials[username]) {
+                errorElement.textContent = 'Este usuário já é um ADM. Use a aba de login ADM.';
+                errorElement.style.display = 'block';
+                return;
+            }
+            
+            // Simular cadastro bem-sucedido
+            alert('Cadastro realizado com sucesso! Aguarde aprovação de um ADM.');
+            
+            // Limpar formulário
+            document.getElementById('register-form').reset();
+        });
+        
+        // Função para recuperação de senha
+        function showForgotPassword() {
+            const username = prompt('Digite seu usuário ADM para recuperação:');
+            if (username && adminCredentials[username]) {
+                alert(`Entre em contato com o ADM Supremo para redefinir a senha de: ${username}`);
+            } else {
+                alert('Usuário ADM não encontrado!');
+            }
+        }
+    </script>
+</body>
+</html>
