@@ -261,6 +261,19 @@
             background: linear-gradient(135deg, var(--vermelho-escuro), var(--vermelho-neon));
         }
 
+        .btn-finalizar {
+            background: linear-gradient(135deg, var(--verde-neon), #00cc00);
+            box-shadow: 
+                0 5px 25px rgba(0, 255, 0, 0.4),
+                0 0 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .btn-finalizar:hover {
+            box-shadow: 
+                0 8px 35px rgba(0, 255, 0, 0.6),
+                0 0 40px rgba(0, 255, 0, 0.4);
+        }
+
         .btn-equipe {
             background: linear-gradient(135deg, var(--amarelo-neon), #ffaa00);
             box-shadow: 
@@ -355,7 +368,6 @@
             padding: 20px;
             border-radius: 12px;
             margin: 20px 0;
-            display: none;
             text-align: center;
             font-weight: bold;
             font-size: 1.1rem;
@@ -548,8 +560,8 @@
                         <p>✅ Suporte da comunidade</p>
                     </div>
                     
-                    <button class="neon-btn" onclick="cadastrarMembro()">
-                        🚀 VIRAR MEMBRO DA FÚRIA
+                    <button class="neon-btn btn-finalizar" onclick="finalizarCadastroMembro()">
+                        ✅ FINALIZAR CADASTRO DE MEMBRO
                     </button>
                 </div>
             </div>
@@ -585,11 +597,3 @@
                         <input type="email" id="email-equipe" placeholder="lider@email.com" required>
                     </div>
                     
-                    <div class="input-group">
-                        <label>📱 WhatsApp do Líder:</label>
-                        <input type="tel" id="whatsapp-equipe" placeholder="(31) 99999-9999" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>🎯 Jogo da Equipe:</label>
-                        <select id=
