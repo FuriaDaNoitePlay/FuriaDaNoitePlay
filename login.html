@@ -112,12 +112,12 @@
         
         .btn-container {
             display: flex;
+            flex-direction: column;
             gap: 10px;
             margin-top: 30px;
         }
         
         .btn {
-            flex: 1;
             padding: 12px;
             border: none;
             border-radius: 5px;
@@ -143,6 +143,15 @@
         
         .btn-register:hover {
             background: #d63031;
+        }
+        
+        .btn-visitante {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .btn-visitante:hover {
+            background: #27ae60;
         }
         
         .forgot-password {
@@ -246,19 +255,16 @@
                 <div class="btn-container">
                     <button type="submit" class="btn btn-login">LOGIN</button>
                     <button type="button" class="btn btn-register" id="registerBtn">REGISTER</button>
+                    <button type="button" class="btn btn-visitante" id="visitanteBtn">SOU VISITANTE</button>
                 </div>
             </form>
             
             <div class="adm-info">
-                <h3>👑 ADMs AUTORIZADOS</h3>
+                <h3>👑 ADMs AUTORIZADOS - FuriaDaNoitePlay</h3>
                 <ul>
-                    <li><strong>ADM SUPREMO:</strong> FURIAGOD / Furia2025_$</li>
-                    <li><strong>ADMs GERAIS:</strong></li>
-                    <li>• Scorpion / Mlk00</li>
-                    <li>• .Son King / God19</li>
-                    <li>• NeferpitouI / Ana025</li>
-                    <li>• PNTS / pNtS</li>
-                    <li>• ToxicSkull√ / L@!on</li>
+                    <li><strong>ADM SUPREMO:</strong> Acesso Restrito</li>
+                    <li><strong>ADMs GERAIS:</strong> Acesso Restrito</li>
+                    <li><strong>USUÁRIO SUPREMO:</strong> Acesso Restrito</li>
                 </ul>
             </div>
         </div>
@@ -268,17 +274,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('loginForm');
             const registerBtn = document.getElementById('registerBtn');
+            const visitanteBtn = document.getElementById('visitanteBtn');
             const forgotPassword = document.getElementById('forgotPassword');
             const messageDiv = document.getElementById('message');
             
-            // Credenciais dos ADMs
+            // Credenciais dos ADMs (ATUALIZADAS)
             const admCredentials = {
-                'FURIAGOD': 'Furia2025_$',
-                'Scorpion': 'Mlk00',
-                '.Son King': 'God19',
-                'NeferpitouI': 'Ana025',
-                'PNTS': 'pNtS',
-                'ToxicSkull√': 'L@!on'
+                'FURIAGOD': 'Furia2025_$25',
+                'Scorpion': 'Mlk0025',
+                '.Son King': 'God1925',
+                'NeferpitouI': 'Ana02525',
+                'PNTS': 'pNtS25',
+                'ToxicSkull√': 'L@!on25'
             };
             
             // Função para exibir mensagens
@@ -319,6 +326,11 @@
             // Botão de registro
             registerBtn.addEventListener('click', function() {
                 window.location.href = 'cadastro.html';
+            });
+            
+            // Botão visitante - vai direto para furia.html
+            visitanteBtn.addEventListener('click', function() {
+                window.location.href = 'furia.html';
             });
             
             // Esqueci a senha
