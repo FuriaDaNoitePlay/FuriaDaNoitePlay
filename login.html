@@ -34,8 +34,7 @@
         
         .image-section {
             flex: 1;
-            background: url('furia.png') no-repeat center center;
-            background-size: cover;
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 50%, #990000 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -50,7 +49,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(26, 26, 46, 0.7);
+            background: rgba(255, 0, 0, 0.3);
         }
         
         .logo {
@@ -60,15 +59,26 @@
             color: white;
         }
         
+        .logo-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #ff0000;
+            margin-bottom: 20px;
+            border: 3px solid white;
+        }
+        
         .logo h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: white;
         }
         
         .logo p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.9;
+            color: white;
         }
         
         .login-section {
@@ -78,10 +88,11 @@
         }
         
         .login-section h2 {
-            color: #1a1a2e;
+            color: #ff0000;
             margin-bottom: 30px;
             text-align: center;
             font-size: 1.8rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
         
         .form-group {
@@ -105,8 +116,8 @@
         }
         
         .form-group input:focus {
-            border-color: #1a1a2e;
-            box-shadow: 0 0 0 2px rgba(26, 26, 46, 0.2);
+            border-color: #ff0000;
+            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
             outline: none;
         }
         
@@ -128,30 +139,33 @@
         }
         
         .btn-login {
-            background: #1a1a2e;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
             color: white;
         }
         
         .btn-login:hover {
-            background: #0f3460;
+            background: linear-gradient(135deg, #cc0000, #ff0000);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
         
         .btn-register {
-            background: #e94560;
+            background: linear-gradient(135deg, #e94560, #d63031);
             color: white;
         }
         
         .btn-register:hover {
-            background: #d63031;
+            background: linear-gradient(135deg, #d63031, #e94560);
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
         }
         
         .btn-visitante {
-            background: #2ecc71;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
             color: white;
         }
         
         .btn-visitante:hover {
-            background: #27ae60;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
         }
         
         .forgot-password {
@@ -160,7 +174,7 @@
         }
         
         .forgot-password a {
-            color: #1a1a2e;
+            color: #ff0000;
             text-decoration: none;
             font-size: 0.9rem;
         }
@@ -179,8 +193,8 @@
         
         .error {
             background: #ffe6e6;
-            color: #d63031;
-            border: 1px solid #d63031;
+            color: #ff0000;
+            border: 1px solid #ff0000;
         }
         
         .success {
@@ -195,10 +209,11 @@
             background: #f8f9fa;
             border-radius: 5px;
             font-size: 0.85rem;
+            border-left: 4px solid #ff0000;
         }
         
         .adm-info h3 {
-            color: #1a1a2e;
+            color: #ff0000;
             margin-bottom: 10px;
             font-size: 1rem;
         }
@@ -220,6 +235,11 @@
             .image-section {
                 min-height: 200px;
             }
+            
+            .logo-img {
+                width: 100px;
+                height: 100px;
+            }
         }
     </style>
 </head>
@@ -227,6 +247,8 @@
     <div class="container">
         <div class="image-section">
             <div class="logo">
+                <!-- IMAGEM FÚRIA.PNG ADICIONADA -->
+                <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo-img">
                 <h1>👑 FuriaDaNoitePlay</h1>
                 <p>Sistema Administrativo</p>
             </div>
