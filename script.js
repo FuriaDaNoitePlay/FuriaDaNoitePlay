@@ -148,6 +148,9 @@ class FuriaSystem {
                     
                     <button onclick="sistema.tentarLogin()" class="login-btn">🔐 Entrar no Sistema</button>
                     
+                    <!-- BOTÃO VISITANTE ADICIONADO -->
+                    <button onclick="sistema.entrarComoVisitante()" class="visitante-btn">👤 Sou Visitante</button>
+                    
                     <div class="login-info">
                         <strong>ADMs Cadastrados:</strong>
                         <div>FURIAGOD | Scorpion | .Son King</div>
@@ -453,7 +456,7 @@ class FuriaSystem {
         if (usuario && confirm(`Banir ${usuario.nome} permanentemente?`)) {
             this.usuarios = this.usuarios.filter(u => u.id !== id);
             this.salvarDados();
-            this.mostrarPainter();
+            this.mostrarPainel();
         }
     }
 
@@ -488,16 +491,5 @@ class FuriaSystem {
     }
 
     // =============================================
-    // ESTILOS CSS
-    // =============================================
-
-    getLoginStyles() {
-        return `
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { 
-                font-family: 'Arial', sans-serif; 
-         
-// Redireciona para login.html após 4 segundos
-setTimeout(function() {
-    window.location.href = "login.html";
-}, 4000);
+    // BOTÃO VISITANTE
+    // ====================================
