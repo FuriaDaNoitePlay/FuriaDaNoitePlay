@@ -40,8 +40,6 @@
       padding: 15px 0;
       border-bottom: 2px solid var(--vermelho-furia);
       box-shadow: 0 0 25px var(--vermelho-furia);
-      position: fixed;
-      top: 0;
       width: 100%;
       z-index: 1000;
     }
@@ -94,7 +92,7 @@
     /* ===== CONTEÚDO PRINCIPAL ===== */
     main {
       max-width: 1200px;
-      margin: 140px auto 30px;
+      margin: 0 auto;
       padding: 30px 20px;
     }
 
@@ -485,6 +483,11 @@
 
     /* ===== RESPONSIVIDADE ===== */
     @media (max-width: 768px) {
+      .logo-grande {
+        width: 250px;
+        height: 250px;
+      }
+      
       .redes-sociais {
         grid-template-columns: 1fr;
       }
@@ -519,16 +522,13 @@
         height: 160px;
         font-size: 1.1em;
       }
-      
-      main {
-        margin-top: 180px;
-      }
     }
   </style>
 </head>
+
 <body>
   <!-- ====== CABEÇALHO ====== -->
-  <header>
+  <header id="header">
     <img src="fúria.png" alt="Logo Fúria da Noite" class="logo-pequena">
     <h1 class="titulo">🌕 FuriaDaNoitePlay 🌕</h1>
     <nav>
@@ -536,13 +536,13 @@
       <a href="agente.html">Agentes Da Noite</a>
       <a href="campeonato.html">Campeonato</a>
       <a href="regras.html">Regras</a>
-      <a href="login.html">Login ADM</a>
+      <a href="login.html">Login</a>
       <a href="TRUCU.html">🎴 TRUCU</a>
     </nav>
   </header>
 
   <!-- ====== CONTEÚDO PRINCIPAL ====== -->
-  <main>
+  <main id="mainContent">
     <section class="texto-intro">
       <p>
         Seja bem-vindo ao clã <strong>Fúria!</strong><br>
@@ -558,11 +558,8 @@
     <!-- ====== SISTEMA NOSQL ====== -->
     <section class="sistema-nosql">
       <h2>🗄️ Sistema NoSQL - FuriaDaNoitePlay</h2>
-      <div class="status-nosql">
-        ✅ Conectado ao banco NoSQL<br>
-        📊 1.2GB de dados processados<br>
-        👥 128 membros ativos<br>
-        ⚡ Sistema operacional
+      <div class="status-nosql" id="statusNosql">
+        🔄 Conectando ao banco de dados...
       </div>
       <button class="btn-social" onclick="verEstatisticas()">
         📊 Ver Estatísticas
@@ -632,7 +629,7 @@
         </a>
       </div>
 
-      <div class="quadrado-social">
+      <div class="quadrado-social" onclick="window.location.href='TRUCU.html'">
         <i class="fas fa-gamepad"></i>
         <h3>🎴 TRUCU 4x4</h3>
         <p>Jogo de cartas multiplayer competitivo</p>
@@ -695,28 +692,47 @@
   </main>
 
   <!-- ====== BOTÃO WHATSAPP ====== -->
-  <a href="https://wa.me/553197319008" target="_blank" class="btn-whatsapp">
+  <a href="https://wa.me/553197319008" target="_blank" class="btn-whatsapp" id="btnWhatsapp">
     <i class="fab fa-whatsapp"></i>
   </a>
 
   <!-- ====== RODAPÉ ====== -->
-  <footer>
+  <footer id="footer">
     <p>© 2025 <span class="destaque">FuriaDaNoitePlay</span> — 
     <span class="assinatura">@ToxicSkull√</span></p>
   </footer>
 
   <!-- ====== BOTÃO FIXO ====== -->
-  <button class="botao-inicio" id="botaoInicio" onclick="voltarAoTopo()">⬆️ Início</button>
+  <button class="botao-inicio" id="botaoInicio" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i> Início
+  </button>
 
   <script>
-    // ===== FUNÇÕES DO PLAYER DE MÚSICA =====
+    // Removemos toda a lógica da tela de carregamento
+    // O site agora carrega diretamente
+    
+    // Função para mostrar/ocultar botão de voltar ao topo
+    window.onscroll = function() {
+      const botaoInicio = document.getElementById('botaoInicio');
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        botaoInicio.classList.add('visivel');
+      } else {
+        botaoInicio.classList.remove('visivel');
+      }
+    };
+
+    // Função para rolar para o topo
+    function scrollToTop() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Funções do player de música
     function tocarMusica() {
       document.getElementById('videoMusica').classList.add('ativo');
       document.getElementById('btnPlay').innerHTML = '<i class="fas fa-play"></i>';
     }
 
     function pausarMusica() {
-      document.getElementById('videoMusica').classList.remove('ativo');
       document.getElementById('btnPlay').innerHTML = '<i class="fas fa-play"></i>';
     }
 
@@ -725,26 +741,8 @@
       document.getElementById('btnPlay').innerHTML = '<i class="fas fa-play"></i>';
     }
 
-    // ===== FUNÇÕES DO SISTEMA =====
+    // Função para ver estatísticas (simulação)
     function verEstatisticas() {
-      alert('📊 Estatísticas do Sistema:\n\n' +
-            '• 128 Membros Ativos\n' +
-            '• 4 Equipes Competitivas\n' +
-            '• 12 Campeonatos Realizados\n' +
-            '• 89% Taxa de Vitórias\n' +
-            '• Sistema NoSQL: OPERACIONAL');
-    }
-
-    function voltarAoTopo() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Mostrar/ocultar botão início baseado no scroll
-    window.addEventListener('scroll', function() {
-      const botaoInicio = document.getElementById('botaoInicio');
-      if (window.scrollY > 300) {
-        botaoInicio.classList.add('visivel');
-      } else {
-        botaoInicio.classList.remove('visivel');
-      }
-   
+      document.getElementById('statusNosql').innerHTML = 
+        '✅ Conectado ao banco NoSQL<br>' +
+        '📊 Dados reais de usuá
