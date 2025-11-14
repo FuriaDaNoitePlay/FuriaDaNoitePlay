@@ -112,92 +112,6 @@
       text-shadow: 0 0 10px var(--vermelho-furia);
     }
 
-    /* ===== SISTEMA NOSQL ===== */
-    .sistema-nosql {
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid var(--azul-fron);
-      border-radius: 12px;
-      box-shadow: 0 0 25px var(--azul-fron);
-      padding: 25px;
-      margin: 30px 0;
-    }
-
-    .status-nosql {
-      background: rgba(0, 0, 255, 0.2);
-      border: 1px solid var(--azul-fron);
-      border-radius: 8px;
-      padding: 15px;
-      margin: 15px 0;
-      color: var(--azul-fron);
-      font-family: 'Courier New', monospace;
-    }
-
-    /* ===== SISTEMA DE MEMBROS ===== */
-    .membros-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 25px;
-      padding: 30px;
-    }
-
-    .membro-item {
-      background: linear-gradient(145deg, #1a0000, #0a0000);
-      border-radius: 20px;
-      padding: 20px;
-      text-align: center;
-      border: 3px solid var(--vermelho-furia);
-      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
-      transition: all 0.3s ease;
-    }
-
-    .membro-especial {
-      border: 3px solid var(--rosa-neon);
-      box-shadow: 0 10px 30px rgba(255, 0, 102, 0.6);
-      background: linear-gradient(145deg, #2a001a, #1a000a);
-    }
-
-    .membro-img {
-      width: 100%;
-      height: 180px;
-      border-radius: 15px;
-      margin-bottom: 15px;
-      border: 3px solid var(--vermelho-furia);
-      background: linear-gradient(135deg, #330000, #660000, #990000);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ff6666;
-      font-weight: bold;
-      font-size: 1.2em;
-    }
-
-    .membro-especial .membro-img {
-      border: 3px solid var(--rosa-neon);
-      background: linear-gradient(135deg, #33001a, #660033, #99004d);
-    }
-
-    .membro-nome {
-      color: #ff3333;
-      font-weight: bold;
-      font-size: 1.1em;
-      text-shadow: 0 0 10px #ff0000;
-      background: rgba(0, 0, 0, 0.9);
-      padding: 12px 15px;
-      border-radius: 12px;
-      border: 2px solid var(--vermelho-furia);
-    }
-
-    .membro-especial .membro-nome {
-      color: var(--rosa-neon);
-      text-shadow: 0 0 10px var(--rosa-neon);
-      border: 2px solid var(--rosa-neon);
-    }
-
-    .membro-item:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(255, 0, 0, 0.6);
-    }
-
     /* ===== SEÇÃO DE REDES SOCIAIS ===== */
     .redes-sociais {
       display: grid;
@@ -555,60 +469,6 @@
       </p>
     </section>
 
-    <!-- ====== SISTEMA NOSQL ====== -->
-    <section class="sistema-nosql">
-      <h2>🗄️ Sistema NoSQL - FuriaDaNoitePlay</h2>
-      <div class="status-nosql" id="statusNosql">
-        🔄 Conectando ao banco de dados...
-      </div>
-      <button class="btn-social" onclick="verEstatisticas()">
-        📊 Ver Estatísticas
-      </button>
-    </section>
-
-    <!-- ====== MEMBROS DESTAQUE ====== -->
-    <section class="adm-box">
-      <h2>🌟 Membros Destaque</h2>
-      <div class="membros-grid">
-        <!-- SUA IRMÃ COM COR ROSA NEON ESPECIAL -->
-        <div class="membro-item membro-especial">
-          <div class="membro-img">
-            👑 IRMÃ
-          </div>
-          <div class="membro-nome">
-            Princesa da Fúria
-          </div>
-        </div>
-
-        <div class="membro-item">
-          <div class="membro-img">
-            🦂 SCORPION
-          </div>
-          <div class="membro-nome">
-            Scorpion Game
-          </div>
-        </div>
-
-        <div class="membro-item">
-          <div class="membro-img">
-            ⚡ TOXIC
-          </div>
-          <div class="membro-nome">
-            ToxicSkull√
-          </div>
-        </div>
-
-        <div class="membro-item">
-          <div class="membro-img">
-            👑 SON KING
-          </div>
-          <div class="membro-nome">
-            ༄Son_king
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ====== REDES SOCIAIS ====== -->
     <div class="redes-sociais">
       <div class="quadrado-social instagram">
@@ -670,7 +530,7 @@
       
       <div class="video-musica" id="videoMusica">
         <iframe 
-          src="https://www.youtube.com/embed/0hWm967g3M4?si=wte2G_ucehMpkK6L" 
+          src="https://youtu.be/0hWm967g3M4?si=u84iD-NdJ1LFFA_7" 
           title="FRØN MUSIC" 
           frameborder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -708,9 +568,6 @@
   </button>
 
   <script>
-    // Removemos toda a lógica da tela de carregamento
-    // O site agora carrega diretamente
-    
     // Função para mostrar/ocultar botão de voltar ao topo
     window.onscroll = function() {
       const botaoInicio = document.getElementById('botaoInicio');
@@ -730,6 +587,11 @@
     function tocarMusica() {
       document.getElementById('videoMusica').classList.add('ativo');
       document.getElementById('btnPlay').innerHTML = '<i class="fas fa-play"></i>';
+      
+      // Rolar suavemente até o player de música
+      document.querySelector('.player-musica').scrollIntoView({ 
+        behavior: 'smooth' 
+      });
     }
 
     function pausarMusica() {
@@ -740,9 +602,6 @@
       document.getElementById('videoMusica').classList.remove('ativo');
       document.getElementById('btnPlay').innerHTML = '<i class="fas fa-play"></i>';
     }
-
-    // Função para ver estatísticas (simulação)
-    function verEstatisticas() {
-      document.getElementById('statusNosql').innerHTML = 
-        '✅ Conectado ao banco NoSQL<br>' +
-        '📊 Dados reais de usuá
+  </script>
+</body>
+</html>
