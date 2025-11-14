@@ -23,30 +23,84 @@
       overflow-x: hidden;
     }
 
+    /* ===== TELA DE INICIAÇÃO ===== */
+    .tela-iniciacao {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: all 1.5s ease-in-out;
+    }
+
+    .logo-grande {
+      width: 400px;
+      height: 400px;
+      border-radius: 20px;
+      box-shadow: 0 0 60px #ff0000;
+      animation: pulse 2s infinite;
+      transition: all 1.5s ease-in-out;
+    }
+
+    .carregando {
+      color: #ff0000;
+      font-size: 20px;
+      margin-top: 30px;
+      text-shadow: 0 0 15px #ff0000;
+      opacity: 0;
+      animation: aparecer 1s ease-in-out 0.5s forwards;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 60px #ff0000; }
+      50% { transform: scale(1.05); box-shadow: 0 0 80px #ff0000; }
+      100% { transform: scale(1); box-shadow: 0 0 60px #ff0000; }
+    }
+
+    @keyframes aparecer {
+      to { opacity: 1; }
+    }
+
     /* ===== CABEÇALHO ===== */
     header {
       background: rgba(0, 0, 0, 0.9);
-      padding: 20px 0;
+      padding: 15px 0;
       border-bottom: 2px solid #ff0000;
       box-shadow: 0 0 25px #ff0000;
-      position: relative;
-      z-index: 100;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transform: translateY(-100%);
+      transition: transform 1s ease-in-out;
     }
 
-    .logo {
-      width: 160px;
-      display: block;
-      margin: 0 auto;
+    header.visivel {
+      transform: translateY(0);
+    }
+
+    .logo-pequena {
+      width: 80px;
+      height: 80px;
       border-radius: 10px;
-      box-shadow: 0 0 30px #ff0000;
+      box-shadow: 0 0 20px #ff0000;
+      margin: 0 auto;
+      display: block;
+      transition: all 0.5s ease;
     }
 
     .titulo {
       color: #ff0000;
-      font-size: 28px;
+      font-size: 24px;
       text-transform: uppercase;
       text-shadow: 0 0 25px #ff0000;
-      margin: 15px 0;
+      margin: 10px 0;
     }
 
     /* ===== MENU ===== */
@@ -55,7 +109,7 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
     nav a {
@@ -63,7 +117,7 @@
       text-decoration: none;
       background: rgba(255, 0, 0, 0.1);
       border: 2px solid #ff0000;
-      padding: 10px 18px;
+      padding: 8px 16px;
       border-radius: 8px;
       font-weight: bold;
       box-shadow: 0 0 15px #ff0000;
@@ -80,8 +134,16 @@
     /* ===== CONTEÚDO PRINCIPAL ===== */
     main {
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 140px auto 30px;
       padding: 30px 20px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease-in-out 0.5s;
+    }
+
+    main.visivel {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .texto-intro {
@@ -102,15 +164,14 @@
 
     /* ===== SEÇÃO DE REDES SOCIAIS ===== */
     .redes-sociais {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
       margin: 40px 0;
     }
 
     .quadrado-social {
-      width: 280px;
+      width: 100%;
       height: 280px;
       background: rgba(0, 0, 0, 0.8);
       border: 2px solid #ff0000;
@@ -159,6 +220,7 @@
       color: #ccc;
       font-size: 14px;
       margin-bottom: 15px;
+      text-align: center;
     }
 
     .btn-social {
@@ -330,6 +392,12 @@
       z-index: 1000;
       transition: all 0.3s ease;
       text-decoration: none;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out 2s;
+    }
+
+    .btn-whatsapp.visivel {
+      opacity: 1;
     }
 
     .btn-whatsapp:hover {
@@ -380,6 +448,14 @@
       font-weight: bold;
       background: rgba(0, 0, 0, 0.9);
       margin-top: 40px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease-in-out 1s;
+    }
+
+    footer.visivel {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .destaque {
@@ -408,6 +484,12 @@
       cursor: pointer;
       transition: transform 0.2s ease;
       z-index: 999;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out 2s;
+    }
+
+    .botao-inicio.visivel {
+      opacity: 1;
     }
 
     .botao-inicio:hover {
@@ -415,27 +497,21 @@
       box-shadow: 0 0 35px #FFD700;
     }
 
-    /* ===== ANIMAÇÕES ===== */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-
     /* ===== RESPONSIVIDADE ===== */
     @media (max-width: 768px) {
+      .logo-grande {
+        width: 300px;
+        height: 300px;
+      }
+      
       .redes-sociais {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
       }
       
       .quadrado-social {
         width: 100%;
         max-width: 300px;
+        margin: 0 auto;
       }
       
       iframe {
@@ -464,15 +540,24 @@
       .video-musica iframe {
         height: 250px;
       }
+      
+      main {
+        margin-top: 180px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <!-- ====== TELA DE INICIAÇÃO ====== -->
+  <div class="tela-iniciacao" id="telaIniciacao">
+    <img src="fúria.png" alt="Logo Fúria da Noite" class="logo-grande" id="logoGrande">
+    <div class="carregando">Carregando FuriaDaNoitePlay...</div>
+  </div>
 
   <!-- ====== CABEÇALHO ====== -->
-  <header>
-    <img src="fúria.png" alt="Logo Fúria da Noite" class="logo">
+  <header id="header">
+    <img src="fúria.png" alt="Logo Fúria da Noite" class="logo-pequena">
     <h1 class="titulo">🌕 FuriaDaNoitePlay 🌕</h1>
     <nav>
       <a href="FR0N.html">FRØN</a>
@@ -485,7 +570,7 @@
   </header>
 
   <!-- ====== CONTEÚDO PRINCIPAL ====== -->
-  <main>
+  <main id="mainContent">
     <section class="texto-intro">
       <p>
         Seja bem-vindo ao clã <strong>Fúria!</strong><br>
@@ -591,123 +676,106 @@
   </main>
 
   <!-- ====== BOTÃO WHATSAPP ====== -->
-  <a href="https://wa.me/553197319008" target="_blank" class="btn-whatsapp pulse">
+  <a href="https://wa.me/553197319008" target="_blank" class="btn-whatsapp" id="btnWhatsapp">
     <i class="fab fa-whatsapp"></i>
   </a>
 
   <!-- ====== RODAPÉ ====== -->
-  <footer>
+  <footer id="footer">
     <p>© 2025 <span class="destaque">FuriaDaNoitePlay</span> — 
     <span class="assinatura">@ToxicSkull√</span></p>
   </footer>
 
   <!-- ====== BOTÃO FIXO ====== -->
-  <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">🏠 Início</button>
+  <button class="botao-inicio" id="botaoInicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">🏠 Início</button>
 
   <script>
-    // ===== CONTROLE DO PLAYER DE MÚSICA =====
-    let videoTocando = false;
+    // ===== SISTEMA NOSQL (LocalStorage) =====
+    class FuriaNoSQL {
+      constructor() {
+        this.dbName = 'FuriaDaNoitePlayDB';
+        this.init();
+      }
 
-    function tocarMusica() {
-      const videoMusica = document.getElementById('videoMusica');
-      const btnPlay = document.getElementById('btnPlay');
-      
-      if (!videoTocando) {
-        // Mostra o quadrado do vídeo
-        videoMusica.classList.add('ativo');
-        
-        // Atualiza o botão
-        btnPlay.innerHTML = '<i class="fas fa-pause"></i>';
-        btnPlay.style.background = 'linear-gradient(135deg, #00ff00, #008800)';
-        
-        // Adiciona autoplay ao iframe
-        const iframe = videoMusica.querySelector('iframe');
-        const currentSrc = iframe.src;
-        if (!currentSrc.includes('autoplay=1')) {
-          iframe.src = currentSrc + (currentSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+      init() {
+        if (!localStorage.getItem(this.dbName)) {
+          // Dados iniciais do sistema
+          const initialData = {
+            usuarios: [],
+            configuracoes: {
+              tema: 'escuro',
+              musicaAutoPlay: false,
+              ultimoAcesso: new Date().toISOString()
+            },
+            estatisticas: {
+              visitas: 0,
+              cliques: 0
+            }
+          };
+          this.save(initialData);
         }
-        
-        videoTocando = true;
-      } else {
-        pausarMusica();
+      }
+
+      save(data) {
+        localStorage.setItem(this.dbName, JSON.stringify(data));
+      }
+
+      load() {
+        const data = localStorage.getItem(this.dbName);
+        return data ? JSON.parse(data) : null;
+      }
+
+      update(key, value) {
+        const data = this.load();
+        data[key] = value;
+        this.save(data);
+      }
+
+      // Método específico para estatísticas
+      registrarVisita() {
+        const data = this.load();
+        data.estatisticas.visitas++;
+        data.configuracoes.ultimoAcesso = new Date().toISOString();
+        this.save(data);
+      }
+
+      registrarClique(botao) {
+        const data = this.load();
+        data.estatisticas.cliques++;
+        if (!data.estatisticas[boto]) {
+          data.estatisticas[boto] = 0;
+        }
+        data.estatisticas[boto]++;
+        this.save(data);
       }
     }
 
-    function pausarMusica() {
-      const btnPlay = document.getElementById('btnPlay');
-      
-      if (videoTocando) {
-        // Remove autoplay do iframe
-        const iframe = document.querySelector('#videoMusica iframe');
-        iframe.src = iframe.src.replace('&autoplay=1', '');
-        
-        // Atualiza o botão
-        btnPlay.innerHTML = '<i class="fas fa-play"></i>';
-        btnPlay.style.background = 'linear-gradient(135deg, #ff0000, #cc0000)';
-        
-        videoTocando = false;
-      }
-    }
+    // Inicializar sistema NoSQL
+    const furiaDB = new FuriaNoSQL();
 
-    function pararMusica() {
-      const videoMusica = document.getElementById('videoMusica');
-      const btnPlay = document.getElementById('btnPlay');
-      
-      // Esconde o quadrado do vídeo
-      videoMusica.classList.remove('ativo');
-      
-      // Remove autoplay do iframe
-      const iframe = document.querySelector('#videoMusica iframe');
-      iframe.src = iframe.src.replace('&autoplay=1', '');
-      
-      // Atualiza o botão
-      btnPlay.innerHTML = '<i class="fas fa-play"></i>';
-      btnPlay.style.background = 'linear-gradient(135deg, #ff0000, #cc0000)';
-      
-      videoTocando = false;
-    }
-
-    // ===== EFEITOS VISUAIS =====
+    // ===== ANIMAÇÃO DE INICIAÇÃO =====
     document.addEventListener('DOMContentLoaded', function() {
-      // Adiciona efeito de digitação no título
-      const titulo = document.querySelector('.titulo');
-      const textoOriginal = titulo.textContent;
-      titulo.textContent = '';
-      
-      let i = 0;
-      const typingEffect = setInterval(() => {
-        if (i < textoOriginal.length) {
-          titulo.textContent += textoOriginal.charAt(i);
-          i++;
-        } else {
-          clearInterval(typingEffect);
-        }
-      }, 100);
-      
-      // Efeito de entrada para os elementos
-      const elementos = document.querySelectorAll('.texto-intro, .quadrado-social, .video-box, .player-musica, .adm-box');
-      
-      elementos.forEach((elemento, index) => {
-        elemento.style.opacity = '0';
-        elemento.style.transform = 'translateY(30px)';
-        
-        setTimeout(() => {
-          elemento.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-          elemento.style.opacity = '1';
-          elemento.style.transform = 'translateY(0)';
-        }, 300 + (index * 200));
-      });
-    });
+      // Registrar visita
+      furiaDB.registrarVisita();
 
-    // ===== BOTÃO VOLTAR AO TOPO =====
-    window.addEventListener('scroll', function() {
-      const botaoInicio = document.querySelector('.botao-inicio');
-      if (window.scrollY > 300) {
-        botaoInicio.style.display = 'block';
-      } else {
-        botaoInicio.style.display = 'none';
-      }
-    });
-  </script>
-</body>
-</html>
+      const telaIniciacao = document.getElementById('telaIniciacao');
+      const logoGrande = document.getElementById('logoGrande');
+      const header = document.getElementById('header');
+      const mainContent = document.getElementById('mainContent');
+      const footer = document.getElementById('footer');
+      const btnWhatsapp = document.getElementById('btnWhatsapp');
+      const botaoInicio = document.getElementById('botaoInicio');
+
+      setTimeout(() => {
+        // Iniciar animação da logo
+        logoGrande.style.width = '80px';
+        logoGrande.style.height = '80px';
+        logoGrande.style.marginTop = '-200px';
+
+        setTimeout(() => {
+          // Esconder tela de iniciação e mostrar conteúdo
+          telaIniciacao.style.opacity = '0';
+          
+          setTimeout(() => {
+            telaIniciacao.style.display = 'none';
+            header.classList.add
