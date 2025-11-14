@@ -14,8 +14,19 @@
       box-sizing: border-box;
     }
     
+    :root {
+      --vermelho-furia: #ff0000;
+      --vermelho-escuro: #cc0000;
+      --roxo-fron: #8a2be2;
+      --azul-fron: #0000ff;
+      --verde-adm: #00ff00;
+      --preto: #0c0c0c;
+      --cinza-escuro: #1a1a2e;
+      --rosa-neon: #ff0066;
+    }
+    
     body {
-      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+      background: linear-gradient(135deg, var(--preto) 0%, var(--cinza-escuro) 50%, #16213e 100%);
       color: #fff;
       font-family: 'Orbitron', sans-serif;
       min-height: 100vh;
@@ -30,76 +41,66 @@
       left: 0;
       width: 100%;
       height: 100vh;
-      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+      background: linear-gradient(135deg, var(--preto) 0%, var(--cinza-escuro) 50%, #16213e 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 10000;
-      transition: all 1.5s ease-in-out;
     }
 
     .logo-grande {
-      width: 400px;
-      height: 400px;
+      width: 300px;
+      height: 300px;
       border-radius: 20px;
-      box-shadow: 0 0 60px #ff0000;
+      box-shadow: 0 0 60px var(--vermelho-furia);
       animation: pulse 2s infinite;
-      transition: all 1.5s ease-in-out;
     }
 
     .carregando {
-      color: #ff0000;
+      color: var(--vermelho-furia);
       font-size: 20px;
       margin-top: 30px;
-      text-shadow: 0 0 15px #ff0000;
-      opacity: 0;
-      animation: aparecer 1s ease-in-out 0.5s forwards;
+      text-shadow: 0 0 15px var(--vermelho-furia);
     }
 
     @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 60px #ff0000; }
-      50% { transform: scale(1.05); box-shadow: 0 0 80px #ff0000; }
-      100% { transform: scale(1); box-shadow: 0 0 60px #ff0000; }
-    }
-
-    @keyframes aparecer {
-      to { opacity: 1; }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
 
     /* ===== CABEÇALHO ===== */
     header {
       background: rgba(0, 0, 0, 0.9);
       padding: 15px 0;
-      border-bottom: 2px solid #ff0000;
-      box-shadow: 0 0 25px #ff0000;
+      border-bottom: 2px solid var(--vermelho-furia);
+      box-shadow: 0 0 25px var(--vermelho-furia);
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 1000;
-      transform: translateY(-100%);
-      transition: transform 1s ease-in-out;
+      display: none;
     }
 
     header.visivel {
-      transform: translateY(0);
+      display: block;
     }
 
     .logo-pequena {
       width: 80px;
       height: 80px;
       border-radius: 10px;
-      box-shadow: 0 0 20px #ff0000;
+      box-shadow: 0 0 20px var(--vermelho-furia);
       margin: 0 auto;
       display: block;
-      transition: all 0.5s ease;
     }
 
     .titulo {
-      color: #ff0000;
+      color: var(--vermelho-furia);
       font-size: 24px;
       text-transform: uppercase;
-      text-shadow: 0 0 25px #ff0000;
+      text-shadow: 0 0 25px var(--vermelho-furia);
       margin: 10px 0;
     }
 
@@ -116,41 +117,38 @@
       color: #fff;
       text-decoration: none;
       background: rgba(255, 0, 0, 0.1);
-      border: 2px solid #ff0000;
+      border: 2px solid var(--vermelho-furia);
       padding: 8px 16px;
       border-radius: 8px;
       font-weight: bold;
-      box-shadow: 0 0 15px #ff0000;
+      box-shadow: 0 0 15px var(--vermelho-furia);
       transition: all 0.3s ease;
     }
 
     nav a:hover {
-      background-color: #ff0000;
+      background-color: var(--vermelho-furia);
       color: #000;
-      box-shadow: 0 0 25px #ff0000;
+      box-shadow: 0 0 25px var(--vermelho-furia);
       transform: translateY(-3px);
     }
 
     /* ===== CONTEÚDO PRINCIPAL ===== */
     main {
       max-width: 1200px;
-      margin: 140px auto 30px;
+      margin: 0 auto;
       padding: 30px 20px;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 1s ease-in-out 0.5s;
+      display: none;
     }
 
     main.visivel {
-      opacity: 1;
-      transform: translateY(0);
+      display: block;
     }
 
     .texto-intro {
       background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #ff0000;
+      border: 2px solid var(--vermelho-furia);
       border-radius: 12px;
-      box-shadow: 0 0 25px #ff0000;
+      box-shadow: 0 0 25px var(--vermelho-furia);
       padding: 25px;
       margin-bottom: 30px;
       line-height: 1.6;
@@ -159,7 +157,93 @@
 
     .texto-intro strong {
       color: #ff4444;
+      text-shadow: 0 0 10px var(--vermelho-furia);
+    }
+
+    /* ===== SISTEMA NOSQL ===== */
+    .sistema-nosql {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--azul-fron);
+      border-radius: 12px;
+      box-shadow: 0 0 25px var(--azul-fron);
+      padding: 25px;
+      margin: 30px 0;
+    }
+
+    .status-nosql {
+      background: rgba(0, 0, 255, 0.2);
+      border: 1px solid var(--azul-fron);
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      color: var(--azul-fron);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ===== SISTEMA DE MEMBROS ===== */
+    .membros-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 25px;
+      padding: 30px;
+    }
+
+    .membro-item {
+      background: linear-gradient(145deg, #1a0000, #0a0000);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      border: 3px solid var(--vermelho-furia);
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .membro-especial {
+      border: 3px solid var(--rosa-neon);
+      box-shadow: 0 10px 30px rgba(255, 0, 102, 0.6);
+      background: linear-gradient(145deg, #2a001a, #1a000a);
+    }
+
+    .membro-img {
+      width: 100%;
+      height: 180px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      border: 3px solid var(--vermelho-furia);
+      background: linear-gradient(135deg, #330000, #660000, #990000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff6666;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .membro-especial .membro-img {
+      border: 3px solid var(--rosa-neon);
+      background: linear-gradient(135deg, #33001a, #660033, #99004d);
+    }
+
+    .membro-nome {
+      color: #ff3333;
+      font-weight: bold;
+      font-size: 1.1em;
       text-shadow: 0 0 10px #ff0000;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 2px solid var(--vermelho-furia);
+    }
+
+    .membro-especial .membro-nome {
+      color: var(--rosa-neon);
+      text-shadow: 0 0 10px var(--rosa-neon);
+      border: 2px solid var(--rosa-neon);
+    }
+
+    .membro-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(255, 0, 0, 0.6);
     }
 
     /* ===== SEÇÃO DE REDES SOCIAIS ===== */
@@ -174,29 +258,27 @@
       width: 100%;
       height: 280px;
       background: rgba(0, 0, 0, 0.8);
-      border: 2px solid #ff0000;
+      border: 2px solid var(--vermelho-furia);
       border-radius: 15px;
-      box-shadow: 0 0 20px #ff0000;
+      box-shadow: 0 0 20px var(--vermelho-furia);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 20px;
       transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
     }
 
     .quadrado-social:hover {
       transform: translateY(-10px);
-      box-shadow: 0 0 30px #ff0000;
+      box-shadow: 0 0 30px var(--vermelho-furia);
     }
 
     .quadrado-social i {
       font-size: 50px;
       margin-bottom: 15px;
-      color: #ff0000;
-      text-shadow: 0 0 15px #ff0000;
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 15px var(--vermelho-furia);
     }
 
     .quadrado-social.instagram i {
@@ -224,7 +306,7 @@
     }
 
     .btn-social {
-      background: linear-gradient(135deg, #ff0000, #cc0000);
+      background: linear-gradient(135deg, var(--vermelho-furia), var(--vermelho-escuro));
       color: white;
       border: none;
       padding: 10px 20px;
@@ -237,24 +319,24 @@
     }
 
     .btn-social:hover {
-      background: linear-gradient(135deg, #cc0000, #ff0000);
-      box-shadow: 0 0 15px #ff0000;
+      background: linear-gradient(135deg, var(--vermelho-escuro), var(--vermelho-furia));
+      box-shadow: 0 0 15px var(--vermelho-furia);
       transform: scale(1.05);
     }
 
     /* ===== SEÇÃO DE VÍDEO ===== */
     .video-box {
       background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #ff0000;
+      border: 2px solid var(--vermelho-furia);
       border-radius: 12px;
-      box-shadow: 0 0 25px #ff0000;
+      box-shadow: 0 0 25px var(--vermelho-furia);
       padding: 25px;
       margin: 40px 0;
     }
 
     .titulo-video {
-      color: #ff0000;
-      text-shadow: 0 0 20px #ff0000;
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 20px var(--vermelho-furia);
       margin-bottom: 20px;
       font-size: 24px;
     }
@@ -270,58 +352,24 @@
       width: 100%;
       height: 620px;
       border-radius: 10px;
-      box-shadow: 0 0 20px #ff0000;
+      box-shadow: 0 0 20px var(--vermelho-furia);
     }
 
-    /* ===== PLAYER DE MÚSICA PERSONALIZADO ===== */
+    /* ===== PLAYER DE MÚSICA ===== */
     .player-musica {
       background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #ff0000;
+      border: 2px solid var(--vermelho-furia);
       border-radius: 12px;
-      box-shadow: 0 0 25px #ff0000;
+      box-shadow: 0 0 25px var(--vermelho-furia);
       padding: 25px;
       margin: 40px 0;
-      position: relative;
-      overflow: hidden;
     }
 
     .player-musica h2 {
-      color: #ff0000;
-      text-shadow: 0 0 20px #ff0000;
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 20px var(--vermelho-furia);
       margin-bottom: 20px;
       font-size: 24px;
-    }
-
-    .player-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .capa-musica {
-      width: 200px;
-      height: 200px;
-      border-radius: 10px;
-      border: 2px solid #ff0000;
-      box-shadow: 0 0 15px #ff0000;
-      object-fit: cover;
-      position: relative;
-    }
-
-    .texto-capa {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #ff0000;
-      font-size: 24px;
-      font-weight: bold;
-      text-shadow: 0 0 10px #ff0000;
-      text-align: center;
-      width: 100%;
-      z-index: 2;
     }
 
     .controles-musica {
@@ -333,24 +381,23 @@
     }
 
     .btn-musica {
-      background: linear-gradient(135deg, #ff0000, #cc0000);
+      background: linear-gradient(135deg, var(--vermelho-furia), var(--vermelho-escuro));
       color: white;
       border: none;
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      font-size: 22px;
+      font-size: 18px;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 15px #ff0000;
     }
 
     .btn-musica:hover {
-      background: linear-gradient(135deg, #cc0000, #ff0000);
-      box-shadow: 0 0 25px #ff0000;
+      background: linear-gradient(135deg, var(--vermelho-escuro), var(--vermelho-furia));
+      box-shadow: 0 0 15px var(--vermelho-furia);
       transform: scale(1.1);
     }
 
@@ -358,7 +405,7 @@
       margin-top: 25px;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 0 15px #ff0000;
+      box-shadow: 0 0 15px var(--vermelho-furia);
       display: none;
       max-width: 560px;
       margin: 25px auto 0;
@@ -392,12 +439,11 @@
       z-index: 1000;
       transition: all 0.3s ease;
       text-decoration: none;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out 2s;
+      display: none;
     }
 
     .btn-whatsapp.visivel {
-      opacity: 1;
+      display: flex;
     }
 
     .btn-whatsapp:hover {
@@ -408,16 +454,16 @@
     /* ===== EQUIPE ADM ===== */
     .adm-box {
       background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #ff0000;
+      border: 2px solid var(--vermelho-furia);
       border-radius: 12px;
-      box-shadow: 0 0 25px #ff0000;
+      box-shadow: 0 0 25px var(--vermelho-furia);
       padding: 25px;
       margin-bottom: 40px;
     }
 
     .adm-box h2 {
-      color: #ff0000;
-      text-shadow: 0 0 20px #ff0000;
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 20px var(--vermelho-furia);
       margin-bottom: 20px;
       font-size: 24px;
     }
@@ -436,26 +482,23 @@
 
     .adm-box strong {
       color: #ff4444;
-      text-shadow: 0 0 10px #ff0000;
+      text-shadow: 0 0 10px var(--vermelho-furia);
     }
 
     /* ===== RODAPÉ ===== */
     footer {
-      color: #ff0000;
-      text-shadow: 0 0 15px #ff0000;
-      border-top: 2px solid #ff0000;
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 15px var(--vermelho-furia);
+      border-top: 2px solid var(--vermelho-furia);
       padding: 20px;
       font-weight: bold;
       background: rgba(0, 0, 0, 0.9);
       margin-top: 40px;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 1s ease-in-out 1s;
+      display: none;
     }
 
     footer.visivel {
-      opacity: 1;
-      transform: translateY(0);
+      display: block;
     }
 
     .destaque {
@@ -464,8 +507,8 @@
     }
 
     .assinatura {
-      color: #ff0000;
-      text-shadow: 0 0 10px #ff0000;
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 10px var(--vermelho-furia);
     }
 
     /* ===== BOTÃO INÍCIO ===== */
@@ -484,12 +527,11 @@
       cursor: pointer;
       transition: transform 0.2s ease;
       z-index: 999;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out 2s;
+      display: none;
     }
 
     .botao-inicio.visivel {
-      opacity: 1;
+      display: block;
     }
 
     .botao-inicio:hover {
@@ -500,8 +542,8 @@
     /* ===== RESPONSIVIDADE ===== */
     @media (max-width: 768px) {
       .logo-grande {
-        width: 300px;
-        height: 300px;
+        width: 250px;
+        height: 250px;
       }
       
       .redes-sociais {
@@ -527,22 +569,16 @@
         width: 80%;
         text-align: center;
       }
-      
-      .player-header {
-        flex-direction: column;
-        text-align: center;
+
+      .membros-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;
       }
       
-      .video-musica {
-        max-width: 100%;
-      }
-      
-      .video-musica iframe {
-        height: 250px;
-      }
-      
-      main {
-        margin-top: 180px;
+      .membro-img {
+        height: 160px;
+        font-size: 1.1em;
       }
     }
   </style>
@@ -583,6 +619,60 @@
       </p>
     </section>
 
+    <!-- ====== SISTEMA NOSQL ====== -->
+    <section class="sistema-nosql">
+      <h2>🗄️ Sistema NoSQL - FuriaDaNoitePlay</h2>
+      <div class="status-nosql" id="statusNosql">
+        🔄 Conectando ao banco de dados...
+      </div>
+      <button class="btn-social" onclick="verEstatisticas()">
+        📊 Ver Estatísticas
+      </button>
+    </section>
+
+    <!-- ====== MEMBROS DESTAQUE ====== -->
+    <section class="adm-box">
+      <h2>🌟 Membros Destaque</h2>
+      <div class="membros-grid">
+        <!-- SUA IRMÃ COM COR ROSA NEON ESPECIAL -->
+        <div class="membro-item membro-especial">
+          <div class="membro-img">
+            👑 IRMÃ
+          </div>
+          <div class="membro-nome">
+            Princesa da Fúria
+          </div>
+        </div>
+
+        <div class="membro-item">
+          <div class="membro-img">
+            🦂 SCORPION
+          </div>
+          <div class="membro-nome">
+            Scorpion Game
+          </div>
+        </div>
+
+        <div class="membro-item">
+          <div class="membro-img">
+            ⚡ TOXIC
+          </div>
+          <div class="membro-nome">
+            ToxicSkull√
+          </div>
+        </div>
+
+        <div class="membro-item">
+          <div class="membro-img">
+            👑 SON KING
+          </div>
+          <div class="membro-nome">
+            ༄Son_king
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ====== REDES SOCIAIS ====== -->
     <div class="redes-sociais">
       <div class="quadrado-social instagram">
@@ -603,7 +693,6 @@
         </a>
       </div>
 
-      <!-- NOVO QUADRADO TRUCU -->
       <div class="quadrado-social" onclick="window.location.href='TRUCU.html'">
         <i class="fas fa-gamepad"></i>
         <h3>🎴 TRUCU 4x4</h3>
@@ -631,14 +720,6 @@
     <!-- ====== PLAYER FRØN MUSIC ====== -->
     <section class="player-musica">
       <h2>🎵 FRØN PLAYMUSIC</h2>
-      
-      <div class="player-header">
-        <div style="position: relative;">
-          <img id="capaAtual" src="musicaT.png" alt="Capa da Música" class="capa-musica">
-          <div class="texto-capa">FRØN<br>MUSIC</div>
-        </div>
-      </div>
-      
       <div class="controles-musica">
         <button class="btn-musica" onclick="pausarMusica()">
           <i class="fas fa-pause"></i>
@@ -651,7 +732,6 @@
         </button>
       </div>
       
-      <!-- QUADRADO DO VÍDEO QUE APARECE QUANDO CLICA EM PLAY -->
       <div class="video-musica" id="videoMusica">
         <iframe 
           src="https://www.youtube.com/embed/0hWm967g3M4?si=wte2G_ucehMpkK6L" 
@@ -687,95 +767,4 @@
   </footer>
 
   <!-- ====== BOTÃO FIXO ====== -->
-  <button class="botao-inicio" id="botaoInicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">🏠 Início</button>
-
-  <script>
-    // ===== SISTEMA NOSQL (LocalStorage) =====
-    class FuriaNoSQL {
-      constructor() {
-        this.dbName = 'FuriaDaNoitePlayDB';
-        this.init();
-      }
-
-      init() {
-        if (!localStorage.getItem(this.dbName)) {
-          // Dados iniciais do sistema
-          const initialData = {
-            usuarios: [],
-            configuracoes: {
-              tema: 'escuro',
-              musicaAutoPlay: false,
-              ultimoAcesso: new Date().toISOString()
-            },
-            estatisticas: {
-              visitas: 0,
-              cliques: 0
-            }
-          };
-          this.save(initialData);
-        }
-      }
-
-      save(data) {
-        localStorage.setItem(this.dbName, JSON.stringify(data));
-      }
-
-      load() {
-        const data = localStorage.getItem(this.dbName);
-        return data ? JSON.parse(data) : null;
-      }
-
-      update(key, value) {
-        const data = this.load();
-        data[key] = value;
-        this.save(data);
-      }
-
-      // Método específico para estatísticas
-      registrarVisita() {
-        const data = this.load();
-        data.estatisticas.visitas++;
-        data.configuracoes.ultimoAcesso = new Date().toISOString();
-        this.save(data);
-      }
-
-      registrarClique(botao) {
-        const data = this.load();
-        data.estatisticas.cliques++;
-        if (!data.estatisticas[boto]) {
-          data.estatisticas[boto] = 0;
-        }
-        data.estatisticas[boto]++;
-        this.save(data);
-      }
-    }
-
-    // Inicializar sistema NoSQL
-    const furiaDB = new FuriaNoSQL();
-
-    // ===== ANIMAÇÃO DE INICIAÇÃO =====
-    document.addEventListener('DOMContentLoaded', function() {
-      // Registrar visita
-      furiaDB.registrarVisita();
-
-      const telaIniciacao = document.getElementById('telaIniciacao');
-      const logoGrande = document.getElementById('logoGrande');
-      const header = document.getElementById('header');
-      const mainContent = document.getElementById('mainContent');
-      const footer = document.getElementById('footer');
-      const btnWhatsapp = document.getElementById('btnWhatsapp');
-      const botaoInicio = document.getElementById('botaoInicio');
-
-      setTimeout(() => {
-        // Iniciar animação da logo
-        logoGrande.style.width = '80px';
-        logoGrande.style.height = '80px';
-        logoGrande.style.marginTop = '-200px';
-
-        setTimeout(() => {
-          // Esconder tela de iniciação e mostrar conteúdo
-          telaIniciacao.style.opacity = '0';
-          
-          setTimeout(() => {
-            telaIniciacao.style.display = 'none';
-            header.classList.add
+  <button class="botao-inicio" id="botao
