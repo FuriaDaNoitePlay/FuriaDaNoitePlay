@@ -1,1 +1,770 @@
-g
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔥 FuriaDaNoitePlay 🔥</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET E CONFIGURAÇÕES GERAIS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --vermelho-furia: #ff0000;
+      --vermelho-escuro: #cc0000;
+      --roxo-fron: #8a2be2;
+      --azul-fron: #0000ff;
+      --verde-adm: #00ff00;
+      --preto: #0c0c0c;
+      --cinza-escuro: #1a1a2e;
+      --rosa-neon: #ff0066;
+    }
+    
+    body {
+      background: linear-gradient(135deg, var(--preto) 0%, var(--cinza-escuro) 50%, #16213e 100%);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      min-height: 100vh;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* ===== TELA DE INICIAÇÃO ===== */
+    .tela-iniciacao {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, var(--preto) 0%, var(--cinza-escuro) 50%, #16213e 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .logo-grande {
+      width: 300px;
+      height: 300px;
+      border-radius: 20px;
+      box-shadow: 0 0 60px var(--vermelho-furia);
+      animation: pulse 2s infinite;
+    }
+
+    .carregando {
+      color: var(--vermelho-furia);
+      font-size: 20px;
+      margin-top: 30px;
+      text-shadow: 0 0 15px var(--vermelho-furia);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* ===== CABEÇALHO ===== */
+    header {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 15px 0;
+      border-bottom: 2px solid var(--vermelho-furia);
+      box-shadow: 0 0 25px var(--vermelho-furia);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: none;
+    }
+
+    header.visivel {
+      display: block;
+    }
+
+    .logo-pequena {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px var(--vermelho-furia);
+      margin: 0 auto;
+      display: block;
+    }
+
+    .titulo {
+      color: var(--vermelho-furia);
+      font-size: 24px;
+      text-transform: uppercase;
+      text-shadow: 0 0 25px var(--vermelho-furia);
+      margin: 10px 0;
+    }
+
+    /* ===== MENU ===== */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      background: rgba(255, 0, 0, 0.1);
+      border: 2px solid var(--vermelho-furia);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 0 15px var(--vermelho-furia);
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: var(--vermelho-furia);
+      color: #000;
+      box-shadow: 0 0 25px var(--vermelho-furia);
+      transform: translateY(-3px);
+    }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      display: none;
+    }
+
+    main.visivel {
+      display: block;
+    }
+
+    .texto-intro {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--vermelho-furia);
+      border-radius: 12px;
+      box-shadow: 0 0 25px var(--vermelho-furia);
+      padding: 25px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .texto-intro strong {
+      color: #ff4444;
+      text-shadow: 0 0 10px var(--vermelho-furia);
+    }
+
+    /* ===== SISTEMA NOSQL ===== */
+    .sistema-nosql {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--azul-fron);
+      border-radius: 12px;
+      box-shadow: 0 0 25px var(--azul-fron);
+      padding: 25px;
+      margin: 30px 0;
+    }
+
+    .status-nosql {
+      background: rgba(0, 0, 255, 0.2);
+      border: 1px solid var(--azul-fron);
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      color: var(--azul-fron);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ===== SISTEMA DE MEMBROS ===== */
+    .membros-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 25px;
+      padding: 30px;
+    }
+
+    .membro-item {
+      background: linear-gradient(145deg, #1a0000, #0a0000);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      border: 3px solid var(--vermelho-furia);
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .membro-especial {
+      border: 3px solid var(--rosa-neon);
+      box-shadow: 0 10px 30px rgba(255, 0, 102, 0.6);
+      background: linear-gradient(145deg, #2a001a, #1a000a);
+    }
+
+    .membro-img {
+      width: 100%;
+      height: 180px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      border: 3px solid var(--vermelho-furia);
+      background: linear-gradient(135deg, #330000, #660000, #990000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff6666;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .membro-especial .membro-img {
+      border: 3px solid var(--rosa-neon);
+      background: linear-gradient(135deg, #33001a, #660033, #99004d);
+    }
+
+    .membro-nome {
+      color: #ff3333;
+      font-weight: bold;
+      font-size: 1.1em;
+      text-shadow: 0 0 10px #ff0000;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 2px solid var(--vermelho-furia);
+    }
+
+    .membro-especial .membro-nome {
+      color: var(--rosa-neon);
+      text-shadow: 0 0 10px var(--rosa-neon);
+      border: 2px solid var(--rosa-neon);
+    }
+
+    .membro-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(255, 0, 0, 0.6);
+    }
+
+    /* ===== SEÇÃO DE REDES SOCIAIS ===== */
+    .redes-sociais {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .quadrado-social {
+      width: 100%;
+      height: 280px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid var(--vermelho-furia);
+      border-radius: 15px;
+      box-shadow: 0 0 20px var(--vermelho-furia);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .quadrado-social:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px var(--vermelho-furia);
+    }
+
+    .quadrado-social i {
+      font-size: 50px;
+      margin-bottom: 15px;
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 15px var(--vermelho-furia);
+    }
+
+    .quadrado-social.instagram i {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .quadrado-social.tiktok i {
+      color: #000;
+      text-shadow: 0 0 15px #00f2ea, 0 0 15px #ff0050;
+    }
+
+    .quadrado-social h3 {
+      color: #fff;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .quadrado-social p {
+      color: #ccc;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .btn-social {
+      background: linear-gradient(135deg, var(--vermelho-furia), var(--vermelho-escuro));
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-social:hover {
+      background: linear-gradient(135deg, var(--vermelho-escuro), var(--vermelho-furia));
+      box-shadow: 0 0 15px var(--vermelho-furia);
+      transform: scale(1.05);
+    }
+
+    /* ===== SEÇÃO DE VÍDEO ===== */
+    .video-box {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--vermelho-furia);
+      border-radius: 12px;
+      box-shadow: 0 0 25px var(--vermelho-furia);
+      padding: 25px;
+      margin: 40px 0;
+    }
+
+    .titulo-video {
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 20px var(--vermelho-furia);
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 350px;
+      margin: 0 auto;
+    }
+
+    iframe {
+      width: 100%;
+      height: 620px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px var(--vermelho-furia);
+    }
+
+    /* ===== PLAYER DE MÚSICA ===== */
+    .player-musica {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--vermelho-furia);
+      border-radius: 12px;
+      box-shadow: 0 0 25px var(--vermelho-furia);
+      padding: 25px;
+      margin: 40px 0;
+    }
+
+    .player-musica h2 {
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 20px var(--vermelho-furia);
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .controles-musica {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .btn-musica {
+      background: linear-gradient(135deg, var(--vermelho-furia), var(--vermelho-escuro));
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-musica:hover {
+      background: linear-gradient(135deg, var(--vermelho-escuro), var(--vermelho-furia));
+      box-shadow: 0 0 15px var(--vermelho-furia);
+      transform: scale(1.1);
+    }
+
+    .video-musica {
+      margin-top: 25px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 15px var(--vermelho-furia);
+      display: none;
+      max-width: 560px;
+      margin: 25px auto 0;
+    }
+
+    .video-musica.ativo {
+      display: block;
+    }
+
+    .video-musica iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: 10px;
+    }
+
+    /* ===== BOTÃO WHATSAPP ===== */
+    .btn-whatsapp {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      box-shadow: 0 0 20px #25D366;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: none;
+    }
+
+    .btn-whatsapp.visivel {
+      display: flex;
+    }
+
+    .btn-whatsapp:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px #25D366;
+    }
+
+    /* ===== EQUIPE ADM ===== */
+    .adm-box {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--vermelho-furia);
+      border-radius: 12px;
+      box-shadow: 0 0 25px var(--vermelho-furia);
+      padding: 25px;
+      margin-bottom: 40px;
+    }
+
+    .adm-box h2 {
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 20px var(--vermelho-furia);
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .adm-box ul {
+      list-style: none;
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .adm-box li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+    }
+
+    .adm-box strong {
+      color: #ff4444;
+      text-shadow: 0 0 10px var(--vermelho-furia);
+    }
+
+    /* ===== RODAPÉ ===== */
+    footer {
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 15px var(--vermelho-furia);
+      border-top: 2px solid var(--vermelho-furia);
+      padding: 20px;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.9);
+      margin-top: 40px;
+      display: none;
+    }
+
+    footer.visivel {
+      display: block;
+    }
+
+    .destaque {
+      color: #FFD700;
+      text-shadow: 0 0 20px #FFD700;
+    }
+
+    .assinatura {
+      color: var(--vermelho-furia);
+      text-shadow: 0 0 10px var(--vermelho-furia);
+    }
+
+    /* ===== BOTÃO INÍCIO ===== */
+    .botao-inicio {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #FFD700;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 0 25px #FFD700;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 999;
+      display: none;
+    }
+
+    .botao-inicio.visivel {
+      display: block;
+    }
+
+    .botao-inicio:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px #FFD700;
+    }
+
+    /* ===== RESPONSIVIDADE ===== */
+    @media (max-width: 768px) {
+      .logo-grande {
+        width: 250px;
+        height: 250px;
+      }
+      
+      .redes-sociais {
+        grid-template-columns: 1fr;
+      }
+      
+      .quadrado-social {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+      
+      iframe {
+        height: 500px;
+      }
+      
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      nav a {
+        width: 80%;
+        text-align: center;
+      }
+
+      .membros-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;
+      }
+      
+      .membro-img {
+        height: 160px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ====== TELA DE CARREGAMENTO ====== -->
+  <div class="tela-iniciacao">
+    <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo-grande">
+    <div class="carregando">Carregando...</div>
+  </div>
+
+  <!-- ====== CABEÇALHO ====== -->
+  <header id="header">
+    <img src="fúria.png" alt="Logo Fúria da Noite" class="logo-pequena">
+    <h1 class="titulo">🌕 FuriaDaNoitePlay 🌕</h1>
+    <nav>
+      <a href="FR0N.html">FRØN</a>
+      <a href="agente.html">Agentes Da Noite</a>
+      <a href="campeonato.html">Campeonato</a>
+      <a href="regras.html">Regras</a>
+      <a href="login.html">Login</a>
+      <a href="TRUCU.html">🎴 TRUCU</a>
+    </nav>
+  </header>
+
+  <!-- ====== CONTEÚDO PRINCIPAL ====== -->
+  <main id="mainContent">
+    <section class="texto-intro">
+      <p>
+        Seja bem-vindo ao clã <strong>Fúria!</strong><br>
+        Aqui somos competitivos e casuais, unidos pela paixão pelo jogo e pela amizade.<br>
+        Venha fazer parte da Fúria, onde estamos sempre online, juntos com a Lua.<br><br>
+        Eles pensaram que a Lua seria deles... mas quando ela revela sua verdadeira face,<br>
+        a escuridão surge com toda a sua força.<br><br>
+        Prepare-se para entrar na <strong>FuriaDaNoitePlay</strong> e mostrar que aqui,
+        quem manda é a verdadeira fúria!
+      </p>
+    </section>
+
+    <!-- ====== SISTEMA NOSQL ====== -->
+    <section class="sistema-nosql">
+      <h2>🗄️ Sistema NoSQL - FuriaDaNoitePlay</h2>
+      <div class="status-nosql" id="statusNosql">
+        🔄 Conectando ao banco de dados...
+      </div>
+      <button class="btn-social" onclick="verEstatisticas()">
+        📊 Ver Estatísticas
+      </button>
+    </section>
+
+    <!-- ====== MEMBROS DESTAQUE ====== -->
+    <section class="adm-box">
+      <h2>🌟 Membros Destaque</h2>
+      <div class="membros-grid">
+        <!-- SUA IRMÃ COM COR ROSA NEON ESPECIAL -->
+        <div class="membro-item membro-especial">
+          <div class="membro-img">
+            👑 IRMÃ
+          </div>
+          <div class="membro-nome">
+            Princesa da Fúria
+          </div>
+        </div>
+
+        <div class="membro-item">
+          <div class="membro-img">
+            🦂 SCORPION
+          </div>
+          <div class="membro-nome">
+            Scorpion Game
+          </div>
+        </div>
+
+        <div class="membro-item">
+          <div class="membro-img">
+            ⚡ TOXIC
+          </div>
+          <div class="membro-nome">
+            ToxicSkull√
+          </div>
+        </div>
+
+        <div class="membro-item">
+          <div class="membro-img">
+            👑 SON KING
+          </div>
+          <div class="membro-nome">
+            ༄Son_king
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== REDES SOCIAIS ====== -->
+    <div class="redes-sociais">
+      <div class="quadrado-social instagram">
+        <i class="fab fa-instagram"></i>
+        <h3>Instagram FRØN</h3>
+        <p>Confira nossas últimas postagens e novidades</p>
+        <a href="https://www.instagram.com/p/DQy5viLDpyP/?igsh=MW1lZjlzZTNwdmh6MQ==" target="_blank" class="btn-social">
+          Ver Postagem
+        </a>
+      </div>
+      
+      <div class="quadrado-social tiktok">
+        <i class="fab fa-tiktok"></i>
+        <h3>TikTok FRØN</h3>
+        <p>Vídeos curtos e conteúdos exclusivos</p>
+        <a href="https://vt.tiktok.com/ZSyQnRjDM/" target="_blank" class="btn-social">
+          Ver TikTok
+        </a>
+      </div>
+
+      <div class="quadrado-social" onclick="window.location.href='TRUCU.html'">
+        <i class="fas fa-gamepad"></i>
+        <h3>🎴 TRUCU 4x4</h3>
+        <p>Jogo de cartas multiplayer competitivo</p>
+        <button class="btn-social" onclick="window.location.href='TRUCU.html'">
+          JOGAR AGORA
+        </button>
+      </div>
+    </div>
+
+    <!-- ====== VÍDEO SEÇÃO ====== -->
+    <section class="video-box">
+      <h2 class="titulo-video">🎬 Destaque da Semana</h2>
+      <div class="video-container">
+        <iframe width="350" height="620"
+          src="https://www.youtube.com/embed/H6_nnRecvv4"
+          title="Short - FúriaDaNoitePlay"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- ====== PLAYER FRØN MUSIC ====== -->
+    <section class="player-musica">
+      <h2>🎵 FRØN PLAYMUSIC</h2>
+      <div class="controles-musica">
+        <button class="btn-musica" onclick="pausarMusica()">
+          <i class="fas fa-pause"></i>
+        </button>
+        <button class="btn-musica" onclick="tocarMusica()" id="btnPlay">
+          <i class="fas fa-play"></i>
+        </button>
+        <button class="btn-musica" onclick="pararMusica()">
+          <i class="fas fa-stop"></i>
+        </button>
+      </div>
+      
+      <div class="video-musica" id="videoMusica">
+        <iframe 
+          src="https://www.youtube.com/embed/0hWm967g3M4?si=wte2G_ucehMpkK6L" 
+          title="FRØN MUSIC" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- ====== EQUIPE ADM ====== -->
+    <section class="adm-box">
+      <h2>👑 Equipe ADM — FuriaDaNoitePlay</h2>
+      <ul>
+        <li><strong>@ToxicSkull√</strong> — "A noite brilha sob nossa fúria." 🌙🔥</li>
+        <li><strong>Scorpion Game</strong> — "Veneno no foco, vitória na mira." 🦂</li>
+        <li><strong>NeferpitouI</strong> — "Caos e controle na mesma energia." 💫</li>
+        <li><strong>༄Son_king</strong> — "Rei das sombras, dono da noite." 👑</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- ====== BOTÃO WHATSAPP ====== -->
+  <a href="https://wa.me/553197319008" target="_blank" class="btn-whatsapp" id="btnWhatsapp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- ====== RODAPÉ ====== -->
+  <footer id="footer">
+    <p>© 2025 <span class="destaque">FuriaDaNoitePlay</span> — 
+    <span class="assinatura">@ToxicSkull√</span></p>
+  </footer>
+
+  <!-- ====== BOTÃO FIXO ====== -->
+  <button class="botao-inicio" id="botaoInicio" onclick="voltarAoTopo()">⬆️ Início</button>
+
