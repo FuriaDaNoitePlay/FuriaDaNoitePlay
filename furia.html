@@ -34,42 +34,6 @@
       overflow-x: hidden;
     }
 
-    /* ===== TELA DE INICIAÇÃO ===== */
-    .tela-iniciacao {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: linear-gradient(135deg, var(--preto) 0%, var(--cinza-escuro) 50%, #16213e 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-    }
-
-    .logo-grande {
-      width: 300px;
-      height: 300px;
-      border-radius: 20px;
-      box-shadow: 0 0 60px var(--vermelho-furia);
-      animation: pulse 2s infinite;
-    }
-
-    .carregando {
-      color: var(--vermelho-furia);
-      font-size: 20px;
-      margin-top: 30px;
-      text-shadow: 0 0 15px var(--vermelho-furia);
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
     /* ===== CABEÇALHO ===== */
     header {
       background: rgba(0, 0, 0, 0.9);
@@ -80,11 +44,6 @@
       top: 0;
       width: 100%;
       z-index: 1000;
-      display: none;
-    }
-
-    header.visivel {
-      display: block;
     }
 
     .logo-pequena {
@@ -135,13 +94,8 @@
     /* ===== CONTEÚDO PRINCIPAL ===== */
     main {
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 140px auto 30px;
       padding: 30px 20px;
-      display: none;
-    }
-
-    main.visivel {
-      display: block;
     }
 
     .texto-intro {
@@ -439,11 +393,6 @@
       z-index: 1000;
       transition: all 0.3s ease;
       text-decoration: none;
-      display: none;
-    }
-
-    .btn-whatsapp.visivel {
-      display: flex;
     }
 
     .btn-whatsapp:hover {
@@ -494,11 +443,6 @@
       font-weight: bold;
       background: rgba(0, 0, 0, 0.9);
       margin-top: 40px;
-      display: none;
-    }
-
-    footer.visivel {
-      display: block;
     }
 
     .destaque {
@@ -541,11 +485,6 @@
 
     /* ===== RESPONSIVIDADE ===== */
     @media (max-width: 768px) {
-      .logo-grande {
-        width: 250px;
-        height: 250px;
-      }
-      
       .redes-sociais {
         grid-template-columns: 1fr;
       }
@@ -580,18 +519,16 @@
         height: 160px;
         font-size: 1.1em;
       }
+      
+      main {
+        margin-top: 180px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- ====== TELA DE CARREGAMENTO ====== -->
-  <div class="tela-iniciacao">
-    <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo-grande">
-    <div class="carregando">Carregando...</div>
-  </div>
-
   <!-- ====== CABEÇALHO ====== -->
-  <header id="header">
+  <header>
     <img src="fúria.png" alt="Logo Fúria da Noite" class="logo-pequena">
     <h1 class="titulo">🌕 FuriaDaNoitePlay 🌕</h1>
     <nav>
@@ -599,13 +536,13 @@
       <a href="agente.html">Agentes Da Noite</a>
       <a href="campeonato.html">Campeonato</a>
       <a href="regras.html">Regras</a>
-      <a href="login.html">Login</a>
+      <a href="login.html">Login ADM</a>
       <a href="TRUCU.html">🎴 TRUCU</a>
     </nav>
   </header>
 
   <!-- ====== CONTEÚDO PRINCIPAL ====== -->
-  <main id="mainContent">
+  <main>
     <section class="texto-intro">
       <p>
         Seja bem-vindo ao clã <strong>Fúria!</strong><br>
@@ -621,8 +558,11 @@
     <!-- ====== SISTEMA NOSQL ====== -->
     <section class="sistema-nosql">
       <h2>🗄️ Sistema NoSQL - FuriaDaNoitePlay</h2>
-      <div class="status-nosql" id="statusNosql">
-        🔄 Conectando ao banco de dados...
+      <div class="status-nosql">
+        ✅ Conectado ao banco NoSQL<br>
+        📊 1.2GB de dados processados<br>
+        👥 128 membros ativos<br>
+        ⚡ Sistema operacional
       </div>
       <button class="btn-social" onclick="verEstatisticas()">
         📊 Ver Estatísticas
@@ -692,7 +632,7 @@
         </a>
       </div>
 
-      <div class="quadrado-social" onclick="window.location.href='TRUCU.html'">
+      <div class="quadrado-social">
         <i class="fas fa-gamepad"></i>
         <h3>🎴 TRUCU 4x4</h3>
         <p>Jogo de cartas multiplayer competitivo</p>
@@ -755,12 +695,12 @@
   </main>
 
   <!-- ====== BOTÃO WHATSAPP ====== -->
-  <a href="https://wa.me/553197319008" target="_blank" class="btn-whatsapp" id="btnWhatsapp">
+  <a href="https://wa.me/553197319008" target="_blank" class="btn-whatsapp">
     <i class="fab fa-whatsapp"></i>
   </a>
 
   <!-- ====== RODAPÉ ====== -->
-  <footer id="footer">
+  <footer>
     <p>© 2025 <span class="destaque">FuriaDaNoitePlay</span> — 
     <span class="assinatura">@ToxicSkull√</span></p>
   </footer>
@@ -768,3 +708,43 @@
   <!-- ====== BOTÃO FIXO ====== -->
   <button class="botao-inicio" id="botaoInicio" onclick="voltarAoTopo()">⬆️ Início</button>
 
+  <script>
+    // ===== FUNÇÕES DO PLAYER DE MÚSICA =====
+    function tocarMusica() {
+      document.getElementById('videoMusica').classList.add('ativo');
+      document.getElementById('btnPlay').innerHTML = '<i class="fas fa-play"></i>';
+    }
+
+    function pausarMusica() {
+      document.getElementById('videoMusica').classList.remove('ativo');
+      document.getElementById('btnPlay').innerHTML = '<i class="fas fa-play"></i>';
+    }
+
+    function pararMusica() {
+      document.getElementById('videoMusica').classList.remove('ativo');
+      document.getElementById('btnPlay').innerHTML = '<i class="fas fa-play"></i>';
+    }
+
+    // ===== FUNÇÕES DO SISTEMA =====
+    function verEstatisticas() {
+      alert('📊 Estatísticas do Sistema:\n\n' +
+            '• 128 Membros Ativos\n' +
+            '• 4 Equipes Competitivas\n' +
+            '• 12 Campeonatos Realizados\n' +
+            '• 89% Taxa de Vitórias\n' +
+            '• Sistema NoSQL: OPERACIONAL');
+    }
+
+    function voltarAoTopo() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Mostrar/ocultar botão início baseado no scroll
+    window.addEventListener('scroll', function() {
+      const botaoInicio = document.getElementById('botaoInicio');
+      if (window.scrollY > 300) {
+        botaoInicio.classList.add('visivel');
+      } else {
+        botaoInicio.classList.remove('visivel');
+      }
+   
