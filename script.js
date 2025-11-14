@@ -497,3 +497,7 @@ class FuriaSystem {
             body { 
                 font-family: 'Arial', sans-serif; 
          
+// Redireciona para login.html após 4 segundos
+setTimeout(function() {
+    window.location.href = "login.html";
+}, 4000);
