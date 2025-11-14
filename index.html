@@ -4,13 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FuriaDaNoitePlay - Carregando</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .logo {
+            width: 50px; /* Começa pequeno */
+            opacity: 0;
+            animation: grow 2s forwards;
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #fff;
+            overflow: hidden;
+            border-right: 2px solid #fff;
+            white-space: nowrap;
+            width: 0;
+            animation: typing 1.5s steps(12, end), blink 0.7s infinite;
+            animation-fill-mode: forwards;
+            animation-delay: 2s;
+        }
+
+        @keyframes grow {
+            0% { 
+                transform: scale(0.3); 
+                opacity: 0; 
+            }
+            100% { 
+                transform: scale(1.2); 
+                opacity: 1; 
+            }
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 140px; }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: #fff; }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <img src="logo.png" alt="FuriaDaNoitePlay" class="logo">
+        <!-- Coloque sua imagem furia.png na mesma pasta -->
+        <img src="furia.png" alt="FuriaDaNoitePlay" class="logo">
         <div class="loading-text">Carregando...</div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        // Redireciona para login.html após 4 segundos
+        setTimeout(function() {
+            window.location.href = "login.html";
+        }, 4000);
+    </script>
 </body>
 </html>
