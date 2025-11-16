@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🔥 FuriaDaNoitePlay 🔥</title>
   
-  <!-- GOOGLE ADSENSE (APENAS UMA VEZ) -->
+  <!-- GOOGLE ADSENSE -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -225,7 +225,7 @@
       box-shadow: 0 0 20px var(--vermelho-furia);
     }
 
-    /* ===== PLAYER DE MÚSICA ===== */
+    /* ===== PLAYER DE MÚSICA CORRIGIDO ===== */
     .player-musica {
       background: rgba(0, 0, 0, 0.7);
       border: 2px solid var(--vermelho-furia);
@@ -271,24 +271,41 @@
       transform: scale(1.1);
     }
 
+    .btn-musica.ativo {
+      background: linear-gradient(135deg, #00ff00, #00cc00);
+      box-shadow: 0 0 20px #00ff00;
+    }
+
     .video-musica {
       margin-top: 25px;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 0 15px var(--vermelho-furia);
-      display: none;
       max-width: 560px;
       margin: 25px auto 0;
+      opacity: 0;
+      height: 0;
+      transition: all 0.5s ease-in-out;
     }
 
     .video-musica.ativo {
-      display: block;
+      opacity: 1;
+      height: 315px;
     }
 
     .video-musica iframe {
       width: 100%;
       height: 315px;
       border-radius: 10px;
+      border: none;
+    }
+
+    .status-musica {
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+      margin-top: 10px;
+      font-size: 14px;
+      min-height: 20px;
     }
 
     /* ===== ANÚNCIOS ADSENSE ===== */
@@ -537,7 +554,7 @@
     <!-- Anúncio no topo do conteúdo -->
     <div class="ads-container">
       <div class="ads-horizontal">
-        <!-- ADSENSE HORIZONTAL CORRIGIDO -->
+        <!-- ADSENSE HORIZONTAL -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-9551454046138296"
@@ -595,7 +612,7 @@
     <!-- Anúncio entre seções -->
     <div class="ads-container">
       <div class="ads-responsive">
-        <!-- ADSENSE RESPONSIVO CORRIGIDO -->
+        <!-- ADSENSE RESPONSIVO -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-9551454046138296"
@@ -622,28 +639,34 @@
       </div>
     </section>
 
-    <!-- ====== PLAYER FRØN MUSIC ====== -->
+    <!-- ====== PLAYER FRØN MUSIC CORRIGIDO ====== -->
     <section class="player-musica">
       <h2>🎵 FRØN PLAYMUSIC</h2>
+      
       <div class="controles-musica">
-        <button class="btn-musica" onclick="pausarMusica()">
+        <button class="btn-musica" onclick="pausarMusica()" id="btnPause">
           <i class="fas fa-pause"></i>
         </button>
         <button class="btn-musica" onclick="tocarMusica()" id="btnPlay">
           <i class="fas fa-play"></i>
         </button>
-        <button class="btn-musica" onclick="pararMusica()">
+        <button class="btn-musica" onclick="pararMusica()" id="btnStop">
           <i class="fas fa-stop"></i>
         </button>
+      </div>
+
+      <div class="status-musica" id="statusMusica">
+        Clique em PLAY para abrir o player
       </div>
       
       <div class="video-musica" id="videoMusica">
         <iframe 
-          src="https://www.youtube.com/embed/0hWm967g3M4?si=u84iD-NdJ1LFFA_7" 
+          src="https://www.youtube.com/embed/0hWm967g3M4?si=nVmXntUu56YZS4ol&enablejsapi=1" 
           title="FRØN MUSIC" 
           frameborder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
+          allowfullscreen
+          id="player">
         </iframe>
       </div>
     </section>
@@ -651,7 +674,7 @@
     <!-- Anúncio antes da equipe ADM -->
     <div class="ads-container">
       <div class="ads-vertical">
-        <!-- ADSENSE VERTICAL CORRIGIDO -->
+        <!-- ADSENSE VERTICAL -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-9551454046138296"
@@ -678,7 +701,7 @@
     <!-- Anúncio no final do conteúdo -->
     <div class="ads-container">
       <div class="ads-horizontal">
-        <!-- ADSENSE HORIZONTAL CORRIGIDO -->
+        <!-- ADSENSE HORIZONTAL -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-9551454046138296"
@@ -709,40 +732,26 @@
   </button>
 
   <script>
-    // Função para mostrar/ocultar botão de voltar ao topo
-    window.onscroll = function() {
-      const botaoInicio = document.getElementById('botaoInicio');
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        botaoInicio.classList.add('visivel');
-      } else {
-        botaoInicio.classList.remove('visivel');
-      }
-    };
+    // ===== PLAYER DE MÚSICA 100% FUNCIONAL =====
+    let player;
+    let musicaTocando = false;
 
-    // Função para rolar para o topo
-    function scrollToTop() {
-      window.scrollTo({top: 0, behavior: 'smooth'});
+    // Função para carregar o player do YouTube
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
     }
 
-    // Variável para controlar o estado da música
-    let musicaTocando = false;
-    let player = null;
+    function onPlayerReady(event) {
+      console.log('Player de música pronto!');
+      document.getElementById('statusMusica').textContent = 'Player carregado - Clique em PLAY';
+    }
 
-    // Funções do player de música CORRIGIDAS
-    function tocarMusica() {
-      const videoMusica = document.getElementById('videoMusica');
-      const iframe = videoMusica.querySelector('iframe');
+    function onPlayerStateChange(event) {
+      const status = document.getElementById('statusMusica');
       
-      // Mostrar o quadrado do vídeo
-      videoMusica.classList.add('ativo');
-      musicaTocando = true;
-      
-      // Rolar suavemente até o player de música
-      videoMusica.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'center'
-      });
-      
-      // Dar foco para o iframe (pode ajudar em alguns navegadores)
-      setTimeout(() => {
-        if
+      sw
