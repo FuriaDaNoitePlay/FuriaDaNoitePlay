@@ -162,6 +162,11 @@
       text-shadow: 0 0 15px #00f2ea, 0 0 15px #ff0050;
     }
 
+    .quadrado-social.whatsapp i {
+      color: #25D366;
+      text-shadow: 0 0 15px #25D366;
+    }
+
     .quadrado-social h3 {
       color: #fff;
       margin-bottom: 10px;
@@ -225,7 +230,7 @@
       box-shadow: 0 0 20px var(--vermelho-furia);
     }
 
-    /* ===== PLAYER DE MÚSICA CORRIGIDO ===== */
+    /* ===== PLAYER DE MÚSICA FUNCIONAL ===== */
     .player-musica {
       background: rgba(0, 0, 0, 0.7);
       border: 2px solid var(--vermelho-furia);
@@ -271,11 +276,6 @@
       transform: scale(1.1);
     }
 
-    .btn-musica.ativo {
-      background: linear-gradient(135deg, #00ff00, #00cc00);
-      box-shadow: 0 0 20px #00ff00;
-    }
-
     .video-musica {
       margin-top: 25px;
       border-radius: 10px;
@@ -283,14 +283,6 @@
       box-shadow: 0 0 15px var(--vermelho-furia);
       max-width: 560px;
       margin: 25px auto 0;
-      opacity: 0;
-      height: 0;
-      transition: all 0.5s ease-in-out;
-    }
-
-    .video-musica.ativo {
-      opacity: 1;
-      height: 315px;
     }
 
     .video-musica iframe {
@@ -298,14 +290,6 @@
       height: 315px;
       border-radius: 10px;
       border: none;
-    }
-
-    .status-musica {
-      color: #00ff00;
-      text-shadow: 0 0 10px #00ff00;
-      margin-top: 10px;
-      font-size: 14px;
-      min-height: 20px;
     }
 
     /* ===== ANÚNCIOS ADSENSE ===== */
@@ -359,7 +343,7 @@
       font-size: 14px;
     }
 
-    /* ===== BOTÃO WHATSAPP ===== */
+    /* ===== BOTÃO WHATSAPP FLUTUANTE ===== */
     .btn-whatsapp {
       position: fixed;
       bottom: 100px;
@@ -439,7 +423,7 @@
       text-shadow: 0 0 10px var(--vermelho-furia);
     }
 
-    /* ===== BOTÃO INÍCIO ===== */
+    /* ===== BOTÃO INÍCIO AMARELO ===== */
     .botao-inicio {
       position: fixed;
       bottom: 30px;
@@ -599,13 +583,13 @@
         </a>
       </div>
 
-      <div class="quadrado-social" onclick="window.location.href='TRUCU.html'">
-        <i class="fas fa-gamepad"></i>
-        <h3>🎴 TRUCU 4x4</h3>
-        <p>Jogo de cartas multiplayer competitivo</p>
-        <button class="btn-social" onclick="window.location.href='TRUCU.html'">
-          JOGAR AGORA
-        </button>
+      <div class="quadrado-social whatsapp">
+        <i class="fab fa-whatsapp"></i>
+        <h3>Comunidade Fúria</h3>
+        <p>Entre no nosso grupo do WhatsApp e faça parte da família!</p>
+        <a href="https://chat.whatsapp.com/KcKzfjoMXCXDlTxPeNJQiQ" target="_blank" class="btn-social">
+          Entrar no Grupo
+        </a>
       </div>
     </div>
 
@@ -639,34 +623,30 @@
       </div>
     </section>
 
-    <!-- ====== PLAYER FRØN MUSIC CORRIGIDO ====== -->
+    <!-- ====== PLAYER FRØN MUSIC FUNCIONAL ====== -->
     <section class="player-musica">
       <h2>🎵 FRØN PLAYMUSIC</h2>
       
       <div class="controles-musica">
-        <button class="btn-musica" onclick="pausarMusica()" id="btnPause">
+        <button class="btn-musica" onclick="pausarMusica()">
           <i class="fas fa-pause"></i>
         </button>
-        <button class="btn-musica" onclick="tocarMusica()" id="btnPlay">
+        <button class="btn-musica" onclick="tocarMusica()">
           <i class="fas fa-play"></i>
         </button>
-        <button class="btn-musica" onclick="pararMusica()" id="btnStop">
+        <button class="btn-musica" onclick="pararMusica()">
           <i class="fas fa-stop"></i>
         </button>
       </div>
-
-      <div class="status-musica" id="statusMusica">
-        Clique em PLAY para abrir o player
-      </div>
       
       <div class="video-musica" id="videoMusica">
+        <!-- MÚSICA COMEÇA AUTOMATICAMENTE -->
         <iframe 
-          src="https://www.youtube.com/embed/0hWm967g3M4?si=nVmXntUu56YZS4ol&enablejsapi=1" 
+          src="https://www.youtube.com/embed/0hWm967g3M4?si=nVmXntUu56YZS4ol&autoplay=1" 
           title="FRØN MUSIC" 
           frameborder="0" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen
-          id="player">
+          allowfullscreen>
         </iframe>
       </div>
     </section>
@@ -715,7 +695,7 @@
     </div>
   </main>
 
-  <!-- ====== BOTÃO WHATSAPP ====== -->
+  <!-- ====== BOTÃO WHATSAPP FLUTUANTE ====== -->
   <a href="https://wa.me/553197319008" target="_blank" class="btn-whatsapp" id="btnWhatsapp">
     <i class="fab fa-whatsapp"></i>
   </a>
@@ -726,32 +706,36 @@
     <span class="assinatura">@ToxicSkull√</span></p>
   </footer>
 
-  <!-- ====== BOTÃO FIXO ====== -->
+  <!-- ====== BOTÃO INÍCIO AMARELO ====== -->
   <button class="botao-inicio" id="botaoInicio" onclick="scrollToTop()">
     <i class="fas fa-arrow-up"></i> Início
   </button>
 
   <script>
-    // ===== PLAYER DE MÚSICA 100% FUNCIONAL =====
-    let player;
-    let musicaTocando = false;
-
-    // Função para carregar o player do YouTube
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-
-    function onPlayerReady(event) {
-      console.log('Player de música pronto!');
-      document.getElementById('statusMusica').textContent = 'Player carregado - Clique em PLAY';
-    }
-
-    function onPlayerStateChange(event) {
-      const status = document.getElementById('statusMusica');
+    // ===== PLAYER DE MÚSICA SIMPLES E FUNCIONAL =====
+    function tocarMusica() {
+      const videoMusica = document.getElementById('videoMusica');
+      const iframe = videoMusica.querySelector('iframe');
       
-      sw
+      // Recarregar o iframe para tocar
+      iframe.src = iframe.src.replace('&autoplay=0', '') + '&autoplay=1';
+    }
+
+    function pausarMusica() {
+      const iframe = document.querySelector('#videoMusica iframe');
+      iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+    }
+
+    function pararMusica() {
+      const iframe = document.querySelector('#videoMusica iframe');
+      iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+    }
+
+    // ===== FUNÇÕES GERAIS DO SITE =====
+    // Botão voltar ao topo
+    window.onscroll = function() {
+      const botaoInicio = document.getElementById('botaoInicio');
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        botaoInicio.classList.add('visivel');
+      } else {
+        botaoI
