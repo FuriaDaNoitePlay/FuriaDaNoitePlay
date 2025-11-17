@@ -3,58 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistema</title>
+    <title>Login - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --vermelho-neon: #ff0000;
+            --vermelho-escuro: #cc0000;
+            --amarelo-neon: #FFD700;
+            --verde-neon: #00ff00;
+            --azul-neon: #0066ff;
+            --roxo-neon: #8A2BE2;
+            --preto: #000000;
+            --preto-escuro: #0a0a0a;
+            --branco: #ffffff;
         }
         
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0000 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            color: var(--branco);
         }
         
         .container {
             display: flex;
             max-width: 1000px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            border: 3px solid var(--vermelho-neon);
         }
         
         .image-section {
             flex: 1;
-            background: linear-gradient(135deg, #ff0000 0%, #cc0000 50%, #990000 100%);
+            background: linear-gradient(135deg, var(--vermelho-neon) 0%, var(--vermelho-escuro) 50%, #990000 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 30px;
             position: relative;
+            overflow: hidden;
         }
         
         .image-section::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 0, 0, 0.3);
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: brilho 8s linear infinite;
+        }
+
+        @keyframes brilho {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .logo {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             text-align: center;
             color: white;
         }
@@ -63,120 +85,173 @@
             width: 150px;
             height: 150px;
             border-radius: 20px;
-            box-shadow: 0 0 30px #ff0000;
+            box-shadow: 0 0 30px var(--vermelho-neon);
             margin-bottom: 20px;
             border: 3px solid white;
+            background: white;
+            padding: 10px;
         }
         
         .logo h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            color: white;
+            text-shadow: 0 0 20px var(--vermelho-neon);
+            color: var(--amarelo-neon);
         }
         
         .logo p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.9;
-            color: white;
+            color: var(--branco);
+            text-shadow: 0 0 10px var(--vermelho-neon);
         }
         
         .login-section {
             flex: 1;
             padding: 40px;
-            background: white;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
         }
         
         .login-section h2 {
-            color: #ff0000;
+            color: var(--amarelo-neon);
             margin-bottom: 30px;
             text-align: center;
-            font-size: 1.8rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            font-size: 2rem;
+            text-shadow: 0 0 15px var(--amarelo-neon);
+            border-bottom: 2px solid var(--vermelho-neon);
+            padding-bottom: 15px;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--amarelo-neon);
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--amarelo-neon);
+            font-size: 1.1rem;
         }
         
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px 18px;
+            border: 2px solid var(--vermelho-neon);
+            border-radius: 12px;
+            background: rgba(255, 0, 0, 0.1);
+            color: white;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 
+                inset 0 2px 10px rgba(0, 0, 0, 0.3),
+                0 0 15px rgba(255, 0, 0, 0.2);
         }
         
         .form-group input:focus {
-            border-color: #ff0000;
-            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
             outline: none;
+            border-color: var(--amarelo-neon);
+            box-shadow: 
+                inset 0 2px 10px rgba(0, 0, 0, 0.3),
+                0 0 25px var(--amarelo-neon);
+            background: rgba(255, 215, 0, 0.1);
+            transform: scale(1.02);
         }
         
         .btn-container {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
             margin-top: 30px;
         }
         
         .btn {
-            padding: 12px;
+            padding: 16px;
             border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: 600;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
         }
         
         .btn-login {
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            color: white;
+            background: linear-gradient(135deg, var(--vermelho-neon), var(--vermelho-escuro));
+            color: var(--preto);
+            box-shadow: 
+                0 5px 25px rgba(255, 0, 0, 0.4),
+                0 0 30px rgba(255, 0, 0, 0.3);
         }
         
         .btn-login:hover {
-            background: linear-gradient(135deg, #cc0000, #ff0000);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 8px 35px rgba(255, 0, 0, 0.6),
+                0 0 40px rgba(255, 0, 0, 0.4);
         }
         
         .btn-register {
-            background: linear-gradient(135deg, #e94560, #d63031);
-            color: white;
+            background: linear-gradient(135deg, var(--verde-neon), #00cc00);
+            color: var(--preto);
+            box-shadow: 
+                0 5px 25px rgba(0, 255, 0, 0.4),
+                0 0 30px rgba(0, 255, 0, 0.3);
         }
         
         .btn-register:hover {
-            background: linear-gradient(135deg, #d63031, #e94560);
-            box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 8px 35px rgba(0, 255, 0, 0.6),
+                0 0 40px rgba(0, 255, 0, 0.4);
         }
         
         .btn-visitante {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: white;
+            background: linear-gradient(135deg, var(--amarelo-neon), #ffaa00);
+            color: var(--preto);
+            box-shadow: 
+                0 5px 25px rgba(255, 215, 0, 0.4),
+                0 0 30px rgba(255, 215, 0, 0.3);
         }
         
         .btn-visitante:hover {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-            box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 8px 35px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(255, 215, 0, 0.4);
         }
         
         .forgot-password {
             text-align: right;
-            margin-top: 10px;
+            margin-top: 15px;
         }
         
         .forgot-password a {
-            color: #ff0000;
+            color: var(--vermelho-neon);
             text-decoration: none;
             font-size: 0.9rem;
+            text-shadow: 0 0 8px var(--vermelho-neon);
         }
         
         .forgot-password a:hover {
@@ -184,38 +259,43 @@
         }
         
         .message {
-            padding: 10px;
+            padding: 15px;
             margin-bottom: 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             text-align: center;
             display: none;
+            font-weight: bold;
         }
         
         .error {
-            background: #ffe6e6;
-            color: #ff0000;
-            border: 1px solid #ff0000;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.1));
+            border: 2px solid #ff4444;
+            color: #ff4444;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
         }
         
         .success {
-            background: #e6ffe6;
-            color: #2ecc71;
-            border: 1px solid #2ecc71;
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.1));
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3);
         }
         
         .adm-info {
             margin-top: 30px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            border-left: 4px solid #ff0000;
+            padding: 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--vermelho-neon);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
         }
         
         .adm-info h3 {
-            color: #ff0000;
+            color: var(--amarelo-neon);
             margin-bottom: 10px;
             font-size: 1rem;
+            text-shadow: 0 0 8px var(--amarelo-neon);
         }
         
         .adm-info ul {
@@ -225,6 +305,31 @@
         
         .adm-info li {
             margin-bottom: 5px;
+            color: var(--branco);
+        }
+        
+        .login-types {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .type-btn {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid var(--vermelho-neon);
+            border-radius: 8px;
+            color: var(--branco);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .type-btn.active {
+            background: var(--vermelho-neon);
+            color: var(--preto);
+            font-weight: bold;
         }
         
         @media (max-width: 768px) {
@@ -240,6 +345,10 @@
                 width: 100px;
                 height: 100px;
             }
+            
+            .login-section {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
@@ -250,7 +359,7 @@
                 <!-- IMAGEM FÚRIA.PNG ADICIONADA -->
                 <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo-img">
                 <h1>👑 FuriaDaNoitePlay</h1>
-                <p>Sistema Administrativo</p>
+                <p>Sistema de Login</p>
             </div>
         </div>
         
@@ -259,107 +368,211 @@
             
             <div id="message" class="message"></div>
             
+            <!-- Seleção de tipo de login -->
+            <div class="login-types">
+                <div class="type-btn active" onclick="selecionarTipo('adm')">👑 ADM</div>
+                <div class="type-btn" onclick="selecionarTipo('membro')">👤 MEMBRO</div>
+                <div class="type-btn" onclick="selecionarTipo('equipe')">🏆 EQUIPE</div>
+            </div>
+            
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="email">Email ID</label>
-                    <input type="text" id="email" name="email" placeholder="Digite seu usuário" required>
+                    <label for="username" id="usernameLabel">👑 Usuário ADM</label>
+                    <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">🔒 Senha</label>
                     <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
                 </div>
                 
                 <div class="forgot-password">
-                    <a href="#" id="forgotPassword">Forgot Password?</a>
+                    <a href="#" id="forgotPassword">Esqueci minha senha</a>
                 </div>
                 
                 <div class="btn-container">
-                    <button type="submit" class="btn btn-login">LOGIN</button>
-                    <button type="button" class="btn btn-register" id="registerBtn">REGISTER</button>
-                    <button type="button" class="btn btn-visitante" id="visitanteBtn">SOU VISITANTE</button>
+                    <button type="submit" class="btn btn-login">🎯 ENTRAR NO SISTEMA</button>
+                    <button type="button" class="btn btn-register" onclick="window.location.href='cadastro.html'">
+                        📝 FAZER CADASTRO
+                    </button>
+                    <button type="button" class="btn btn-visitante" onclick="window.location.href='furia.html'">
+                        👁️ SOU VISITANTE
+                    </button>
                 </div>
             </form>
             
             <div class="adm-info">
                 <h3>👑 ADMs AUTORIZADOS - FuriaDaNoitePlay</h3>
                 <ul>
-                    <li><strong>ADM SUPREMO:</strong> Acesso Restrito</li>
-                    <li><strong>ADMs GERAIS:</strong> Acesso Restrito</li>
-                    <li><strong>USUÁRIO SUPREMO:</strong> Acesso Restrito</li>
+                    <li><strong>ADM SUPREMO:</strong> FURIAGOD</li>
+                    <li><strong>ADMs GERAIS:</strong> Scorpion, .Son King, NeferpitouI, PNTS, ToxicSkull√</li>
+                    <li><strong>MEMBROS:</strong> Cadastro automático após registro</li>
+                    <li><strong>EQUIPES:</strong> Cadastro automático após inscrição</li>
                 </ul>
             </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('loginForm');
-            const registerBtn = document.getElementById('registerBtn');
-            const visitanteBtn = document.getElementById('visitanteBtn');
-            const forgotPassword = document.getElementById('forgotPassword');
+        // =============================================
+        // SISTEMA DE LOGIN AUTOMÁTICO
+        // =============================================
+
+        let tipoLogin = 'adm'; // Padrão: ADM
+        
+        // Credenciais dos ADMs
+        const admCredentials = {
+            'FURIAGOD': 'Furia2025_$25',
+            'Scorpion': 'Mlk0025',
+            '.Son King': 'God1925',
+            'NeferpitouI': 'Ana02525',
+            'PNTS': 'pNtS25',
+            'ToxicSkull√': 'L@!on25'
+        };
+
+        // Função para selecionar tipo de login
+        function selecionarTipo(tipo) {
+            tipoLogin = tipo;
+            
+            // Atualizar botões
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Atualizar labels e placeholders
+            const usernameLabel = document.getElementById('usernameLabel');
+            const usernameInput = document.getElementById('username');
+            
+            switch(tipo) {
+                case 'adm':
+                    usernameLabel.innerHTML = '👑 Usuário ADM';
+                    usernameInput.placeholder = 'Digite seu usuário ADM';
+                    break;
+                case 'membro':
+                    usernameLabel.innerHTML = '👤 Nick do Membro';
+                    usernameInput.placeholder = 'Digite seu nick cadastrado';
+                    break;
+                case 'equipe':
+                    usernameLabel.innerHTML = '🏆 Nome da Equipe';
+                    usernameInput.placeholder = 'Digite o nome da equipe';
+                    break;
+            }
+        }
+
+        // Função para exibir mensagens
+        function showMessage(text, type) {
             const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = 'message ' + type;
+            messageDiv.style.display = 'block';
             
-            // Credenciais dos ADMs (ATUALIZADAS)
-            const admCredentials = {
-                'FURIAGOD': 'Furia2025_$25',
-                'Scorpion': 'Mlk0025',
-                '.Son King': 'God1925',
-                'NeferpitouI': 'Ana02525',
-                'PNTS': 'pNtS25',
-                'ToxicSkull√': 'L@!on25'
-            };
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Processar login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            // Função para exibir mensagens
-            function showMessage(text, type) {
-                messageDiv.textContent = text;
-                messageDiv.className = 'message ' + type;
-                messageDiv.style.display = 'block';
-                
-                setTimeout(() => {
-                    messageDiv.style.display = 'none';
-                }, 5000);
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                showMessage('❌ Por favor, preencha todos os campos!', 'error');
+                return;
             }
             
-            // Processar login
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const username = document.getElementById('email').value.trim();
-                const password = document.getElementById('password').value;
-                
-                // Verificar se é um ADM
-                if (admCredentials.hasOwnProperty(username) && admCredentials[username] === password) {
-                    showMessage('Login bem-sucedido! Redirecionando...', 'success');
+            let loginValido = false;
+            let mensagemSucesso = '';
+            let redirectUrl = '';
+            
+            switch(tipoLogin) {
+                case 'adm':
+                    // Verificar ADM
+                    if (admCredentials.hasOwnProperty(username) && admCredentials[username] === password) {
+                        loginValido = true;
+                        mensagemSucesso = '✅ Login ADM bem-sucedido!';
+                        redirectUrl = username === 'FURIAGOD' ? 'painel-adm.html' : 'painel-usuario.html';
+                    } else {
+                        showMessage('❌ Credenciais ADM inválidas!', 'error');
+                    }
+                    break;
                     
-                    // Redirecionar para o painel apropriado
-                    setTimeout(() => {
-                        if (username === 'FURIAGOD') {
-                            window.location.href = 'painel-adm.html';
-                        } else {
-                            window.location.href = 'painel-usuario.html';
-                        }
-                    }, 1500);
-                } else {
-                    showMessage('Credenciais inválidas. Tente novamente.', 'error');
-                }
-            });
+                case 'membro':
+                    // Verificar membro
+                    const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
+                    const usuario = usuarios.find(u => u.nick === username && u.senha === password);
+                    
+                    if (usuario) {
+                        loginValido = true;
+                        mensagemSucesso = '✅ Login de membro bem-sucedido!';
+                        redirectUrl = 'painel-membro.html';
+                        
+                        // Salvar sessão do membro
+                        localStorage.setItem('furia_membro_atual', JSON.stringify(usuario));
+                    } else {
+                        showMessage('❌ Membro não encontrado ou senha incorreta!', 'error');
+                    }
+                    break;
+                    
+                case 'equipe':
+                    // Verificar equipe
+                    const equipes = JSON.parse(localStorage.getItem('furia_equipes')) || [];
+                    const equipe = equipes.find(e => e.nomeEquipe === username && e.senha === password);
+                    
+                    if (equipe) {
+                        loginValido = true;
+                        mensagemSucesso = '✅ Login de equipe bem-sucedido!';
+                        redirectUrl = 'painel-equipe.html';
+                        
+                        // Salvar sessão da equipe
+                        localStorage.setItem('furia_equipe_atual', JSON.stringify(equipe));
+                    } else {
+                        showMessage('❌ Equipe não encontrada ou senha incorreta!', 'error');
+                    }
+                    break;
+            }
             
-            // Botão de registro
-            registerBtn.addEventListener('click', function() {
-                window.location.href = 'cadastro.html';
-            });
+            if (loginValido) {
+                showMessage(mensagemSucesso + ' Redirecionando...', 'success');
+                
+                // Redirecionar após 1.5 segundos
+                setTimeout(() => {
+                    window.location.href = redirectUrl;
+                }, 1500);
+            }
+        });
+
+        // Esqueci a senha
+        document.getElementById('forgotPassword').addEventListener('click', function(e) {
+            e.preventDefault();
             
-            // Botão visitante - vai direto para furia.html
-            visitanteBtn.addEventListener('click', function() {
-                window.location.href = 'furia.html';
-            });
+            let mensagem = '';
+            switch(tipoLogin) {
+                case 'adm':
+                    mensagem = 'Entre em contato com o ADM SUPREMO para redefinir sua senha.';
+                    break;
+                case 'membro':
+                    mensagem = 'Entre em contato com um ADM para recuperar acesso à sua conta.';
+                    break;
+                case 'equipe':
+                    mensagem = 'Entre em contato com a administração para recuperar acesso à equipe.';
+                    break;
+            }
             
-            // Esqueci a senha
-            forgotPassword.addEventListener('click', function(e) {
-                e.preventDefault();
-                showMessage('Entre em contato com o ADM SUPREMO para redefinir sua senha.', 'error');
-            });
+            showMessage('🔐 ' + mensagem, 'error');
+        });
+
+        // Carregar dados iniciais se necessário
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se existem dados de cadastro
+            const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
+            const equipes = JSON.parse(localStorage.getItem('furia_equipes')) || [];
+            
+            console.log('Usuários cadastrados:', usuarios.length);
+            console.log('Equipes cadastradas:', equipes.length);
         });
     </script>
 </body>
