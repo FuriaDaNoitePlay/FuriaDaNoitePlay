@@ -415,6 +415,12 @@ class FuriaSystem {
         }
     }
 
+    entrarComoVisitante() {
+        alert('👤 Modo visitante ativado! Acesso limitado.');
+        // Redirecionar para página de visitante
+        window.location.href = 'furia.html';
+    }
+
     mostrarSecao(secao) {
         // Atualizar navegação
         document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -484,12 +490,4 @@ class FuriaSystem {
             const pontos = prompt(`Novos pontos para ${equipeNome}:`, time.pontos);
             if (pontos !== null) {
                 time.pontos = parseInt(pontos);
-                this.salvarDados();
-                this.mostrarPainel();
-            }
-        }
-    }
-
-    // =============================================
-    // BOTÃO VISITANTE
-    // ====================================
+                this.salvarDados(
