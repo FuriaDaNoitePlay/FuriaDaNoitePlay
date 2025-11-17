@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== VARIÁVEIS E RESET ===== */
         * {
             margin: 0;
             padding: 0;
@@ -42,7 +41,6 @@
             max-width: 1200px;
         }
 
-        /* ===== HEADER NEON ===== */
         .neon-header {
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
             padding: 40px 30px;
@@ -101,7 +99,6 @@
             z-index: 2;
         }
 
-        /* ===== CONTAINER DE CADASTROS ===== */
         .cadastros-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -109,7 +106,6 @@
             margin-bottom: 40px;
         }
 
-        /* ===== QUADRADO DE CADASTRO ===== */
         .cadastro-quadrado {
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(20, 0, 0, 0.85));
             padding: 40px;
@@ -168,7 +164,6 @@
             box-shadow: 0 0 10px var(--amarelo-neon);
         }
 
-        /* ===== FORMULÁRIOS ===== */
         .cadastro-form {
             display: flex;
             flex-direction: column;
@@ -217,7 +212,6 @@
             transform: scale(1.02);
         }
 
-        /* ===== BOTÕES NEON ===== */
         .neon-btn {
             padding: 18px 35px;
             background: linear-gradient(135deg, var(--vermelho-neon), var(--vermelho-escuro));
@@ -287,7 +281,6 @@
                 0 0 40px rgba(255, 215, 0, 0.4);
         }
 
-        /* ===== BENEFÍCIOS ===== */
         .beneficios {
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.15), rgba(200, 0, 0, 0.1));
             padding: 25px;
@@ -318,7 +311,6 @@
             gap: 10px;
         }
 
-        /* ===== MENSAGENS ===== */
         .mensagem {
             padding: 20px;
             border-radius: 12px;
@@ -329,6 +321,7 @@
             position: relative;
             z-index: 2;
             animation: slideIn 0.5s ease-out;
+            display: none;
         }
 
         @keyframes slideIn {
@@ -350,7 +343,6 @@
             box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
         }
 
-        /* ===== LOADING ===== */
         .loading {
             display: none;
             text-align: center;
@@ -372,7 +364,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ===== BOTÃO INÍCIO ===== */
         .botao-inicio {
             position: fixed;
             bottom: 30px;
@@ -396,7 +387,6 @@
             box-shadow: 0 0 35px #FFD700;
         }
 
-        /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
             .cadastros-container {
                 grid-template-columns: 1fr;
@@ -577,312 +567,14 @@
 
     <script>
         // =============================================
-        // SISTEMA DE CADASTRO AUTOMÁTICO
+        // SISTEMA DE CADASTRO FUNCIONAL
         // =============================================
 
-        // Função para finalizar cada
-<script>
-    // =============================================
-    // SISTEMA DE CADASTRO AUTOMÁTICO
-    // =============================================
-
-    // Função para finalizar cadastro de membro
-    async function finalizarCadastroMembro() {
-        const mensagemDiv = document.getElementById('mensagem-membro');
-        const loadingDiv = document.getElementById('loading-membro');
-        
-        // Capturar valores
-        const nick = document.getElementById('nick-membro').value.trim();
-        const senha = document.getElementById('senha-membro').value.trim();
-        const email = document.getElementById('email-membro').value.trim();
-        const whatsapp = document.getElementById('whatsapp-membro').value.trim();
-        const jogo = document.getElementById('jogo-membro').value;
-        const idJogo = document.getElementById('idjogo-membro').value.trim();
-        
-        // Validar campos
-        if (!nick || !senha || !jogo || !idJogo) {
-            mostrarMensagem(mensagemDiv, 'erro', '❌ Preencha todos os campos obrigatórios!');
-            return;
-        }
-        
-        // Mostrar loading
-        loadingDiv.style.display = 'block';
-        mensagemDiv.style.display = 'none';
-        
-        try {
-            // Enviar para o PHP
-            const formData = new FormData();
-            formData.append('tipo', 'membro');
-            formData.append('nick', nick);
-            formData.append('senha', senha);
-            formData.append('email', email);
-            formData.append('whatsapp', whatsapp);
-            formData.append('jogo', jogo);
-            formData.append('id_jogo', idJogo);
+        // Função para finalizar cadastro de membro
+        async function finalizarCadastroMembro() {
+            const mensagemDiv = document.getElementById('mensagem-membro');
+            const loadingDiv = document.getElementById('loading-membro');
             
-            const response = await fetch('cadastro.php', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const resultado = await response.json();
-            
-            if (resultado.success) {
-                mostrarMensagem(mensagemDiv, 'sucesso', resultado.message);
-                limparFormularioMembro();
-                
-                // Redirecionar para WhatsApp
-                setTimeout(() => {
-                    window.open(`https://wa.me/5531997319008?text=${encodeURIComponent('✅ Cadastro concluído! Já posso fazer login.')}`, '_blank');
-                }, 2000);
-            } else {
-                throw new Error(resultado.message);
-            }
-            
-        } catch (error) {
-            mostrarMensagem(mensagemDiv, 'erro', error.message);
-        } finally {
-            loadingDiv.style.display = 'none';
-        }
-    }
-    
-    // Função para finalizar inscrição de equipe
-    async function finalizarCadastroEquipe() {
-        const mensagemDiv = document.getElementById('mensagem-equipe');
-        const loadingDiv = document.getElementById('loading-equipe');
-        
-        // Capturar valores
-        const nomeEquipe = document.getElementById('nome-equipe').value.trim();
-        const senhaEquipe = document.getElementById('senha-equipe').value.trim();
-        const nickLider = document.getElementById('nick-lider').value.trim();
-        const emailEquipe = document.getElementById('email-equipe').value.trim();
-        
-        // Validar campos
-        if (!nomeEquipe || !senhaEquipe || !nickLider || !emailEquipe) {
-            mostrarMensagem(mensagemDiv, 'erro', '❌ Preencha todos os campos obrigatórios!');
-            return;
-        }
-        
-        if (senhaEquipe.toLowerCase() !== nomeEquipe.toLowerCase()) {
-            mostrarMensagem(mensagemDiv, 'erro', '❌ A senha deve ser igual ao nome da equipe!');
-            return;
-        }
-        
-        // Mostrar loading
-        loadingDiv.style.display = 'block';
-        mensagemDiv.style.display = 'none';
-        
-        try {
-            // Enviar para o PHP
-            const formData = new FormData();
-            formData.append('tipo', 'equipe');
-            formData.append('nome_equipe', nomeEquipe);
-            formData.append('senha', senhaEquipe);
-            formData.append('nick_lider', nickLider);
-            formData.append('email', emailEquipe);
-            
-            const response = await fetch('cadastro.php', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const resultado = await response.json();
-            
-            if (resultado.success) {
-                mostrarMensagem(mensagemDiv, 'sucesso', resultado.message);
-                limparFormularioEquipe();
-                
-                // Redirecionar para WhatsApp
-                setTimeout(() => {
-                    window.open(`https://wa.me/5531997319008?text=${encodeURIComponent('✅ Equipe cadastrada! Já podemos fazer login.')}`, '_blank');
-                }, 2000);
-            } else {
-                throw new Error(resultado.message);
-            }
-            
-        } catch (error) {
-            mostrarMensagem(mensagemDiv, 'erro', error.message);
-        } finally {
-            loadingDiv.style.display = 'none';
-        }
-    }
-    
-    // Funções auxiliares
-    function mostrarMensagem(elemento, tipo, texto) {
-        elemento.textContent = texto;
-        elemento.className = 'mensagem ' + tipo;
-        elemento.style.display = 'block';
-    }
-    
-    function limparFormularioMembro() {
-        document.getElementById('nick-membro').value = '';
-        document.getElementById('senha-membro').value = '';
-        document.getElementById('email-membro').value = '';
-        document.getElementById('whatsapp-membro').value = '';
-        document.getElementById('jogo-membro').value = '';
-        document.getElementById('idjogo-membro').value = '';
-    }
-    
-    function limparFormularioEquipe() {
-        document.getElementById('nome-equipe').value = '';
-        document.getElementById('senha-equipe').value = '';
-        document.getElementById('nick-lider').value = '';
-        document.getElementById('email-equipe').value = '';
-    }
-</script>
-<script>
-    // =============================================
-    // SISTEMA DE CADASTRO AUTOMÁTICO
-    // =============================================
-
-    // Função para finalizar cadastro de membro
-    async function finalizarCadastroMembro() {
-        const mensagemDiv = document.getElementById('mensagem-membro');
-        const loadingDiv = document.getElementById('loading-membro');
-        
-        // Capturar valores
-        const nick = document.getElementById('nick-membro').value.trim();
-        const senha = document.getElementById('senha-membro').value.trim();
-        const email = document.getElementById('email-membro').value.trim();
-        const whatsapp = document.getElementById('whatsapp-membro').value.trim();
-        const jogo = document.getElementById('jogo-membro').value;
-        const idJogo = document.getElementById('idjogo-membro').value.trim();
-        
-        // Validar campos
-        if (!nick || !senha || !jogo || !idJogo) {
-            mostrarMensagem(mensagemDiv, 'erro', '❌ Preencha todos os campos obrigatórios!');
-            return;
-        }
-        
-        if (senha.length < 4) {
-            mostrarMensagem(mensagemDiv, 'erro', '❌ A senha deve ter pelo menos 4 caracteres!');
-            return;
-        }
-        
-        // Mostrar loading
-        loadingDiv.style.display = 'block';
-        mensagemDiv.style.display = 'none';
-        
-        try {
-            // Enviar para o PHP
-            const formData = new FormData();
-            formData.append('tipo', 'membro');
-            formData.append('nick', nick);
-            formData.append('senha', senha);
-            formData.append('email', email);
-            formData.append('whatsapp', whatsapp);
-            formData.append('jogo', jogo);
-            formData.append('id_jogo', idJogo);
-            
-            const response = await fetch('cadastro.php', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const resultado = await response.json();
-            
-            if (resultado.success) {
-                mostrarMensagem(mensagemDiv, 'sucesso', resultado.message);
-                limparFormularioMembro();
-                
-                // Redirecionar para WhatsApp
-                setTimeout(() => {
-                    window.open(`https://wa.me/5531997319008?text=${encodeURIComponent('✅ Cadastro concluído! Já posso fazer login.')}`, '_blank');
-                }, 2000);
-            } else {
-                throw new Error(resultado.message);
-            }
-            
-        } catch (error) {
-            mostrarMensagem(mensagemDiv, 'erro', error.message);
-        } finally {
-            loadingDiv.style.display = 'none';
-        }
-    }
-    
-    // Função para finalizar inscrição de equipe
-    async function finalizarCadastroEquipe() {
-        const mensagemDiv = document.getElementById('mensagem-equipe');
-        const loadingDiv = document.getElementById('loading-equipe');
-        
-        // Capturar valores
-        const nomeEquipe = document.getElementById('nome-equipe').value.trim();
-        const senhaEquipe = document.getElementById('senha-equipe').value.trim();
-        const nickLider = document.getElementById('nick-lider').value.trim();
-        const emailEquipe = document.getElementById('email-equipe').value.trim();
-        
-        // Validar campos
-        if (!nomeEquipe || !senhaEquipe || !nickLider || !emailEquipe) {
-            mostrarMensagem(mensagemDiv, 'erro', '❌ Preencha todos os campos obrigatórios!');
-            return;
-        }
-        
-        if (senhaEquipe.toLowerCase() !== nomeEquipe.toLowerCase()) {
-            mostrarMensagem(mensagemDiv, 'erro', '❌ A senha deve ser igual ao nome da equipe!');
-            return;
-        }
-        
-        // Mostrar loading
-        loadingDiv.style.display = 'block';
-        mensagemDiv.style.display = 'none';
-        
-        try {
-            // Enviar para o PHP
-            const formData = new FormData();
-            formData.append('tipo', 'equipe');
-            formData.append('nome_equipe', nomeEquipe);
-            formData.append('senha', senhaEquipe);
-            formData.append('nick_lider', nickLider);
-            formData.append('email', emailEquipe);
-            
-            const response = await fetch('cadastro.php', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const resultado = await response.json();
-            
-            if (resultado.success) {
-                mostrarMensagem(mensagemDiv, 'sucesso', resultado.message);
-                limparFormularioEquipe();
-                
-                // Redirecionar para WhatsApp
-                setTimeout(() => {
-                    window.open(`https://wa.me/5531997319008?text=${encodeURIComponent('✅ Equipe cadastrada! Já podemos fazer login.')}`, '_blank');
-                }, 2000);
-            } else {
-                throw new Error(resultado.message);
-            }
-            
-        } catch (error) {
-            mostrarMensagem(mensagemDiv, 'erro', error.message);
-        } finally {
-            loadingDiv.style.display = 'none';
-        }
-    }
-    
-    // Funções auxiliares
-    function mostrarMensagem(elemento, tipo, texto) {
-        elemento.textContent = texto;
-        elemento.className = 'mensagem ' + tipo;
-        elemento.style.display = 'block';
-    }
-    
-    function limparFormularioMembro() {
-        document.getElementById('nick-membro').value = '';
-        document.getElementById('senha-membro').value = '';
-        document.getElementById('email-membro').value = '';
-        document.getElementById('whatsapp-membro').value = '';
-        document.getElementById('jogo-membro').value = '';
-        document.getElementById('idjogo-membro').value = '';
-    }
-    
-    function limparFormularioEquipe() {
-        document.getElementById('nome-equipe').value = '';
-        document.getElementById('senha-equipe').value = '';
-        document.getElementById('nick-lider').value = '';
-        document.getElementById('email-equipe').value = '';
-    }
-</script>
-</body>
-</html>
+            // Capturar valores
+            const nick = document.getElementById('nick-membro').value.trim();
+            const senha = document.getElementById('senha-membro').value.trim
