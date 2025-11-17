@@ -581,3 +581,152 @@
         // =============================================
 
         // Função para finalizar cada
+<script>
+    // =============================================
+    // SISTEMA DE CADASTRO AUTOMÁTICO
+    // =============================================
+
+    // Função para finalizar cadastro de membro
+    async function finalizarCadastroMembro() {
+        const mensagemDiv = document.getElementById('mensagem-membro');
+        const loadingDiv = document.getElementById('loading-membro');
+        
+        // Capturar valores
+        const nick = document.getElementById('nick-membro').value.trim();
+        const senha = document.getElementById('senha-membro').value.trim();
+        const email = document.getElementById('email-membro').value.trim();
+        const whatsapp = document.getElementById('whatsapp-membro').value.trim();
+        const jogo = document.getElementById('jogo-membro').value;
+        const idJogo = document.getElementById('idjogo-membro').value.trim();
+        
+        // Validar campos
+        if (!nick || !senha || !jogo || !idJogo) {
+            mostrarMensagem(mensagemDiv, 'erro', '❌ Preencha todos os campos obrigatórios!');
+            return;
+        }
+        
+        // Mostrar loading
+        loadingDiv.style.display = 'block';
+        mensagemDiv.style.display = 'none';
+        
+        try {
+            // Enviar para o PHP
+            const formData = new FormData();
+            formData.append('tipo', 'membro');
+            formData.append('nick', nick);
+            formData.append('senha', senha);
+            formData.append('email', email);
+            formData.append('whatsapp', whatsapp);
+            formData.append('jogo', jogo);
+            formData.append('id_jogo', idJogo);
+            
+            const response = await fetch('cadastro.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const resultado = await response.json();
+            
+            if (resultado.success) {
+                mostrarMensagem(mensagemDiv, 'sucesso', resultado.message);
+                limparFormularioMembro();
+                
+                // Redirecionar para WhatsApp
+                setTimeout(() => {
+                    window.open(`https://wa.me/5531997319008?text=${encodeURIComponent('✅ Cadastro concluído! Já posso fazer login.')}`, '_blank');
+                }, 2000);
+            } else {
+                throw new Error(resultado.message);
+            }
+            
+        } catch (error) {
+            mostrarMensagem(mensagemDiv, 'erro', error.message);
+        } finally {
+            loadingDiv.style.display = 'none';
+        }
+    }
+    
+    // Função para finalizar inscrição de equipe
+    async function finalizarCadastroEquipe() {
+        const mensagemDiv = document.getElementById('mensagem-equipe');
+        const loadingDiv = document.getElementById('loading-equipe');
+        
+        // Capturar valores
+        const nomeEquipe = document.getElementById('nome-equipe').value.trim();
+        const senhaEquipe = document.getElementById('senha-equipe').value.trim();
+        const nickLider = document.getElementById('nick-lider').value.trim();
+        const emailEquipe = document.getElementById('email-equipe').value.trim();
+        
+        // Validar campos
+        if (!nomeEquipe || !senhaEquipe || !nickLider || !emailEquipe) {
+            mostrarMensagem(mensagemDiv, 'erro', '❌ Preencha todos os campos obrigatórios!');
+            return;
+        }
+        
+        if (senhaEquipe.toLowerCase() !== nomeEquipe.toLowerCase()) {
+            mostrarMensagem(mensagemDiv, 'erro', '❌ A senha deve ser igual ao nome da equipe!');
+            return;
+        }
+        
+        // Mostrar loading
+        loadingDiv.style.display = 'block';
+        mensagemDiv.style.display = 'none';
+        
+        try {
+            // Enviar para o PHP
+            const formData = new FormData();
+            formData.append('tipo', 'equipe');
+            formData.append('nome_equipe', nomeEquipe);
+            formData.append('senha', senhaEquipe);
+            formData.append('nick_lider', nickLider);
+            formData.append('email', emailEquipe);
+            
+            const response = await fetch('cadastro.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const resultado = await response.json();
+            
+            if (resultado.success) {
+                mostrarMensagem(mensagemDiv, 'sucesso', resultado.message);
+                limparFormularioEquipe();
+                
+                // Redirecionar para WhatsApp
+                setTimeout(() => {
+                    window.open(`https://wa.me/5531997319008?text=${encodeURIComponent('✅ Equipe cadastrada! Já podemos fazer login.')}`, '_blank');
+                }, 2000);
+            } else {
+                throw new Error(resultado.message);
+            }
+            
+        } catch (error) {
+            mostrarMensagem(mensagemDiv, 'erro', error.message);
+        } finally {
+            loadingDiv.style.display = 'none';
+        }
+    }
+    
+    // Funções auxiliares
+    function mostrarMensagem(elemento, tipo, texto) {
+        elemento.textContent = texto;
+        elemento.className = 'mensagem ' + tipo;
+        elemento.style.display = 'block';
+    }
+    
+    function limparFormularioMembro() {
+        document.getElementById('nick-membro').value = '';
+        document.getElementById('senha-membro').value = '';
+        document.getElementById('email-membro').value = '';
+        document.getElementById('whatsapp-membro').value = '';
+        document.getElementById('jogo-membro').value = '';
+        document.getElementById('idjogo-membro').value = '';
+    }
+    
+    function limparFormularioEquipe() {
+        document.getElementById('nome-equipe').value = '';
+        document.getElementById('senha-equipe').value = '';
+        document.getElementById('nick-lider').value = '';
+        document.getElementById('email-equipe').value = '';
+    }
+</script>
