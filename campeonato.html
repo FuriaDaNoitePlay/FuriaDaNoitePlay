@@ -610,3 +610,188 @@
                                 <option value="serie-c">Série C</option>
                             </select>
                             <bu
+    <!-- TODO O SEU CÓDIGO HTML ATUAL DO campeonato.html... -->
+
+    <script>
+    // =============================================
+    // SISTEMA DE CAMPEONATO CONECTADO AO PHP
+    // =============================================
+
+    let usuarioLogado = null;
+
+    // Função para fazer login ADM
+    async function fazerLoginADM() {
+        const username = document.getElementById('admin-username').value.trim();
+        const password = document.getElementById('admin-password').value;
+        const messageDiv = document.getElementById('login-message');
+        
+        if (!username || !password) {
+            messageDiv.textContent = '❌ Preencha todos os campos!';
+            return;
+        }
+        
+        try {
+            const formData = new FormData();
+            formData.append('acao', 'login_adm');
+            formData.append('username', username);
+            formData.append('password', password);
+            
+            const response = await fetch('campeonato.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const resultado = await response.json();
+            
+            if (resultado.success) {
+                usuarioLogado = resultado.data;
+                document.getElementById('login-area').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                carregarDadosCampeonato();
+            } else {
+                throw new Error(resultado.message);
+            }
+        } catch (error) {
+            messageDiv.textContent = error.message;
+        }
+    }
+
+    // Carregar dados do campeonato
+    async function carregarDadosCampeonato() {
+        await carregarTabelaSerie('a');
+        await carregarTabelaSerie('b');
+        await carregarTabelaSerie('c');
+        await carregarListaEquipes();
+    }
+
+    // Carregar tabela de série específica
+    async function carregarTabelaSerie(serie) {
+        try {
+            const formData = new FormData();
+            formData.append('acao', 'get_equipes_serie');
+            formData.append('serie', serie);
+            
+            const response = await fetch('campeonato.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const resultado = await response.json();
+            
+            if (resultado.success) {
+                preencherTabelaSerie(serie, resultado.data);
+            }
+        } catch (error) {
+            console.error('Erro ao carregar série', error);
+        }
+    }
+
+    // Preencher tabela da série
+    function preencherTabelaSerie(serie, equipes) {
+        const tbody = document.getElementById(`table-serie-${serie}`);
+        tbody.innerHTML = '';
+        
+        equipes.forEach((equipe, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="position">${index + 1}º</td>
+                <td class="team-name">${equipe.nome_equipe}</td>
+                <td class="points">${equipe.pontuacao}</td>
+                <td>${equipe.vitorias + equipe.derrotas}</td>
+                <td>${equipe.vitorias}</td>
+                <td>${equipe.derrotas}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    // Carregar lista de equipes para selects
+    async function carregarListaEquipes() {
+        try {
+            const formData = new FormData();
+            formData.append('acao', 'get_todas_equipes');
+            
+            const response = await fetch('campeonato.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const resultado = await response.json();
+            
+            if (resultado.success) {
+                // Aqui você pode preencher selects para confrontos, etc.
+                console.log('Equipes carregadas:', resultado.data);
+            }
+        } catch (error) {
+            console.error('Erro ao carregar equipes', error);
+        }
+    }
+
+    // Adicionar nova equipe
+    async function addTeam() {
+        const nome = document.getElementById('new-team-name').value.trim();
+        const serie = document.getElementById('new-team-series').value;
+        
+        if (!nome) {
+            alert('❌ Digite o nome da equipe!');
+            return;
+        }
+        
+        try {
+            const formData = new FormData();
+            formData.append('acao', 'adicionar_equipe');
+            formData.append('nome_equipe', nome);
+            formData.append('serie', serie);
+            
+            const response = await fetch('campeonato.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const resultado = await response.json();
+            
+            if (resultado.success) {
+                alert('✅ Equipe adicionada com sucesso!');
+                document.getElementById('new-team-name').value = '';
+                carregarDadosCampeonato();
+            } else {
+                throw new Error(resultado.message);
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
+    // Funções de navegação existentes
+    function showAdminSection(section) {
+        document.querySelectorAll('.admin-section').forEach(sec => {
+            sec.classList.remove('active');
+        });
+        document.getElementById(`admin-${section}`).classList.add('active');
+    }
+
+    // Event Listeners
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        fazerLoginADM();
+    });
+
+    // Navegação entre seções
+    document.querySelectorAll('.champ-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const target = this.getAttribute('data-target');
+            
+            // Atualizar botões ativos
+            document.querySelectorAll('.champ-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Mostrar seção correspondente
+            document.querySelectorAll('.championship-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(target).classList.add('active');
+        });
+    });
+    </script>
+</body>
+</html>
