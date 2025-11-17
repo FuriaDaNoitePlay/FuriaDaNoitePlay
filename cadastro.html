@@ -318,51 +318,6 @@
             gap: 10px;
         }
 
-        /* ===== LINKS DE NAVEGAÇÃO ===== */
-        .links {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .link {
-            color: var(--vermelho-neon);
-            text-decoration: none;
-            padding: 15px 20px;
-            border: 2px solid var(--vermelho-neon);
-            border-radius: 10px;
-            transition: all 0.3s;
-            text-align: center;
-            font-weight: bold;
-            background: rgba(255, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .link:hover::before {
-            left: 100%;
-        }
-
-        .link:hover {
-            background: var(--vermelho-neon);
-            color: var(--preto);
-            box-shadow: 0 0 25px var(--vermelho-neon);
-            transform: translateY(-3px);
-        }
-
         /* ===== MENSAGENS ===== */
         .mensagem {
             padding: 20px;
@@ -458,10 +413,6 @@
             
             .neon-text {
                 font-size: 2.2rem;
-            }
-            
-            .links {
-                grid-template-columns: 1fr;
             }
             
             .neon-btn {
@@ -596,4 +547,37 @@
                         <label>📧 E-mail do Líder:</label>
                         <input type="email" id="email-equipe" placeholder="lider@email.com" required>
                     </div>
+
+                    <!-- BENEFÍCIOS DA EQUIPE -->
+                    <div class="beneficios">
+                        <h4>🏆 VANTAGENS DA EQUIPE:</h4>
+                        <p>✅ Torneios exclusivos</p>
+                        <p>✅ Premiações em dinheiro</p>
+                        <p>✅ Patrocínios</p>
+                        <p>✅ Reconhecimento nacional</p>
+                        <p>✅ Suporte técnico profissional</p>
+                    </div>
                     
+                    <button class="neon-btn btn-equipe" onclick="finalizarCadastroEquipe()">
+                        🏆 FINALIZAR INSCRIÇÃO DE EQUIPE
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÃO PARA LOGIN -->
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="login.html" class="neon-btn" style="background: linear-gradient(135deg, var(--azul-neon), #0044ff); text-decoration: none; display: inline-block;">
+                🔐 JÁ TEM CADASTRO? FAÇA LOGIN
+            </a>
+        </div>
+    </div>
+
+    <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Início</button>
+
+    <script>
+        // =============================================
+        // SISTEMA DE CADASTRO AUTOMÁTICO
+        // =============================================
+
+        // Função para finalizar cada
