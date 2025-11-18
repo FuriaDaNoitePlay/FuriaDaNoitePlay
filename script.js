@@ -1,5 +1,5 @@
 // =============================================
-// SISTEMA COMPLETO FURIA DA NOITE PLAY
+// SISTEMA COMPLETO FURIA DA NOITE PLAY - COM ADSENSE
 // Arquivo único - Compatível com GitHub Pages
 // =============================================
 
@@ -28,6 +28,18 @@ class FuriaSystem {
         this.carregarDados();
         this.verificarAutenticacao();
         this.configurarEventListeners();
+        this.carregarAdSense(); // Carrega AdSense
+    }
+
+    configurarEventListeners() {
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Sistema Furia inicializado');
+        });
+    }
+
+    carregarAdSense() {
+        // Script do AdSense já deve estar no HTML
+        console.log('AdSense configurado para o sistema');
     }
 
     // =============================================
@@ -85,17 +97,25 @@ class FuriaSystem {
     carregarDados() {
         const dadosSalvos = localStorage.getItem('furia_data');
         if (dadosSalvos) {
-            const dados = JSON.parse(dadosSalvos);
-            this.usuarios = dados.usuarios || this.getUsuariosPadrao();
-            this.equipes = dados.equipes || this.getEquipesPadrao();
-            this.tabelaClassificacao = dados.tabela || this.getTabelaPadrao();
+            try {
+                const dados = JSON.parse(dadosSalvos);
+                this.usuarios = dados.usuarios || this.getUsuariosPadrao();
+                this.equipes = dados.equipes || this.getEquipesPadrao();
+                this.tabelaClassificacao = dados.tabela || this.getTabelaPadrao();
+            } catch (e) {
+                console.error('Erro ao carregar dados:', e);
+                this.carregarDadosPadrao();
+            }
         } else {
-            // Dados iniciais
-            this.usuarios = this.getUsuariosPadrao();
-            this.equipes = this.getEquipesPadrao();
-            this.tabelaClassificacao = this.getTabelaPadrao();
-            this.salvarDados();
+            this.carregarDadosPadrao();
         }
+    }
+
+    carregarDadosPadrao() {
+        this.usuarios = this.getUsuariosPadrao();
+        this.equipes = this.getEquipesPadrao();
+        this.tabelaClassificacao = this.getTabelaPadrao();
+        this.salvarDados();
     }
 
     getUsuariosPadrao() {
@@ -134,6 +154,20 @@ class FuriaSystem {
     mostrarLogin() {
         document.body.innerHTML = `
             <div class="login-container">
+                <!-- ADENSE NO TOPO DO LOGIN -->
+                <div class="ads-top-login">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-9551454046138296"
+                         data-ad-slot="7259870550"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
                 <div class="login-box">
                     <h1>👑 FURIA DA NOITE PLAY</h1>
                     <h3>Painel Administrativo</h3>
@@ -148,8 +182,20 @@ class FuriaSystem {
                     
                     <button onclick="sistema.tentarLogin()" class="login-btn">🔐 Entrar no Sistema</button>
                     
-                    <!-- BOTÃO VISITANTE ADICIONADO -->
                     <button onclick="sistema.entrarComoVisitante()" class="visitante-btn">👤 Sou Visitante</button>
+                    
+                    <!-- ADENSE NO RODAPÉ DO LOGIN -->
+                    <div class="ads-bottom-login">
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-9551454046138296"
+                             data-ad-slot="7259870551"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
                     
                     <div class="login-info">
                         <strong>ADMs Cadastrados:</strong>
@@ -175,6 +221,20 @@ class FuriaSystem {
                     </div>
                     <button onclick="sistema.fazerLogout()" class="logout-btn">🚪 Sair</button>
                 </header>
+
+                <!-- ADENSE NO HEADER -->
+                <div class="ads-header">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-9551454046138296"
+                         data-ad-slot="7259870552"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
 
                 <nav class="admin-nav">
                     <button class="nav-btn active" onclick="sistema.mostrarSecao('dashboard')">📊 Dashboard</button>
@@ -203,13 +263,30 @@ class FuriaSystem {
                         ${this.renderAdmins()}
                     </div>` : ''}
                 </main>
+
+                <!-- ADENSE NO FOOTER -->
+                <footer class="admin-footer">
+                    <div class="ads-footer">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-9551454046138296"
+                             data-ad-slot="7259870553"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                    <p>© 2025 FuriaDaNoitePlay - Sistema Administrativo</p>
+                </footer>
             </div>
             <style>${this.getPanelStyles()}</style>
         `;
     }
 
     // =============================================
-    // RENDERIZAÇÃO DAS SEÇÕES
+    // RENDERIZAÇÃO DAS SEÇÕES (COM ADSENSE)
     // =============================================
 
     renderDashboard() {
@@ -237,12 +314,27 @@ class FuriaSystem {
                 </div>
             </div>
 
+            <!-- ADENSE NO MEIO DO DASHBOARD -->
+            <div class="ads-dashboard">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-9551454046138296"
+                     data-ad-slot="7259870554"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
             <div class="recent-activity">
                 <h3>📋 Atividade Recente</h3>
                 <div class="activity-list">
                     <div class="activity-item">✅ Sistema inicializado</div>
                     <div class="activity-item">🔧 Painel administrativo ativo</div>
                     <div class="activity-item">👤 ${this.currentUser} logado</div>
+                    <div class="activity-item">💰 AdSense integrado</div>
                 </div>
             </div>
         `;
@@ -253,6 +345,20 @@ class FuriaSystem {
             <div class="section-header">
                 <h2>👥 Gerenciamento de Usuários</h2>
                 <button onclick="sistema.adicionarUsuario()" class="btn-primary">➕ Novo Usuário</button>
+            </div>
+
+            <!-- ADENSE ANTES DA LISTA -->
+            <div class="ads-content">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-9551454046138296"
+                     data-ad-slot="7259870555"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
 
             <div class="search-box">
@@ -294,6 +400,20 @@ class FuriaSystem {
                 <button onclick="sistema.criarEquipe()" class="btn-primary">➕ Nova Equipe</button>
             </div>
 
+            <!-- ADENSE VERTICAL NAS EQUIPES -->
+            <div class="ads-vertical">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-9551454046138296"
+                     data-ad-slot="7259870556"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
             <div class="series-filter">
                 <select onchange="sistema.filtrarEquipes()" id="seriesSelect">
                     <option value="todas">Todas as Séries</option>
@@ -332,162 +452,7 @@ class FuriaSystem {
                 <button onclick="sistema.atualizarTabela()" class="btn-primary">🔄 Atualizar</button>
             </div>
 
-            <table class="classification-table">
-                <thead>
-                    <tr>
-                        <th>Pos</th>
-                        <th>Equipe</th>
-                        <th>Pontos</th>
-                        <th>Jogos</th>
-                        <th>Vitórias</th>
-                        <th>Derrotas</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${this.tabelaClassificacao.map(time => `
-                        <tr>
-                            <td>${time.posicao}º</td>
-                            <td><strong>${time.equipe}</strong></td>
-                            <td>${time.pontos}</td>
-                            <td>${time.jogos}</td>
-                            <td>${time.vitorias}</td>
-                            <td>${time.derrotas}</td>
-                            <td>
-                                <button onclick="sistema.editarPontuacao('${time.equipe}')" class="btn-warning btn-sm">✏️</button>
-                                <button onclick="sistema.resetarTime('${time.equipe}')" class="btn-danger btn-sm">🔄</button>
-                            </td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        `;
-    }
-
-    renderAdmins() {
-        const adms = this.usuarios.filter(u => u.tipo.includes('ADM'));
-        
-        return `
-            <div class="section-header">
-                <h2>⚡ Gerenciamento de ADMs</h2>
-                <button onclick="sistema.criarAdm()" class="btn-primary">➕ Novo ADM</button>
-            </div>
-
-            <div class="admins-list">
-                ${adms.map(adm => `
-                    <div class="admin-card">
-                        <div class="admin-avatar">${adm.nome.charAt(0)}</div>
-                        <div class="admin-info">
-                            <div class="admin-name">${adm.nome}</div>
-                            <div class="admin-level ${adm.tipo === 'ADM Supremo' ? 'supremo' : 'geral'}">
-                                ${adm.tipo}
-                            </div>
-                            <div class="admin-status ${adm.status}">
-                                ${adm.status === 'online' ? '🟢 Online' : '🔴 Offline'}
-                            </div>
-                        </div>
-                        <div class="admin-actions">
-                            ${adm.tipo !== 'ADM Supremo' ? `
-                                <button onclick="sistema.editarAdm(${adm.id})" class="btn-warning">✏️</button>
-                                <button onclick="sistema.rebaixarAdm(${adm.id})" class="btn-danger">⬇️</button>
-                            ` : `
-                                <button class="btn-warning" disabled>👑</button>
-                            `}
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-    }
-
-    // =============================================
-    // FUNÇÕES DE INTERAÇÃO
-    // =============================================
-
-    tentarLogin() {
-        const user = document.getElementById('loginUser').value;
-        const pass = document.getElementById('loginPass').value;
-        
-        if (this.fazerLogin(user, pass)) {
-            this.mostrarPainel();
-        } else {
-            alert('❌ Usuário ou senha incorretos!');
-        }
-    }
-
-    entrarComoVisitante() {
-        alert('👤 Modo visitante ativado! Acesso limitado.');
-        // Redirecionar para página de visitante
-        window.location.href = 'furia.html';
-    }
-
-    mostrarSecao(secao) {
-        // Atualizar navegação
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-        
-        // Mostrar seção
-        document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-        document.getElementById(secao).classList.add('active');
-    }
-
-    adicionarUsuario() {
-        const nome = prompt('Digite o nome do novo usuário:');
-        if (nome) {
-            const novoUsuario = {
-                id: Date.now(),
-                nome: nome,
-                tipo: 'Membro',
-                status: 'online',
-                pontos: 0
-            };
-            this.usuarios.push(novoUsuario);
-            this.salvarDados();
-            this.mostrarPainel();
-            alert(`✅ Usuário ${nome} adicionado!`);
-        }
-    }
-
-    promoverUsuario(id) {
-        const usuario = this.usuarios.find(u => u.id === id);
-        if (usuario && confirm(`Promover ${usuario.nome} para ADM Geral?`)) {
-            usuario.tipo = 'ADM Geral';
-            this.salvarDados();
-            this.mostrarPainel();
-        }
-    }
-
-    banirUsuario(id) {
-        const usuario = this.usuarios.find(u => u.id === id);
-        if (usuario && confirm(`Banir ${usuario.nome} permanentemente?`)) {
-            this.usuarios = this.usuarios.filter(u => u.id !== id);
-            this.salvarDados();
-            this.mostrarPainel();
-        }
-    }
-
-    criarEquipe() {
-        const nome = prompt('Nome da nova equipe:');
-        const serie = prompt('Série (A, B ou C):')?.toLowerCase();
-        
-        if (nome && ['a','b','c'].includes(serie)) {
-            const novaEquipe = {
-                id: Date.now(),
-                nome: nome.toUpperCase(),
-                serie: serie,
-                pontos: 0,
-                status: 'ativa'
-            };
-            this.equipes.push(novaEquipe);
-            this.salvarDados();
-            this.mostrarPainel();
-        }
-    }
-
-    editarPontuacao(equipeNome) {
-        const time = this.tabelaClassificacao.find(t => t.equipe === equipeNome);
-        if (time) {
-            const pontos = prompt(`Novos pontos para ${equipeNome}:`, time.pontos);
-            if (pontos !== null) {
-                time.pontos = parseInt(pontos);
-                this.salvarDados(
+            <!-- ADENSE NA TABELA -->
+            <div class="ads-responsive">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
+ 
