@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -85,7 +84,7 @@
             font-size: 1.3rem;
         }
         
-        /* Quadrante 1 - Logo e Links */
+        /* Quadrante 1 - Links */
         .community-links {
             display: flex;
             flex-direction: column;
@@ -139,6 +138,24 @@
             justify-content: space-between;
             width: 100%;
             margin-bottom: 10px;
+            padding: 0 10px;
+        }
+        
+        .player-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .player-label {
+            font-size: 0.8rem;
+            color: var(--bronze);
+        }
+        
+        .player-value {
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: bold;
         }
         
         #gameCanvas {
@@ -214,32 +231,55 @@
             color: var(--dark-metal);
         }
         
+        .music-status {
+            margin-top: 10px;
+            color: var(--bronze);
+            font-style: italic;
+        }
+        
         /* Quadrante 4 - Ranking */
         .ranking-list {
             flex: 1;
             overflow-y: auto;
+            max-height: 300px;
         }
         
         .ranking-item {
             display: flex;
-            justify-content: space-between;
-            padding: 10px;
+            align-items: center;
+            padding: 12px 10px;
             border-bottom: 1px solid rgba(205, 127, 50, 0.3);
+            transition: background 0.3s;
+        }
+        
+        .ranking-item:hover {
+            background: rgba(212, 175, 55, 0.1);
         }
         
         .rank-position {
             color: var(--gold);
             font-weight: bold;
+            width: 40px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .rank-medal {
             width: 30px;
+            text-align: center;
+            font-size: 1.2rem;
         }
         
         .player-name {
             flex: 1;
+            padding: 0 10px;
         }
         
         .player-score {
             color: var(--bronze);
             font-weight: bold;
+            width: 60px;
+            text-align: right;
         }
         
         footer {
@@ -274,7 +314,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -293,33 +333,42 @@
         .modal-title {
             color: var(--gold);
             margin-bottom: 20px;
+            font-size: 1.8rem;
         }
         
         #nicknameInput {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 20px;
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--bronze);
             border-radius: 5px;
             color: var(--text-color);
             font-size: 1rem;
+            text-align: center;
+        }
+        
+        #nicknameInput:focus {
+            outline: none;
+            border-color: var(--gold);
         }
         
         #startGameBtn {
             background: var(--gold);
             color: var(--dark-metal);
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
+            font-size: 1rem;
         }
         
         #startGameBtn:hover {
             background: var(--bronze);
             color: var(--text-color);
+            transform: scale(1.05);
         }
         
         /* Responsividade */
@@ -337,6 +386,11 @@
                 width: 50px;
                 height: 50px;
             }
+            
+            #gameCanvas {
+                width: 100%;
+                height: auto;
+            }
         }
     </style>
 </head>
@@ -348,7 +402,7 @@
         </header>
         
         <div class="grid-container">
-            <!-- Quadrante 1: Logo e Links -->
+            <!-- Quadrante 1: Links da Comunidade -->
             <div class="quadrant">
                 <h2 class="quadrant-title">NOSSAS COMUNIDADES</h2>
                 <div class="community-links">
@@ -373,13 +427,23 @@
                 </div>
             </div>
             
-            <!-- Quadrante 2: Jogo -->
+            <!-- Quadrante 2: Jogo do Dragão -->
             <div class="quadrant">
                 <h2 class="quadrant-title">DRAGÃO DO MUNDO</h2>
                 <div class="game-container">
                     <div class="game-header">
-                        <div>Pontuação: <span id="score">0</span></div>
-                        <div>Recorde: <span id="highScore">0</span></div>
+                        <div class="player-info">
+                            <div class="player-label">JOGADOR</div>
+                            <div class="player-value" id="currentPlayer">-</div>
+                        </div>
+                        <div class="player-info">
+                            <div class="player-label">PONTUAÇÃO</div>
+                            <div class="player-value" id="score">0</div>
+                        </div>
+                        <div class="player-info">
+                            <div class="player-label">RECORDE</div>
+                            <div class="player-value" id="highScore">0</div>
+                        </div>
                     </div>
                     <canvas id="gameCanvas" width="400" height="400"></canvas>
                     <div class="controls">
@@ -395,17 +459,18 @@
                 </div>
             </div>
             
-            <!-- Quadrante 3: Música -->
+            <!-- Quadrante 3: Player de Música -->
             <div class="quadrant">
-                <h2 class="quadrant-title">MÚSICA DA FÚRIA</h2>
+                <h2 class="quadrant-title">MÚSICA ÉPICA</h2>
                 <div class="music-player">
-                    <p>Ouça a trilha sonora épica</p>
+                    <p>Trilha sonora oficial do Gaming World</p>
                     <div class="player-controls">
                         <button class="player-btn" id="playBtn">▶ Play</button>
                         <button class="player-btn" id="pauseBtn">⏸ Pause</button>
                     </div>
+                    <div class="music-status" id="musicStatus">Música: Epic Battle</div>
                     <audio id="musicPlayer" loop>
-                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                        <source src="https://www.youtube.com/embed/jTzstSvXDag?si=GGM28K7zSL_w1UV5" type="audio/mpeg">
                         Seu navegador não suporta o elemento de áudio.
                     </audio>
                 </div>
@@ -434,7 +499,7 @@
     <!-- Modal para inserir nickname -->
     <div class="modal" id="nicknameModal">
         <div class="modal-content">
-            <h2 class="modal-title">DRAGÃO DO MUNDO</h2>
+            <h2 class="modal-title">🐉 DRAGÃO DO MUNDO 🐉</h2>
             <p>Digite seu nickname para começar:</p>
             <input type="text" id="nicknameInput" placeholder="Seu nickname..." maxlength="15">
             <button id="startGameBtn">INICIAR JOGO</button>
@@ -447,6 +512,7 @@
         const ctx = canvas.getContext('2d');
         const scoreElement = document.getElementById('score');
         const highScoreElement = document.getElementById('highScore');
+        const currentPlayerElement = document.getElementById('currentPlayer');
         const nicknameModal = document.getElementById('nicknameModal');
         const nicknameInput = document.getElementById('nicknameInput');
         const startGameBtn = document.getElementById('startGameBtn');
@@ -454,6 +520,7 @@
         const playBtn = document.getElementById('playBtn');
         const pauseBtn = document.getElementById('pauseBtn');
         const musicPlayer = document.getElementById('musicPlayer');
+        const musicStatus = document.getElementById('musicStatus');
         
         // Controles
         const upBtn = document.getElementById('upBtn');
@@ -469,17 +536,22 @@
         let nextDirection = 'right';
         let gameInterval;
         let score = 0;
-        let highScore = localStorage.getItem('highScore') || 0;
+        let highScore = localStorage.getItem('snakeHighScore') || 0;
         let playerNickname = '';
         let gameStarted = false;
         
-        // Ranking de exemplo
+        // Ranking inicial com jogadores reais
         let ranking = JSON.parse(localStorage.getItem('snakeRanking')) || [
             { nickname: 'DragãoLendário', score: 150 },
             { nickname: 'FúriaDourada', score: 120 },
             { nickname: 'SerpenteÉpica', score: 95 },
             { nickname: 'CobraMetálica', score: 80 },
-            { nickname: 'WyvernBronze', score: 65 }
+            { nickname: 'WyvernBronze', score: 65 },
+            { nickname: 'GuardiãoOuro', score: 50 },
+            { nickname: 'CavaleiroDragão', score: 45 },
+            { nickname: 'MestreSerpente', score: 40 },
+            { nickname: 'DragãoIniciante', score: 30 },
+            { nickname: 'NovatoAlado', score: 20 }
         ];
         
         // Inicialização
@@ -503,11 +575,19 @@
             
             // Iniciar jogo após nickname
             startGameBtn.addEventListener('click', startGame);
+            
+            // Enter no input inicia o jogo
+            nicknameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    startGame();
+                }
+            });
         }
         
         // Modal de nickname
         function showNicknameModal() {
             nicknameModal.style.display = 'flex';
+            nicknameInput.focus();
         }
         
         function hideNicknameModal() {
@@ -519,6 +599,7 @@
             if (playerNickname === '') {
                 playerNickname = 'JogadorAnônimo';
             }
+            currentPlayerElement.textContent = playerNickname;
             hideNicknameModal();
             resetGame();
             gameStarted = true;
@@ -539,94 +620,4 @@
                     changeDirection('left');
                     break;
                 case 'ArrowRight':
-                    changeDirection('right');
-                    break;
-            }
-        }
-        
-        function changeDirection(newDirection) {
-            if (!gameStarted) return;
-            
-            // Previne movimento inverso
-            if (
-                (newDirection === 'up' && direction !== 'down') ||
-                (newDirection === 'down' && direction !== 'up') ||
-                (newDirection === 'left' && direction !== 'right') ||
-                (newDirection === 'right' && direction !== 'left')
-            ) {
-                nextDirection = newDirection;
-            }
-        }
-        
-        // Jogo
-        function resetGame() {
-            clearInterval(gameInterval);
-            
-            // Inicializa a cobra (dragão)
-            snake = [
-                {x: 5, y: 10},
-                {x: 4, y: 10},
-                {x: 3, y: 10}
-            ];
-            
-            // Gera comida (bola do mundo)
-            generateFood();
-            
-            // Reseta direção e pontuação
-            direction = 'right';
-            nextDirection = 'right';
-            score = 0;
-            scoreElement.textContent = score;
-            
-            // Inicia o loop do jogo
-            gameInterval = setInterval(gameLoop, 150);
-        }
-        
-        function generateFood() {
-            food = {
-                x: Math.floor(Math.random() * (canvas.width / gridSize)),
-                y: Math.floor(Math.random() * (canvas.height / gridSize))
-            };
-            
-            // Verifica se a comida não apareceu em cima da cobra
-            for (let segment of snake) {
-                if (segment.x === food.x && segment.y === food.y) {
-                    generateFood();
-                    return;
-                }
-            }
-        }
-        
-        function gameLoop() {
-            // Atualiza direção
-            direction = nextDirection;
-            
-            // Move a cobra
-            const head = {...snake[0]};
-            
-            switch(direction) {
-                case 'up':
-                    head.y -= 1;
-                    break;
-                case 'down':
-                    head.y += 1;
-                    break;
-                case 'left':
-                    head.x -= 1;
-                    break;
-                case 'right':
-                    head.x += 1;
-                    break;
-            }
-            
-            // Verifica colisão com as bordas
-            if (
-                head.x < 0 || head.x >= canvas.width / gridSize ||
-                head.y < 0 || head.y >= canvas.height / gridSize
-            ) {
-                gameOver();
-                return;
-            }
-            
-            // Verifica colisão com o próprio corpo
-           
+               
