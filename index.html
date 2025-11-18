@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- META OBRIGATÓRIA DO GOOGLE ADSENSE -->
+    <meta name="google-adsense-account" content="ca-pub-9551454046138296">
+
     <title>FuriaDaNoitePlay - Carregando</title>
     
     <!-- GOOGLE ADSENSE (APENAS UMA VEZ NO HEAD) -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" href="style.css">
+
     <style>
         /* ===== RESET ===== */
         * {
@@ -81,7 +86,7 @@
             height: 100%;
             background: linear-gradient(90deg, #ff0000, #cc0000);
             border-radius: 3px;
-            animation: carregar 8s ease-in-out; /* MUDADO: 4s para 8s */
+            animation: carregar 8s ease-in-out;
             box-shadow: 0 0 10px #ff0000;
         }
 
@@ -95,21 +100,9 @@
 
         /* ANIMAÇÕES */
         @keyframes pulse {
-            0% { 
-                transform: scale(0.9); 
-                opacity: 0.8; 
-                box-shadow: 0 0 40px #ff0000;
-            }
-            50% { 
-                transform: scale(1); 
-                opacity: 1; 
-                box-shadow: 0 0 80px #ff0000;
-            }
-            100% { 
-                transform: scale(0.9); 
-                opacity: 0.8; 
-                box-shadow: 0 0 40px #ff0000;
-            }
+            0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 40px #ff0000; }
+            50% { transform: scale(1); opacity: 1; box-shadow: 0 0 80px #ff0000; }
+            100% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 40px #ff0000; }
         }
 
         @keyframes typing {
@@ -150,20 +143,10 @@
         }
 
         @keyframes flutuar {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
 
         /* ADSENSE NA TELA DE CARREGAMENTO */
@@ -192,40 +175,20 @@
 
         /* RESPONSIVIDADE */
         @media (max-width: 768px) {
-            .logo-grande {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .titulo-carregamento {
-                font-size: 20px;
-            }
-            
-            .carregando {
-                font-size: 16px;
-            }
-            
-            .barra-progresso {
-                width: 250px;
-            }
+            .logo-grande { width: 150px; height: 150px; }
+            .titulo-carregamento { font-size: 20px; }
+            .carregando { font-size: 16px; }
+            .barra-progresso { width: 250px; }
         }
 
         @media (max-width: 480px) {
-            .logo-grande {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .titulo-carregamento {
-                font-size: 18px;
-            }
-            
-            .barra-progresso {
-                width: 200px;
-            }
+            .logo-grande { width: 120px; height: 120px; }
+            .titulo-carregamento { font-size: 18px; }
+            .barra-progresso { width: 200px; }
         }
     </style>
 </head>
+
 <body>
     <div class="tela-iniciacao">
         <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo-grande">
@@ -238,19 +201,18 @@
             <div class="progresso"></div>
         </div>
         
-        <div class="contador" id="contador">8s</div> <!-- MUDADO: 4s para 8s -->
+        <div class="contador" id="contador">8s</div>
         
         <!-- Efeito de partículas -->
         <div class="particulas" id="particulas"></div>
         
-        <!-- Anúncio na tela de carregamento CORRIGIDO -->
+        <!-- ANÚNCIO (SEM SCRIPT DUPLICADO) -->
         <div class="ads-carregamento">
             <div class="ads-box">
-                <!-- ADSENSE CORRIGIDO (SEM SCRIPT DUPLICADO) -->
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-9551454046138296"
-                     data-ad-slot="7259870550" <!-- MUDADO: slot válido -->
+                     data-ad-slot="7259870550"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
                 <script>
@@ -261,7 +223,6 @@
     </div>
 
     <script>
-        // Criar partículas
         function criarParticulas() {
             const container = document.getElementById('particulas');
             const particulasCount = 15;
@@ -270,7 +231,6 @@
                 const particula = document.createElement('div');
                 particula.className = 'particula';
                 
-                // Posição aleatória
                 const left = Math.random() * 100;
                 const animationDuration = 3 + Math.random() * 4;
                 const animationDelay = Math.random() * 5;
@@ -286,10 +246,9 @@
             }
         }
 
-        // Atualizar contador
         function atualizarContador() {
             const contador = document.getElementById('contador');
-            let segundos = 8; // MUDADO: 4 para 8
+            let segundos = 8;
             
             const intervalo = setInterval(() => {
                 segundos--;
@@ -301,7 +260,6 @@
             }, 1000);
         }
 
-        // Efeito de digitação mais suave
         function iniciarEfeitoDigitacao() {
             const elemento = document.querySelector('.carregando');
             const texto = 'Carregando...';
@@ -315,13 +273,11 @@
                 }
             }
             
-            // Iniciar após um pequeno delay
             setTimeout(digitar, 500);
         }
 
-        // Redireciona para login.html após 8 segundos
+        // Redireciona após 8 segundos
         setTimeout(function() {
-            // Efeito de fade out antes de redirecionar
             const tela = document.querySelector('.tela-iniciacao');
             tela.style.opacity = '0';
             tela.style.transition = 'opacity 0.5s ease';
@@ -330,18 +286,14 @@
                 window.location.href = "login.html";
             }, 500);
             
-        }, 8000); // MUDADO: 4000 para 8000
+        }, 8000);
 
-        // Inicializar quando a página carregar
         document.addEventListener('DOMContentLoaded', function() {
             criarParticulas();
             atualizarContador();
             iniciarEfeitoDigitacao();
-            
-            console.log('🌕 FuriaDaNoitePlay - Tela de carregamento iniciada!');
         });
 
-        // Prevenir clique direito (opcional)
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
