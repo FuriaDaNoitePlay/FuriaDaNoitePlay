@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- META TAG DO ADSENSE ADICIONADA -->
+  <meta name="google-adsense-account" content="ca-pub-9551454046138296">
   <title>🔥 FuriaDaNoitePlay 🔥</title>
   
   <!-- GOOGLE ADSENSE -->
@@ -740,6 +742,18 @@
       });
     }
 
+    // CORREÇÃO DA FUNÇÃO window.onscroll
     window.onscroll = function() {
       const botaoInicio = document.getElementById('botaoInicio');
-      if (document.body.scrollTop > 100 || document.docum
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        botaoInicio.classList.add('visivel');
+      } else {
+        botaoInicio.classList.remove('visivel');
+      }
+    };
+
+    // Inicializar AdSense
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</body>
+</html>
