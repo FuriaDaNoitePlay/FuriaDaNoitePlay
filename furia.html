@@ -733,9 +733,13 @@
 
     // ===== FUNÇÕES GERAIS DO SITE =====
     // Botão voltar ao topo
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
     window.onscroll = function() {
       const botaoInicio = document.getElementById('botaoInicio');
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        botaoInicio.classList.add('visivel');
-      } else {
-        botaoI
+      if (document.body.scrollTop > 100 || document.docum
