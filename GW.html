@@ -620,4 +620,331 @@
                     changeDirection('left');
                     break;
                 case 'ArrowRight':
-               
+                    changeDirection('right');
+                    break;
+            }
+        }
+        
+        function changeDirection(newDirection) {
+            if (!gameStarted) return;
+            
+            // Previne movimento inverso
+            if (
+                (newDirection === 'up' && direction !== 'down') ||
+                (newDirection === 'down' && direction !== 'up') ||
+                (newDirection === 'left' && direction !== 'right') ||
+                (newDirection === 'right' && direction !== 'left')
+            ) {
+                nextDirection = newDirection;
+            }
+        }
+        
+        // Jogo
+        function resetGame() {
+            clearInterval(gameInterval);
+            
+            // Inicializa a cobra (dragão)
+            snake = [
+                {x: 5, y: 10},
+                {x: 4, y: 10},
+                {x: 3, y: 10}
+            ];
+            
+            // Gera comida (bola do mundo)
+            generateFood();
+            
+            // Reseta direção e pontuação
+            direction = 'right';
+            nextDirection = 'right';
+            score = 0;
+            scoreElement.textContent = score;
+            
+            // Inicia o loop do jogo
+            gameInterval = setInterval(gameLoop, 150);
+        }
+        
+        function generateFood() {
+            food = {
+                x: Math.floor(Math.random() * (canvas.width / gridSize)),
+                y: Math.floor(Math.random() * (canvas.height / gridSize))
+            };
+            
+            // Verifica se a comida não apareceu em cima da cobra
+            for (let segment of snake) {
+                if (segment.x === food.x && segment.y === food.y) {
+                    generateFood();
+                    return;
+                }
+            }
+        }
+        
+        function gameLoop() {
+            // Atualiza direção
+            direction = nextDirection;
+            
+            // Move a cobra
+            const head = {...snake[0]};
+            
+            switch(direction) {
+                case 'up':
+                    head.y -= 1;
+                    break;
+                case 'down':
+                    head.y += 1;
+                    break;
+                case 'left':
+                    head.x -= 1;
+                    break;
+                case 'right':
+                    head.x += 1;
+                    break;
+            }
+            
+            // Verifica colisão com as bordas
+            if (
+                head.x < 0 || head.x >= canvas.width / gridSize ||
+                head.y < 0 || head.y >= canvas.height / gridSize
+            ) {
+                gameOver();
+                return;
+            }
+            
+            // Verifica colisão com o próprio corpo
+            for (let segment of snake) {
+                if (head.x === segment.x && head.y === segment.y) {
+                    gameOver();
+                    return;
+                }
+            }
+            
+            // Adiciona nova cabeça
+            snake.unshift(head);
+            
+            // Verifica se comeu a comida
+            if (head.x === food.x && head.y === food.y) {
+                // Aumenta pontuação
+                score += 10;
+                scoreElement.textContent = score;
+                
+                // Gera nova comida
+                generateFood();
+            } else {
+                // Remove a cauda se não comeu
+                snake.pop();
+            }
+            
+            // Desenha o jogo
+            drawGame();
+        }
+        
+        function drawGame() {
+            // Limpa o canvas
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Desenha grade
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 0.5;
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            
+            // Desenha a comida (bola do mundo)
+            ctx.fillStyle = '#4A90E2';
+            ctx.beginPath();
+            ctx.arc(
+                food.x * gridSize + gridSize/2,
+                food.y * gridSize + gridSize/2,
+                gridSize/2,
+                0,
+                Math.PI * 2
+            );
+            ctx.fill();
+            
+            // Detalhes da bola do mundo
+            ctx.fillStyle = '#3A7A3A';
+            // Continentes
+            ctx.fillRect(food.x * gridSize + 5, food.y * gridSize + 5, 10, 5);
+            ctx.fillRect(food.x * gridSize + 3, food.y * gridSize + 12, 6, 4);
+            ctx.fillRect(food.x * gridSize + 12, food.y * gridSize + 8, 4, 6);
+            
+            // Desenha a cobra (dragão)
+            for (let i = 0; i < snake.length; i++) {
+                const segment = snake[i];
+                
+                // Cor do dragão (gradiente dourado/bronze)
+                if (i === 0) {
+                    // Cabeça do dragão
+                    const gradient = ctx.createLinearGradient(
+                        segment.x * gridSize, 
+                        segment.y * gridSize,
+                        segment.x * gridSize + gridSize,
+                        segment.y * gridSize + gridSize
+                    );
+                    gradient.addColorStop(0, '#D4AF37');
+                    gradient.addColorStop(1, '#FFD700');
+                    ctx.fillStyle = gradient;
+                } else {
+                    // Corpo do dragão
+                    const gradient = ctx.createLinearGradient(
+                        segment.x * gridSize, 
+                        segment.y * gridSize,
+                        segment.x * gridSize + gridSize,
+                        segment.y * gridSize + gridSize
+                    );
+                    gradient.addColorStop(0, '#CD7F32');
+                    gradient.addColorStop(1, '#D4AF37');
+                    ctx.fillStyle = gradient;
+                }
+                
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+                
+                // Detalhes do dragão
+                ctx.strokeStyle = '#2A2A2A';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
+                
+                // Escamas no corpo
+                if (i > 0) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+                    ctx.fillRect(segment.x * gridSize + 2, segment.y * gridSize + 2, gridSize - 4, 2);
+                }
+                
+                // Olhos na cabeça
+                if (i === 0) {
+                    ctx.fillStyle = '#FF0000';
+                    ctx.beginPath();
+                    ctx.arc(
+                        segment.x * gridSize + gridSize - 5,
+                        segment.y * gridSize + 5,
+                        2,
+                        0,
+                        Math.PI * 2
+                    );
+                    ctx.fill();
+                    
+                    ctx.beginPath();
+                    ctx.arc(
+                        segment.x * gridSize + gridSize - 5,
+                        segment.y * gridSize + gridSize - 5,
+                        2,
+                        0,
+                        Math.PI * 2
+                    );
+                    ctx.fill();
+                    
+                    // Chamas saindo da boca
+                    if (direction === 'right') {
+                        ctx.fillStyle = '#FF4500';
+                        ctx.fillRect(segment.x * gridSize + gridSize, segment.y * gridSize + 5, 8, 3);
+                        ctx.fillRect(segment.x * gridSize + gridSize, segment.y * gridSize + 12, 8, 3);
+                    }
+                }
+            }
+        }
+        
+        function gameOver() {
+            clearInterval(gameInterval);
+            gameStarted = false;
+            
+            // Atualiza recorde se necessário
+            if (score > highScore) {
+                highScore = score;
+                highScoreElement.textContent = highScore;
+                localStorage.setItem('snakeHighScore', highScore);
+            }
+            
+            // Adiciona ao ranking
+            addToRanking(playerNickname, score);
+            
+            // Mostra mensagem de game over
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#D4AF37';
+            ctx.font = '24px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('FIM DE JOGO', canvas.width/2, canvas.height/2 - 20);
+            
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = '16px Arial';
+            ctx.fillText(`Pontuação: ${score}`, canvas.width/2, canvas.height/2 + 10);
+            ctx.fillText('Clique para jogar novamente', canvas.width/2, canvas.height/2 + 40);
+            
+            // Prepara para reiniciar
+            canvas.addEventListener('click', resetGameWithClick);
+        }
+        
+        function resetGameWithClick() {
+            canvas.removeEventListener('click', resetGameWithClick);
+            resetGame();
+        }
+        
+        // Ranking
+        function addToRanking(nickname, score) {
+            // Adiciona novo resultado
+            ranking.push({ nickname, score });
+            
+            // Ordena por pontuação (maior primeiro)
+            ranking.sort((a, b) => b.score - a.score);
+            
+            // Mantém apenas os top 10
+            if (ranking.length > 10) {
+                ranking = ranking.slice(0, 10);
+            }
+            
+            // Salva no localStorage
+            localStorage.setItem('snakeRanking', JSON.stringify(ranking));
+            
+            // Atualiza a exibição
+            updateRankingDisplay();
+        }
+        
+        function updateRankingDisplay() {
+            rankingList.innerHTML = '';
+            
+            ranking.forEach((player, index) => {
+                const rankItem = document.createElement('div');
+                rankItem.className = 'ranking-item';
+                
+                const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
+                
+                rankItem.innerHTML = `
+                    <div class="rank-position">${index + 1}</div>
+                    <div class="rank-medal">${medal}</div>
+                    <div class="player-name">${player.nickname}</div>
+                    <div class="player-score">${player.score}</div>
+                `;
+                
+                rankingList.appendChild(rankItem);
+            });
+        }
+        
+        // Música
+        function playMusic() {
+            musicPlayer.play().catch(e => {
+                console.log("Reprodução automática bloqueada. Clique em Play para iniciar.");
+                musicStatus.textContent = "Clique em Play para iniciar a música";
+            });
+            musicStatus.textContent = "🎵 Tocando: Epic Battle Music";
+        }
+        
+        function pauseMusic() {
+            musicPlayer.pause();
+            musicStatus.textContent = "⏸ Música pausada";
+        }
+        
+        // Inicializa o jogo quando a página carrega
+        window.onload = init;
+    </script>
+</body>
+</html>
