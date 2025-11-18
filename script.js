@@ -455,4 +455,474 @@ class FuriaSystem {
             <!-- ADENSE NA TABELA -->
             <div class="ads-responsive">
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
- 
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-9551454046138296"
+                     data-ad-slot="7259870557"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <table class="classification-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Equipe</th>
+                        <th>Pontos</th>
+                        <th>Jogos</th>
+                        <th>Vitórias</th>
+                        <th>Derrotas</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${this.tabelaClassificacao.map(time => `
+                        <tr>
+                            <td>${time.posicao}º</td>
+                            <td><strong>${time.equipe}</strong></td>
+                            <td>${time.pontos}</td>
+                            <td>${time.jogos}</td>
+                            <td>${time.vitorias}</td>
+                            <td>${time.derrotas}</td>
+                            <td>
+                                <button onclick="sistema.editarPontuacao('${time.equipe}')" class="btn-warning btn-sm">✏️</button>
+                                <button onclick="sistema.resetarTime('${time.equipe}')" class="btn-danger btn-sm">🔄</button>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+    }
+
+    renderAdmins() {
+        const adms = this.usuarios.filter(u => u.tipo.includes('ADM'));
+        
+        return `
+            <div class="section-header">
+                <h2>⚡ Gerenciamento de ADMs</h2>
+                <button onclick="sistema.criarAdm()" class="btn-primary">➕ Novo ADM</button>
+            </div>
+
+            <!-- ADENSE PARA ADMS -->
+            <div class="ads-sidebar">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-9551454046138296"
+                     data-ad-slot="7259870558"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="admins-list">
+                ${adms.map(adm => `
+                    <div class="admin-card">
+                        <div class="admin-avatar">${adm.nome.charAt(0)}</div>
+                        <div class="admin-info">
+                            <div class="admin-name">${adm.nome}</div>
+                            <div class="admin-level ${adm.tipo === 'ADM Supremo' ? 'supremo' : 'geral'}">
+                                ${adm.tipo}
+                            </div>
+                            <div class="admin-status ${adm.status}">
+                                ${adm.status === 'online' ? '🟢 Online' : '🔴 Offline'}
+                            </div>
+                        </div>
+                        <div class="admin-actions">
+                            ${adm.tipo !== 'ADM Supremo' ? `
+                                <button onclick="sistema.editarAdm(${adm.id})" class="btn-warning">✏️</button>
+                                <button onclick="sistema.rebaixarAdm(${adm.id})" class="btn-danger">⬇️</button>
+                            ` : `
+                                <button class="btn-warning" disabled>👑</button>
+                            `}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    // =============================================
+    // FUNÇÕES DE INTERAÇÃO (MESMAS DO CÓDIGO ANTERIOR)
+    // =============================================
+
+    tentarLogin() {
+        const user = document.getElementById('loginUser').value;
+        const pass = document.getElementById('loginPass').value;
+        
+        if (this.fazerLogin(user, pass)) {
+            this.mostrarPainel();
+        } else {
+            alert('❌ Usuário ou senha incorretos!');
+        }
+    }
+
+    entrarComoVisitante() {
+        alert('👤 Modo visitante ativado! Acesso limitado.');
+        window.location.href = 'furia.html';
+    }
+
+    mostrarSecao(secao) {
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(secao).classList.add('active');
+    }
+
+    adicionarUsuario() {
+        const nome = prompt('Digite o nome do novo usuário:');
+        if (nome) {
+            const novoUsuario = {
+                id: Date.now(),
+                nome: nome,
+                tipo: 'Membro',
+                status: 'online',
+                pontos: 0
+            };
+            this.usuarios.push(novoUsuario);
+            this.salvarDados();
+            this.mostrarPainel();
+            alert(`✅ Usuário ${nome} adicionado!`);
+        }
+    }
+
+    promoverUsuario(id) {
+        const usuario = this.usuarios.find(u => u.id === id);
+        if (usuario && confirm(`Promover ${usuario.nome} para ADM Geral?`)) {
+            usuario.tipo = 'ADM Geral';
+            this.salvarDados();
+            this.mostrarPainel();
+        }
+    }
+
+    banirUsuario(id) {
+        const usuario = this.usuarios.find(u => u.id === id);
+        if (usuario && confirm(`Banir ${usuario.nome} permanentemente?`)) {
+            this.usuarios = this.usuarios.filter(u => u.id !== id);
+            this.salvarDados();
+            this.mostrarPainel();
+        }
+    }
+
+    criarEquipe() {
+        const nome = prompt('Nome da nova equipe:');
+        const serie = prompt('Série (A, B ou C):')?.toLowerCase();
+        
+        if (nome && ['a','b','c'].includes(serie)) {
+            const novaEquipe = {
+                id: Date.now(),
+                nome: nome.toUpperCase(),
+                serie: serie,
+                pontos: 0,
+                status: 'ativa'
+            };
+            this.equipes.push(novaEquipe);
+            this.salvarDados();
+            this.mostrarPainel();
+        }
+    }
+
+    editarPontuacao(equipeNome) {
+        const time = this.tabelaClassificacao.find(t => t.equipe === equipeNome);
+        if (time) {
+            const pontos = prompt(`Novos pontos para ${equipeNome}:`, time.pontos);
+            if (pontos !== null) {
+                time.pontos = parseInt(pontos);
+                this.salvarDados();
+                this.mostrarPainel();
+            }
+        }
+    }
+
+    filtrarUsuarios() {
+        console.log('Filtrando usuários...');
+    }
+
+    filtrarEquipes() {
+        console.log('Filtrando equipes...');
+    }
+
+    atualizarTabela() {
+        alert('📈 Tabela atualizada!');
+        this.mostrarPainel();
+    }
+
+    // =============================================
+    // STYLES (ATUALIZADOS COM ADSENSE)
+    // =============================================
+
+    getLoginStyles() {
+        return `
+            .login-container {
+                background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Orbitron', sans-serif;
+                padding: 20px;
+            }
+            
+            .ads-top-login, .ads-bottom-login {
+                margin: 20px auto;
+                max-width: 728px;
+                text-align: center;
+            }
+            
+            .login-box {
+                background: rgba(0, 0, 0, 0.9);
+                border: 2px solid #ff0000;
+                border-radius: 15px;
+                padding: 40px;
+                box-shadow: 0 0 30px #ff0000;
+                text-align: center;
+                max-width: 400px;
+                width: 90%;
+            }
+            
+            .login-box h1 {
+                color: #ff0000;
+                margin-bottom: 10px;
+                text-shadow: 0 0 20px #ff0000;
+            }
+            
+            .login-box h3 {
+                color: #fff;
+                margin-bottom: 30px;
+            }
+            
+            .input-group {
+                margin-bottom: 20px;
+            }
+            
+            .input-group input {
+                width: 100%;
+                padding: 15px;
+                border: 2px solid #ff0000;
+                border-radius: 8px;
+                background: rgba(255, 0, 0, 0.1);
+                color: white;
+                font-size: 16px;
+            }
+            
+            .login-btn, .visitante-btn {
+                width: 100%;
+                padding: 15px;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                margin-bottom: 10px;
+                transition: all 0.3s ease;
+            }
+            
+            .login-btn {
+                background: linear-gradient(135deg, #ff0000, #cc0000);
+                color: white;
+            }
+            
+            .visitante-btn {
+                background: linear-gradient(135deg, #25D366, #128C7E);
+                color: white;
+            }
+            
+            .login-btn:hover, .visitante-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+            }
+            
+            .login-info {
+                margin-top: 20px;
+                color: #ccc;
+                font-size: 12px;
+            }
+        `;
+    }
+
+    getPanelStyles() {
+        return `
+            .admin-panel {
+                background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+                min-height: 100vh;
+                color: white;
+                font-family: 'Orbitron', sans-serif;
+            }
+            
+            .admin-header {
+                background: rgba(0, 0, 0, 0.9);
+                padding: 20px;
+                border-bottom: 2px solid #ff0000;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 0 25px #ff0000;
+            }
+            
+            .ads-header {
+                margin: 10px auto;
+                max-width: 728px;
+                text-align: center;
+            }
+            
+            .admin-header h1 {
+                color: #ff0000;
+                text-shadow: 0 0 20px #ff0000;
+            }
+            
+            .user-info {
+                color: #ccc;
+                margin-top: 5px;
+            }
+            
+            .logout-btn {
+                background: #ff0000;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            
+            .admin-nav {
+                background: rgba(0, 0, 0, 0.8);
+                padding: 15px;
+                display: flex;
+                gap: 10px;
+                border-bottom: 1px solid #ff0000;
+            }
+            
+            .nav-btn {
+                background: rgba(255, 0, 0, 0.1);
+                border: 2px solid #ff0000;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-btn.active, .nav-btn:hover {
+                background: #ff0000;
+                color: black;
+            }
+            
+            .admin-content {
+                padding: 20px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            
+            .content-section {
+                display: none;
+            }
+            
+            .content-section.active {
+                display: block;
+            }
+            
+            .ads-dashboard, .ads-content, .ads-responsive {
+                margin: 20px auto;
+                text-align: center;
+                max-width: 728px;
+            }
+            
+            .ads-vertical {
+                float: right;
+                margin: 0 0 20px 20px;
+                width: 300px;
+            }
+            
+            .ads-sidebar {
+                float: left;
+                margin: 0 20px 20px 0;
+                width: 300px;
+            }
+            
+            .dashboard-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+            
+            .stat-card {
+                background: rgba(0, 0, 0, 0.7);
+                border: 2px solid #ff0000;
+                border-radius: 10px;
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 0 15px #ff0000;
+            }
+            
+            .stat-number {
+                font-size: 2em;
+                font-weight: bold;
+                color: #ff0000;
+                margin-top: 10px;
+            }
+            
+            .section-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            
+            .btn-primary {
+                background: #ff0000;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            
+            .user-card, .team-card, .admin-card {
+                background: rgba(0, 0, 0, 0.7);
+                border: 1px solid #ff0000;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .user-avatar, .team-avatar, .admin-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: #ff0000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                margin-right: 15px;
+            }
+            
+            .admin-footer {
+                text-align: center;
+                padding: 20px;
+                border-top: 1px solid #ff0000;
+                margin-top: 40px;
+            }
+            
+            .ads-footer {
+                margin: 20px auto;
+                max-width: 728px;
+            }
+        `;
+    }
+}
+
+// Inicializar o sistema
+const sistema = new FuriaSystem();
