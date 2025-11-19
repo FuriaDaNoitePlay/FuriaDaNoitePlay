@@ -1,246 +1,244 @@
 <?php
 // =============================================
-// RANKING.PHP - SISTEMA DE RANKING
+// CADASTRO.PHP - SISTEMA DE CADASTRO FURIA DA NOITE
 // =============================================
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 
+// Configuração de timezone
+date_default_timezone_set('America/Sao_Paulo');
+
+// Arquivos JSON
+$arquivo_usuarios = 'data/furia_usuarios.json';
+$arquivo_equipes = 'data/furia_equipes.json';
 $arquivo_ranking = 'data/furia_ranking.json';
 
+// Criar diretório data se não existir
+if (!is_dir('data')) {
+    mkdir('data', 0777, true);
+}
+
+// Criar arquivos se não existirem
+if (!file_exists($arquivo_usuarios)) {
+    file_put_contents($arquivo_usuarios, json_encode([]));
+}
+if (!file_exists($arquivo_equipes)) {
+    file_put_contents($arquivo_equipes, json_encode([]));
+}
+if (!file_exists($arquivo_ranking)) {
+    file_put_contents($arquivo_ranking, json_encode([]));
+}
+
+// Função para ler dados JSON
 function lerDados($arquivo) {
-    if (!file_exists($arquivo)) return [];
+    if (!file_exists($arquivo)) {
+        return [];
+    }
     $dados = file_get_contents($arquivo);
     return json_decode($dados, true) ?: [];
 }
 
+// Função para salvar dados JSON
 function salvarDados($arquivo, $dados) {
     return file_put_contents($arquivo, json_encode($dados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $acao = $_GET['acao'] ?? '';
-    
-    if ($acao === 'listar') {
-        $ranking = lerDados($arquivo_ranking);
-        
-        // Ordenar por pontuação (maior primeiro)
-        usort($ranking, function($a, $b) {
-            return $b['pontuacao'] - $a['pontuacao'];
-        });
-        
-        // Atualizar posições
-        foreach ($ranking as $index => &$item) {
-            $item['posicao'] = $index + 1;
-        }
-        
-        echo json_encode(array_slice($ranking, 0, 250), JSON_UNESCAPED_UNICODE); // Top 250
-        exit;
-        
-    } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Atualizar pontuação (para o jogo do dragão)
-        $dados = json_decode(file_get_contents('php://input'), true);
-        
-        if ($dados && isset($dados['nick']) && isset($dados['pontuacao'])) {
-            $ranking = lerDados($arquivo_ranking);
-            $encontrado = false;
-            
-            foreach ($ranking as &$item) {
-                if ($item['nome'] === $dados['nick']) {
-                    if ($dados['pontuacao'] > $item['pontuacao']) {
-                        $item['pontuacao'] = $dados['pontuacao'];
-                        $item['vitorias']++;
-                        $item['ultima_atualizacao'] = date('d/m/Y H:i:s');
-                    } else {
-                        $item['derrotas']++;
-                    }
-                    $encontrado = true;
-                    break;
-                }
-            }
-            
-            if (!$encontrado) {
-                // Adicionar novo ao ranking
-                $ranking[] = [
-                    'id' => uniqid('rank_') . time(),
-                    'nome' => $dados['nick'],
-                    'tipo' => 'usuario',
-                    'jogo' => 'dragao',
-                    'pontuacao' => $dados['pontuacao'],
-                    'vitorias' => 1,
-                    'derrotas' => 0,
-                    'posicao' => count($ranking) + 1,
-                    'data_entrada' => date('d/m/Y H:i:s'),
-                    'ultima_atualizacao' => date('d/m/Y H:i:s')
-                ];
-            }
-            
-            if (salvarDados($arquivo_ranking, $ranking)) {
-                echo json_encode(['success' => true, 'message' => 'Ranking atualizado!']);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Erro ao salvar ranking']);
-            }
-        }
-        exit;
-    }
+// Função para registrar log
+function registrarLog($mensagem) {
+    $log = date('Y-m-d H:i:s') . " - " . $mensagem . "\n";
+    file_put_contents('cadastro_log.txt', $log, FILE_APPEND | LOCK_EX);
 }
 
-// Página do ranking
-?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏆 Ranking - FuriaDaNoitePlay</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0000 100%);
-            color: white;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        .header {
-            text-align: center;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        
-        h1 {
-            color: #FFD700;
-            font-size: 3rem;
-            text-shadow: 0 0 20px #FFD700;
-            margin-bottom: 10px;
-        }
-        
-        .ranking-table {
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid #FFD700;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th, td {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-        }
-        
-        th {
-            background: rgba(255,215,0,0.3);
-            color: #FFD700;
-            font-weight: bold;
-        }
-        
-        .top-1 { background: linear-gradient(45deg, #FFD700, #FFEC8B); color: #000; font-weight: bold; }
-        .top-2 { background: linear-gradient(45deg, #C0C0C0, #E8E8E8); color: #000; }
-        .top-3 { background: linear-gradient(45deg, #CD7F32, #E8B886); color: #000; }
-        
-        .posicao {
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .btn {
-            background: #FFD700;
-            color: #000;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-            margin: 20px 10px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🏆 RANKING GLOBAL</h1>
-            <p style="color: #FFD700; font-size: 1.2rem;">Top 250 Jogadores e Equipes</p>
-        </div>
-        
-        <div class="ranking-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Posição</th>
-                        <th>Nome</th>
-                        <th>Tipo</th>
-                        <th>Jogo</th>
-                        <th>Pontuação</th>
-                        <th>Vitórias</th>
-                    </tr>
-                </thead>
-                <tbody id="ranking-body">
-                    <!-- Dados do ranking serão carregados via JavaScript -->
-                </tbody>
-            </table>
-        </div>
-        
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="index.html" class="btn">🏠 Voltar ao Início</a>
-            <a href="login.html" class="btn">🔐 Fazer Login</a>
-            <button class="btn" onclick="carregarRanking()">🔄 Atualizar</button>
-        </div>
-    </div>
+// Processar requisição OPTIONS (CORS)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
-    <script>
-        async function carregarRanking() {
-            try {
-                const response = await fetch('ranking.php?acao=listar');
-                const ranking = await response.json();
+// Processar requisição POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $tipo = $_POST['tipo'] ?? '';
+    
+    $resposta = ['success' => false, 'message' => ''];
+    
+    try {
+        switch($tipo) {
+            case 'membro':
+                // Cadastro de membro
+                $nick = trim($_POST['nick'] ?? '');
+                $senha = trim($_POST['senha'] ?? '');
+                $whatsapp = trim($_POST['whatsapp'] ?? '');
+                $jogo = $_POST['jogo'] ?? '';
+                $id_jogo = trim($_POST['id_jogo'] ?? '');
                 
-                const tbody = document.getElementById('ranking-body');
-                tbody.innerHTML = '';
+                if (empty($nick) || empty($senha) || empty($whatsapp) || empty($jogo) || empty($id_jogo)) {
+                    throw new Exception('❌ Preencha todos os campos obrigatórios!');
+                }
                 
-                ranking.forEach((item, index) => {
-                    const row = document.createElement('tr');
+                // Validar WhatsApp
+                if (!preg_match('/^\(\d{2}\)\s9\d{4}-\d{4}$/', $whatsapp)) {
+                    throw new Exception('❌ Formato de WhatsApp inválido! Use: (31) 99999-9999');
+                }
+                
+                // Validar ID do jogo
+                if (!preg_match('/^\d{9,12}$/', $id_jogo)) {
+                    throw new Exception('❌ ID do jogo deve ter entre 9 e 12 dígitos!');
+                }
+                
+                $usuarios = lerDados($arquivo_usuarios);
+                
+                // Verificar se usuário já existe
+                foreach ($usuarios as $usuario) {
+                    if ($usuario['nick'] === $nick) {
+                        throw new Exception('❌ Este nickname já está em uso!');
+                    }
+                }
+                
+                // Criar novo usuário
+                $novoUsuario = [
+                    'id' => 'user_' . time() . '_' . uniqid(),
+                    'nick' => $nick,
+                    'senha' => $senha, // Em produção, usar password_hash()
+                    'whatsapp' => $whatsapp,
+                    'jogo' => $jogo,
+                    'id_jogo' => $id_jogo,
+                    'tipo' => 'membro',
+                    'data_cadastro' => date('d/m/Y H:i:s'),
+                    'status' => 'ativo',
+                    'pontuacao' => 0,
+                    'vitorias' => 0,
+                    'derrotas' => 0
+                ];
+                
+                $usuarios[] = $novoUsuario;
+                
+                if (salvarDados($arquivo_usuarios, $usuarios)) {
+                    $resposta['success'] = true;
+                    $resposta['message'] = '✅ Membro cadastrado com sucesso!';
+                    registrarLog("Novo membro: {$nick}");
                     
-                    // Classes para os top 3
-                    let rowClass = '';
-                    if (index === 0) rowClass = 'top-1';
-                    else if (index === 1) rowClass = 'top-2';
-                    else if (index === 2) rowClass = 'top-3';
+                    // Adicionar ao ranking também
+                    $ranking = lerDados($arquivo_ranking);
+                    $ranking[] = [
+                        'id' => $novoUsuario['id'],
+                        'nome' => $nick,
+                        'tipo' => 'usuario',
+                        'jogo' => $jogo,
+                        'pontuacao' => 0,
+                        'vitorias' => 0,
+                        'derrotas' => 0,
+                        'posicao' => count($ranking) + 1,
+                        'data_entrada' => date('d/m/Y H:i:s'),
+                        'ultima_atualizacao' => date('d/m/Y H:i:s')
+                    ];
+                    salvarDados($arquivo_ranking, $ranking);
+                } else {
+                    throw new Exception('❌ Erro ao salvar dados do usuário');
+                }
+                break;
+                
+            case 'equipe':
+                // Cadastro de equipe
+                $nome_equipe = trim($_POST['nome_equipe'] ?? '');
+                $senha = trim($_POST['senha'] ?? '');
+                $nick_lider = trim($_POST['nick_lider'] ?? '');
+                $whatsapp = trim($_POST['whatsapp'] ?? '');
+                $jogo = $_POST['jogo'] ?? '';
+                
+                if (empty($nome_equipe) || empty($senha) || empty($nick_lider) || empty($whatsapp) || empty($jogo)) {
+                    throw new Exception('❌ Preencha todos os campos obrigatórios!');
+                }
+                
+                // Validar WhatsApp
+                if (!preg_match('/^\(\d{2}\)\s9\d{4}-\d{4}$/', $whatsapp)) {
+                    throw new Exception('❌ Formato de WhatsApp inválido! Use: (31) 99999-9999');
+                }
+                
+                $equipes = lerDados($arquivo_equipes);
+                
+                // Verificar se equipe já existe
+                foreach ($equipes as $equipe) {
+                    if ($equipe['nome_equipe'] === $nome_equipe) {
+                        throw new Exception('❌ Este nome de equipe já está em uso!');
+                    }
+                }
+                
+                // Criar nova equipe
+                $novaEquipe = [
+                    'id' => 'team_' . time() . '_' . uniqid(),
+                    'nome_equipe' => $nome_equipe,
+                    'senha' => $senha, // Em produção, usar password_hash()
+                    'nick_lider' => $nick_lider,
+                    'whatsapp' => $whatsapp,
+                    'jogo' => $jogo,
+                    'tipo' => 'equipe',
+                    'data_criacao' => date('d/m/Y H:i:s'),
+                    'status' => 'ativa',
+                    'pontuacao' => 0,
+                    'vitorias' => 0,
+                    'derrotas' => 0,
+                    'membros' => [$nick_lider]
+                ];
+                
+                $equipes[] = $novaEquipe;
+                
+                if (salvarDados($arquivo_equipes, $equipes)) {
+                    $resposta['success'] = true;
+                    $resposta['message'] = '✅ Equipe cadastrada com sucesso!';
+                    registrarLog("Nova equipe: {$nome_equipe}");
                     
-                    row.className = rowClass;
-                    row.innerHTML = `
-                        <td class="posicao">${item.posicao}º</td>
-                        <td>${item.nome}</td>
-                        <td>${item.tipo === 'usuario' ? '👤' : '🏆'} ${item.tipo}</td>
-                        <td>${item.jogo}</td>
-                        <td><strong>${item.pontuacao}</strong></td>
-                        <td>${item.vitorias}</td>
-                    `;
-                    
-                    tbody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Erro ao carregar ranking:', error);
-            }
+                    // Adicionar ao ranking também
+                    $ranking = lerDados($arquivo_ranking);
+                    $ranking[] = [
+                        'id' => $novaEquipe['id'],
+                        'nome' => $nome_equipe,
+                        'tipo' => 'equipe',
+                        'jogo' => $jogo,
+                        'pontuacao' => 0,
+                        'vitorias' => 0,
+                        'derrotas' => 0,
+                        'posicao' => count($ranking) + 1,
+                        'data_entrada' => date('d/m/Y H:i:s'),
+                        'ultima_atualizacao' => date('d/m/Y H:i:s')
+                    ];
+                    salvarDados($arquivo_ranking, $ranking);
+                } else {
+                    throw new Exception('❌ Erro ao salvar dados da equipe');
+                }
+                break;
+                
+            default:
+                throw new Exception('❌ Tipo de cadastro inválido!');
         }
         
-        // Carregar ranking ao iniciar
-        document.addEventListener('DOMContentLoaded', carregarRanking);
-    </script>
-</body>
-</html>
+    } catch (Exception $e) {
+        $resposta['message'] = $e->getMessage();
+        registrarLog("Erro no cadastro: " . $e->getMessage());
+    }
+    
+    echo json_encode($resposta, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+// Se acessado via GET, mostrar estatísticas
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $usuarios = lerDados($arquivo_usuarios);
+    $equipes = lerDados($arquivo_equipes);
+    
+    $estatisticas = [
+        'success' => true,
+        'sistema' => 'FuriaDaNoitePlay - Cadastro',
+        'status' => 'operacional',
+        'total_usuarios' => count($usuarios),
+        'total_equipes' => count($equipes),
+        'cadastros_hoje' => 0, // Poderia implementar contagem por data
+        'ultima_atualizacao' => date('d/m/Y H:i:s')
+    ];
+    
+    echo json_encode($estatisticas, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+?>
