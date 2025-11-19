@@ -1,1934 +1,224 @@
+<?php
+// admin-login.php
+session_start();
+
+// Credenciais do administrador (em produção, use banco de dados)
+$admin_credentials = [
+    'furiagod' => 'furia123',
+    'admin' => 'admin123',
+    'moderador' => 'mod123'
+];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+    
+    if (isset($admin_credentials[$username]) && $admin_credentials[$username] === $password) {
+        $_SESSION['admin_logged_in'] = true;
+        $_SESSION['admin_username'] = $username;
+        $_SESSION['admin_role'] = ($username === 'furiagod') ? 'ADM SUPREMO' : 'MODERADOR';
+        
+        echo json_encode([
+            'success' => true,
+            'message' => 'Login realizado com sucesso!',
+            'username' => $username,
+            'role' => $_SESSION['admin_role']
+        ]);
+    } else {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Credenciais inválidas!'
+        ]);
+    }
+    exit;
+}
+
+// Verificar se está logado
+if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+    // Redirecionar para o painel
+    header('Location: painel-adm.html');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 Painel ADM - FuriaDaNoitePlay</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>🔐 Login ADM - FuriaDaNoite</title>
     <style>
-        /* ===== VARIÁVEIS E RESET ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        
-        :root {
-            --vermelho-neon: #ff0000;
-            --vermelho-escuro: #cc0000;
-            --amarelo-neon: #FFD700;
-            --verde-neon: #00ff00;
-            --azul-neon: #0066ff;
-            --roxo-neon: #8A2BE2;
-            --preto: #000000;
-            --preto-escuro: #0a0a0a;
-            --branco: #ffffff;
+            font-family: 'Orbitron', sans-serif;
         }
         
         body {
             background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0000 100%);
-            color: var(--branco);
-            font-family: 'Orbitron', sans-serif;
+            color: white;
             min-height: 100vh;
-        }
-
-        /* ===== ANIMAÇÃO DE LOGIN ===== */
-        .login-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            flex-direction: column;
+            padding: 20px;
         }
-
-        .checkmark {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: block;
-            stroke-width: 2;
-            stroke: var(--roxo-neon);
-            stroke-miterlimit: 10;
-            box-shadow: inset 0px 0px 0px var(--roxo-neon);
-            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
-            margin-bottom: 30px;
-        }
-
-        .checkmark__circle {
-            stroke-dasharray: 166;
-            stroke-dashoffset: 166;
-            stroke-width: 2;
-            stroke-miterlimit: 10;
-            stroke: var(--roxo-neon);
-            fill: none;
-            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-        }
-
-        .checkmark__check {
-            transform-origin: 50% 50%;
-            stroke-dasharray: 48;
-            stroke-dashoffset: 48;
-            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-        }
-
-        @keyframes stroke {
-            100% { stroke-dashoffset: 0; }
-        }
-
-        @keyframes scale {
-            0%, 100% { transform: none; }
-            50% { transform: scale3d(1.1, 1.1, 1); }
-        }
-
-        @keyframes fill {
-            100% { box-shadow: inset 0px 0px 0px 30px var(--roxo-neon); }
-        }
-
-        .welcome-text {
-            color: var(--roxo-neon);
-            font-size: 2rem;
-            text-shadow: 0 0 20px var(--roxo-neon);
-            animation: pulsar 1.5s infinite;
-        }
-
-        @keyframes pulsar {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
-        }
-
-        /* ===== SISTEMA DE CHAT ===== */
-        .chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 350px;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
-            border: 3px solid var(--roxo-neon);
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, var(--roxo-neon), #6a0dad);
-            padding: 15px;
-            border-radius: 12px 12px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-title {
-            color: var(--branco);
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .chat-close {
-            background: none;
-            border: none;
-            color: var(--branco);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .message {
-            padding: 10px 15px;
-            border-radius: 10px;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-
-        .message.own {
-            background: rgba(138, 43, 226, 0.3);
-            align-self: flex-end;
-            border: 1px solid var(--roxo-neon);
-        }
-
-        .message.other {
-            background: rgba(255, 215, 0, 0.2);
-            align-self: flex-start;
-            border: 1px solid var(--amarelo-neon);
-        }
-
-        .message.adm {
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid var(--vermelho-neon);
-        }
-
-        .message-sender {
-            font-weight: bold;
-            font-size: 0.8rem;
-            margin-bottom: 5px;
-        }
-
-        .message-text {
-            font-size: 0.9rem;
-        }
-
-        .chat-input {
-            display: flex;
-            padding: 15px;
-            gap: 10px;
-            border-top: 1px solid var(--roxo-neon);
-        }
-
-        .chat-input input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid var(--roxo-neon);
-            border-radius: 8px;
-            background: rgba(138, 43, 226, 0.1);
-            color: white;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .chat-input button {
-            background: var(--roxo-neon);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .chat-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--roxo-neon), #6a0dad);
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 0 20px var(--roxo-neon);
-            z-index: 999;
-        }
-
-        /* ===== HEADER ===== */
-        .header {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
-            padding: 20px 40px;
-            border-bottom: 3px solid var(--roxo-neon);
-            box-shadow: 0 0 30px rgba(138, 43, 226, 0.4);
-        }
-
-        .header-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-icon {
-            font-size: 2.5rem;
-            color: var(--amarelo-neon);
-            text-shadow: 0 0 20px var(--amarelo-neon);
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--roxo-neon);
-            text-shadow: 0 0 15px var(--roxo-neon);
-        }
-
-        .admin-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .admin-badge {
-            background: linear-gradient(135deg, var(--roxo-neon), #6a0dad);
-            padding: 12px 25px;
-            border-radius: 15px;
-            border: 2px solid var(--amarelo-neon);
-            text-align: center;
-            box-shadow: 0 0 20px var(--roxo-neon);
-        }
-
-        .admin-name {
-            color: var(--amarelo-neon);
-            font-weight: bold;
-            margin-bottom: 5px;
-            text-shadow: 0 0 10px var(--amarelo-neon);
-        }
-
-        .admin-role {
-            color: var(--branco);
-            font-size: 0.9rem;
-        }
-
-        .admin-stats {
-            display: flex;
-            gap: 15px;
-        }
-
-        .stat-badge {
-            background: rgba(255, 215, 0, 0.2);
-            padding: 10px 15px;
-            border-radius: 10px;
-            border: 1px solid var(--amarelo-neon);
-            text-align: center;
-            min-width: 80px;
-        }
-
-        .stat-value {
-            color: var(--amarelo-neon);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .stat-label {
-            color: #ccc;
-            font-size: 0.8rem;
-        }
-
-        /* ===== NAVEGAÇÃO ===== */
-        .nav {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 15px 40px;
-            border-bottom: 2px solid var(--roxo-neon);
-        }
-
-        .nav-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            color: var(--branco);
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            transition: all 0.3s;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(138, 43, 226, 0.1);
-            border: 1px solid transparent;
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--amarelo-neon);
-            text-shadow: 0 0 10px var(--amarelo-neon);
-            border-color: var(--amarelo-neon);
-        }
-
-        .nav-link.active {
-            background: rgba(255, 215, 0, 0.3);
-            color: var(--amarelo-neon);
-            text-shadow: 0 0 10px var(--amarelo-neon);
-            border: 1px solid var(--amarelo-neon);
-            box-shadow: 0 0 15px var(--amarelo-neon);
-        }
-
-        .admin-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .action-btn {
-            background: linear-gradient(135deg, var(--roxo-neon), #6a0dad);
-            color: var(--branco);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px var(--roxo-neon);
-        }
-
-        .action-btn.alert {
-            background: linear-gradient(135deg, var(--vermelho-neon), var(--vermelho-escuro));
-        }
-
-        /* ===== CONTEÚDO PRINCIPAL ===== */
-        .main-content {
-            max-width: 1600px;
-            margin: 30px auto;
-            padding: 0 40px;
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 30px;
-        }
-
-        /* ===== SIDEBAR ===== */
-        .sidebar {
+        
+        .login-container {
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid var(--roxo-neon);
-            box-shadow: 
-                0 0 25px rgba(138, 43, 226, 0.3),
-                inset 0 0 15px rgba(138, 43, 226, 0.1);
-            height: fit-content;
+            padding: 50px 40px;
+            border-radius: 20px;
+            border: 3px solid #8A2BE2;
+            box-shadow: 0 0 50px rgba(138, 43, 226, 0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
-
-        .sidebar-section {
+        
+        h1 {
+            color: #8A2BE2;
+            text-shadow: 0 0 20px #8A2BE2;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #FFD700;
             margin-bottom: 30px;
         }
-
-        .sidebar-title {
-            color: var(--amarelo-neon);
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px var(--amarelo-neon);
-            border-bottom: 1px solid var(--roxo-neon);
-            padding-bottom: 8px;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-        }
-
-        .sidebar-item {
-            margin-bottom: 10px;
-        }
-
-        .sidebar-link {
-            color: var(--branco);
-            text-decoration: none;
-            padding: 12px 15px;
-            border-radius: 8px;
-            display: block;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-
-        .sidebar-link:hover {
-            background: rgba(138, 43, 226, 0.2);
-            color: var(--amarelo-neon);
-        }
-
-        .sidebar-link.active {
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--amarelo-neon);
-            border-left: 3px solid var(--amarelo-neon);
-        }
-
-        /* ===== DASHBOARD ===== */
-        .dashboard {
-            display: grid;
-            gap: 30px;
-        }
-
-        .welcome-section {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
-            padding: 40px;
-            border-radius: 20px;
-            border: 3px solid var(--roxo-neon);
-            box-shadow: 
-                0 0 40px rgba(138, 43, 226, 0.4),
-                inset 0 0 20px rgba(138, 43, 226, 0.1);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .welcome-section::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
-            animation: brilho 8s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes brilho {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .welcome-title {
-            font-size: 2.5rem;
-            color: var(--amarelo-neon);
-            text-shadow: 0 0 20px var(--amarelo-neon);
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .welcome-subtitle {
-            color: var(--branco);
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ===== CARDS DE ESTATÍSTICAS ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid var(--roxo-neon);
-            box-shadow: 
-                0 0 25px rgba(138, 43, 226, 0.3),
-                inset 0 0 15px rgba(138, 43, 226, 0.1);
-            text-align: center;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
-            transition: left 0.6s;
-        }
-
-        .stat-card:hover::before {
-            left: 100%;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                0 0 35px rgba(138, 43, 226, 0.5),
-                0 0 50px rgba(138, 43, 226, 0.2);
-        }
-
-        .stat-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--amarelo-neon);
-            text-shadow: 0 0 15px var(--amarelo-neon);
-        }
-
-        .stat-value {
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: var(--roxo-neon);
-            text-shadow: 0 0 15px var(--roxo-neon);
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            color: #ccc;
-            font-size: 0.9rem;
-        }
-
-        .stat-trend {
-            margin-top: 10px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .trend-up {
-            color: var(--verde-neon);
-        }
-
-        .trend-down {
-            color: var(--vermelho-neon);
-        }
-
-        /* ===== SEÇÕES ===== */
-        .section {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 0, 0, 0.8));
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid var(--roxo-neon);
-            box-shadow: 
-                0 0 25px rgba(138, 43, 226, 0.3),
-                inset 0 0 15px rgba(138, 43, 226, 0.1);
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .section-title {
-            color: var(--amarelo-neon);
-            font-size: 1.8rem;
-            text-shadow: 0 0 10px var(--amarelo-neon);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 2px solid var(--roxo-neon);
-            padding-bottom: 10px;
-        }
-
-        /* ===== TABELAS ===== */
-        .table-container {
-            overflow-x: auto;
-            margin-top: 20px;
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        .admin-table th {
-            background: rgba(138, 43, 226, 0.3);
-            color: var(--amarelo-neon);
-            padding: 15px;
-            text-align: left;
-            border-bottom: 2px solid var(--roxo-neon);
-        }
-
-        .admin-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
-        }
-
-        .admin-table tr:hover {
-            background: rgba(138, 43, 226, 0.1);
-        }
-
-        .user-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: var(--azul-neon);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--preto);
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
-
-        .status-badge {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .status-online {
-            background: rgba(0, 255, 0, 0.2);
-            color: var(--verde-neon);
-            border: 1px solid var(--verde-neon);
-        }
-
-        .status-offline {
-            background: rgba(255, 0, 0, 0.2);
-            color: var(--vermelho-neon);
-            border: 1px solid var(--vermelho-neon);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 5px;
-        }
-
-        .btn-action {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .btn-edit {
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--amarelo-neon);
-            border: 1px solid var(--amarelo-neon);
-        }
-
-        .btn-delete {
-            background: rgba(255, 0, 0, 0.2);
-            color: var(--vermelho-neon);
-            border: 1px solid var(--vermelho-neon);
-        }
-
-        .btn-ban {
-            background: rgba(138, 43, 226, 0.2);
-            color: var(--roxo-neon);
-            border: 1px solid var(--roxo-neon);
-        }
-
-        .btn-action:hover {
-            transform: scale(1.05);
-        }
-
-        /* ===== CONFRONTOS E RESULTADOS ===== */
-        .matches-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .match-card {
-            background: rgba(138, 43, 226, 0.1);
-            padding: 25px;
-            border-radius: 12px;
-            border: 2px solid var(--roxo-neon);
-            transition: all 0.3s;
-        }
-
-        .match-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 215, 0, 0.2);
-            border-color: var(--amarelo-neon);
-            box-shadow: 0 0 20px var(--amarelo-neon);
-        }
-
-        .match-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .match-title {
-            color: var(--amarelo-neon);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .match-status {
-            background: var(--verde-neon);
-            color: var(--preto);
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .match-teams {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-        }
-
-        .team {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            flex: 1;
-        }
-
-        .team-name {
-            color: var(--amarelo-neon);
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .team-score {
-            background: var(--roxo-neon);
-            color: var(--branco);
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            min-width: 50px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .team-score:hover {
-            background: var(--amarelo-neon);
-            color: var(--preto);
-        }
-
-        .vs {
-            color: var(--amarelo-neon);
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin: 0 20px;
-        }
-
-        .match-info {
-            display: flex;
-            justify-content: space-between;
-            color: var(--amarelo-neon);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .match-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-match {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            font-family: 'Orbitron', sans-serif;
-            flex: 1;
-        }
-
-        .btn-update {
-            background: linear-gradient(135deg, var(--verde-neon), #00cc00);
-            color: var(--preto);
-        }
-
-        .btn-delete-match {
-            background: linear-gradient(135deg, var(--vermelho-neon), var(--vermelho-escuro));
-            color: var(--branco);
-        }
-
-        .btn-match:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px;
-        }
-
-        /* ===== FORMULÁRIOS ===== */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
+        
         .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            margin-bottom: 20px;
+            text-align: left;
         }
-
-        .input-group label {
-            color: var(--amarelo-neon);
-            font-weight: bold;
-            text-shadow: 0 0 8px var(--amarelo-neon);
-            font-size: 1rem;
+        
+        label {
+            color: #FFD700;
+            display: block;
+            margin-bottom: 5px;
         }
-
-        .input-group input, .input-group select, .input-group textarea {
-            padding: 12px 15px;
-            border: 2px solid var(--roxo-neon);
-            border-radius: 8px;
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #8A2BE2;
+            border-radius: 10px;
             background: rgba(138, 43, 226, 0.1);
             color: white;
             font-size: 1rem;
-            transition: all 0.3s;
-            font-family: 'Orbitron', sans-serif;
         }
-
-        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+        
+        input:focus {
             outline: none;
-            border-color: var(--amarelo-neon);
-            box-shadow: 0 0 15px var(--amarelo-neon);
-            background: rgba(255, 215, 0, 0.1);
+            border-color: #FFD700;
+            box-shadow: 0 0 15px #FFD700;
         }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--roxo-neon), #6a0dad);
-            color: var(--branco);
+        
+        .login-btn {
+            background: linear-gradient(135deg, #8A2BE2, #6a0dad);
+            color: white;
             border: none;
             padding: 15px 30px;
             border-radius: 10px;
+            font-size: 1.1rem;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            font-family: 'Orbitron', sans-serif;
-            margin-top: 20px;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px var(--roxo-neon);
-        }
-
-        /* ===== RODAPÉ ===== */
-        .footer {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 30px 40px;
-            border-top: 3px solid var(--roxo-neon);
-            margin-top: 50px;
-        }
-
-        .footer-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--amarelo-neon);
-            text-shadow: 0 0 10px var(--amarelo-neon);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-link {
-            color: #ccc;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .footer-link:hover {
-            color: var(--amarelo-neon);
-            text-shadow: 0 0 8px var(--amarelo-neon);
-        }
-
-        .copyright {
-            color: #777;
-            font-size: 0.9rem;
             width: 100%;
-            text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
         }
-
-        /* ===== MODAIS ===== */
-        .modal {
+        
+        .login-btn:hover {
+            background: linear-gradient(135deg, #6a0dad, #8A2BE2);
+        }
+        
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
             display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
         }
-
-        .modal-content {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
-            margin: 5% auto;
-            padding: 30px;
-            border: 3px solid var(--roxo-neon);
-            border-radius: 15px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 0 50px rgba(138, 43, 226, 0.5);
-            position: relative;
-        }
-
-        .close {
-            color: var(--amarelo-neon);
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 15px;
-        }
-
-        .close:hover {
-            color: var(--vermelho-neon);
-            text-shadow: 0 0 10px var(--vermelho-neon);
-        }
-
-        /* ===== RESPONSIVIDADE ===== */
-        @media (max-width: 1200px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-content, .nav-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .admin-stats {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .nav-links {
-                justify-content: center;
-            }
-            
-            .main-content {
-                padding: 0 20px;
-            }
-            
-            .welcome-title {
-                font-size: 2rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .matches-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .chat-container {
-                width: 300px;
-                height: 400px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header, .nav {
-                padding: 15px 20px;
-            }
-            
-            .logo-text {
-                font-size: 1.4rem;
-            }
-            
-            .welcome-title {
-                font-size: 1.6rem;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .chat-container {
-                width: 280px;
-                height: 350px;
-                right: 10px;
-                bottom: 10px;
-            }
-            
-            .match-teams {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .vs {
-                margin: 10px 0;
-            }
+        
+        .error {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff0000;
+            color: #ff0000;
         }
     </style>
 </head>
 <body>
-    <!-- ANIMAÇÃO DE LOGIN -->
-    <div id="loginAnimation" class="login-animation">
-        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-        </svg>
-        <div class="welcome-text">ADMINISTRADOR CONECTADO!</div>
-    </div>
-
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">👑</div>
-                <div class="logo-text">Painel ADM - FuriaDaNoite</div>
-            </div>
-            <div class="admin-info">
-                <div class="admin-badge">
-                    <div class="admin-name" id="adminName">FURIAGOD</div>
-                    <div class="admin-role">ADM SUPREMO</div>
-                </div>
-                <div class="admin-stats">
-                    <div class="stat-badge">
-                        <div class="stat-value" id="totalUsers">0</div>
-                        <div class="stat-label">USUÁRIOS</div>
-                    </div>
-                    <div class="stat-badge">
-                        <div class="stat-value" id="totalTeams">0</div>
-                        <div class="stat-label">EQUIPES</div>
-                    </div>
-                </div>
-            </div>
+    <div class="login-container">
+        <h1>🔐 LOGIN ADM</h1>
+        <p class="subtitle">Acesso Restrito - FuriaDaNoite</p>
+        
+        <div id="message" class="message"></div>
+        
+        <div class="input-group">
+            <label>Usuário ADM:</label>
+            <input type="text" id="username" placeholder="Digite seu usuário">
         </div>
-    </header>
-
-    <!-- NAVEGAÇÃO -->
-    <nav class="nav">
-        <div class="nav-content">
-            <div class="nav-links">
-                <a href="#" class="nav-link active" onclick="showSection('dashboard')">
-                    <i class="fas fa-home"></i> Dashboard
-                </a>
-                <a href="#" class="nav-link" onclick="showSection('users')">
-                    <i class="fas fa-users"></i> Usuários
-                </a>
-                <a href="#" class="nav-link" onclick="showSection('teams')">
-                    <i class="fas fa-users"></i> Equipes
-                </a>
-                <a href="#" class="nav-link" onclick="showSection('matches')">
-                    <i class="fas fa-gamepad"></i> Confrontos
-                </a>
-                <a href="#" class="nav-link" onclick="showSection('tournaments')">
-                    <i class="fas fa-trophy"></i> Torneios
-                </a>
-                <a href="furia.html" class="nav-link">
-                    <i class="fas fa-globe"></i> Site Principal
-                </a>
-            </div>
-            
-            <div class="admin-actions">
-                <button class="action-btn" onclick="toggleChat()">
-                    <i class="fas fa-comments"></i> Chat ADM
-                </button>
-                <button class="action-btn alert" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Sair
-                </button>
-            </div>
+        
+        <div class="input-group">
+            <label>Senha:</label>
+            <input type="password" id="password" placeholder="Digite sua senha">
         </div>
-    </nav>
-
-    <!-- CONTEÚDO PRINCIPAL -->
-    <div class="main-content">
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <div class="sidebar-section">
-                <h3 class="sidebar-title">👑 Menu ADM</h3>
-                <ul class="sidebar-menu">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link active" onclick="showSection('dashboard')">
-                            <i class="fas fa-tachometer-alt"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" onclick="showSection('users')">
-                            <i class="fas fa-user"></i> Gerenciar Usuários
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" onclick="showSection('teams')">
-                            <i class="fas fa-users"></i> Gerenciar Equipes
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" onclick="showSection('matches')">
-                            <i class="fas fa-gamepad"></i> Confrontos
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" onclick="showSection('tournaments')">
-                            <i class="fas fa-trophy"></i> Torneios
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" onclick="showSection('reports')">
-                            <i class="fas fa-chart-bar"></i> Relatórios
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" onclick="showSection('settings')">
-                            <i class="fas fa-cog"></i> Configurações
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-title">⚡ Ações Rápidas</h3>
-                <ul class="sidebar-menu">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" onclick="createNewMatch()">
-                            <i class="fas fa-plus"></i> Novo Confronto
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" onclick="createTournament()">
-                            <i class="fas fa-trophy"></i> Criar Torneio
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" onclick="banUser()">
-                            <i class="fas fa-ban"></i> Banir Usuário
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" onclick="sendAnnouncement()">
-                            <i class="fas fa-bullhorn"></i> Anúncio Global
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </aside>
-
-        <!-- DASHBOARD -->
-        <main class="dashboard">
-            <section id="dashboard" class="section active">
-                <div class="welcome-section">
-                    <h1 class="welcome-title">👑 Painel de Controle ADM</h1>
-                    <p class="welcome-subtitle">Gerencie toda a comunidade FuriaDaNoitePlay</p>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">👥</div>
-                        <div class="stat-value" id="statUsers">0</div>
-                        <div class="stat-label">USUÁRIOS ATIVOS</div>
-                        <div class="stat-trend trend-up">+12% este mês</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">🏆</div>
-                        <div class="stat-value" id="statTeams">0</div>
-                        <div class="stat-label">EQUIPES</div>
-                        <div class="stat-trend trend-up">+5% este mês</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">⚡</div>
-                        <div class="stat-value" id="statMatches">0</div>
-                        <div class="stat-label">PARTIDAS HOJE</div>
-                        <div class="stat-trend trend-up">+8% hoje</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">💰</div>
-                        <div class="stat-value" id="statRevenue">R$ 0</div>
-                        <div class="stat-label">RECEITA TOTAL</div>
-                        <div class="stat-trend trend-up">+15% este mês</div>
-                    </div>
-                </div>
-
-                <!-- TABELA DE CONFRONTOS RECENTES -->
-                <div class="section">
-                    <h2 class="section-title"><i class="fas fa-gamepad"></i> CONFRONTOS RECENTES</h2>
-                    <div class="matches-grid" id="recentMatches">
-                        <!-- Confrontos serão carregados via JavaScript -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- GERENCIAR USUÁRIOS -->
-            <section id="users" class="section">
-                <h2 class="section-title"><i class="fas fa-users"></i> GERENCIAR USUÁRIOS</h2>
-                <div class="table-container">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Avatar</th>
-                                <th>Nick</th>
-                                <th>Email</th>
-                                <th>WhatsApp</th>
-                                <th>Jogo</th>
-                                <th>Status</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="usersTable">
-                            <!-- Usuários serão carregados via JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- GERENCIAR EQUIPES -->
-            <section id="teams" class="section">
-                <h2 class="section-title"><i class="fas fa-users"></i> GERENCIAR EQUIPES</h2>
-                <div class="table-container">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Líder</th>
-                                <th>Jogo</th>
-                                <th>Membros</th>
-                                <th>Vitórias</th>
-                                <th>Status</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="teamsTable">
-                            <!-- Equipes serão carregadas via JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- CONFRONTOS -->
-            <section id="matches" class="section">
-                <h2 class="section-title"><i class="fas fa-gamepad"></i> GERENCIAR CONFRONTOS</h2>
-                
-                <!-- FORMULÁRIO PARA NOVO CONFRONTO -->
-                <div class="section" style="margin-bottom: 30px;">
-                    <h3 style="color: var(--amarelo-neon); margin-bottom: 20px;">Criar Novo Confronto</h3>
-                    <div class="form-grid">
-                        <div class="input-group">
-                            <label>Time 1</label>
-                            <input type="text" id="team1Input" placeholder="Nome do time 1">
-                        </div>
-                        <div class="input-group">
-                            <label>Time 2</label>
-                            <input type="text" id="team2Input" placeholder="Nome do time 2">
-                        </div>
-                        <div class="input-group">
-                            <label>Jogo</label>
-                            <select id="matchGameInput">
-                                <option value="cfn">CFN - Clash of Clan</option>
-                                <option value="cr">CR - Clash Royale</option>
-                                <option value="mlbb">MLBB - Mobile Legends</option>
-                                <option value="freefire">Free Fire</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label>Data e Hora</label>
-                            <input type="datetime-local" id="matchDateInput">
-                        </div>
-                    </div>
-                    <button class="btn-primary" onclick="createMatch()">
-                        <i class="fas fa-plus"></i> Criar Confronto
-                    </button>
-                </div>
-
-                <!-- LISTA DE CONFRONTOS -->
-                <h3 style="color: var(--amarelo-neon); margin-bottom: 20px;">Confrontos Ativos</h3>
-                <div class="matches-grid" id="matchesGrid">
-                    <!-- Confrontos serão carregados via JavaScript -->
-                </div>
-            </section>
-
-            <!-- TORNEIOS -->
-            <section id="tournaments" class="section">
-                <h2 class="section-title"><i class="fas fa-trophy"></i> GERENCIAR TORNEIOS</h2>
-                <div class="matches-grid" id="tournamentsGrid">
-                    <!-- Torneios serão carregados via JavaScript -->
-                </div>
-            </section>
-
-            <!-- RELATÓRIOS -->
-            <section id="reports" class="section">
-                <h2 class="section-title"><i class="fas fa-chart-bar"></i> RELATÓRIOS E ESTATÍSTICAS</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">📊</div>
-                        <div class="stat-value">85%</div>
-                        <div class="stat-label">TAXA DE ATIVIDADE</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">🎮</div>
-                        <div class="stat-value">156</div>
-                        <div class="stat-label">PARTIDAS/DIA</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">⭐</div>
-                        <div class="stat-value">4.8</div>
-                        <div class="stat-label">AVALIAÇÃO MÉDIA</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">🕒</div>
-                        <div class="stat-value">2.3h</div>
-                        <div class="stat-label">TEMPO MÉDIO SESSÃO</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CONFIGURAÇÕES -->
-            <section id="settings" class="section">
-                <h2 class="section-title"><i class="fas fa-cog"></i> CONFIGURAÇÕES DO SISTEMA</h2>
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Manutenção do Sistema</label>
-                        <select id="maintenanceMode">
-                            <option value="off">Desativado</option>
-                            <option value="on">Ativado</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Novos Cadastros</label>
-                        <select id="newRegistrations">
-                            <option value="allowed">Permitidos</option>
-                            <option value="blocked">Bloqueados</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Chat Global</label>
-                        <select id="globalChat">
-                            <option value="enabled">Ativado</option>
-                            <option value="disabled">Desativado</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Notificações por Email</label>
-                        <select id="emailNotifications">
-                            <option value="enabled">Ativado</option>
-                            <option value="disabled">Desativado</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="btn-primary" onclick="saveSettings()">
-                    <i class="fas fa-save"></i> Salvar Configurações
-                </button>
-            </section>
-        </main>
-    </div>
-
-    <!-- SISTEMA DE CHAT -->
-    <button class="chat-toggle" onclick="toggleChat()">
-        <i class="fas fa-comments"></i>
-    </button>
-
-    <div class="chat-container" id="chatContainer">
-        <div class="chat-header">
-            <div class="chat-title">💬 Chat ADM</div>
-            <button class="chat-close" onclick="toggleChat()">×</button>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <!-- Mensagens do chat -->
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Digite sua mensagem..." onkeypress="handleChatKeypress(event)">
-            <button onclick="sendMessage()">Enviar</button>
+        
+        <button class="login-btn" onclick="fazerLogin()">ACESSAR PAINEL</button>
+        
+        <div style="margin-top: 20px;">
+            <a href="index.html" style="color: #FFD700; text-decoration: none;">← Voltar ao Site</a>
         </div>
     </div>
-
-    <!-- RODAPÉ -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">FuriaDaNoitePlay © 2024 - Painel ADM</div>
-            <div class="footer-links">
-                <a href="furia.html" class="footer-link">Site Principal</a>
-                <a href="login.html" class="footer-link">Login</a>
-                <a href="cadastro.html" class="footer-link">Cadastro</a>
-            </div>
-        </div>
-        <div class="copyright">
-            Sistema de Administração - Desenvolvido para a Comunidade FuriaDaNoite
-        </div>
-    </footer>
 
     <script>
-        // ===== SISTEMA DE LOGIN E CARREGAMENTO =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se há um ADM logado
-            const admLogado = JSON.parse(localStorage.getItem('furia_adm_atual'));
+        async function fazerLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
             
-            if (!admLogado) {
-                window.location.href = 'login.html';
+            if (!username || !password) {
+                messageDiv.textContent = 'Preencha todos os campos!';
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
                 return;
             }
-
-            // Mostrar animação de login
-            setTimeout(() => {
-                document.getElementById('loginAnimation').style.display = 'none';
-                carregarDadosADM(admLogado);
-            }, 3000);
-        });
-
-        // ===== CARREGAR DADOS DO ADM =====
-        function carregarDadosADM(adm) {
-            // Atualizar header
-            document.getElementById('adminName').textContent = adm.username;
             
-            // Carregar estatísticas
-            carregarEstatisticas();
-            
-            // Carregar usuários
-            carregarUsuarios();
-            
-            // Carregar equipes
-            carregarEquipes();
-            
-            // Carregar confrontos
-            carregarConfrontos();
-            
-            // Carregar torneios
-            carregarTorneios();
-            
-            // Inicializar chat
-            inicializarChat(adm.username);
-        }
-
-        // ===== SISTEMA DE NAVEGAÇÃO =====
-        function showSection(sectionId) {
-            // Esconder todas as seções
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Remover active de todos os links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Mostrar seção selecionada
-            document.getElementById(sectionId).classList.add('active');
-            
-            // Ativar link correspondente
-            event.target.classList.add('active');
-        }
-
-        // ===== SISTEMA DE CHAT =====
-        let chatVisible = false;
-
-        function toggleChat() {
-            const chatContainer = document.getElementById('chatContainer');
-            chatVisible = !chatVisible;
-            chatContainer.style.display = chatVisible ? 'flex' : 'none';
-        }
-
-        function inicializarChat(nomeADM) {
-            // Adicionar mensagem de boas-vindas
-            addMessage('Sistema', `Chat ADM iniciado para ${nomeADM}`, 'adm');
-            
-            // Mensagem automática
-            setTimeout(() => {
-                addMessage('FuriaBot', '💬 Moderação ativa - Todos os recursos disponíveis', 'other');
-            }, 2000);
-        }
-
-        function addMessage(remetente, texto, tipo = 'other') {
-            const chatMessages = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${tipo}`;
-            
-            messageDiv.innerHTML = `
-                <div class="message-sender">${remetente}</div>
-                <div class="message-text">${texto}</div>
-            `;
-            
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const mensagem = input.value.trim();
-            
-            if (mensagem) {
-                const adm = JSON.parse(localStorage.getItem('furia_adm_atual'));
-                addMessage(adm.username, mensagem, 'own');
-                input.value = '';
+            try {
+                const response = await fetch('admin-login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+                });
                 
-                // Simular resposta automática
-                setTimeout(() => {
-                    const respostas = [
-                        "Comando executado com sucesso!",
-                        "Relatório gerado e enviado!",
-                        "Usuário moderado com sucesso!",
-                        "Sistema atualizado!",
-                        "Backup realizado!"
-                    ];
-                    const resposta = respostas[Math.floor(Math.random() * respostas.length)];
-                    addMessage('Sistema', resposta, 'adm');
-                }, 1000);
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Salvar no localStorage para o painel ADM
+                    localStorage.setItem('furia_adm_atual', JSON.stringify({
+                        username: data.username,
+                        role: data.role
+                    }));
+                    
+                    // Redirecionar para o painel
+                    window.location.href = 'painel-adm.html';
+                } else {
+                    messageDiv.textContent = data.message;
+                    messageDiv.className = 'message error';
+                    messageDiv.style.display = 'block';
+                }
+            } catch (error) {
+                messageDiv.textContent = 'Erro ao fazer login!';
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
             }
         }
-
-        function handleChatKeypress(e) {
+        
+        // Enter para login
+        document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                sendMessage();
+                fazerLogin();
             }
-        }
-
-        // ===== CARREGAR ESTATÍSTICAS =====
-        function carregarEstatisticas() {
-            const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
-            const equipes = JSON.parse(localStorage.getItem('furia_equipes')) || [];
-            
-            document.getElementById('totalUsers').textContent = usuarios.length;
-            document.getElementById('totalTeams').textContent = equipes.length;
-            document.getElementById('statUsers').textContent = usuarios.length;
-            document.getElementById('statTeams').textContent = equipes.length;
-            document.getElementById('statMatches').textContent = '24';
-            document.getElementById('statRevenue').textContent = 'R$ 1.250';
-        }
-
-        // ===== CARREGAR USUÁRIOS =====
-        function carregarUsuarios() {
-            const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
-            const table = document.getElementById('usersTable');
-            
-            table.innerHTML = '';
-            
-            if (usuarios.length === 0) {
-                table.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">Nenhum usuário cadastrado</td></tr>';
-                return;
-            }
-
-            usuarios.forEach((usuario, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <div class="user-avatar">
-                            ${usuario.nick ? usuario.nick.charAt(0).toUpperCase() : 'U'}
-                        </div>
-                    </td>
-                    <td>${usuario.nick || 'Usuário ' + (index + 1)}</td>
-                    <td>${usuario.email || 'N/A'}</td>
-                    <td>${usuario.whatsapp || 'N/A'}</td>
-                    <td>${usuario.jogo || 'N/A'}</td>
-                    <td><span class="status-badge status-online">Online</span></td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="btn-action btn-edit" onclick="editUser(${index})">Editar</button>
-                            <button class="btn-action btn-ban" onclick="banUser(${index})">Banir</button>
-                            <button class="btn-action btn-delete" onclick="deleteUser(${index})">Excluir</button>
-                        </div>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        }
-
-        // ===== CARREGAR EQUIPES =====
-        function carregarEquipes() {
-            const equipes = JSON.parse(localStorage.getItem('furia_equipes')) || [];
-            const table = document.getElementById('teamsTable');
-            
-            table.innerHTML = '';
-            
-            if (equipes.length === 0) {
-                table.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">Nenhuma equipe cadastrada</td></tr>';
-                return;
-            }
-
-            equipes.forEach((equipe, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>${equipe.nomeEquipe || 'Equipe ' + (index + 1)}</strong></td>
-                    <td>${equipe.lider || 'N/A'}</td>
-                    <td>${equipe.jogo || 'N/A'}</td>
-                    <td>${equipe.membros ? equipe.membros.length : '0'}/10</td>
-                    <td>${equipe.vitorias || '0'}</td>
-                    <td><span class="status-badge status-online">Ativa</span></td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="btn-action btn-edit" onclick="editTeam(${index})">Editar</button>
-                            <button class="btn-action btn-ban" onclick="disbandTeam(${index})">Dissolver</button>
-                            <button class="btn-action btn-delete" onclick="deleteTeam(${index})">Excluir</button>
-                        </div>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        }
-
-        // ===== CARREGAR CONFRONTOS =====
-        function carregarConfrontos() {
-            const confrontos = [
-                {
-                    id: 1,
-                    time1: 'FuriaDaNoite',
-                    time2: 'Dragões Vermelhos',
-                    placar1: 3,
-                    placar2: 1,
-                    jogo: 'CFN',
-                    data: '2024-12-15 20:00',
-                    status: 'Finalizado'
-                },
-                {
-                    id: 2,
-                    time1: 'Trovão Celestial',
-                    time2: 'Lobos da Noite',
-                    placar1: 2,
-                    placar2: 2,
-                    jogo: 'MLBB',
-                    data: '2024-12-16 19:00',
-                    status: 'Em Andamento'
-                },
-                {
-                    id: 3,
-                    time1: 'Scorpion Team',
-                    time2: 'Phantom Force',
-                    placar1: 0,
-                    placar2: 0,
-                    jogo: 'Free Fire',
-                    data: '2024-12-17 21:00',
-                    status: 'Agendado'
-                }
-            ];
-
-            const grid = document.getElementById('matchesGrid');
-            const recentGrid = document.getElementById('recentMatches');
-            
-            grid.innerHTML = '';
-            recentGrid.innerHTML = '';
-
-            confrontos.forEach(confronto => {
-                const card = document.createElement('div');
-                card.className = 'match-card';
-                card.innerHTML = `
-                    <div class="match-header">
-                        <div class="match-title">${confronto.jogo} - ${confronto.status}</div>
-                        <div class="match-status">${confronto.status}</div>
-                    </div>
-                    <div class="match-teams">
-                        <div class="team">
-                            <div class="team-name">${confronto.time1}</div>
-                            <div class="team-score" onclick="editScore(${confronto.id}, 'time1')">${confronto.placar1}</div>
-                        </div>
-                        <div class="vs">VS</div>
-                        <div class="team">
-                            <div class="team-score" onclick="editScore(${confronto.id}, 'time2')">${confronto.placar2}</div>
-                            <div class="team-name">${confronto.time2}</div>
-                        </div>
-                    </div>
-                    <div class="match-info">
-                        <span><i class="fas fa-calendar"></i> ${confronto.data}</span>
-                        <span><i class="fas fa-gamepad"></i> ${confronto.jogo}</span>
-                    </div>
-                    <div class="match-actions">
-                        <button class="btn-match btn-update" onclick="updateMatch(${confronto.id})">
-                            <i class="fas fa-sync"></i> Atualizar
-                        </button>
-                        <button class="btn-match btn-delete-match" onclick="deleteMatch(${confronto.id})">
-                            <i class="fas fa-trash"></i> Excluir
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-                
-                // Adicionar apenas confrontos recentes ao dashboard
-                if (confronto.status === 'Em Andamento' || confronto.status === 'Finalizado') {
-                    const recentCard = card.cloneNode(true);
-                    recentGrid.appendChild(recentCard);
-                }
-            });
-        }
-
-        // ===== CARREGAR TORNEIOS =====
-        function carregarTorneios() {
-            const grid = document.getElementById('tournamentsGrid');
-            const torneios = [
-                {
-                    nome: "Torneio Fúria #25",
-                    jogo: "CFN",
-                    times: "8/16",
-                    premio: "R$ 500",
-                    status: "Inscrições Abertas"
-                },
-                {
-                    nome: "Liga Mobile Legends",
-                    jogo: "MLBB", 
-                    times: "16/16",
-                    premio: "R$ 1.000",
-                    status: "Em Andamento"
-                },
-                {
-                    nome: "Campeonato Free Fire",
-                    jogo: "Free Fire",
-                    times: "0/20",
-                    premio: "R$ 750",
-                    status: "Em Breve"
-                }
-            ];
-
-            grid.innerHTML = '';
-            torneios.forEach(torneio => {
-                const card = document.createElement('div');
-                card.className = 'match-card';
-                card.innerHTML = `
-                    <div class="match-header">
-                        <div class="match-title">${torneio.nome}</div>
-                        <div class="match-status">${torneio.status}</div>
-                    </div>
-                    <div class="match-teams">
-                        <div class="team">
-                            <div class="team-name">Times</div>
-                            <div class="team-score">${torneio.times}</div>
-                        </div>
-                        <div class="vs">🎮</div>
-                        <div class="team">
-                            <div class="team-score">${torneio.premio}</div>
-                            <div class="team-name">Premiação</div>
-                        </div>
-                    </div>
-                    <div class="match-info">
-                        <span><i class="fas fa-gamepad"></i> ${torneio.jogo}</span>
-                        <span><i class="fas fa-users"></i> ${torneio.times} times</span>
-                    </div>
-                    <div class="match-actions">
-                        <button class="btn-match btn-update" onclick="editTournament('${torneio.nome}')">
-                            <i class="fas fa-edit"></i> Editar
-                        </button>
-                        <button class="btn-match btn-delete-match" onclick="deleteTournament('${torneio.nome}')">
-                            <i class="fas fa-trash"></i> Excluir
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // ===== FUNÇÕES DE EDIÇÃO =====
-        function editScore(matchId, team) {
-            const novoPlacar = prompt(`Digite o novo placar para o ${team}:`);
-            if (novoPlacar !== null && !isNaN(novoPlacar)) {
-                alert(`Placar do ${team} atualizado para ${novoPlacar} no confronto ${matchId}`);
-                // Aqui viria a lógica real de atualização
-            }
-        }
-
-        function updateMatch(matchId) {
-            alert(`Confronto ${matchId} atualizado com sucesso!`);
-        }
-
-        function deleteMatch(matchId) {
-            if (confirm('Tem certeza que deseja excluir este confronto?')) {
-                alert(`Confronto ${matchId} excluído com sucesso!`);
-            }
-        }
-
-        function editUser(userId) {
-            alert(`Editando usuário ID: ${userId}`);
-        }
-
-        function banUser(userId) {
-            if (confirm('Tem certeza que deseja banir este usuário?')) {
-                alert(`Usuário ${userId} banido com sucesso!`);
-            }
-        }
-
-        function deleteUser(userId) {
-            if (confirm('Tem certeza que deseja excluir este usuário?')) {
-                alert(`Usuário ${userId} excluído com sucesso!`);
-            }
-        }
-
-        function editTeam(teamId) {
-            alert(`Editando equipe ID: ${teamId}`);
-        }
-
-        function disbandTeam(teamId) {
-            if (confirm('Tem certeza que deseja dissolver esta equipe?')) {
-                alert(`Equipe ${teamId} dissolvida com sucesso!`);
-            }
-        }
-
-        function deleteTeam(teamId) {
-            if (confirm('Tem certeza que deseja excluir esta equipe?')) {
-                alert(`Equipe ${teamId} excluída com sucesso!`);
-            }
-        }
-
-        function editTournament(tournamentName) {
-            alert(`Editando torneio: ${tournamentName}`);
-        }
-
-        function deleteTournament(tournamentName) {
-            if (confirm('Tem certeza que deseja excluir este torneio?')) {
-                alert(`Torneio ${tournamentName} excluído com sucesso!`);
-            }
-        }
-
-        // ===== CRIAÇÃO DE CONFRONTOS =====
-        function createMatch() {
-            const time1 = document.getElementById('team1Input').value;
-            const time2 = document.getElementById('team2Input').value;
-            const jogo = document.getElementById('matchGameInput').value;
-            const data = document.getElementById('matchDateInput').value;
-            
-            if (time1 && time2 && data) {
-                alert(`Confronto criado: ${time1} vs ${time2} no ${jogo} em ${data}`);
-                // Limpar formulário
-                document.getElementById('team1Input').value = '';
-                document.getElementById('team2Input').value = '';
-                document.getElementById('matchDateInput').value = '';
-            } else {
-                alert('Preencha todos os campos!');
-            }
-        }
-
-        function createNewMatch() {
-            showSection('matches');
-            document.getElementById('team1Input').focus();
-        }
-
-        function createTournament() {
-            showSection('tournaments');
-            alert('Use o formulário para criar um novo torneio');
-        }
-
-        function sendAnnouncement() {
-            const mensagem = prompt('Digite o anúncio global:');
-            if (mensagem) {
-                alert(`Anúncio enviado: ${mensagem}`);
-            }
-        }
-
-        function saveSettings() {
-            alert('Configurações salvas com sucesso!');
-        }
-
-        // ===== LOGOUT =====
-        function logout() {
-            localStorage.removeItem('furia_adm_atual');
-            window.location.href = 'login.html';
-        }
+        });
     </script>
-x</body>
+</body>
 </html>
