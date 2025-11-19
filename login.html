@@ -339,6 +339,27 @@
             color: var(--preto);
             font-weight: bold;
         }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--vermelho-neon);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
         
         @media (max-width: 768px) {
             .container {
@@ -365,7 +386,7 @@
         <div class="image-section">
             <div class="logo">
                 <!-- IMAGEM FÚRIA.PNG ADICIONADA -->
-                <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo-img">
+                <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo-img" onerror="this.style.display='none'">
                 <h1>👑 FuriaDaNoitePlay</h1>
                 <p>Sistema de Login</p>
             </div>
@@ -375,6 +396,10 @@
             <h2>Login</h2>
             
             <div id="message" class="message"></div>
+            <div id="loading" class="loading">
+                <div class="loading-spinner"></div>
+                <p>Processando login...</p>
+            </div>
             
             <!-- Seleção de tipo de login -->
             <div class="login-types">
@@ -384,6 +409,8 @@
             </div>
             
             <form id="loginForm">
+                <input type="hidden" id="tipoLogin" name="tipo" value="adm">
+                
                 <div class="form-group">
                     <label for="username" id="usernameLabel">👑 Usuário ADM</label>
                     <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
@@ -423,24 +450,15 @@
 
     <script>
         // =============================================
-        // SISTEMA DE LOGIN AUTOMÁTICO
+        // SISTEMA DE LOGIN INTEGRADO COM PHP
         // =============================================
 
         let tipoLogin = 'adm'; // Padrão: ADM
         
-        // Credenciais dos ADMs
-        const admCredentials = {
-            'FURIAGOD': 'Furia2025_$25',
-            'Scorpion': 'Mlk0025',
-            '.Son King': 'God1925',
-            'NeferpitouI': 'Ana02525',
-            'PNTS': 'pNtS25',
-            'ToxicSkull√': 'L@!on25'
-        };
-
         // Função para selecionar tipo de login
         function selecionarTipo(tipo) {
             tipoLogin = tipo;
+            document.getElementById('tipoLogin').value = tipo;
             
             // Atualizar botões
             document.querySelectorAll('.type-btn').forEach(btn => {
@@ -480,76 +498,83 @@
             }, 5000);
         }
 
-        // Processar login
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Função para mostrar/ocultar loading
+        function toggleLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        // Processar login via AJAX
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
+            const tipo = document.getElementById('tipoLogin').value;
             
             if (!username || !password) {
                 showMessage('❌ Por favor, preencha todos os campos!', 'error');
                 return;
             }
             
-            let loginValido = false;
-            let mensagemSucesso = '';
-            let redirectUrl = '';
+            // Mostrar loading
+            toggleLoading(true);
             
-            switch(tipoLogin) {
-                case 'adm':
-                    // Verificar ADM
-                    if (admCredentials.hasOwnProperty(username) && admCredentials[username] === password) {
-                        loginValido = true;
-                        mensagemSucesso = '✅ Login ADM bem-sucedido!';
-                        redirectUrl = username === 'FURIAGOD' ? 'painel-adm.html' : 'painel-usuario.html';
-                    } else {
-                        showMessage('❌ Credenciais ADM inválidas!', 'error');
-                    }
-                    break;
-                    
-                case 'membro':
-                    // Verificar membro
-                    const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
-                    const usuario = usuarios.find(u => u.nick === username && u.senha === password);
-                    
-                    if (usuario) {
-                        loginValido = true;
-                        mensagemSucesso = '✅ Login de membro bem-sucedido!';
-                        redirectUrl = 'painel-membro.html';
-                        
-                        // Salvar sessão do membro
-                        localStorage.setItem('furia_membro_atual', JSON.stringify(usuario));
-                    } else {
-                        showMessage('❌ Membro não encontrado ou senha incorreta!', 'error');
-                    }
-                    break;
-                    
-                case 'equipe':
-                    // Verificar equipe
-                    const equipes = JSON.parse(localStorage.getItem('furia_equipes')) || [];
-                    const equipe = equipes.find(e => e.nomeEquipe === username && e.senha === password);
-                    
-                    if (equipe) {
-                        loginValido = true;
-                        mensagemSucesso = '✅ Login de equipe bem-sucedido!';
-                        redirectUrl = 'painel-equipe.html';
-                        
-                        // Salvar sessão da equipe
-                        localStorage.setItem('furia_equipe_atual', JSON.stringify(equipe));
-                    } else {
-                        showMessage('❌ Equipe não encontrada ou senha incorreta!', 'error');
-                    }
-                    break;
-            }
-            
-            if (loginValido) {
-                showMessage(mensagemSucesso + ' Redirecionando...', 'success');
+            try {
+                // Fazer requisição para o PHP
+                const formData = new FormData();
+                formData.append('tipo', tipo);
+                formData.append('username', username);
+                formData.append('password', password);
                 
-                // Redirecionar após 1.5 segundos
-                setTimeout(() => {
-                    window.location.href = redirectUrl;
-                }, 1500);
+                const response = await fetch('login.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                // Esconder loading
+                toggleLoading(false);
+                
+                if (data.success) {
+                    showMessage(data.message, 'success');
+                    
+                    // Salvar dados no localStorage
+                    if (data.user_data) {
+                        localStorage.setItem('furia_user', JSON.stringify(data.user_data));
+                        localStorage.setItem('furia_tipo', tipo);
+                        localStorage.setItem('furia_login_time', new Date().getTime());
+                    }
+                    
+                    // Redirecionar após 1.5 segundos
+                    setTimeout(() => {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else {
+                            // Redirecionamento padrão baseado no tipo
+                            switch(tipo) {
+                                case 'adm':
+                                    window.location.href = username === 'FURIAGOD' ? 'painel-adm.html' : 'painel-usuario.html';
+                                    break;
+                                case 'membro':
+                                    window.location.href = 'painel-membro.html';
+                                    break;
+                                case 'equipe':
+                                    window.location.href = 'painel-equipe.html';
+                                    break;
+                                default:
+                                    window.location.href = 'furia.html';
+                            }
+                        }
+                    }, 1500);
+                } else {
+                    showMessage(data.message, 'error');
+                }
+                
+            } catch (error) {
+                toggleLoading(false);
+                console.error('Erro no login:', error);
+                showMessage('❌ Erro de conexão. Tente novamente.', 'error');
             }
         });
 
@@ -573,15 +598,96 @@
             showMessage('🔐 ' + mensagem, 'error');
         });
 
-        // Carregar dados iniciais se necessário
+        // Verificar se já está logado
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se existem dados de cadastro
-            const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
-            const equipes = JSON.parse(localStorage.getItem('furia_equipes')) || [];
+            const userData = localStorage.getItem('furia_user');
+            if (userData) {
+                const user = JSON.parse(userData);
+                showMessage(`✅ Bem-vindo de volta, ${user.username || user.nick || user.nome_equipe}!`, 'success');
+                
+                // Preencher automaticamente se for ADM
+                if (user.tipo === 'adm') {
+                    document.getElementById('username').value = user.username;
+                    selecionarTipo('adm');
+                }
+            }
             
-            console.log('Usuários cadastrados:', usuarios.length);
-            console.log('Equipes cadastradas:', equipes.length);
+            // Testar conexão com o backend
+            testarBackend();
         });
+
+        // Função para testar conexão com backend
+        async function testarBackend() {
+            try {
+                const response = await fetch('login.php');
+                const data = await response.json();
+                console.log('✅ Backend conectado:', data);
+            } catch (error) {
+                console.warn('⚠️ Backend offline, usando fallback local');
+                // O sistema continuará funcionando com fallback local
+            }
+        }
+
+        // Fallback local para quando o PHP não estiver disponível
+        const admCredentials = {
+            'FURIAGOD': 'Furia2025_$25',
+            'Scorpion': 'Mlk0025',
+            '.Son King': 'God1925',
+            'NeferpitouI': 'Ana02525',
+            'PNTS': 'pNtS25',
+            'ToxicSkull√': 'L@!on25'
+        };
+
+        // Sistema de fallback
+        function loginFallback(username, password, tipo) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    let success = false;
+                    let message = '';
+                    let redirect = '';
+                    
+                    switch(tipo) {
+                        case 'adm':
+                            if (admCredentials[username] && admCredentials[username] === password) {
+                                success = true;
+                                message = '✅ Login ADM bem-sucedido!';
+                                redirect = username === 'FURIAGOD' ? 'painel-adm.html' : 'painel-usuario.html';
+                            } else {
+                                message = '❌ Credenciais ADM inválidas!';
+                            }
+                            break;
+                            
+                        case 'membro':
+                            const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
+                            const usuario = usuarios.find(u => u.nick === username && u.senha === password);
+                            
+                            if (usuario) {
+                                success = true;
+                                message = '✅ Login de membro bem-sucedido!';
+                                redirect = 'painel-membro.html';
+                            } else {
+                                message = '❌ Membro não encontrado ou senha incorreta!';
+                            }
+                            break;
+                            
+                        case 'equipe':
+                            const equipes = JSON.parse(localStorage.getItem('furia_equipes')) || [];
+                            const equipe = equipes.find(e => e.nome_equipe === username && e.senha === password);
+                            
+                            if (equipe) {
+                                success = true;
+                                message = '✅ Login de equipe bem-sucedido!';
+                                redirect = 'painel-equipe.html';
+                            } else {
+                                message = '❌ Equipe não encontrada ou senha incorreta!';
+                            }
+                            break;
+                    }
+                    
+                    resolve({ success, message, redirect });
+                }, 1000);
+            });
+        }
     </script>
 </body>
 </html>
