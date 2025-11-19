@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⭐ Cadastro - FuriaDaNoitePlay</title>
+    <title>⭐ Cadastro - FuriaDaNoite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -188,7 +188,7 @@
             gap: 10px;
         }
         
-        .input-group input, .input-group select, .input-group textarea {
+        .input-group input, .input-group select {
             padding: 15px 18px;
             border: 2px solid var(--vermelho-neon);
             border-radius: 12px;
@@ -202,7 +202,7 @@
                 0 0 15px rgba(255, 0, 0, 0.2);
         }
         
-        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+        .input-group input:focus, .input-group select:focus {
             outline: none;
             border-color: var(--amarelo-neon);
             box-shadow: 
@@ -364,6 +364,76 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Animações de Aprovação */
+        .animacao-aprovacao {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #00ff00;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0px 0px 0px #00ff00;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+            margin-bottom: 30px;
+        }
+
+        .checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #00ff00;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        @keyframes stroke {
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes scale {
+            0%, 100% { transform: none; }
+            50% { transform: scale3d(1.1, 1.1, 1); }
+        }
+
+        @keyframes fill {
+            100% { box-shadow: inset 0px 0px 0px 30px #00ff00; }
+        }
+
+        .texto-aprovacao {
+            color: var(--verde-neon);
+            font-size: 2rem;
+            text-shadow: 0 0 20px var(--verde-neon);
+            animation: pulsar 1.5s infinite;
+        }
+
+        @keyframes pulsar {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
         .botao-inicio {
             position: fixed;
             bottom: 30px;
@@ -458,24 +528,18 @@
                     
                     <div class="input-group">
                         <label>🔒 Senha:</label>
-                        <input type="password" id="senha-membro" placeholder="Crie uma senha" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>📧 E-mail:</label>
-                        <input type="email" id="email-membro" placeholder="seu@email.com">
+                        <input type="password" id="senha-membro" placeholder="Crie uma senha forte" required>
                     </div>
                     
                     <div class="input-group">
                         <label>📱 WhatsApp:</label>
-                        <input type="tel" id="whatsapp-membro" placeholder="(31) 99999-9999">
+                        <input type="tel" id="whatsapp-membro" placeholder="(31) 99999-9999" required>
                     </div>
                     
                     <div class="input-group">
                         <label>🎯 Jogo Principal:</label>
                         <select id="jogo-membro" required>
                             <option value="">Selecione seu jogo</option>
-                            <option value="trucu">🎰 TRUCU da Fúria</option>
                             <option value="cfn">⚔️ CFN - Clash of Clan</option>
                             <option value="cr">👑 CR - Clash Royale</option>
                             <option value="mlbb">🗡️ MLBB - Mobile Legends</option>
@@ -483,6 +547,8 @@
                             <option value="lol">⚡ League of Legends</option>
                             <option value="valorant">🎯 Valorant</option>
                             <option value="brawlstars">💥 Brawl Stars</option>
+                            <option value="cod">🎖️ Call of Duty Mobile</option>
+                            <option value="pubg">🏆 PUBG Mobile</option>
                         </select>
                     </div>
                     
@@ -524,18 +590,31 @@
                     </div>
                     
                     <div class="input-group">
-                        <label>🔒 Senha (Nome da Equipe):</label>
-                        <input type="password" id="senha-equipe" placeholder="Use o nome da equipe como senha" required>
+                        <label>🔒 Senha da Equipe:</label>
+                        <input type="password" id="senha-equipe" placeholder="Senha para acesso" required>
                     </div>
                     
                     <div class="input-group">
-                        <label>🎮 Seu Nick (Líder):</label>
+                        <label>🎮 Nick do Líder:</label>
                         <input type="text" id="nick-lider" placeholder="Seu nick como líder" required>
                     </div>
                     
                     <div class="input-group">
-                        <label>📧 E-mail do Líder:</label>
-                        <input type="email" id="email-equipe" placeholder="lider@email.com" required>
+                        <label>📱 WhatsApp do Líder:</label>
+                        <input type="tel" id="whatsapp-equipe" placeholder="(31) 99999-9999" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>🎯 Jogo da Equipe:</label>
+                        <select id="jogo-equipe" required>
+                            <option value="">Selecione o jogo</option>
+                            <option value="cfn">⚔️ CFN - Clash of Clan</option>
+                            <option value="cr">👑 CR - Clash Royale</option>
+                            <option value="mlbb">🗡️ MLBB - Mobile Legends</option>
+                            <option value="freefire">🔫 Free Fire</option>
+                            <option value="lol">⚡ League of Legends</option>
+                            <option value="valorant">🎯 Valorant</option>
+                        </select>
                     </div>
 
                     <!-- BENEFÍCIOS DA EQUIPE -->
@@ -563,12 +642,66 @@
         </div>
     </div>
 
+    <!-- ANIMAÇÃO DE APROVAÇÃO -->
+    <div id="animacaoAprovacao" class="animacao-aprovacao">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        <div class="texto-aprovacao">CADASTRO APROVADO!</div>
+    </div>
+
     <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Início</button>
 
     <script>
         // =============================================
         // SISTEMA DE CADASTRO FUNCIONAL
         // =============================================
+
+        // Armazenamento local para usuários e equipes
+        function inicializarStorage() {
+            if (!localStorage.getItem('usuarios')) {
+                localStorage.setItem('usuarios', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('equipes')) {
+                localStorage.setItem('equipes', JSON.stringify([]));
+            }
+        }
+
+        // Função para mostrar animação de aprovação
+        function mostrarAnimacaoAprovacao(tipo) {
+            const animacao = document.getElementById('animacaoAprovacao');
+            const texto = animacao.querySelector('.texto-aprovacao');
+            
+            if (tipo === 'membro') {
+                texto.textContent = 'MEMBRO CADASTRADO!';
+                texto.style.color = '#00ff00';
+            } else {
+                texto.textContent = 'EQUIPE CADASTRADA!';
+                texto.style.color = '#FFD700';
+            }
+            
+            animacao.style.display = 'flex';
+            
+            setTimeout(() => {
+                animacao.style.display = 'none';
+                // Redirecionar para login após aprovação
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
+            }, 3000);
+        }
+
+        // Função para validar WhatsApp
+        function validarWhatsApp(whatsapp) {
+            const regex = /^\(\d{2}\)\s9\d{4}-\d{4}$/;
+            return regex.test(whatsapp);
+        }
+
+        // Função para validar ID do jogo
+        function validarIDJogo(id) {
+            return /^\d{9,12}$/.test(id);
+        }
 
         // Função para finalizar cadastro de membro
         async function finalizarCadastroMembro() {
@@ -577,4 +710,149 @@
             
             // Capturar valores
             const nick = document.getElementById('nick-membro').value.trim();
-            const senha = document.getElementById('senha-membro').value.trim
+            const senha = document.getElementById('senha-membro').value.trim();
+            const whatsapp = document.getElementById('whatsapp-membro').value.trim();
+            const jogo = document.getElementById('jogo-membro').value;
+            const idJogo = document.getElementById('idjogo-membro').value.trim();
+
+            // Validações
+            if (!nick || !senha || !whatsapp || !jogo || !idJogo) {
+                mensagemDiv.textContent = '❌ Preencha todos os campos obrigatórios!';
+                mensagemDiv.className = 'mensagem erro';
+                mensagemDiv.style.display = 'block';
+                return;
+            }
+
+            if (!validarWhatsApp(whatsapp)) {
+                mensagemDiv.textContent = '❌ Formato de WhatsApp inválido! Use: (31) 99999-9999';
+                mensagemDiv.className = 'mensagem erro';
+                mensagemDiv.style.display = 'block';
+                return;
+            }
+
+            if (!validarIDJogo(idJogo)) {
+                mensagemDiv.textContent = '❌ ID do jogo deve ter entre 9 e 12 dígitos!';
+                mensagemDiv.className = 'mensagem erro';
+                mensagemDiv.style.display = 'block';
+                return;
+            }
+
+            // Mostrar loading
+            loadingDiv.style.display = 'block';
+            mensagemDiv.style.display = 'none';
+
+            // Simular processamento
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // Inicializar storage
+            inicializarStorage();
+
+            // Salvar usuário
+            const usuarios = JSON.parse(localStorage.getItem('usuarios'));
+            const novoUsuario = {
+                id: Date.now(),
+                nick: nick,
+                senha: senha,
+                whatsapp: whatsapp,
+                jogo: jogo,
+                idJogo: idJogo,
+                tipo: 'membro',
+                dataCadastro: new Date().toISOString(),
+                status: 'ativo'
+            };
+
+            usuarios.push(novoUsuario);
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+            // Esconder loading e mostrar sucesso
+            loadingDiv.style.display = 'none';
+            
+            // Mostrar animação de aprovação
+            mostrarAnimacaoAprovacao('membro');
+        }
+
+        // Função para finalizar cadastro de equipe
+        async function finalizarCadastroEquipe() {
+            const mensagemDiv = document.getElementById('mensagem-equipe');
+            const loadingDiv = document.getElementById('loading-equipe');
+            
+            // Capturar valores
+            const nomeEquipe = document.getElementById('nome-equipe').value.trim();
+            const senha = document.getElementById('senha-equipe').value.trim();
+            const nickLider = document.getElementById('nick-lider').value.trim();
+            const whatsapp = document.getElementById('whatsapp-equipe').value.trim();
+            const jogo = document.getElementById('jogo-equipe').value;
+
+            // Validações
+            if (!nomeEquipe || !senha || !nickLider || !whatsapp || !jogo) {
+                mensagemDiv.textContent = '❌ Preencha todos os campos obrigatórios!';
+                mensagemDiv.className = 'mensagem erro';
+                mensagemDiv.style.display = 'block';
+                return;
+            }
+
+            if (!validarWhatsApp(whatsapp)) {
+                mensagemDiv.textContent = '❌ Formato de WhatsApp inválido! Use: (31) 99999-9999';
+                mensagemDiv.className = 'mensagem erro';
+                mensagemDiv.style.display = 'block';
+                return;
+            }
+
+            // Mostrar loading
+            loadingDiv.style.display = 'block';
+            mensagemDiv.style.display = 'none';
+
+            // Simular processamento
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // Inicializar storage
+            inicializarStorage();
+
+            // Salvar equipe
+            const equipes = JSON.parse(localStorage.getItem('equipes'));
+            const novaEquipe = {
+                id: Date.now(),
+                nome: nomeEquipe,
+                senha: senha,
+                lider: nickLider,
+                whatsapp: whatsapp,
+                jogo: jogo,
+                tipo: 'equipe',
+                dataCadastro: new Date().toISOString(),
+                status: 'ativa',
+                jogadores: []
+            };
+
+            equipes.push(novaEquipe);
+            localStorage.setItem('equipes', JSON.stringify(equipes));
+
+            // Esconder loading
+            loadingDiv.style.display = 'none';
+            
+            // Mostrar animação de aprovação
+            mostrarAnimacaoAprovacao('equipe');
+        }
+
+        // Inicializar o storage quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            inicializarStorage();
+            
+            // Adicionar máscara de WhatsApp
+            const inputsWhatsApp = document.querySelectorAll('input[type="tel"]');
+            inputsWhatsApp.forEach(input => {
+                input.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 11) value = value.substring(0, 11);
+                    
+                    if (value.length > 0) {
+                        value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+                        value = value.replace(/(\d{5})(\d)/, '$1-$2');
+                    }
+                    
+                    e.target.value = value;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
