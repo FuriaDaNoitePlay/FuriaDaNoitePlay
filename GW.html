@@ -551,14 +551,14 @@
             musicStatus.textContent = '🎵 Música: Epic Battle (Reprodução Automática)';
         }
         
-        // Navegação para o jogo com animação
+        // Navegação para o jogo com animação - CORRIGIDO AQUI
         function goToGame() {
             // Mostrar overlay de transição
             transitionOverlay.style.display = 'flex';
             
-            // Aguardar 2 segundos e redirecionar
+            // Aguardar 2 segundos e redirecionar PARA DRAGÃO.HTML
             setTimeout(() => {
-                window.location.href = 'GW.html';
+                window.location.href = 'dragão.html';  // CORRIGIDO
             }, 2000);
         }
         
