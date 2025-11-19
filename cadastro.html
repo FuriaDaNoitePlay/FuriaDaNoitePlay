@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⭐ Cadastro - FuriaDaNoite</title>
+    
+    <!-- ========================== -->
+    <!-- SCRIPT OFICIAL DO ADSENSE -->
+    <!-- ========================== -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296"
+    crossorigin="anonymous"></script>
+    <!-- ========================== -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -648,47 +656,32 @@
             <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
             <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
         </svg>
-        <div class="texto-aprovacao">CADASTRO APROVADO!</div>
+        <div class="texto-aprovacao" id="textoAprovacao">CADASTRO APROVADO!</div>
     </div>
 
     <button class="botao-inicio" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Início</button>
 
     <script>
         // =============================================
-        // SISTEMA DE CADASTRO FUNCIONAL
+        // SISTEMA DE CADASTRO INTEGRADO COM PHP
         // =============================================
 
         // Função para mostrar animação de aprovação
-        function mostrarAnimacaoAprovacao(tipo) {
+        function mostrarAnimacaoAprovacao(tipo, mensagem) {
             const animacao = document.getElementById('animacaoAprovacao');
-            const texto = animacao.querySelector('.texto-aprovacao');
+            const texto = document.getElementById('textoAprovacao');
             
-            if (tipo === 'membro') {
-                texto.textContent = 'MEMBRO CADASTRADO!';
-                texto.style.color = '#00ff00';
-            } else {
-                texto.textContent = 'EQUIPE CADASTRADA!';
-                texto.style.color = '#FFD700';
-            }
+            texto.textContent = mensagem;
+            texto.style.color = tipo === 'membro' ? '#00ff00' : '#FFD700';
             
             animacao.style.display = 'flex';
             
             setTimeout(() => {
                 animacao.style.display = 'none';
-                // Limpar formulário após aprovação
-                if (tipo === 'membro') {
-                    document.getElementById('nick-membro').value = '';
-                    document.getElementById('senha-membro').value = '';
-                    document.getElementById('whatsapp-membro').value = '';
-                    document.getElementById('jogo-membro').value = '';
-                    document.getElementById('idjogo-membro').value = '';
-                } else {
-                    document.getElementById('nome-equipe').value = '';
-                    document.getElementById('senha-equipe').value = '';
-                    document.getElementById('nick-lider').value = '';
-                    document.getElementById('whatsapp-equipe').value = '';
-                    document.getElementById('jogo-equipe').value = '';
-                }
+                // Redirecionar para login após aprovação
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
             }, 3000);
         }
 
@@ -703,12 +696,26 @@
             return /^\d{9,12}$/.test(id);
         }
 
+        // Função para mostrar/ocultar loading
+        function toggleLoading(tipo, show) {
+            const loadingDiv = document.getElementById(`loading-${tipo}`);
+            loadingDiv.style.display = show ? 'block' : 'none';
+        }
+
+        // Função para mostrar mensagem
+        function showMessage(tipo, text, isError = true) {
+            const mensagemDiv = document.getElementById(`mensagem-${tipo}`);
+            mensagemDiv.textContent = text;
+            mensagemDiv.className = `mensagem ${isError ? 'erro' : 'sucesso'}`;
+            mensagemDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                mensagemDiv.style.display = 'none';
+            }, 5000);
+        }
+
         // Função para finalizar cadastro de membro
         async function finalizarCadastroMembro() {
-            const mensagemDiv = document.getElementById('mensagem-membro');
-            const loadingDiv = document.getElementById('loading-membro');
-            
-            // Capturar valores
             const nick = document.getElementById('nick-membro').value.trim();
             const senha = document.getElementById('senha-membro').value.trim();
             const whatsapp = document.getElementById('whatsapp-membro').value.trim();
@@ -717,46 +724,115 @@
 
             // Validações
             if (!nick || !senha || !whatsapp || !jogo || !idJogo) {
-                mensagemDiv.textContent = '❌ Preencha todos os campos obrigatórios!';
-                mensagemDiv.className = 'mensagem erro';
-                mensagemDiv.style.display = 'block';
+                showMessage('membro', '❌ Preencha todos os campos obrigatórios!', true);
                 return;
             }
 
             if (!validarWhatsApp(whatsapp)) {
-                mensagemDiv.textContent = '❌ Formato de WhatsApp inválido! Use: (31) 99999-9999';
-                mensagemDiv.className = 'mensagem erro';
-                mensagemDiv.style.display = 'block';
+                showMessage('membro', '❌ Formato de WhatsApp inválido! Use: (31) 99999-9999', true);
                 return;
             }
 
             if (!validarIDJogo(idJogo)) {
-                mensagemDiv.textContent = '❌ ID do jogo deve ter entre 9 e 12 dígitos!';
-                mensagemDiv.className = 'mensagem erro';
-                mensagemDiv.style.display = 'block';
+                showMessage('membro', '❌ ID do jogo deve ter entre 9 e 12 dígitos!', true);
                 return;
             }
 
             // Mostrar loading
-            loadingDiv.style.display = 'block';
-            mensagemDiv.style.display = 'none';
+            toggleLoading('membro', true);
 
-            // Simular processamento
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            try {
+                // Tentar cadastrar via PHP primeiro
+                const formData = new FormData();
+                formData.append('tipo', 'membro');
+                formData.append('nick', nick);
+                formData.append('senha', senha);
+                formData.append('whatsapp', whatsapp);
+                formData.append('jogo', jogo);
+                formData.append('id_jogo', idJogo);
 
-            // Esconder loading
-            loadingDiv.style.display = 'none';
-            
-            // Mostrar animação de aprovação automática
-            mostrarAnimacaoAprovacao('membro');
+                const response = await fetch('cadastro.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                // Esconder loading
+                toggleLoading('membro', false);
+
+                if (data.success) {
+                    // Sucesso no PHP
+                    mostrarAnimacaoAprovacao('membro', data.message);
+                    
+                    // Limpar formulário
+                    document.getElementById('nick-membro').value = '';
+                    document.getElementById('senha-membro').value = '';
+                    document.getElementById('whatsapp-membro').value = '';
+                    document.getElementById('jogo-membro').value = '';
+                    document.getElementById('idjogo-membro').value = '';
+                } else {
+                    // Fallback para localStorage se PHP falhar
+                    await cadastroMembroFallback(nick, senha, whatsapp, jogo, idJogo);
+                }
+
+            } catch (error) {
+                // Fallback para localStorage
+                toggleLoading('membro', false);
+                await cadastroMembroFallback(nick, senha, whatsapp, jogo, idJogo);
+            }
+        }
+
+        // Fallback para cadastro de membro (localStorage)
+        async function cadastroMembroFallback(nick, senha, whatsapp, jogo, idJogo) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
+                    
+                    // Verificar se usuário já existe
+                    const usuarioExistente = usuarios.find(u => u.nick === nick);
+                    if (usuarioExistente) {
+                        showMessage('membro', '❌ Este nickname já está em uso!', true);
+                        resolve(false);
+                        return;
+                    }
+
+                    // Criar novo usuário
+                    const novoUsuario = {
+                        id: 'user_' + Date.now(),
+                        nick: nick,
+                        senha: senha, // Em produção, isso deveria ser hasheado
+                        whatsapp: whatsapp,
+                        jogo: jogo,
+                        id_jogo: idJogo,
+                        tipo: 'membro',
+                        data_cadastro: new Date().toISOString(),
+                        status: 'ativo',
+                        pontuacao: 0,
+                        vitorias: 0,
+                        derrotas: 0
+                    };
+
+                    usuarios.push(novoUsuario);
+                    localStorage.setItem('furia_usuarios', JSON.stringify(usuarios));
+
+                    // Mostrar sucesso
+                    mostrarAnimacaoAprovacao('membro', 'MEMBRO CADASTRADO COM SUCESSO!');
+                    
+                    // Limpar formulário
+                    document.getElementById('nick-membro').value = '';
+                    document.getElementById('senha-membro').value = '';
+                    document.getElementById('whatsapp-membro').value = '';
+                    document.getElementById('jogo-membro').value = '';
+                    document.getElementById('idjogo-membro').value = '';
+
+                    resolve(true);
+                }, 1500);
+            });
         }
 
         // Função para finalizar cadastro de equipe
         async function finalizarCadastroEquipe() {
-            const mensagemDiv = document.getElementById('mensagem-equipe');
-            const loadingDiv = document.getElementById('loading-equipe');
-            
-            // Capturar valores
             const nomeEquipe = document.getElementById('nome-equipe').value.trim();
             const senha = document.getElementById('senha-equipe').value.trim();
             const nickLider = document.getElementById('nick-lider').value.trim();
@@ -765,31 +841,107 @@
 
             // Validações
             if (!nomeEquipe || !senha || !nickLider || !whatsapp || !jogo) {
-                mensagemDiv.textContent = '❌ Preencha todos os campos obrigatórios!';
-                mensagemDiv.className = 'mensagem erro';
-                mensagemDiv.style.display = 'block';
+                showMessage('equipe', '❌ Preencha todos os campos obrigatórios!', true);
                 return;
             }
 
             if (!validarWhatsApp(whatsapp)) {
-                mensagemDiv.textContent = '❌ Formato de WhatsApp inválido! Use: (31) 99999-9999';
-                mensagemDiv.className = 'mensagem erro';
-                mensagemDiv.style.display = 'block';
+                showMessage('equipe', '❌ Formato de WhatsApp inválido! Use: (31) 99999-9999', true);
                 return;
             }
 
             // Mostrar loading
-            loadingDiv.style.display = 'block';
-            mensagemDiv.style.display = 'none';
+            toggleLoading('equipe', true);
 
-            // Simular processamento
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            try {
+                // Tentar cadastrar via PHP primeiro
+                const formData = new FormData();
+                formData.append('tipo', 'equipe');
+                formData.append('nome_equipe', nomeEquipe);
+                formData.append('senha', senha);
+                formData.append('nick_lider', nickLider);
+                formData.append('whatsapp', whatsapp);
+                formData.append('jogo', jogo);
 
-            // Esconder loading
-            loadingDiv.style.display = 'none';
-            
-            // Mostrar animação de aprovação automática
-            mostrarAnimacaoAprovacao('equipe');
+                const response = await fetch('cadastro.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                // Esconder loading
+                toggleLoading('equipe', false);
+
+                if (data.success) {
+                    // Sucesso no PHP
+                    mostrarAnimacaoAprovacao('equipe', data.message);
+                    
+                    // Limpar formulário
+                    document.getElementById('nome-equipe').value = '';
+                    document.getElementById('senha-equipe').value = '';
+                    document.getElementById('nick-lider').value = '';
+                    document.getElementById('whatsapp-equipe').value = '';
+                    document.getElementById('jogo-equipe').value = '';
+                } else {
+                    // Fallback para localStorage se PHP falhar
+                    await cadastroEquipeFallback(nomeEquipe, senha, nickLider, whatsapp, jogo);
+                }
+
+            } catch (error) {
+                // Fallback para localStorage
+                toggleLoading('equipe', false);
+                await cadastroEquipeFallback(nomeEquipe, senha, nickLider, whatsapp, jogo);
+            }
+        }
+
+        // Fallback para cadastro de equipe (localStorage)
+        async function cadastroEquipeFallback(nomeEquipe, senha, nickLider, whatsapp, jogo) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const equipes = JSON.parse(localStorage.getItem('furia_equipes')) || [];
+                    
+                    // Verificar se equipe já existe
+                    const equipeExistente = equipes.find(e => e.nome_equipe === nomeEquipe);
+                    if (equipeExistente) {
+                        showMessage('equipe', '❌ Este nome de equipe já está em uso!', true);
+                        resolve(false);
+                        return;
+                    }
+
+                    // Criar nova equipe
+                    const novaEquipe = {
+                        id: 'team_' + Date.now(),
+                        nome_equipe: nomeEquipe,
+                        senha: senha, // Em produção, isso deveria ser hasheado
+                        nick_lider: nickLider,
+                        whatsapp: whatsapp,
+                        jogo: jogo,
+                        tipo: 'equipe',
+                        data_criacao: new Date().toISOString(),
+                        status: 'ativa',
+                        pontuacao: 0,
+                        vitorias: 0,
+                        derrotas: 0,
+                        membros: [nickLider]
+                    };
+
+                    equipes.push(novaEquipe);
+                    localStorage.setItem('furia_equipes', JSON.stringify(equipes));
+
+                    // Mostrar sucesso
+                    mostrarAnimacaoAprovacao('equipe', 'EQUIPE CADASTRADA COM SUCESSO!');
+                    
+                    // Limpar formulário
+                    document.getElementById('nome-equipe').value = '';
+                    document.getElementById('senha-equipe').value = '';
+                    document.getElementById('nick-lider').value = '';
+                    document.getElementById('whatsapp-equipe').value = '';
+                    document.getElementById('jogo-equipe').value = '';
+
+                    resolve(true);
+                }, 1500);
+            });
         }
 
         // Inicializar quando a página carregar
@@ -809,7 +961,21 @@
                     e.target.value = value;
                 });
             });
+
+            // Testar conexão com backend
+            testarBackendCadastro();
         });
+
+        // Função para testar conexão com backend
+        async function testarBackendCadastro() {
+            try {
+                const response = await fetch('cadastro.php');
+                const data = await response.json();
+                console.log('✅ Backend de cadastro conectado:', data);
+            } catch (error) {
+                console.warn('⚠️ Backend de cadastro offline, usando fallback local');
+            }
+        }
     </script>
 </body>
 </html>
