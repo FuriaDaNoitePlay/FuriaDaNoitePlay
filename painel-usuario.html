@@ -1249,21 +1249,28 @@
             }
         }
 
-        // ===== CARREGAR JOGOS =====
-        function carregarJogos(jogoPrincipal) {
-            const grid = document.getElementById('gamesGrid');
-            const jogos = [
-                { nome: "CFN - Clash of Clan", icone: "⚔️", status: "Principal" },
-                { nome: "CR - Clash Royale", icone: "👑", status: "Ativo" },
-                { nome: "MLBB - Mobile Legends", icone: "🗡️", status: "Ativo" },
-                { nome: "Free Fire", icone: "🔫", status: "Inativo" }
-            ];
+        // ==== CARREGAR JOGOS ====
+function carregarJogos(jogoPrincipal) {
+    const grid = document.getElementById('gamesGrid');
+    const jogos = [
+        { nome: "CFN - Clash of Clan", icone: "X", status: "Principal" },
+        { nome: "CR - Clash Royale", icone: "W", status: "Ativo" },
+        { nome: "MLBB - Mobile Legends", icone: "x", status: "Ativo" },
+        { nome: "Free Fire", icone: "❤", status: "Inativo" }
+    ];
 
-            grid.innerHTML = '';
-            jogos.forEach(jogo => {
-                const card = document.createElement('div');
-                card.className = 'game-card';
-                card.innerHTML = `
-                    <div class="game-icon">${jogo.icone}</div>
-                    <div class="game-name">${jogo.nome}</div>
-                    <div class="game-stats">Status
+    grid.innerHTML = "";
+    jogos.forEach(jogo => {
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.innerHTML = `
+            <div class="game-icon">${jogo.icone}</div>
+            <div class="game-name">${jogo.nome}</div>
+            <div class="game-stats">Status: ${jogo.status}</div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+X</body>
+</html>
