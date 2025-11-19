@@ -28,13 +28,14 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
         
         .header {
             text-align: center;
             padding: 20px 0;
             border-bottom: 2px solid var(--gold);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             width: 100%;
             max-width: 800px;
         }
@@ -93,18 +94,33 @@
             box-shadow: 0 0 20px rgba(205, 127, 50, 0.3);
         }
         
-        .controls {
+        .controls-section {
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 25px;
+            margin-top: 20px;
+        }
+        
+        .controls-title {
+            color: var(--bronze);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .controls-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
+            max-width: 300px;
         }
         
         .control-row {
             display: flex;
             justify-content: center;
-            margin: 8px 0;
+            margin: 5px 0;
+            width: 100%;
         }
         
         .control-btn {
@@ -118,10 +134,11 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            margin: 0 8px;
-            border-radius: 10px;
+            margin: 0 5px;
+            border-radius: 15px;
             transition: all 0.2s;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            touch-action: manipulation;
         }
         
         .control-btn:hover {
@@ -131,6 +148,7 @@
         
         .control-btn:active {
             transform: scale(0.95);
+            background: var(--gold);
         }
         
         .instructions {
@@ -139,6 +157,7 @@
             color: var(--bronze);
             max-width: 500px;
             line-height: 1.5;
+            padding: 0 15px;
         }
         
         .back-btn {
@@ -151,7 +170,7 @@
             font-weight: bold;
             transition: all 0.3s;
             font-size: 1rem;
-            margin-top: 20px;
+            margin-top: 25px;
             text-decoration: none;
             display: inline-block;
         }
@@ -174,14 +193,15 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
         
         .modal-content {
             background: linear-gradient(145deg, var(--dark-metal), var(--light-metal));
             padding: 30px;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 2px solid var(--gold);
-            width: 90%;
+            width: 100%;
             max-width: 400px;
             text-align: center;
         }
@@ -194,11 +214,11 @@
         
         #nicknameInput {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             margin-bottom: 20px;
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--bronze);
-            border-radius: 5px;
+            border-radius: 8px;
             color: var(--text-color);
             font-size: 1rem;
             text-align: center;
@@ -213,12 +233,13 @@
             background: var(--gold);
             color: var(--dark-metal);
             border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
+            padding: 15px 30px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            width: 100%;
         }
         
         #startGameBtn:hover {
@@ -227,8 +248,18 @@
             transform: scale(1.05);
         }
         
-        /* Responsividade */
+        /* Responsividade Melhorada */
         @media (max-width: 768px) {
+            body {
+                padding: 15px;
+                justify-content: flex-start;
+            }
+            
+            .header {
+                padding: 15px 0;
+                margin-bottom: 15px;
+            }
+            
             .logo {
                 font-size: 2rem;
             }
@@ -244,24 +275,96 @@
                 max-height: 400px;
             }
             
-            .control-btn {
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
-            }
-            
             .game-header {
                 flex-direction: column;
                 gap: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .player-info {
+                flex-direction: row;
+                justify-content: space-between;
+                width: 100%;
+            }
+            
+            .controls-section {
+                margin-top: 15px;
+            }
+            
+            .controls-container {
+                max-width: 280px;
+            }
+            
+            .control-btn {
+                width: 65px;
+                height: 65px;
+                font-size: 1.6rem;
+                margin: 0 4px;
+            }
+            
+            .instructions {
+                margin-top: 20px;
+                font-size: 0.9rem;
             }
         }
         
         @media (max-width: 480px) {
-            .control-btn {
-                width: 50px;
-                height: 50px;
+            body {
+                padding: 10px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .game-title {
                 font-size: 1.3rem;
             }
+            
+            #gameCanvas {
+                width: 100vw;
+                height: 100vw;
+                max-width: 350px;
+                max-height: 350px;
+            }
+            
+            .control-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.4rem;
+                margin: 0 3px;
+            }
+            
+            .player-value {
+                font-size: 1.1rem;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .control-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
+            }
+            
+            #gameCanvas {
+                max-width: 320px;
+                max-height: 320px;
+            }
+        }
+        
+        /* Prevenir scroll acidental */
+        .no-scroll {
+            overflow: hidden;
         }
     </style>
 </head>
@@ -289,14 +392,17 @@
         
         <canvas id="gameCanvas" width="500" height="500"></canvas>
         
-        <div class="controls">
-            <div class="control-row">
-                <div class="control-btn" id="upBtn">↑</div>
-            </div>
-            <div class="control-row">
-                <div class="control-btn" id="leftBtn">←</div>
-                <div class="control-btn" id="downBtn">↓</div>
-                <div class="control-btn" id="rightBtn">→</div>
+        <div class="controls-section">
+            <div class="controls-title">CONTROLES</div>
+            <div class="controls-container">
+                <div class="control-row">
+                    <div class="control-btn" id="upBtn">↑</div>
+                </div>
+                <div class="control-row">
+                    <div class="control-btn" id="leftBtn">←</div>
+                    <div class="control-btn" id="downBtn">↓</div>
+                    <div class="control-btn" id="rightBtn">→</div>
+                </div>
             </div>
         </div>
         
@@ -352,14 +458,45 @@
         function init() {
             highScoreElement.textContent = highScore;
             
-            // Event listeners para controles de botão
+            // Prevenir scroll em dispositivos móveis
+            document.body.classList.add('no-scroll');
+            
+            // Event listeners para controles de botão com touch
             upBtn.addEventListener('click', () => changeDirection('up'));
+            upBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                changeDirection('up');
+            });
+            
             downBtn.addEventListener('click', () => changeDirection('down'));
+            downBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                changeDirection('down');
+            });
+            
             leftBtn.addEventListener('click', () => changeDirection('left'));
+            leftBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                changeDirection('left');
+            });
+            
             rightBtn.addEventListener('click', () => changeDirection('right'));
+            rightBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                changeDirection('right');
+            });
             
             // Event listeners para teclado
             document.addEventListener('keydown', handleKeyDown);
+            
+            // Prevenir comportamento padrão de touch no canvas
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+            });
+            
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+            });
             
             // Iniciar jogo após nickname
             startGameBtn.addEventListener('click', startGame);
@@ -372,7 +509,9 @@
             });
             
             // Focar no input quando o modal abrir
-            nicknameInput.focus();
+            setTimeout(() => {
+                nicknameInput.focus();
+            }, 100);
         }
         
         function startGame() {
@@ -382,6 +521,7 @@
             }
             currentPlayerElement.textContent = playerNickname;
             nicknameModal.style.display = 'none';
+            document.body.classList.remove('no-scroll');
             resetGame();
             gameStarted = true;
         }
@@ -663,10 +803,12 @@
             
             // Prepara para reiniciar
             canvas.addEventListener('click', resetGameWithClick);
+            canvas.addEventListener('touchstart', resetGameWithClick);
         }
         
         function resetGameWithClick() {
             canvas.removeEventListener('click', resetGameWithClick);
+            canvas.removeEventListener('touchstart', resetGameWithClick);
             resetGame();
         }
         
@@ -675,14 +817,14 @@
             let ranking = JSON.parse(localStorage.getItem('snakeRanking')) || [];
             
             // Adiciona novo resultado
-            ranking.push({ nickname, score });
+            ranking.push({ nickname, score, date: new Date().toLocaleDateString() });
             
             // Ordena por pontuação (maior primeiro)
             ranking.sort((a, b) => b.score - a.score);
             
-            // Mantém apenas os top 10
-            if (ranking.length > 10) {
-                ranking = ranking.slice(0, 10);
+            // Mantém apenas os top 250
+            if (ranking.length > 250) {
+                ranking = ranking.slice(0, 250);
             }
             
             // Salva no localStorage
