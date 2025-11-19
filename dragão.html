@@ -139,6 +139,8 @@
             transition: all 0.2s;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
         }
         
         .control-btn:hover {
@@ -246,6 +248,20 @@
             background: var(--bronze);
             color: var(--text-color);
             transform: scale(1.05);
+        }
+
+        /* Game Over Styles */
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            z-index: 100;
         }
         
         /* Responsividade Melhorada */
@@ -453,6 +469,7 @@
         let highScore = localStorage.getItem('snakeHighScore') || 0;
         let playerNickname = '';
         let gameStarted = false;
+        let gameOver = false;
         
         // Inicialização
         function init() {
@@ -462,29 +479,7 @@
             document.body.classList.add('no-scroll');
             
             // Event listeners para controles de botão com touch
-            upBtn.addEventListener('click', () => changeDirection('up'));
-            upBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                changeDirection('up');
-            });
-            
-            downBtn.addEventListener('click', () => changeDirection('down'));
-            downBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                changeDirection('down');
-            });
-            
-            leftBtn.addEventListener('click', () => changeDirection('left'));
-            leftBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                changeDirection('left');
-            });
-            
-            rightBtn.addEventListener('click', () => changeDirection('right'));
-            rightBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                changeDirection('right');
-            });
+            setupTouchControls();
             
             // Event listeners para teclado
             document.addEventListener('keydown', handleKeyDown);
@@ -513,6 +508,32 @@
                 nicknameInput.focus();
             }, 100);
         }
+
+        function setupTouchControls() {
+            upBtn.addEventListener('click', () => changeDirection('up'));
+            upBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                changeDirection('up');
+            });
+            
+            downBtn.addEventListener('click', () => changeDirection('down'));
+            downBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                changeDirection('down');
+            });
+            
+            leftBtn.addEventListener('click', () => changeDirection('left'));
+            leftBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                changeDirection('left');
+            });
+            
+            rightBtn.addEventListener('click', () => changeDirection('right'));
+            rightBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                changeDirection('right');
+            });
+        }
         
         function startGame() {
             playerNickname = nicknameInput.value.trim();
@@ -528,7 +549,7 @@
         
         // Controles
         function handleKeyDown(e) {
-            if (!gameStarted) return;
+            if (!gameStarted || gameOver) return;
             
             switch(e.key) {
                 case 'ArrowUp':
@@ -543,11 +564,14 @@
                 case 'ArrowRight':
                     changeDirection('right');
                     break;
+                case ' ':
+                    if (gameOver) resetGame();
+                    break;
             }
         }
         
         function changeDirection(newDirection) {
-            if (!gameStarted) return;
+            if (!gameStarted || gameOver) return;
             
             // Previne movimento inverso
             if (
@@ -563,6 +587,7 @@
         // Jogo
         function resetGame() {
             clearInterval(gameInterval);
+            gameOver = false;
             
             // Inicializa a cobra (dragão)
             snake = [
@@ -600,6 +625,8 @@
         }
         
         function gameLoop() {
+            if (gameOver) return;
+            
             // Atualiza direção
             direction = nextDirection;
             
@@ -626,14 +653,14 @@
                 head.x < 0 || head.x >= canvas.width / gridSize ||
                 head.y < 0 || head.y >= canvas.height / gridSize
             ) {
-                gameOver();
+                endGame();
                 return;
             }
             
             // Verifica colisão com o próprio corpo
             for (let segment of snake) {
                 if (head.x === segment.x && head.y === segment.y) {
-                    gameOver();
+                    endGame();
                     return;
                 }
             }
@@ -680,6 +707,13 @@
             }
             
             // Desenha a comida (bola do mundo)
+            drawFood();
+            
+            // Desenha a cobra (dragão)
+            drawSnake();
+        }
+
+        function drawFood() {
             ctx.fillStyle = '#4A90E2';
             ctx.beginPath();
             ctx.arc(
@@ -697,8 +731,9 @@
             ctx.fillRect(food.x * gridSize + 5, food.y * gridSize + 5, 10, 5);
             ctx.fillRect(food.x * gridSize + 3, food.y * gridSize + 12, 6, 4);
             ctx.fillRect(food.x * gridSize + 12, food.y * gridSize + 8, 4, 6);
-            
-            // Desenha a cobra (dragão)
+        }
+
+        function drawSnake() {
             for (let i = 0; i < snake.length; i++) {
                 const segment = snake[i];
                 
@@ -762,19 +797,13 @@
                         Math.PI * 2
                     );
                     ctx.fill();
-                    
-                    // Chamas saindo da boca
-                    if (direction === 'right') {
-                        ctx.fillStyle = '#FF4500';
-                        ctx.fillRect(segment.x * gridSize + gridSize, segment.y * gridSize + 5, 8, 3);
-                        ctx.fillRect(segment.x * gridSize + gridSize, segment.y * gridSize + 12, 8, 3);
-                    }
                 }
             }
         }
         
-        function gameOver() {
+        function endGame() {
             clearInterval(gameInterval);
+            gameOver = true;
             gameStarted = false;
             
             // Atualiza recorde se necessário
@@ -788,6 +817,10 @@
             updateRanking(playerNickname, score);
             
             // Mostra mensagem de game over
+            showGameOver();
+        }
+
+        function showGameOver() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
@@ -822,13 +855,24 @@
             // Ordena por pontuação (maior primeiro)
             ranking.sort((a, b) => b.score - a.score);
             
+            // Remove duplicatas mantendo a maior pontuação
+            const uniqueRanking = [];
+            const nicknames = new Set();
+            
+            for (let player of ranking) {
+                if (!nicknames.has(player.nickname)) {
+                    nicknames.add(player.nickname);
+                    uniqueRanking.push(player);
+                }
+            }
+            
             // Mantém apenas os top 250
-            if (ranking.length > 250) {
-                ranking = ranking.slice(0, 250);
+            if (uniqueRanking.length > 250) {
+                uniqueRanking = uniqueRanking.slice(0, 250);
             }
             
             // Salva no localStorage
-            localStorage.setItem('snakeRanking', JSON.stringify(ranking));
+            localStorage.setItem('snakeRanking', JSON.stringify(uniqueRanking));
         }
         
         // Inicializa o jogo quando a página carrega
