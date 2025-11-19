@@ -33,201 +33,6 @@
             min-height: 100vh;
         }
 
-        /* ===== ANIMAÇÃO DE LOGIN ===== */
-        .login-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            flex-direction: column;
-        }
-
-        .checkmark {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: block;
-            stroke-width: 2;
-            stroke: var(--vermelho-neon);
-            stroke-miterlimit: 10;
-            box-shadow: inset 0px 0px 0px var(--vermelho-neon);
-            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
-            margin-bottom: 30px;
-        }
-
-        .checkmark__circle {
-            stroke-dasharray: 166;
-            stroke-dashoffset: 166;
-            stroke-width: 2;
-            stroke-miterlimit: 10;
-            stroke: var(--vermelho-neon);
-            fill: none;
-            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-        }
-
-        .checkmark__check {
-            transform-origin: 50% 50%;
-            stroke-dasharray: 48;
-            stroke-dashoffset: 48;
-            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-        }
-
-        @keyframes stroke {
-            100% { stroke-dashoffset: 0; }
-        }
-
-        @keyframes scale {
-            0%, 100% { transform: none; }
-            50% { transform: scale3d(1.1, 1.1, 1); }
-        }
-
-        @keyframes fill {
-            100% { box-shadow: inset 0px 0px 0px 30px var(--vermelho-neon); }
-        }
-
-        .welcome-text {
-            color: var(--vermelho-neon);
-            font-size: 2rem;
-            text-shadow: 0 0 20px var(--vermelho-neon);
-            animation: pulsar 1.5s infinite;
-        }
-
-        @keyframes pulsar {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
-        }
-
-        /* ===== SISTEMA DE CHAT ===== */
-        .chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 350px;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
-            border: 3px solid var(--vermelho-neon);
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, var(--vermelho-neon), var(--vermelho-escuro));
-            padding: 15px;
-            border-radius: 12px 12px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-title {
-            color: var(--branco);
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .chat-close {
-            background: none;
-            border: none;
-            color: var(--branco);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .message {
-            padding: 10px 15px;
-            border-radius: 10px;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-
-        .message.own {
-            background: rgba(255, 0, 0, 0.3);
-            align-self: flex-end;
-            border: 1px solid var(--vermelho-neon);
-        }
-
-        .message.other {
-            background: rgba(255, 215, 0, 0.2);
-            align-self: flex-start;
-            border: 1px solid var(--amarelo-neon);
-        }
-
-        .message.adm {
-            background: rgba(0, 102, 255, 0.2);
-            border: 1px solid var(--azul-neon);
-        }
-
-        .message-sender {
-            font-weight: bold;
-            font-size: 0.8rem;
-            margin-bottom: 5px;
-        }
-
-        .message-text {
-            font-size: 0.9rem;
-        }
-
-        .chat-input {
-            display: flex;
-            padding: 15px;
-            gap: 10px;
-            border-top: 1px solid var(--vermelho-neon);
-        }
-
-        .chat-input input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid var(--vermelho-neon);
-            border-radius: 8px;
-            background: rgba(255, 0, 0, 0.1);
-            color: white;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .chat-input button {
-            background: var(--vermelho-neon);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .chat-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--vermelho-neon), var(--vermelho-escuro));
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 0 20px var(--vermelho-neon);
-            z-index: 999;
-        }
-
         /* ===== HEADER ===== */
         .header {
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
@@ -383,10 +188,6 @@
         .action-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 20px var(--vermelho-neon);
-        }
-
-        .action-btn.chat {
-            background: linear-gradient(135deg, var(--azul-neon), #0066cc);
         }
 
         /* ===== CONTEÚDO PRINCIPAL ===== */
@@ -760,7 +561,7 @@
             text-shadow: 0 0 8px var(--amarelo-neon);
         }
 
-        .input-group select {
+        .input-group select, .input-group input {
             padding: 12px 15px;
             border: 2px solid var(--vermelho-neon);
             border-radius: 8px;
@@ -836,6 +637,94 @@
             margin-top: 20px;
         }
 
+        /* ===== MODAL DE AVATAR ===== */
+        .avatar-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar-modal-content {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid var(--vermelho-neon);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .avatar-modal-title {
+            color: var(--amarelo-neon);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--amarelo-neon);
+        }
+
+        .avatar-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-option {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .avatar-option:hover, .avatar-option.selected {
+            border: 2px solid var(--amarelo-neon);
+            box-shadow: 0 0 15px var(--amarelo-neon);
+            transform: scale(1.1);
+        }
+
+        .avatar-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .avatar-upload {
+            margin: 20px 0;
+        }
+
+        .avatar-upload-btn {
+            background: linear-gradient(135deg, var(--azul-neon), #0066cc);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .avatar-upload-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--azul-neon);
+        }
+
+        .avatar-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
         /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
             .header-content, .nav-content {
@@ -867,9 +756,8 @@
                 grid-template-columns: 1fr;
             }
             
-            .chat-container {
-                width: 300px;
-                height: 400px;
+            .avatar-options {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -895,25 +783,13 @@
                 text-align: center;
             }
             
-            .chat-container {
-                width: 280px;
-                height: 350px;
-                right: 10px;
-                bottom: 10px;
+            .avatar-options {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <!-- ANIMAÇÃO DE LOGIN -->
-    <div id="loginAnimation" class="login-animation">
-        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-        </svg>
-        <div class="welcome-text">USUÁRIO CONECTADO!</div>
-    </div>
-
     <!-- HEADER -->
     <header class="header">
         <div class="header-content">
@@ -922,7 +798,7 @@
                 <div class="logo-text">FuriaDaNoitePlay</div>
             </div>
             <div class="user-info">
-                <div class="user-avatar" id="userAvatar" onclick="changeAvatar()">
+                <div class="user-avatar" id="userAvatar" onclick="openAvatarModal()">
                     <!-- Avatar será carregado via JavaScript -->
                 </div>
                 <div class="user-details">
@@ -958,9 +834,6 @@
             </div>
             
             <div class="user-actions">
-                <button class="action-btn chat" onclick="toggleChat()">
-                    <i class="fas fa-comments"></i> Chat
-                </button>
                 <button class="action-btn" onclick="logout()">
                     <i class="fas fa-sign-out-alt"></i> Sair
                 </button>
@@ -1057,7 +930,7 @@
                     </button>
                 </div>
                 <div style="margin-top: 20px; text-align: center;">
-                    <button class="action-btn" onclick="changeAvatar()" style="background: var(--roxo-neon);">
+                    <button class="action-btn" onclick="openAvatarModal()" style="background: var(--roxo-neon);">
                         <i class="fas fa-camera"></i> Alterar Foto
                     </button>
                 </div>
@@ -1065,22 +938,27 @@
         </section>
     </main>
 
-    <!-- SISTEMA DE CHAT -->
-    <button class="chat-toggle" onclick="toggleChat()">
-        <i class="fas fa-comments"></i>
-    </button>
-
-    <div class="chat-container" id="chatContainer">
-        <div class="chat-header">
-            <div class="chat-title">💬 Chat da Comunidade</div>
-            <button class="chat-close" onclick="toggleChat()">×</button>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <!-- Mensagens do chat -->
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Digite sua mensagem..." onkeypress="handleChatKeypress(event)">
-            <button onclick="sendMessage()">Enviar</button>
+    <!-- MODAL DE AVATAR -->
+    <div class="avatar-modal" id="avatarModal">
+        <div class="avatar-modal-content">
+            <h2 class="avatar-modal-title">Escolha seu Avatar</h2>
+            <div class="avatar-options" id="avatarOptions">
+                <!-- Opções de avatar serão carregadas via JavaScript -->
+            </div>
+            <div class="avatar-upload">
+                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                <button class="avatar-upload-btn" onclick="document.getElementById('avatarUpload').click()">
+                    <i class="fas fa-upload"></i> Enviar Foto Personalizada
+                </button>
+            </div>
+            <div class="avatar-actions">
+                <button class="action-btn" onclick="saveAvatar()">
+                    <i class="fas fa-save"></i> Salvar
+                </button>
+                <button class="action-btn" onclick="closeAvatarModal()" style="background: var(--vermelho-escuro);">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1110,11 +988,11 @@
                 return;
             }
 
-            // Mostrar animação de login
-            setTimeout(() => {
-                document.getElementById('loginAnimation').style.display = 'none';
-                carregarDadosUsuario(usuarioLogado);
-            }, 3000);
+            // Carregar dados do usuário sem animação
+            carregarDadosUsuario(usuarioLogado);
+            
+            // Inicializar opções de avatar
+            inicializarAvatarOptions();
         });
 
         // ===== CARREGAR DADOS DO USUÁRIO =====
@@ -1141,9 +1019,6 @@
             
             // Carregar partidas
             carregarPartidas();
-            
-            // Inicializar chat
-            inicializarChat(usuario.nick);
         }
 
         // ===== SISTEMA DE AVATAR =====
@@ -1154,14 +1029,91 @@
             avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="${usuario.nick}" onerror="this.style.display='none'; this.parentNode.innerHTML='${usuario.nick.charAt(0).toUpperCase()}'">`;
         }
 
-        function changeAvatar() {
-            const url = prompt('Cole a URL da sua foto de perfil:');
-            if (url) {
+        function inicializarAvatarOptions() {
+            const optionsContainer = document.getElementById('avatarOptions');
+            const avatares = [
+                'https://ui-avatars.com/api/?name=Player&background=FF0000&color=fff&size=128',
+                'https://ui-avatars.com/api/?name=Gamer&background=FFD700&color=000&size=128',
+                'https://ui-avatars.com/api/?name=Warrior&background=0066ff&color=fff&size=128',
+                'https://ui-avatars.com/api/?name=Pro&background=00ff00&color=000&size=128',
+                'https://ui-avatars.com/api/?name=Legend&background=8A2BE2&color=fff&size=128',
+                'https://ui-avatars.com/api/?name=Champion&background=FF4500&color=fff&size=128',
+                'https://ui-avatars.com/api/?name=Master&background=00CED1&color=000&size=128',
+                'https://ui-avatars.com/api/?name=Elite&background=FF69B4&color=fff&size=128'
+            ];
+
+            optionsContainer.innerHTML = '';
+            avatares.forEach((avatar, index) => {
+                const option = document.createElement('div');
+                option.className = 'avatar-option';
+                option.innerHTML = `<img src="${avatar}" alt="Avatar ${index + 1}">`;
+                option.onclick = () => selectAvatar(avatar, option);
+                optionsContainer.appendChild(option);
+            });
+
+            // Configurar upload de imagem personalizada
+            document.getElementById('avatarUpload').addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        selectAvatar(event.target.result, null);
+                    };
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+        }
+
+        let selectedAvatar = null;
+
+        function selectAvatar(avatarUrl, element) {
+            selectedAvatar = avatarUrl;
+            
+            // Remover seleção anterior
+            document.querySelectorAll('.avatar-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Adicionar seleção atual
+            if (element) {
+                element.classList.add('selected');
+            }
+        }
+
+        function openAvatarModal() {
+            document.getElementById('avatarModal').style.display = 'flex';
+            selectedAvatar = null;
+            
+            // Remover seleção anterior
+            document.querySelectorAll('.avatar-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
+
+        function closeAvatarModal() {
+            document.getElementById('avatarModal').style.display = 'none';
+        }
+
+        function saveAvatar() {
+            if (selectedAvatar) {
                 const usuario = JSON.parse(localStorage.getItem('furia_membro_atual'));
-                usuario.avatar = url;
+                usuario.avatar = selectedAvatar;
                 localStorage.setItem('furia_membro_atual', JSON.stringify(usuario));
+                
+                // Atualizar avatar na página
                 carregarAvatar(usuario);
-                alert('Foto atualizada com sucesso!');
+                
+                // Sincronizar com cadastro
+                const usuarios = JSON.parse(localStorage.getItem('furia_membros')) || [];
+                const usuarioIndex = usuarios.findIndex(u => u.email === usuario.email);
+                if (usuarioIndex !== -1) {
+                    usuarios[usuarioIndex].avatar = selectedAvatar;
+                    localStorage.setItem('furia_membros', JSON.stringify(usuarios));
+                }
+                
+                closeAvatarModal();
+                alert('Avatar atualizado com sucesso!');
+            } else {
+                alert('Por favor, selecione um avatar ou envie uma foto personalizada.');
             }
         }
 
@@ -1184,94 +1136,174 @@
             event.target.classList.add('active');
         }
 
-        // ===== SISTEMA DE CHAT =====
-        let chatVisible = false;
+        // ===== CARREGAR JOGOS =====
+        function carregarJogos(jogoPrincipal) {
+            const grid = document.getElementById('gamesGrid');
+            const jogos = [
+                { nome: "CFN - Clash of Clan", icone: "🏰", status: "Principal" },
+                { nome: "CR - Clash Royale", icone: "👑", status: "Ativo" },
+                { nome: "MLBB - Mobile Legends", icone: "⚔️", status: "Ativo" },
+                { nome: "Free Fire", icone: "🔫", status: "Inativo" }
+            ];
 
-        function toggleChat() {
-            const chatContainer = document.getElementById('chatContainer');
-            chatVisible = !chatVisible;
-            chatContainer.style.display = chatVisible ? 'flex' : 'none';
+            grid.innerHTML = "";
+            jogos.forEach(jogo => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.innerHTML = `
+                    <div class="game-icon">${jogo.icone}</div>
+                    <div class="game-name">${jogo.nome}</div>
+                    <div class="game-stats">Status: ${jogo.status}</div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
-        function inicializarChat(nickUsuario) {
-            // Adicionar mensagem de boas-vindas
-            addMessage('Sistema', `Bem-vindo ao chat, ${nickUsuario}!`, 'adm');
-            
-            // Mensagem automática da comunidade
-            setTimeout(() => {
-                addMessage('FuriaBot', '💬 Converse com outros membros da comunidade!', 'other');
-            }, 2000);
+        // ===== CARREGAR TORNEIOS =====
+        function carregarTorneios() {
+            const grid = document.getElementById('tournamentsGrid');
+            const torneios = [
+                { 
+                    titulo: "Torneio CFN - Elite", 
+                    status: "Inscrições Abertas",
+                    descricao: "Participe do maior torneio de CFN da temporada. Premiação: R$ 5.000,00",
+                    data: "15/12/2024",
+                    participantes: "32/64"
+                },
+                { 
+                    titulo: "Liga MLBB - Pro", 
+                    status: "Em Andamento",
+                    descricao: "Liga profissional de MLBB. Premiação: R$ 3.000,00",
+                    data: "10/12/2024",
+                    participantes: "16/16"
+                },
+                { 
+                    titulo: "Campeonato Free Fire", 
+                    status: "Em Breve",
+                    descricao: "Campeonato aberto de Free Fire. Premiação: R$ 2.000,00",
+                    data: "20/12/2024",
+                    participantes: "0/48"
+                }
+            ];
+
+            grid.innerHTML = "";
+            torneios.forEach(torneio => {
+                const card = document.createElement('div');
+                card.className = 'tournament-card';
+                card.innerHTML = `
+                    <div class="tournament-header">
+                        <div class="tournament-title">${torneio.titulo}</div>
+                        <div class="tournament-status">${torneio.status}</div>
+                    </div>
+                    <div class="tournament-details">${torneio.descricao}</div>
+                    <div class="tournament-info">
+                        <span>Data: ${torneio.data}</span>
+                        <span>Participantes: ${torneio.participantes}</span>
+                    </div>
+                    <button class="join-tournament-btn">
+                        <i class="fas fa-user-plus"></i> Inscrever-se
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
         }
 
-        function addMessage(remetente, texto, tipo = 'other') {
-            const chatMessages = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${tipo}`;
-            
-            messageDiv.innerHTML = `
-                <div class="message-sender">${remetente}</div>
-                <div class="message-text">${texto}</div>
-            `;
-            
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        // ===== CARREGAR PARTIDAS =====
+        function carregarPartidas() {
+            const container = document.getElementById('matchesContainer');
+            const partidas = [
+                { 
+                    jogo: "CFN - Clash of Clan", 
+                    data: "05/12/2024",
+                    time1: "Furia Warriors",
+                    time2: "Night Hunters",
+                    placar1: "3",
+                    placar2: "1",
+                    status: "Vitória"
+                },
+                { 
+                    jogo: "MLBB - Mobile Legends", 
+                    data: "03/12/2024",
+                    time1: "Furia Legends",
+                    time2: "Dragon Team",
+                    placar1: "2",
+                    placar2: "3",
+                    status: "Derrota"
+                },
+                { 
+                    jogo: "CR - Clash Royale", 
+                    data: "01/12/2024",
+                    time1: "Furia Elite",
+                    time2: "Royal Clan",
+                    placar1: "2",
+                    placar2: "2",
+                    status: "Empate"
+                }
+            ];
+
+            container.innerHTML = "";
+            partidas.forEach(partida => {
+                const card = document.createElement('div');
+                card.className = 'match-card';
+                card.innerHTML = `
+                    <div class="match-header">
+                        <div class="match-game">${partida.jogo}</div>
+                        <div class="match-date">${partida.data}</div>
+                    </div>
+                    <div class="match-teams">
+                        <div class="team">
+                            <div class="team-name">${partida.time1}</div>
+                            <div class="team-score">${partida.placar1}</div>
+                        </div>
+                        <div class="vs">VS</div>
+                        <div class="team">
+                            <div class="team-score">${partida.placar2}</div>
+                            <div class="team-name">${partida.time2}</div>
+                        </div>
+                    </div>
+                    <div class="match-status">${partida.status}</div>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const mensagem = input.value.trim();
-            
-            if (mensagem) {
+        // ===== FUNÇÕES ADICIONAIS =====
+        function searchMatch() {
+            const jogoSelecionado = document.getElementById('gameSelect').value;
+            alert(`Buscando partida para: ${jogoSelecionado}`);
+            // Aqui você implementaria a lógica real de busca de partida
+        }
+
+        function updateProfile() {
+            const novoNick = document.getElementById('nickInput').value.trim();
+            if (novoNick) {
                 const usuario = JSON.parse(localStorage.getItem('furia_membro_atual'));
-                addMessage(usuario.nick, mensagem, 'own');
-                input.value = '';
+                usuario.nick = novoNick;
+                localStorage.setItem('furia_membro_atual', JSON.stringify(usuario));
                 
-                // Simular resposta automática
-                setTimeout(() => {
-                    const respostas = [
-                        "Alguém quer jogar agora?",
-                        "Boa estratégia!",
-                        "Alguém topa um 1v1?",
-                        "Precisamos de mais players!",
-                        "Alguém da equipe online?"
-                    ];
-                    const resposta = respostas[Math.floor(Math.random() * respostas.length)];
-                    const bots = ['FuriaWarrior', 'NightHunter', 'ScorpionPro', 'ToxicPlayer'];
-                    const bot = bots[Math.floor(Math.random() * bots.length)];
-                    addMessage(bot, resposta, 'other');
-                }, 1000 + Math.random() * 2000);
+                // Atualizar na página
+                document.getElementById('userNick').textContent = novoNick;
+                document.getElementById('welcomeUser').textContent = `Bem-vindo, ${novoNick}!`;
+                
+                // Sincronizar com cadastro
+                const usuarios = JSON.parse(localStorage.getItem('furia_membros')) || [];
+                const usuarioIndex = usuarios.findIndex(u => u.email === usuario.email);
+                if (usuarioIndex !== -1) {
+                    usuarios[usuarioIndex].nick = novoNick;
+                    localStorage.setItem('furia_membros', JSON.stringify(usuarios));
+                }
+                
+                alert('Nick atualizado com sucesso!');
+                document.getElementById('nickInput').value = '';
+            } else {
+                alert('Por favor, digite um nick válido.');
             }
         }
 
-        function handleChatKeypress(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+        function logout() {
+            localStorage.removeItem('furia_membro_atual');
+            window.location.href = 'login.html';
         }
-
-        // ==== CARREGAR JOGOS ====
-function carregarJogos(jogoPrincipal) {
-    const grid = document.getElementById('gamesGrid');
-    const jogos = [
-        { nome: "CFN - Clash of Clan", icone: "X", status: "Principal" },
-        { nome: "CR - Clash Royale", icone: "W", status: "Ativo" },
-        { nome: "MLBB - Mobile Legends", icone: "x", status: "Ativo" },
-        { nome: "Free Fire", icone: "❤", status: "Inativo" }
-    ];
-
-    grid.innerHTML = "";
-    jogos.forEach(jogo => {
-        const card = document.createElement('div');
-        card.className = 'game-card';
-        card.innerHTML = `
-            <div class="game-icon">${jogo.icone}</div>
-            <div class="game-name">${jogo.nome}</div>
-            <div class="game-stats">Status: ${jogo.status}</div>
-        `;
-        grid.appendChild(card);
-    });
-}
-
     </script>
-X</body>
+</body>
 </html>
