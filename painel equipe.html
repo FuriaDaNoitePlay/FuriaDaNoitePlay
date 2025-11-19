@@ -33,76 +33,6 @@
             min-height: 100vh;
         }
 
-        /* ===== ANIMAÇÃO DE LOGIN ===== */
-        .login-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            flex-direction: column;
-        }
-
-        .checkmark {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: block;
-            stroke-width: 2;
-            stroke: var(--azul-neon);
-            stroke-miterlimit: 10;
-            box-shadow: inset 0px 0px 0px var(--azul-neon);
-            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
-            margin-bottom: 30px;
-        }
-
-        .checkmark__circle {
-            stroke-dasharray: 166;
-            stroke-dashoffset: 166;
-            stroke-width: 2;
-            stroke-miterlimit: 10;
-            stroke: var(--azul-neon);
-            fill: none;
-            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-        }
-
-        .checkmark__check {
-            transform-origin: 50% 50%;
-            stroke-dasharray: 48;
-            stroke-dashoffset: 48;
-            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-        }
-
-        @keyframes stroke {
-            100% { stroke-dashoffset: 0; }
-        }
-
-        @keyframes scale {
-            0%, 100% { transform: none; }
-            50% { transform: scale3d(1.1, 1.1, 1); }
-        }
-
-        @keyframes fill {
-            100% { box-shadow: inset 0px 0px 0px 30px var(--azul-neon); }
-        }
-
-        .welcome-text {
-            color: var(--azul-neon);
-            font-size: 2rem;
-            text-shadow: 0 0 20px var(--azul-neon);
-            animation: pulsar 1.5s infinite;
-        }
-
-        @keyframes pulsar {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
-        }
-
         /* ===== HEADER ===== */
         .header {
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
@@ -277,7 +207,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 350px;
+            width: 400px;
             height: 500px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
             border: 3px solid var(--azul-neon);
@@ -545,10 +475,69 @@
             padding-bottom: 10px;
         }
 
+        /* ===== TABELAS ===== */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            border: 1px solid var(--azul-neon);
+        }
+
+        .team-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .team-table th {
+            background: rgba(0, 102, 255, 0.3);
+            color: var(--amarelo-neon);
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid var(--azul-neon);
+            font-weight: bold;
+        }
+
+        .team-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(0, 102, 255, 0.2);
+        }
+
+        .team-table tr:hover {
+            background: rgba(0, 102, 255, 0.1);
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .status-vitoria {
+            background: rgba(0, 255, 0, 0.2);
+            color: var(--verde-neon);
+            border: 1px solid var(--verde-neon);
+        }
+
+        .status-derrota {
+            background: rgba(255, 0, 0, 0.2);
+            color: var(--vermelho-neon);
+            border: 1px solid var(--vermelho-neon);
+        }
+
+        .status-pendente {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--amarelo-neon);
+            border: 1px solid var(--amarelo-neon);
+        }
+
         /* ===== MEMBROS DA EQUIPE ===== */
         .members-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
@@ -583,6 +572,13 @@
             font-size: 1.5rem;
             margin: 0 auto 15px;
             box-shadow: 0 0 15px var(--azul-neon);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .member-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--amarelo-neon);
         }
 
         .member-name {
@@ -590,6 +586,13 @@
             font-weight: bold;
             margin-bottom: 5px;
             text-shadow: 0 0 8px var(--amarelo-neon);
+        }
+
+        .member-id {
+            color: var(--azul-neon);
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            font-family: 'Oxanium', monospace;
         }
 
         .member-role {
@@ -655,6 +658,113 @@
             transform: scale(1.05);
         }
 
+        /* ===== FORMULÁRIOS ===== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            color: var(--amarelo-neon);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .input-group input, .input-group select, .input-group textarea {
+            padding: 12px 15px;
+            border: 2px solid var(--azul-neon);
+            border-radius: 8px;
+            background: rgba(0, 102, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: var(--amarelo-neon);
+            box-shadow: 0 0 15px var(--amarelo-neon);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--azul-neon), #0066cc);
+            color: var(--branco);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--azul-neon);
+        }
+
+        /* ===== EDITAR PERFIL ===== */
+        .profile-edit {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .profile-picture {
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--azul-neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--preto);
+            font-weight: bold;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px var(--azul-neon);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--amarelo-neon);
+        }
+
+        .change-photo-btn {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--amarelo-neon);
+            border: 1px solid var(--amarelo-neon);
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .change-photo-btn:hover {
+            background: rgba(255, 215, 0, 0.3);
+            transform: scale(1.05);
+        }
+
         /* ===== RODAPÉ ===== */
         .footer {
             background: rgba(0, 0, 0, 0.9);
@@ -695,18 +805,74 @@
             color: var(--amarelo-neon);
             text-shadow: 0 0 8px var(--amarelo-neon);
         }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .header-content, .nav-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .team-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .main-content {
+                padding: 0 20px;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chat-container {
+                width: 350px;
+                height: 400px;
+            }
+            
+            .profile-edit {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header, .nav {
+                padding: 15px 20px;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.6rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .chat-container {
+                width: 300px;
+                height: 350px;
+                right: 10px;
+                bottom: 10px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- ANIMAÇÃO DE LOGIN -->
-    <div id="loginAnimation" class="login-animation">
-        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-        </svg>
-        <div class="welcome-text">EQUIPE CONECTADA!</div>
-    </div>
-
     <!-- HEADER -->
     <header class="header">
         <div class="header-content">
@@ -745,17 +911,17 @@
                 <a href="#" class="nav-link" onclick="showSection('members')">
                     <i class="fas fa-users"></i> Membros
                 </a>
-                <a href="#" class="nav-link" onclick="showSection('tournaments')">
-                    <i class="fas fa-trophy"></i> Torneios
-                </a>
                 <a href="#" class="nav-link" onclick="showSection('matches')">
                     <i class="fas fa-gamepad"></i> Confrontos
                 </a>
-                <a href="#" class="nav-link" onclick="showSection('settings')">
-                    <i class="fas fa-cog"></i> Configurações
+                <a href="#" class="nav-link" onclick="showSection('tournaments')">
+                    <i class="fas fa-trophy"></i> Torneios
+                </a>
+                <a href="#" class="nav-link" onclick="showSection('profile')">
+                    <i class="fas fa-cog"></i> Perfil
                 </a>
                 <a href="furia.html" class="nav-link">
-                    <i class="fas fa-globe"></i> Site Principal
+                    <i class="fas fa-globe"></i> Site
                 </a>
             </div>
             
@@ -805,49 +971,106 @@
 
         <!-- MEMBROS -->
         <section id="members" class="section">
-            <h2 class="section-title"><i class="fas fa-users"></i> GERENCIAR MEMBROS</h2>
+            <h2 class="section-title"><i class="fas fa-users"></i> MEMBROS DA EQUIPE</h2>
             <div class="members-grid" id="membersGrid">
                 <!-- Membros serão carregados via JavaScript -->
             </div>
         </section>
 
-        <!-- TORNEIOS -->
-        <section id="tournaments" class="section">
-            <h2 class="section-title"><i class="fas fa-trophy"></i> TORNEIOS DISPONÍVEIS</h2>
-            <div class="members-grid" id="tournamentsGrid">
-                <!-- Torneios serão carregados via JavaScript -->
-            </div>
-        </section>
-
         <!-- CONFRONTOS -->
         <section id="matches" class="section">
-            <h2 class="section-title"><i class="fas fa-gamepad"></i> PRÓXIMOS CONFRONTOS</h2>
-            <div class="members-grid" id="matchesGrid">
-                <!-- Confrontos serão carregados via JavaScript -->
+            <h2 class="section-title"><i class="fas fa-gamepad"></i> HISTÓRICO DE CONFRONTOS</h2>
+            <div class="table-container">
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Adversário</th>
+                            <th>Jogo</th>
+                            <th>Resultado</th>
+                            <th>Placar</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="matchesTable">
+                        <!-- Confrontos serão carregados via JavaScript -->
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <!-- CONFIGURAÇÕES -->
-        <section id="settings" class="section">
-            <h2 class="section-title"><i class="fas fa-cog"></i> CONFIGURAÇÕES DA EQUIPE</h2>
-            <div class="edit-team">
-                <h3>Editar Informações da Equipe</h3>
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Nome da Equipe</label>
-                        <input type="text" id="teamNameInput" placeholder="Nome da equipe">
+        <!-- TORNEIOS -->
+        <section id="tournaments" class="section">
+            <h2 class="section-title"><i class="fas fa-trophy"></i> TORNEIOS PARTICIPADOS</h2>
+            <div class="table-container">
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>Torneio</th>
+                            <th>Jogo</th>
+                            <th>Data</th>
+                            <th>Posição</th>
+                            <th>Premiação</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tournamentsTable">
+                        <!-- Torneios serão carregados via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PERFIL -->
+        <section id="profile" class="section">
+            <h2 class="section-title"><i class="fas fa-user-edit"></i> EDITAR PERFIL DA EQUIPE</h2>
+            
+            <div class="profile-edit">
+                <div class="profile-picture">
+                    <div class="profile-avatar" id="teamAvatar" onclick="changeTeamPhoto()">
+                        <i class="fas fa-users"></i>
                     </div>
-                    <div class="input-group">
-                        <label>Jogo Principal</label>
-                        <select id="teamGameInput">
-                            <option value="cfn">CFN - Clash of Clan</option>
-                            <option value="cr">CR - Clash Royale</option>
-                            <option value="mlbb">MLBB - Mobile Legends</option>
-                            <option value="freefire">Free Fire</option>
-                        </select>
-                    </div>
+                    <button class="change-photo-btn" onclick="changeTeamPhoto()">
+                        <i class="fas fa-camera"></i> Alterar Foto
+                    </button>
                 </div>
-                <button class="btn-primary" onclick="updateTeamInfo()">Salvar Alterações</button>
+                
+                <div style="flex: 1;">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Nome da Equipe</label>
+                            <input type="text" id="teamNameInput" placeholder="Nome da equipe">
+                        </div>
+                        <div class="input-group">
+                            <label>Jogo Principal</label>
+                            <select id="teamGameInput">
+                                <option value="cfn">CFN - Clash of Clan</option>
+                                <option value="cr">CR - Clash Royale</option>
+                                <option value="mlbb">MLBB - Mobile Legends</option>
+                                <option value="freefire">Free Fire</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>ID da Equipe</label>
+                            <input type="text" id="teamIdInput" placeholder="ID único da equipe" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>Tag da Equipe</label>
+                            <input type="text" id="teamTagInput" placeholder="Ex: FURIA" maxlength="6">
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Descrição</label>
+                            <textarea id="teamDescription" placeholder="Descreva sua equipe..." rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="updateTeamProfile()">
+                        <i class="fas fa-save"></i> Salvar Alterações
+                    </button>
+                </div>
             </div>
         </section>
     </main>
@@ -877,7 +1100,7 @@
             <div class="footer-logo">FuriaDaNoitePlay © 2024</div>
             <div class="footer-links">
                 <a href="furia.html" class="footer-link">Site Principal</a>
-                <a href="login.html" class="footer-link">Login</a>
+                <a href="ranking.html" class="footer-link">Ranking</a>
                 <a href="cadastro.html" class="footer-link">Cadastro</a>
             </div>
         </div>
@@ -894,11 +1117,8 @@
                 return;
             }
 
-            // Mostrar animação de login
-            setTimeout(() => {
-                document.getElementById('loginAnimation').style.display = 'none';
-                carregarDadosEquipe(equipeLogada);
-            }, 3000);
+            // Carregar dados imediatamente (sem animação)
+            carregarDadosEquipe(equipeLogada);
         });
 
         // ===== CARREGAR DADOS DA EQUIPE =====
@@ -916,17 +1136,34 @@
             document.getElementById('statMatches').textContent = equipe.partidas || '0';
             document.getElementById('statRank').textContent = equipe.ranking || '#0';
 
+            // Carregar perfil
+            carregarPerfilEquipe(equipe);
+            
             // Carregar membros
             carregarMembros(equipe.membros || []);
-            
-            // Carregar torneios
-            carregarTorneios();
             
             // Carregar confrontos
             carregarConfrontos();
             
+            // Carregar torneios
+            carregarTorneios();
+            
             // Inicializar chat
             inicializarChat(equipe.nomeEquipe);
+        }
+
+        // ===== CARREGAR PERFIL DA EQUIPE =====
+        function carregarPerfilEquipe(equipe) {
+            document.getElementById('teamNameInput').value = equipe.nomeEquipe || '';
+            document.getElementById('teamGameInput').value = equipe.jogo || 'cfn';
+            document.getElementById('teamIdInput').value = equipe.id || 'ID-' + Date.now();
+            document.getElementById('teamTagInput').value = equipe.tag || 'FURIA';
+            document.getElementById('teamDescription').value = equipe.descricao || '';
+            
+            // Avatar da equipe
+            if (equipe.avatar) {
+                document.getElementById('teamAvatar').innerHTML = equipe.avatar;
+            }
         }
 
         // ===== SISTEMA DE NAVEGAÇÃO =====
@@ -960,6 +1197,11 @@
         function inicializarChat(nomeEquipe) {
             // Adicionar mensagem de boas-vindas
             addMessage('Sistema', `Chat da equipe ${nomeEquipe} iniciado!`, 'adm');
+            
+            // Mensagens iniciais
+            setTimeout(() => {
+                addMessage('Líder', 'Olá equipe! Prontos para o treino de hoje?', 'other');
+            }, 1000);
         }
 
         function addMessage(remetente, texto, tipo = 'other') {
@@ -985,18 +1227,20 @@
                 addMessage(equipe.nomeEquipe, mensagem, 'own');
                 input.value = '';
                 
-                // Simular resposta automática
+                // Simular respostas automáticas
                 setTimeout(() => {
+                    const membros = ['Jogador1', 'Jogador2', 'Jogador3'];
+                    const remetente = membros[Math.floor(Math.random() * membros.length)];
                     const respostas = [
-                        "Interessante!",
-                        "Boa estratégia!",
+                        "Concordo!",
                         "Vamos vencer!",
-                        "Alguém mais concorda?",
-                        "Precisamos treinar mais!"
+                        "Precisamos treinar mais!",
+                        "Boa estratégia!",
+                        "Alguém mais online?"
                     ];
                     const resposta = respostas[Math.floor(Math.random() * respostas.length)];
-                    addMessage('Sistema', resposta, 'other');
-                }, 1000);
+                    addMessage(remetente, resposta, 'other');
+                }, 1000 + Math.random() * 2000);
             }
         }
 
@@ -1006,50 +1250,34 @@
             grid.innerHTML = '';
 
             if (membros.length === 0) {
-                grid.innerHTML = '<div class="member-card">Nenhum membro cadastrado</div>';
-                return;
+                // Membros padrão se não houver membros
+                const membrosPadrao = [
+                    { nick: 'FuriaLider', id: 'ID-001', funcao: 'Líder', online: true },
+                    { nick: 'FuriaSniper', id: 'ID-002', funcao: 'Atirador', online: true },
+                    { nick: 'FuriaTank', id: 'ID-003', funcao: 'Tanque', online: false },
+                    { nick: 'FuriaSupport', id: 'ID-004', funcao: 'Suporte', online: true }
+                ];
+                membros = membrosPadrao;
             }
 
             membros.forEach((membro, index) => {
                 const card = document.createElement('div');
                 card.className = 'member-card';
                 card.innerHTML = `
-                    <div class="member-avatar">${membro.nick ? membro.nick.charAt(0).toUpperCase() : 'M'}</div>
+                    <div class="member-avatar" onclick="editMember('${membro.id}')">
+                        ${membro.nick ? membro.nick.charAt(0).toUpperCase() : 'M'}
+                    </div>
                     <div class="member-name">${membro.nick || 'Membro ' + (index + 1)}</div>
+                    <div class="member-id">ID: ${membro.id || 'N/A'}</div>
                     <div class="member-role">${membro.funcao || 'Membro'}</div>
                     <div class="member-status">
-                        <span class="status-online">●</span> Online
+                        <span class="${membro.online ? 'status-online' : 'status-offline'}">●</span> 
+                        ${membro.online ? 'Online' : 'Offline'}
                     </div>
                     <div class="member-actions">
-                        <button class="btn-member btn-edit">Editar</button>
-                        <button class="btn-member btn-promote">Promover</button>
-                        <button class="btn-member btn-kick">Remover</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // ===== CARREGAR TORNEIOS =====
-        function carregarTorneios() {
-            const grid = document.getElementById('tournamentsGrid');
-            const torneios = [
-                { nome: "Torneio Fúria #25", jogo: "CFN", status: "Inscrições Abertas", premio: "R$ 500" },
-                { nome: "Liga Mobile Legends", jogo: "MLBB", status: "Em Andamento", premio: "R$ 1.000" },
-                { nome: "Campeonato Free Fire", jogo: "Free Fire", status: "Em Breve", premio: "R$ 750" }
-            ];
-
-            torneios.forEach(torneio => {
-                const card = document.createElement('div');
-                card.className = 'member-card';
-                card.innerHTML = `
-                    <div class="member-avatar">🏆</div>
-                    <div class="member-name">${torneio.nome}</div>
-                    <div class="member-role">${torneio.jogo}</div>
-                    <div class="member-status">${torneio.status}</div>
-                    <div class="member-actions">
-                        <button class="btn-member btn-edit">Inscrever</button>
-                        <button class="btn-member btn-promote">Detalhes</button>
+                        <button class="btn-member btn-edit" onclick="editMember('${membro.id}')">Editar</button>
+                        <button class="btn-member btn-promote" onclick="promoteMember('${membro.id}')">Promover</button>
+                        <button class="btn-member btn-kick" onclick="kickMember('${membro.id}')">Remover</button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -1058,46 +1286,107 @@
 
         // ===== CARREGAR CONFRONTOS =====
         function carregarConfrontos() {
-            const grid = document.getElementById('matchesGrid');
+            const tbody = document.getElementById('matchesTable');
             const confrontos = [
-                { adversario: "Dragões Vermelhos", jogo: "CFN", data: "15/12 20:00", status: "Agendado" },
-                { adversario: "Trovão Celestial", jogo: "MLBB", data: "16/12 19:00", status: "Confirmado" },
-                { adversario: "Lobos da Noite", jogo: "Free Fire", data: "17/12 21:00", status: "Pendente" }
+                { data: '15/12/2024', adversario: 'Dragões Vermelhos', jogo: 'CFN', resultado: 'Vitória', placar: '3-1', status: 'status-vitoria' },
+                { data: '14/12/2024', adversario: 'Trovão Celestial', jogo: 'MLBB', resultado: 'Derrota', placar: '1-2', status: 'status-derrota' },
+                { data: '13/12/2024', adversario: 'Lobos da Noite', jogo: 'Free Fire', resultado: 'Vitória', placar: '2-0', status: 'status-vitoria' },
+                { data: '16/12/2024', adversario: 'Fênix Team', jogo: 'CFN', resultado: 'Pendente', placar: '0-0', status: 'status-pendente' }
             ];
 
             confrontos.forEach(confronto => {
-                const card = document.createElement('div');
-                card.className = 'member-card';
-                card.innerHTML = `
-                    <div class="member-avatar">⚔️</div>
-                    <div class="member-name">vs ${confronto.adversario}</div>
-                    <div class="member-role">${confronto.jogo}</div>
-                    <div class="member-status">${confronto.data}</div>
-                    <div class="member-actions">
-                        <button class="btn-member btn-edit">Detalhes</button>
-                        <button class="btn-member btn-promote">Pronto</button>
-                    </div>
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${confronto.data}</td>
+                    <td>${confronto.adversario}</td>
+                    <td>${confronto.jogo}</td>
+                    <td>${confronto.resultado}</td>
+                    <td>${confronto.placar}</td>
+                    <td><span class="status-badge ${confronto.status}">${confronto.resultado}</span></td>
                 `;
-                grid.appendChild(card);
+                tbody.appendChild(row);
             });
         }
 
-        // ===== ATUALIZAR INFORMAÇÕES DA EQUIPE =====
-        function updateTeamInfo() {
+        // ===== CARREGAR TORNEIOS =====
+        function carregarTorneios() {
+            const tbody = document.getElementById('tournamentsTable');
+            const torneios = [
+                { nome: 'Torneio Fúria #25', jogo: 'CFN', data: '10/12/2024', posicao: '1º', premiacao: 'R$ 500', status: 'status-vitoria' },
+                { nome: 'Liga Mobile Legends', jogo: 'MLBB', data: '05/12/2024', posicao: '3º', premiacao: 'R$ 200', status: 'status-pendente' },
+                { nome: 'Campeonato Free Fire', jogo: 'Free Fire', data: '20/12/2024', posicao: '-', premiacao: 'R$ 750', status: 'status-pendente' }
+            ];
+
+            torneios.forEach(torneio => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${torneio.nome}</td>
+                    <td>${torneio.jogo}</td>
+                    <td>${torneio.data}</td>
+                    <td>${torneio.posicao}</td>
+                    <td>${torneio.premiacao}</td>
+                    <td><span class="status-badge ${torneio.status}">${torneio.posicao === '-' ? 'Inscrito' : 'Finalizado'}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // ===== EDITAR PERFIL =====
+        function changeTeamPhoto() {
+            const avatar = prompt('Digite um emoji ou texto para o avatar da equipe:');
+            if (avatar) {
+                document.getElementById('teamAvatar').innerHTML = avatar;
+                
+                // Salvar no localStorage
+                const equipe = JSON.parse(localStorage.getItem('furia_equipe_atual'));
+                equipe.avatar = avatar;
+                localStorage.setItem('furia_equipe_atual', JSON.stringify(equipe));
+                
+                alert('Foto da equipe atualizada!');
+            }
+        }
+
+        function updateTeamProfile() {
             const nome = document.getElementById('teamNameInput').value;
             const jogo = document.getElementById('teamGameInput').value;
+            const tag = document.getElementById('teamTagInput').value;
+            const descricao = document.getElementById('teamDescription').value;
             
-            if (nome) {
+            if (nome && tag) {
                 const equipe = JSON.parse(localStorage.getItem('furia_equipe_atual'));
                 equipe.nomeEquipe = nome;
                 equipe.jogo = jogo;
+                equipe.tag = tag;
+                equipe.descricao = descricao;
                 localStorage.setItem('furia_equipe_atual', JSON.stringify(equipe));
                 
                 // Atualizar display
                 document.getElementById('currentTeamName').textContent = nome;
                 document.getElementById('welcomeTeamName').textContent = `Bem-vindo, ${nome}!`;
                 
-                alert('Informações atualizadas com sucesso!');
+                alert('Perfil da equipe atualizado com sucesso!');
+            } else {
+                alert('Preencha pelo menos o nome e a tag da equipe!');
+            }
+        }
+
+        // ===== FUNÇÕES DOS MEMBROS =====
+        function editMember(memberId) {
+            const novoNick = prompt('Digite o novo nick para o membro:');
+            if (novoNick) {
+                alert(`Membro ${memberId} atualizado para: ${novoNick}`);
+            }
+        }
+
+        function promoteMember(memberId) {
+            if (confirm(`Promover membro ${memberId} para Líder?`)) {
+                alert(`Membro ${memberId} promovido a Líder!`);
+            }
+        }
+
+        function kickMember(memberId) {
+            if (confirm(`Remover membro ${memberId} da equipe?`)) {
+                alert(`Membro ${memberId} removido da equipe!`);
             }
         }
 
@@ -1107,12 +1396,20 @@
             window.location.href = 'login.html';
         }
 
-        // Enter para enviar mensagem no chat
+        // ===== EVENT LISTENERS =====
         document.getElementById('chatInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 sendMessage();
             }
         });
+
+        // Atualização automática a cada 30 segundos
+        setInterval(() => {
+            const equipe = JSON.parse(localStorage.getItem('furia_equipe_atual'));
+            if (equipe) {
+                carregarDadosEquipe(equipe);
+            }
+        }, 30000);
     </script>
-x</body>
+</body>
 </html>
