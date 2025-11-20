@@ -1,46 +1,4 @@
-<?php
-// admin-login.php
-session_start();
-
-// Credenciais do administrador (em produção, use banco de dados)
-$admin_credentials = [
-    'furiagod' => 'furia123',
-    'admin' => 'admin123',
-    'moderador' => 'mod123'
-];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
-    
-    if (isset($admin_credentials[$username]) && $admin_credentials[$username] === $password) {
-        $_SESSION['admin_logged_in'] = true;
-        $_SESSION['admin_username'] = $username;
-        $_SESSION['admin_role'] = ($username === 'furiagod') ? 'ADM SUPREMO' : 'MODERADOR';
-        
-        echo json_encode([
-            'success' => true,
-            'message' => 'Login realizado com sucesso!',
-            'username' => $username,
-            'role' => $_SESSION['admin_role']
-        ]);
-    } else {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Credenciais inválidas!'
-        ]);
-    }
-    exit;
-}
-
-// Verificar se está logado
-if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    // Redirecionar para o painel
-    header('Location: painel-adm.html');
-    exit;
-}
-?>
-
+<!-- admin-login.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -48,100 +6,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🔐 Login ADM - FuriaDaNoite</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Orbitron', sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0000 100%);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .login-container {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
-            padding: 50px 40px;
-            border-radius: 20px;
-            border: 3px solid #8A2BE2;
-            box-shadow: 0 0 50px rgba(138, 43, 226, 0.5);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-        
-        h1 {
-            color: #8A2BE2;
-            text-shadow: 0 0 20px #8A2BE2;
-            margin-bottom: 10px;
-        }
-        
-        .subtitle {
-            color: #FFD700;
-            margin-bottom: 30px;
-        }
-        
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        
-        label {
-            color: #FFD700;
-            display: block;
-            margin-bottom: 5px;
-        }
-        
-        input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #8A2BE2;
-            border-radius: 10px;
-            background: rgba(138, 43, 226, 0.1);
-            color: white;
-            font-size: 1rem;
-        }
-        
-        input:focus {
-            outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 15px #FFD700;
-        }
-        
-        .login-btn {
-            background: linear-gradient(135deg, #8A2BE2, #6a0dad);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-        
-        .login-btn:hover {
-            background: linear-gradient(135deg, #6a0dad, #8A2BE2);
-        }
-        
-        .message {
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-            display: none;
-        }
-        
-        .error {
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid #ff0000;
-            color: #ff0000;
-        }
+        /* Mesmo estilo do seu admin-login.php, mas sem o PHP */
     </style>
 </head>
 <body>
@@ -164,7 +29,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
         <button class="login-btn" onclick="fazerLogin()">ACESSAR PAINEL</button>
         
         <div style="margin-top: 20px;">
-            <a href="index.html" style="color: #FFD700; text-decoration: none;">← Voltar ao Site</a>
+            <a href="furia.html" style="color: #FFD700; text-decoration: none;">← Voltar ao Site</a>
         </div>
     </div>
 
@@ -182,24 +47,17 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
             }
             
             try {
-                const response = await fetch('admin-login.php', {
+                const response = await fetch('login.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+                    body: `tipo=adm&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Salvar no localStorage para o painel ADM
-                    localStorage.setItem('furia_adm_atual', JSON.stringify({
-                        username: data.username,
-                        role: data.role
-                    }));
-                    
-                    // Redirecionar para o painel
                     window.location.href = 'painel-adm.html';
                 } else {
                     messageDiv.textContent = data.message;
@@ -213,7 +71,6 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
             }
         }
         
-        // Enter para login
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 fazerLogin();
