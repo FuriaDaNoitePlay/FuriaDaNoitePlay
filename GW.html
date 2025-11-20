@@ -227,6 +227,28 @@
             border: none;
         }
         
+        .music-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .music-btn {
+            background: var(--bronze);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .music-btn:hover {
+            background: var(--gold);
+            transform: scale(1.05);
+        }
+        
         .music-status {
             margin-top: 10px;
             color: var(--bronze);
@@ -277,6 +299,12 @@
             font-weight: bold;
             width: 60px;
             text-align: right;
+        }
+        
+        .ranking-update {
+            color: #00ff88;
+            font-size: 0.8rem;
+            margin-left: 5px;
         }
         
         footer {
@@ -408,7 +436,7 @@
                     <div class="game-header">
                         <div class="player-info">
                             <div class="player-label">JOGADOR</div>
-                            <div class="player-value" id="currentPlayer">-</div>
+                            <div class="player-value" id="currentPlayer">Visitante</div>
                         </div>
                         <div class="player-info">
                             <div class="player-label">PONTUAÇÃO</div>
@@ -434,14 +462,21 @@
                 <div class="music-player">
                     <p>Trilha sonora oficial do Gaming World</p>
                     <div class="youtube-player">
-                        <iframe src="https://www.youtube.com/embed/jTzstSvXDag?si=7IudGW0AxjqaPYnR&autoplay=1&mute=1" 
+                        <iframe src="https://www.youtube.com/embed/jTzstSvXDag?si=7IudGW0AxjqaPYnR" 
                                 title="YouTube video player" 
                                 frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
+                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                id="musicPlayer">
                         </iframe>
                     </div>
-                    <div class="music-status" id="musicStatus">🎵 Música: Epic Battle (Automática)</div>
+                    <div class="music-controls">
+                        <button class="music-btn" onclick="playMusic()">▶️ Play</button>
+                        <button class="music-btn" onclick="pauseMusic()">⏸️ Pause</button>
+                        <button class="music-btn" onclick="muteMusic()">🔇 Mute</button>
+                        <button class="music-btn" onclick="unmuteMusic()">🔊 Som</button>
+                    </div>
+                    <div class="music-status" id="musicStatus">🎵 Música: Epic Battle - Clique Play</div>
                 </div>
             </div>
             
@@ -450,6 +485,10 @@
                 <h2 class="quadrant-title">RANKING DOS DRAGÕES</h2>
                 <div class="ranking-list" id="rankingList">
                     <!-- Ranking será preenchido via JavaScript -->
+                </div>
+                <div style="text-align: center; margin-top: 10px;">
+                    <button class="music-btn" onclick="updateRanking()">🔄 Atualizar Ranking</button>
+                    <div id="lastUpdate" style="color: var(--bronze); font-size: 0.8rem; margin-top: 5px;"></div>
                 </div>
             </div>
         </div>
@@ -469,75 +508,107 @@
         // Elementos do DOM
         const rankingList = document.getElementById('rankingList');
         const transitionOverlay = document.getElementById('transitionOverlay');
+        const musicPlayer = document.getElementById('musicPlayer');
+        const musicStatus = document.getElementById('musicStatus');
+        const lastUpdate = document.getElementById('lastUpdate');
+        const currentPlayer = document.getElementById('currentPlayer');
         
-        // Ranking inicial com TOP 250 (exemplo reduzido)
-        let ranking = JSON.parse(localStorage.getItem('snakeRanking')) || [
-            { nickname: 'DragãoLendário', score: 250 },
-            { nickname: 'FúriaDourada', score: 245 },
-            { nickname: 'SerpenteÉpica', score: 240 },
-            { nickname: 'CobraMetálica', score: 235 },
-            { nickname: 'WyvernBronze', score: 230 },
-            { nickname: 'GuardiãoOuro', score: 225 },
-            { nickname: 'CavaleiroDragão', score: 220 },
-            { nickname: 'MestreSerpente', score: 215 },
-            { nickname: 'DragãoIniciante', score: 210 },
-            { nickname: 'NovatoAlado', score: 205 },
-            { nickname: 'LendaViva', score: 200 },
-            { nickname: 'TrovãoAlado', score: 195 },
-            { nickname: 'FênixRenascida', score: 190 },
-            { nickname: 'TitãAço', score: 185 },
-            { nickname: 'GuerreiroLua', score: 180 }
+        // Sistema de ranking em tempo real
+        let ranking = JSON.parse(localStorage.getItem('snakeRanking')) || [];
+        let updateInterval;
+        
+        // Nicks reais da comunidade (exemplo)
+        const realNicks = [
+            'FURIAGOD', 'Scorpion', 'Son King', 'NeferpitouI', 'PNTS', 'ToxicSkull',
+            'DragãoLendário', 'FúriaDourada', 'SerpenteÉpica', 'CobraMetálica',
+            'WyvernBronze', 'GuardiãoOuro', 'CavaleiroDragão', 'MestreSerpente',
+            'LendaViva', 'TrovãoAlado', 'FênixRenascida', 'TitãAço', 'GuerreiroLua',
+            'DragãoInfernal', 'SerpenteCelestial', 'CavaleiroNegro', 'MestreDragão'
         ];
 
-        // Garantir que não há nicknames repetidos
-        function removeDuplicatePlayers() {
-            const uniquePlayers = [];
-            const nicknames = new Set();
-            
-            ranking.forEach(player => {
-                if (!nicknames.has(player.nickname)) {
-                    nicknames.add(player.nickname);
-                    uniquePlayers.push(player);
-                }
-            });
-            
-            return uniquePlayers;
-        }
-        
         // Inicialização
         function init() {
-            // Remover jogadores duplicados
-            ranking = removeDuplicatePlayers();
-            
-            // Ordenar por pontuação (maior primeiro)
-            ranking.sort((a, b) => b.score - a.score);
-            
-            // Limitar ao TOP 250
-            ranking = ranking.slice(0, 250);
-            
-            // Salvar no localStorage
-            localStorage.setItem('snakeRanking', JSON.stringify(ranking));
-            
-            updateRankingDisplay();
-            
-            // Configurar música automática
-            setupAutomaticMusic();
+            loadPlayerInfo();
+            generateRealisticRanking();
+            startRealTimeUpdates();
+            updateLastUpdateTime();
         }
         
-        // Ranking
+        // Carregar informações do jogador
+        function loadPlayerInfo() {
+            const userSession = JSON.parse(localStorage.getItem('furia_session')) || {};
+            if (userSession.user) {
+                currentPlayer.textContent = userSession.user;
+            }
+            
+            // Carregar recorde pessoal
+            const highScore = localStorage.getItem('playerHighScore') || 0;
+            document.getElementById('highScore').textContent = highScore;
+        }
+        
+        // Gerar ranking realista
+        function generateRealisticRanking() {
+            if (ranking.length === 0) {
+                ranking = realNicks.map((nick, index) => ({
+                    nickname: nick,
+                    score: 200 + Math.floor(Math.random() * 100),
+                    lastPlayed: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
+                    device: Math.random() > 0.5 ? '📱 Mobile' : '💻 PC'
+                }));
+                
+                // Ordenar por pontuação
+                ranking.sort((a, b) => b.score - a.score);
+                
+                // Adicionar variações de pontuação em tempo real
+                ranking.forEach((player, index) => {
+                    player.trend = Math.random() > 0.7 ? '↗️' : Math.random() > 0.3 ? '➡️' : '↘️';
+                });
+                
+                saveRanking();
+            }
+            
+            updateRankingDisplay();
+        }
+        
+        // Atualizar ranking em tempo real
+        function startRealTimeUpdates() {
+            updateInterval = setInterval(() => {
+                // Simular mudanças no ranking
+                ranking.forEach(player => {
+                    if (Math.random() > 0.8) { // 20% de chance de mudança
+                        const change = Math.floor(Math.random() * 10) - 3; // -3 a +6
+                        player.score = Math.max(150, player.score + change);
+                        player.trend = change > 0 ? '↗️' : change < 0 ? '↘️' : '➡️';
+                        player.lastPlayed = new Date().toISOString();
+                    }
+                });
+                
+                // Reordenar
+                ranking.sort((a, b) => b.score - a.score);
+                saveRanking();
+                updateRankingDisplay();
+                updateLastUpdateTime();
+            }, 10000); // Atualizar a cada 10 segundos
+        }
+        
+        // Atualizar display do ranking
         function updateRankingDisplay() {
             rankingList.innerHTML = '';
             
-            ranking.forEach((player, index) => {
+            ranking.slice(0, 15).forEach((player, index) => {
                 const rankItem = document.createElement('div');
                 rankItem.className = 'ranking-item';
                 
-                const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
+                const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '🏆';
+                const trend = player.trend || '➡️';
                 
                 rankItem.innerHTML = `
                     <div class="rank-position">${index + 1}</div>
                     <div class="rank-medal">${medal}</div>
-                    <div class="player-name">${player.nickname}</div>
+                    <div class="player-name">
+                        ${player.nickname}
+                        <span class="ranking-update">${trend}</span>
+                    </div>
                     <div class="player-score">${player.score}</div>
                 `;
                 
@@ -545,39 +616,78 @@
             });
         }
         
-        // Música automática
-        function setupAutomaticMusic() {
-            const musicStatus = document.getElementById('musicStatus');
-            musicStatus.textContent = '🎵 Música: Epic Battle (Reprodução Automática)';
+        // Atualizar ranking manualmente
+        function updateRanking() {
+            // Forçar atualização imediata
+            clearInterval(updateInterval);
+            generateRealisticRanking();
+            startRealTimeUpdates();
+            
+            // Feedback visual
+            lastUpdate.textContent = '🔄 Ranking atualizado agora!';
+            setTimeout(() => updateLastUpdateTime(), 3000);
         }
         
-        // Navegação para o jogo com animação - CORRIGIDO AQUI
+        // Atualizar hora da última atualização
+        function updateLastUpdateTime() {
+            const now = new Date();
+            lastUpdate.textContent = `📅 Atualizado: ${now.toLocaleTimeString()}`;
+        }
+        
+        // Salvar ranking
+        function saveRanking() {
+            localStorage.setItem('snakeRanking', JSON.stringify(ranking));
+        }
+        
+        // Controles de música
+        function playMusic() {
+            musicPlayer.src += "&autoplay=1";
+            musicStatus.textContent = '🎵 Tocando: Epic Battle';
+        }
+        
+        function pauseMusic() {
+            musicPlayer.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            musicStatus.textContent = '⏸️ Música pausada';
+        }
+        
+        function muteMusic() {
+            musicPlayer.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+            musicStatus.textContent = '🔇 Música sem som';
+        }
+        
+        function unmuteMusic() {
+            musicPlayer.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+            musicStatus.textContent = '🔊 Música com som';
+        }
+        
+        // Navegação para o jogo
         function goToGame() {
-            // Mostrar overlay de transição
             transitionOverlay.style.display = 'flex';
-            
-            // Aguardar 2 segundos e redirecionar PARA DRAGÃO.HTML
             setTimeout(() => {
-                window.location.href = 'dragão.html';  // CORRIGIDO
+                window.location.href = 'dragão.html';
             }, 2000);
         }
         
-        // Verificar se veio da Furia.html e mostrar animação
+        // Verificar referência
         function checkReferrer() {
             if (document.referrer.includes('furia.html') || document.referrer.includes('cadastro')) {
                 transitionOverlay.style.display = 'flex';
-                
                 setTimeout(() => {
                     transitionOverlay.style.display = 'none';
                 }, 2000);
             }
         }
         
-        // Inicializa quando a página carrega
+        // Inicializar quando a página carrega
         window.onload = function() {
             init();
             checkReferrer();
         };
+        
+        // Limpar intervalo quando a página fechar
+        window.addEventListener('beforeunload', () => {
+            clearInterval(updateInterval);
+        });
     </script>
 </body>
 </html>
