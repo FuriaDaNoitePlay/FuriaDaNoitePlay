@@ -980,14 +980,16 @@
     <script>
         // ===== SISTEMA DE LOGIN E CARREGAMENTO =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se há um usuário logado
-            const usuarioLogado = JSON.parse(localStorage.getItem('furia_membro_atual'));
+            // VERIFICAR SESSÃO ATUALIZADA - CORRIGIDO!
+            const sessao = JSON.parse(localStorage.getItem('furia_session'));
             
-            if (!usuarioLogado) {
+            if (!sessao || sessao.tipo !== 'membro') {
                 window.location.href = 'login.html';
                 return;
             }
 
+            const usuarioLogado = sessao.data;
+            
             // Carregar dados do usuário sem animação
             carregarDadosUsuario(usuarioLogado);
             
@@ -1095,19 +1097,19 @@
 
         function saveAvatar() {
             if (selectedAvatar) {
-                const usuario = JSON.parse(localStorage.getItem('furia_membro_atual'));
-                usuario.avatar = selectedAvatar;
-                localStorage.setItem('furia_membro_atual', JSON.stringify(usuario));
+                const sessao = JSON.parse(localStorage.getItem('furia_session'));
+                sessao.data.avatar = selectedAvatar;
+                localStorage.setItem('furia_session', JSON.stringify(sessao));
                 
                 // Atualizar avatar na página
-                carregarAvatar(usuario);
+                carregarAvatar(sessao.data);
                 
                 // Sincronizar com cadastro
-                const usuarios = JSON.parse(localStorage.getItem('furia_membros')) || [];
-                const usuarioIndex = usuarios.findIndex(u => u.email === usuario.email);
+                const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
+                const usuarioIndex = usuarios.findIndex(u => u.id === sessao.data.id);
                 if (usuarioIndex !== -1) {
                     usuarios[usuarioIndex].avatar = selectedAvatar;
-                    localStorage.setItem('furia_membros', JSON.stringify(usuarios));
+                    localStorage.setItem('furia_usuarios', JSON.stringify(usuarios));
                 }
                 
                 closeAvatarModal();
@@ -1277,20 +1279,22 @@
         function updateProfile() {
             const novoNick = document.getElementById('nickInput').value.trim();
             if (novoNick) {
-                const usuario = JSON.parse(localStorage.getItem('furia_membro_atual'));
-                usuario.nick = novoNick;
-                localStorage.setItem('furia_membro_atual', JSON.stringify(usuario));
+                // CORRIGIDO - Atualiza a sessão correta
+                const sessao = JSON.parse(localStorage.getItem('furia_session'));
+                sessao.data.nick = novoNick;
+                sessao.user = novoNick;
+                localStorage.setItem('furia_session', JSON.stringify(sessao));
                 
                 // Atualizar na página
                 document.getElementById('userNick').textContent = novoNick;
                 document.getElementById('welcomeUser').textContent = `Bem-vindo, ${novoNick}!`;
                 
-                // Sincronizar com cadastro
-                const usuarios = JSON.parse(localStorage.getItem('furia_membros')) || [];
-                const usuarioIndex = usuarios.findIndex(u => u.email === usuario.email);
+                // Sincronizar com cadastro (opcional)
+                const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
+                const usuarioIndex = usuarios.findIndex(u => u.id === sessao.data.id);
                 if (usuarioIndex !== -1) {
                     usuarios[usuarioIndex].nick = novoNick;
-                    localStorage.setItem('furia_membros', JSON.stringify(usuarios));
+                    localStorage.setItem('furia_usuarios', JSON.stringify(usuarios));
                 }
                 
                 alert('Nick atualizado com sucesso!');
@@ -1301,7 +1305,8 @@
         }
 
         function logout() {
-            localStorage.removeItem('furia_membro_atual');
+            // CORRIGIDO - Remove a sessão correta
+            localStorage.removeItem('furia_session');
             window.location.href = 'login.html';
         }
     </script>
