@@ -1107,25 +1107,35 @@
     </footer>
 
     <script>
-        // ===== SISTEMA DE LOGIN E CARREGAMENTO =====
+        // ===== SISTEMA DE AUTENTICAÇÃO ATUALIZADO =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se há uma equipe logada
-            const equipeLogada = JSON.parse(localStorage.getItem('furia_equipe_atual'));
-            
-            if (!equipeLogada) {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            // Carregar dados imediatamente (sem animação)
-            carregarDadosEquipe(equipeLogada);
+            verificarAutenticacao();
         });
+
+        // ===== VERIFICAR AUTENTICAÇÃO COM PHP =====
+        async function verificarAutenticacao() {
+            try {
+                const response = await fetch('auth-check.php');
+                const data = await response.json();
+                
+                if (!data.authenticated || data.tipo !== 'equipe') {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // Carregar dados da equipe da sessão PHP
+                carregarDadosEquipe(data.user);
+            } catch (error) {
+                console.error('Erro na autenticação:', error);
+                window.location.href = 'login.html';
+            }
+        }
 
         // ===== CARREGAR DADOS DA EQUIPE =====
         function carregarDadosEquipe(equipe) {
             // Atualizar header
-            document.getElementById('currentTeamName').textContent = equipe.nomeEquipe;
-            document.getElementById('welcomeTeamName').textContent = `Bem-vindo, ${equipe.nomeEquipe}!`;
+            document.getElementById('currentTeamName').textContent = equipe.nome_equipe || equipe.nomeEquipe || 'Equipe';
+            document.getElementById('welcomeTeamName').textContent = `Bem-vindo, ${equipe.nome_equipe || equipe.nomeEquipe || 'Equipe'}!`;
             
             // Carregar estatísticas
             document.getElementById('membersCount').textContent = equipe.membros ? equipe.membros.length : '0';
@@ -1149,12 +1159,12 @@
             carregarTorneios();
             
             // Inicializar chat
-            inicializarChat(equipe.nomeEquipe);
+            inicializarChat(equipe.nome_equipe || equipe.nomeEquipe);
         }
 
         // ===== CARREGAR PERFIL DA EQUIPE =====
         function carregarPerfilEquipe(equipe) {
-            document.getElementById('teamNameInput').value = equipe.nomeEquipe || '';
+            document.getElementById('teamNameInput').value = equipe.nome_equipe || equipe.nomeEquipe || '';
             document.getElementById('teamGameInput').value = equipe.jogo || 'cfn';
             document.getElementById('teamIdInput').value = equipe.id || 'ID-' + Date.now();
             document.getElementById('teamTagInput').value = equipe.tag || 'FURIA';
@@ -1223,8 +1233,9 @@
             const mensagem = input.value.trim();
             
             if (mensagem) {
-                const equipe = JSON.parse(localStorage.getItem('furia_equipe_atual'));
-                addMessage(equipe.nomeEquipe, mensagem, 'own');
+                // Usar nome da equipe da sessão atual
+                const nomeEquipe = document.getElementById('currentTeamName').textContent;
+                addMessage(nomeEquipe, mensagem, 'own');
                 input.value = '';
                 
                 // Simular respostas automáticas
@@ -1249,7 +1260,7 @@
             const grid = document.getElementById('membersGrid');
             grid.innerHTML = '';
 
-            if (membros.length === 0) {
+            if (!membros || membros.length === 0) {
                 // Membros padrão se não houver membros
                 const membrosPadrao = [
                     { nick: 'FuriaLider', id: 'ID-001', funcao: 'Líder', online: true },
@@ -1336,13 +1347,7 @@
             const avatar = prompt('Digite um emoji ou texto para o avatar da equipe:');
             if (avatar) {
                 document.getElementById('teamAvatar').innerHTML = avatar;
-                
-                // Salvar no localStorage
-                const equipe = JSON.parse(localStorage.getItem('furia_equipe_atual'));
-                equipe.avatar = avatar;
-                localStorage.setItem('furia_equipe_atual', JSON.stringify(equipe));
-                
-                alert('Foto da equipe atualizada!');
+                alert('Foto da equipe atualizada! (Funcionalidade completa em breve)');
             }
         }
 
@@ -1353,18 +1358,11 @@
             const descricao = document.getElementById('teamDescription').value;
             
             if (nome && tag) {
-                const equipe = JSON.parse(localStorage.getItem('furia_equipe_atual'));
-                equipe.nomeEquipe = nome;
-                equipe.jogo = jogo;
-                equipe.tag = tag;
-                equipe.descricao = descricao;
-                localStorage.setItem('furia_equipe_atual', JSON.stringify(equipe));
-                
                 // Atualizar display
                 document.getElementById('currentTeamName').textContent = nome;
                 document.getElementById('welcomeTeamName').textContent = `Bem-vindo, ${nome}!`;
                 
-                alert('Perfil da equipe atualizado com sucesso!');
+                alert('Perfil da equipe atualizado com sucesso! (Integração com backend em breve)');
             } else {
                 alert('Preencha pelo menos o nome e a tag da equipe!');
             }
@@ -1374,26 +1372,37 @@
         function editMember(memberId) {
             const novoNick = prompt('Digite o novo nick para o membro:');
             if (novoNick) {
-                alert(`Membro ${memberId} atualizado para: ${novoNick}`);
+                alert(`Membro ${memberId} atualizado para: ${novoNick} (Integração com backend em breve)`);
             }
         }
 
         function promoteMember(memberId) {
             if (confirm(`Promover membro ${memberId} para Líder?`)) {
-                alert(`Membro ${memberId} promovido a Líder!`);
+                alert(`Membro ${memberId} promovido a Líder! (Integração com backend em breve)`);
             }
         }
 
         function kickMember(memberId) {
             if (confirm(`Remover membro ${memberId} da equipe?`)) {
-                alert(`Membro ${memberId} removido da equipe!`);
+                alert(`Membro ${memberId} removido da equipe! (Integração com backend em breve)`);
             }
         }
 
         // ===== LOGOUT =====
-        function logout() {
-            localStorage.removeItem('furia_equipe_atual');
-            window.location.href = 'login.html';
+        async function logout() {
+            try {
+                const response = await fetch('logout.php');
+                const data = await response.json();
+                
+                if (data.success) {
+                    window.location.href = 'login.html';
+                } else {
+                    alert('Erro ao fazer logout');
+                }
+            } catch (error) {
+                console.error('Erro no logout:', error);
+                window.location.href = 'login.html';
+            }
         }
 
         // ===== EVENT LISTENERS =====
@@ -1405,10 +1414,7 @@
 
         // Atualização automática a cada 30 segundos
         setInterval(() => {
-            const equipe = JSON.parse(localStorage.getItem('furia_equipe_atual'));
-            if (equipe) {
-                carregarDadosEquipe(equipe);
-            }
+            verificarAutenticacao();
         }, 30000);
     </script>
 </body>
