@@ -1,0 +1,138 @@
+/* ============================================= */
+/* SISTEMA DE BUSCA FURIA */
+/* ============================================= */
+
+.furia-busca-container {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.furia-busca-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid #00ff88;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.furia-busca-input:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.furia-busca-btn {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #00ff88, #00cccc);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.furia-busca-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+}
+
+.furia-resultados-busca {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #1a1a2e;
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+}
+
+.furia-item-busca {
+    padding: 12px 15px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.furia-item-busca:hover {
+    background: rgba(0, 255, 136, 0.2);
+    color: #00ff88;
+}
+
+.furia-item-busca:last-child {
+    border-bottom: none;
+}
+
+/* Cards de resultados */
+.furia-card-busca {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 2px solid #00ff88;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+}
+
+.furia-card-busca h3 {
+    color: #00ff88;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #00ff88;
+    padding-bottom: 10px;
+}
+
+.furia-lista-resultados {
+    display: grid;
+    gap: 10px;
+}
+
+.furia-item-lista {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid #00ff88;
+}
+
+.furia-item-info {
+    flex: 1;
+}
+
+.furia-item-nome {
+    font-weight: bold;
+    color: white;
+}
+
+.furia-item-detalhes {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.furia-item-status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.status-ativo {
+    background: #00ff88;
+    color: #000;
+}
+
+.status-inativo {
+    background: #ff4444;
+    color: white;
+}
