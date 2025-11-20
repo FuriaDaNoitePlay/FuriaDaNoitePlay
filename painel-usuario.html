@@ -978,30 +978,38 @@
     </footer>
 
     <script>
-        // ===== SISTEMA DE LOGIN E CARREGAMENTO =====
+        // ===== SISTEMA DE AUTENTICAÇÃO ATUALIZADO =====
         document.addEventListener('DOMContentLoaded', function() {
-            // VERIFICAR SESSÃO ATUALIZADA - CORRIGIDO!
-            const sessao = JSON.parse(localStorage.getItem('furia_session'));
-            
-            if (!sessao || sessao.tipo !== 'membro') {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            const usuarioLogado = sessao.data;
-            
-            // Carregar dados do usuário sem animação
-            carregarDadosUsuario(usuarioLogado);
-            
-            // Inicializar opções de avatar
-            inicializarAvatarOptions();
+            verificarAutenticacaoUsuario();
         });
+
+        // ===== VERIFICAR AUTENTICAÇÃO COM PHP =====
+        async function verificarAutenticacaoUsuario() {
+            try {
+                const response = await fetch('auth-check.php');
+                const data = await response.json();
+                
+                if (!data.authenticated || data.tipo !== 'membro') {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // Carregar dados do usuário da sessão PHP
+                carregarDadosUsuario(data.user);
+                
+                // Inicializar opções de avatar
+                inicializarAvatarOptions();
+            } catch (error) {
+                console.error('Erro na autenticação:', error);
+                window.location.href = 'login.html';
+            }
+        }
 
         // ===== CARREGAR DADOS DO USUÁRIO =====
         function carregarDadosUsuario(usuario) {
             // Atualizar header
-            document.getElementById('userNick').textContent = usuario.nick;
-            document.getElementById('welcomeUser').textContent = `Bem-vindo, ${usuario.nick}!`;
+            document.getElementById('userNick').textContent = usuario.nick || usuario.username || 'Usuário';
+            document.getElementById('welcomeUser').textContent = `Bem-vindo, ${usuario.nick || usuario.username || 'Usuário'}!`;
             document.getElementById('userGame').textContent = usuario.jogo || 'Membro Furia';
             
             // Carregar avatar
@@ -1026,9 +1034,9 @@
         // ===== SISTEMA DE AVATAR =====
         function carregarAvatar(usuario) {
             const avatarDiv = document.getElementById('userAvatar');
-            const avatarUrl = usuario.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(usuario.nick)}&background=FFD700&color=000&size=60`;
+            const avatarUrl = usuario.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(usuario.nick || usuario.username)}&background=FFD700&color=000&size=60`;
             
-            avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="${usuario.nick}" onerror="this.style.display='none'; this.parentNode.innerHTML='${usuario.nick.charAt(0).toUpperCase()}'">`;
+            avatarDiv.innerHTML = `<img src="${avatarUrl}" alt="${usuario.nick || usuario.username}" onerror="this.style.display='none'; this.parentNode.innerHTML='${(usuario.nick || usuario.username).charAt(0).toUpperCase()}'">`;
         }
 
         function inicializarAvatarOptions() {
@@ -1097,23 +1105,14 @@
 
         function saveAvatar() {
             if (selectedAvatar) {
-                const sessao = JSON.parse(localStorage.getItem('furia_session'));
-                sessao.data.avatar = selectedAvatar;
-                localStorage.setItem('furia_session', JSON.stringify(sessao));
+                // Aqui você implementaria a atualização no backend
+                alert('Avatar atualizado com sucesso! (Integração com backend em breve)');
                 
-                // Atualizar avatar na página
-                carregarAvatar(sessao.data);
-                
-                // Sincronizar com cadastro
-                const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
-                const usuarioIndex = usuarios.findIndex(u => u.id === sessao.data.id);
-                if (usuarioIndex !== -1) {
-                    usuarios[usuarioIndex].avatar = selectedAvatar;
-                    localStorage.setItem('furia_usuarios', JSON.stringify(usuarios));
-                }
+                // Atualizar avatar na página temporariamente
+                const avatarDiv = document.getElementById('userAvatar');
+                avatarDiv.innerHTML = `<img src="${selectedAvatar}" alt="Avatar">`;
                 
                 closeAvatarModal();
-                alert('Avatar atualizado com sucesso!');
             } else {
                 alert('Por favor, selecione um avatar ou envie uma foto personalizada.');
             }
@@ -1272,43 +1271,42 @@
         // ===== FUNÇÕES ADICIONAIS =====
         function searchMatch() {
             const jogoSelecionado = document.getElementById('gameSelect').value;
-            alert(`Buscando partida para: ${jogoSelecionado}`);
-            // Aqui você implementaria a lógica real de busca de partida
+            alert(`Buscando partida para: ${jogoSelecionado} (Funcionalidade em desenvolvimento)`);
         }
 
         function updateProfile() {
             const novoNick = document.getElementById('nickInput').value.trim();
             if (novoNick) {
-                // CORRIGIDO - Atualiza a sessão correta
-                const sessao = JSON.parse(localStorage.getItem('furia_session'));
-                sessao.data.nick = novoNick;
-                sessao.user = novoNick;
-                localStorage.setItem('furia_session', JSON.stringify(sessao));
-                
-                // Atualizar na página
+                alert(`Nick atualizado para: ${novoNick} (Integração com backend em breve)`);
                 document.getElementById('userNick').textContent = novoNick;
                 document.getElementById('welcomeUser').textContent = `Bem-vindo, ${novoNick}!`;
-                
-                // Sincronizar com cadastro (opcional)
-                const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
-                const usuarioIndex = usuarios.findIndex(u => u.id === sessao.data.id);
-                if (usuarioIndex !== -1) {
-                    usuarios[usuarioIndex].nick = novoNick;
-                    localStorage.setItem('furia_usuarios', JSON.stringify(usuarios));
-                }
-                
-                alert('Nick atualizado com sucesso!');
                 document.getElementById('nickInput').value = '';
             } else {
                 alert('Por favor, digite um nick válido.');
             }
         }
 
-        function logout() {
-            // CORRIGIDO - Remove a sessão correta
-            localStorage.removeItem('furia_session');
-            window.location.href = 'login.html';
+        // ===== LOGOUT =====
+        async function logout() {
+            try {
+                const response = await fetch('logout.php');
+                const data = await response.json();
+                
+                if (data.success) {
+                    window.location.href = 'login.html';
+                } else {
+                    alert('Erro ao fazer logout');
+                }
+            } catch (error) {
+                console.error('Erro no logout:', error);
+                window.location.href = 'login.html';
+            }
         }
+
+        // Atualização automática a cada 30 segundos
+        setInterval(() => {
+            verificarAutenticacaoUsuario();
+        }, 30000);
     </script>
 </body>
 </html>
