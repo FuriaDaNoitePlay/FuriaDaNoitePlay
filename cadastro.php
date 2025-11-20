@@ -1,62 +1,10 @@
 <?php
 // =============================================
-// CADASTRO.PHP - SISTEMA DE CADASTRO FURIA DA NOITE
+// CADASTRO.PHP - SISTEMA DE CADASTRO ATUALIZADO
+// Integrado com config.php
 // =============================================
 
-header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-
-// Configuração de timezone
-date_default_timezone_set('America/Sao_Paulo');
-
-// Arquivos JSON
-$arquivo_usuarios = 'data/furia_usuarios.json';
-$arquivo_equipes = 'data/furia_equipes.json';
-$arquivo_ranking = 'data/furia_ranking.json';
-
-// Criar diretório data se não existir
-if (!is_dir('data')) {
-    mkdir('data', 0777, true);
-}
-
-// Criar arquivos se não existirem
-if (!file_exists($arquivo_usuarios)) {
-    file_put_contents($arquivo_usuarios, json_encode([]));
-}
-if (!file_exists($arquivo_equipes)) {
-    file_put_contents($arquivo_equipes, json_encode([]));
-}
-if (!file_exists($arquivo_ranking)) {
-    file_put_contents($arquivo_ranking, json_encode([]));
-}
-
-// Função para ler dados JSON
-function lerDados($arquivo) {
-    if (!file_exists($arquivo)) {
-        return [];
-    }
-    $dados = file_get_contents($arquivo);
-    return json_decode($dados, true) ?: [];
-}
-
-// Função para salvar dados JSON
-function salvarDados($arquivo, $dados) {
-    return file_put_contents($arquivo, json_encode($dados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-}
-
-// Função para registrar log
-function registrarLog($mensagem) {
-    $log = date('Y-m-d H:i:s') . " - " . $mensagem . "\n";
-    file_put_contents('cadastro_log.txt', $log, FILE_APPEND | LOCK_EX);
-}
-
-// Processar requisição OPTIONS (CORS)
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
+require_once 'config.php';
 
 // Processar requisição POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -88,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     throw new Exception('❌ ID do jogo deve ter entre 9 e 12 dígitos!');
                 }
                 
-                $usuarios = lerDados($arquivo_usuarios);
+                $usuarios = $furiaConfig->lerDados('usuarios');
                 
                 // Verificar se usuário já existe
                 foreach ($usuarios as $usuario) {
@@ -101,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $novoUsuario = [
                     'id' => 'user_' . time() . '_' . uniqid(),
                     'nick' => $nick,
-                    'senha' => $senha, // Em produção, usar password_hash()
+                    'senha' => $senha,
                     'whatsapp' => $whatsapp,
                     'jogo' => $jogo,
                     'id_jogo' => $id_jogo,
@@ -115,26 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 $usuarios[] = $novoUsuario;
                 
-                if (salvarDados($arquivo_usuarios, $usuarios)) {
+                if ($furiaConfig->salvarDados('usuarios', $usuarios)) {
                     $resposta['success'] = true;
                     $resposta['message'] = '✅ Membro cadastrado com sucesso!';
-                    registrarLog("Novo membro: {$nick}");
                     
-                    // Adicionar ao ranking também
-                    $ranking = lerDados($arquivo_ranking);
-                    $ranking[] = [
-                        'id' => $novoUsuario['id'],
-                        'nome' => $nick,
-                        'tipo' => 'usuario',
-                        'jogo' => $jogo,
-                        'pontuacao' => 0,
-                        'vitorias' => 0,
-                        'derrotas' => 0,
-                        'posicao' => count($ranking) + 1,
-                        'data_entrada' => date('d/m/Y H:i:s'),
-                        'ultima_atualizacao' => date('d/m/Y H:i:s')
-                    ];
-                    salvarDados($arquivo_ranking, $ranking);
+                    // Atualizar estatísticas
+                    $furiaConfig->atualizarEstatisticas();
                 } else {
                     throw new Exception('❌ Erro ao salvar dados do usuário');
                 }
@@ -157,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     throw new Exception('❌ Formato de WhatsApp inválido! Use: (31) 99999-9999');
                 }
                 
-                $equipes = lerDados($arquivo_equipes);
+                $equipes = $furiaConfig->lerDados('equipes');
                 
                 // Verificar se equipe já existe
                 foreach ($equipes as $equipe) {
@@ -170,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $novaEquipe = [
                     'id' => 'team_' . time() . '_' . uniqid(),
                     'nome_equipe' => $nome_equipe,
-                    'senha' => $senha, // Em produção, usar password_hash()
+                    'senha' => $senha,
                     'nick_lider' => $nick_lider,
                     'whatsapp' => $whatsapp,
                     'jogo' => $jogo,
@@ -185,26 +119,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 $equipes[] = $novaEquipe;
                 
-                if (salvarDados($arquivo_equipes, $equipes)) {
+                if ($furiaConfig->salvarDados('equipes', $equipes)) {
                     $resposta['success'] = true;
                     $resposta['message'] = '✅ Equipe cadastrada com sucesso!';
-                    registrarLog("Nova equipe: {$nome_equipe}");
                     
-                    // Adicionar ao ranking também
-                    $ranking = lerDados($arquivo_ranking);
-                    $ranking[] = [
-                        'id' => $novaEquipe['id'],
-                        'nome' => $nome_equipe,
-                        'tipo' => 'equipe',
-                        'jogo' => $jogo,
-                        'pontuacao' => 0,
-                        'vitorias' => 0,
-                        'derrotas' => 0,
-                        'posicao' => count($ranking) + 1,
-                        'data_entrada' => date('d/m/Y H:i:s'),
-                        'ultima_atualizacao' => date('d/m/Y H:i:s')
-                    ];
-                    salvarDados($arquivo_ranking, $ranking);
+                    // Atualizar estatísticas
+                    $furiaConfig->atualizarEstatisticas();
                 } else {
                     throw new Exception('❌ Erro ao salvar dados da equipe');
                 }
@@ -216,29 +136,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
     } catch (Exception $e) {
         $resposta['message'] = $e->getMessage();
-        registrarLog("Erro no cadastro: " . $e->getMessage());
     }
     
-    echo json_encode($resposta, JSON_UNESCAPED_UNICODE);
+    enviarResposta($resposta);
     exit;
 }
 
 // Se acessado via GET, mostrar estatísticas
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $usuarios = lerDados($arquivo_usuarios);
-    $equipes = lerDados($arquivo_equipes);
+    $estatisticas = $furiaConfig->getEstatisticas();
     
-    $estatisticas = [
+    $info = [
         'success' => true,
         'sistema' => 'FuriaDaNoitePlay - Cadastro',
         'status' => 'operacional',
-        'total_usuarios' => count($usuarios),
-        'total_equipes' => count($equipes),
-        'cadastros_hoje' => 0, // Poderia implementar contagem por data
+        'estatisticas' => $estatisticas,
         'ultima_atualizacao' => date('d/m/Y H:i:s')
     ];
     
-    echo json_encode($estatisticas, JSON_UNESCAPED_UNICODE);
+    enviarResposta($info);
     exit;
 }
 ?>
