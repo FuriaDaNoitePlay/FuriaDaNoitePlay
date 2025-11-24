@@ -3,691 +3,432 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - FuriaDaNoitePlay</title>
-
-    <!-- ========================== -->
-    <!-- SCRIPT OFICIAL DO ADSENSE -->
-    <!-- ========================== -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9551454046138296"
-    crossorigin="anonymous"></script>
-    <!-- ========================== -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Painel de Manutenção - FuriaDaNoitePlay</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        :root {
-            --vermelho-neon: #ff0000;
-            --vermelho-escuro: #cc0000;
-            --amarelo-neon: #FFD700;
-            --verde-neon: #00ff00;
-            --azul-neon: #0066ff;
-            --roxo-neon: #8A2BE2;
-            --preto: #000000;
-            --preto-escuro: #0a0a0a;
-            --branco: #ffffff;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0000 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            color: var(--branco);
-        }
-        
-        .container {
-            display: flex;
-            max-width: 1000px;
-            width: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 0, 0, 0.9));
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
-            border: 3px solid var(--vermelho-neon);
-        }
-        
-        .image-section {
-            flex: 1;
-            background: linear-gradient(135deg, var(--vermelho-neon) 0%, var(--vermelho-escuro) 50%, #990000 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .image-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: brilho 8s linear infinite;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        @keyframes brilho {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .logo {
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
             position: relative;
-            z-index: 2;
+        }
+
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-40px) translateX(-10px); }
+            75% { transform: translateY(-20px) translateX(-20px); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
             text-align: center;
-            color: white;
+            z-index: 1;
         }
-        
-        .logo-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 20px;
-            box-shadow: 0 0 30px var(--vermelho-neon);
-            margin-bottom: 20px;
-            border: 3px solid white;
-            background: white;
-            padding: 10px;
+
+        .logo {
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
         }
-        
-        .logo h1 {
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 0 0 20px var(--vermelho-neon);
-            color: var(--amarelo-neon);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
         }
-        
-        .logo p {
+
+        .subtitle {
             font-size: 1.2rem;
-            opacity: 0.9;
-            color: var(--branco);
-            text-shadow: 0 0 10px var(--vermelho-neon);
+            margin-bottom: 40px;
+            color: #aaa;
         }
-        
-        .login-section {
-            flex: 1;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-        }
-        
-        .login-section h2 {
-            color: var(--amarelo-neon);
+
+        .maintenance-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
             margin-bottom: 30px;
-            text-align: center;
-            font-size: 2rem;
-            text-shadow: 0 0 15px var(--amarelo-neon);
-            border-bottom: 2px solid var(--vermelho-neon);
-            padding-bottom: 15px;
         }
-        
-        .form-group {
-            margin-bottom: 25px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--amarelo-neon);
-            font-weight: bold;
-            text-shadow: 0 0 8px var(--amarelo-neon);
-            font-size: 1.1rem;
-        }
-        
-        .form-group input {
+
+        .panel-section {
+            background: rgba(30, 30, 60, 0.8);
+            border-radius: 15px;
+            padding: 25px;
             width: 100%;
-            padding: 15px 18px;
-            border: 2px solid var(--vermelho-neon);
-            border-radius: 12px;
-            background: rgba(255, 0, 0, 0.1);
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .panel-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .panel-title {
+            font-size: 1.5rem;
+            color: #0ff;
+        }
+
+        .status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .status.active {
+            background: rgba(0, 255, 0, 0.2);
+            color: #0f0;
+        }
+
+        .status.inactive {
+            background: rgba(255, 0, 0, 0.2);
+            color: #f00;
+        }
+
+        .panel-content {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #00b4db, #0083b0);
             color: white;
+            border: none;
+            border-radius: 30px;
             font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
-            box-shadow: 
-                inset 0 2px 10px rgba(0, 0, 0, 0.3),
-                0 0 15px rgba(255, 0, 0, 0.2);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 180, 219, 0.4);
         }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--amarelo-neon);
-            box-shadow: 
-                inset 0 2px 10px rgba(0, 0, 0, 0.3),
-                0 0 25px var(--amarelo-neon);
-            background: rgba(255, 215, 0, 0.1);
-            transform: scale(1.02);
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 180, 219, 0.6);
+            background: linear-gradient(45deg, #0083b0, #00b4db);
         }
-        
-        .btn-container {
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn.secondary {
+            background: linear-gradient(45deg, #8e2de2, #4a00e0);
+            box-shadow: 0 5px 15px rgba(142, 45, 226, 0.4);
+        }
+
+        .btn.secondary:hover {
+            box-shadow: 0 8px 20px rgba(142, 45, 226, 0.6);
+            background: linear-gradient(45deg, #4a00e0, #8e2de2);
+        }
+
+        .login-section {
+            margin-top: 20px;
+        }
+
+        .login-form {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin-top: 30px;
         }
-        
-        .btn {
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            position: relative;
-            overflow: hidden;
+
+        .form-group {
+            text-align: left;
         }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn-login {
-            background: linear-gradient(135deg, var(--vermelho-neon), var(--vermelho-escuro));
-            color: var(--preto);
-            box-shadow: 
-                0 5px 25px rgba(255, 0, 0, 0.4),
-                0 0 30px rgba(255, 0, 0, 0.3);
-        }
-        
-        .btn-login:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 
-                0 8px 35px rgba(255, 0, 0, 0.6),
-                0 0 40px rgba(255, 0, 0, 0.4);
-        }
-        
-        .btn-register {
-            background: linear-gradient(135deg, var(--verde-neon), #00cc00);
-            color: var(--preto);
-            box-shadow: 
-                0 5px 25px rgba(0, 255, 0, 0.4),
-                0 0 30px rgba(0, 255, 0, 0.3);
-        }
-        
-        .btn-register:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 
-                0 8px 35px rgba(0, 255, 0, 0.6),
-                0 0 40px rgba(0, 255, 0, 0.4);
-        }
-        
-        .btn-visitante {
-            background: linear-gradient(135deg, var(--amarelo-neon), #ffaa00);
-            color: var(--preto);
-            box-shadow: 
-                0 5px 25px rgba(255, 215, 0, 0.4),
-                0 0 30px rgba(255, 215, 0, 0.3);
-        }
-        
-        .btn-visitante:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 
-                0 8px 35px rgba(255, 215, 0, 0.6),
-                0 0 40px rgba(255, 215, 0, 0.4);
-        }
-        
-        .forgot-password {
-            text-align: right;
-            margin-top: 15px;
-        }
-        
-        .forgot-password a {
-            color: var(--vermelho-neon);
-            text-decoration: none;
-            font-size: 0.9rem;
-            text-shadow: 0 0 8px var(--vermelho-neon);
-        }
-        
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-        
-        .message {
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            text-align: center;
-            display: none;
-            font-weight: bold;
-        }
-        
-        .error {
-            background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.1));
-            border: 2px solid #ff4444;
-            color: #ff4444;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
-        }
-        
-        .success {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 0, 0.1));
-            border: 2px solid #00ff00;
-            color: #00ff00;
-            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3);
-        }
-        
-        .adm-info {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 10px;
-            font-size: 0.9rem;
-            border-left: 4px solid var(--vermelho-neon);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
-        }
-        
-        .adm-info h3 {
-            color: var(--amarelo-neon);
-            margin-bottom: 10px;
-            font-size: 1rem;
-            text-shadow: 0 0 8px var(--amarelo-neon);
-        }
-        
-        .adm-info ul {
-            list-style-type: none;
-            margin-left: 10px;
-        }
-        
-        .adm-info li {
+
+        .form-group label {
+            display: block;
             margin-bottom: 5px;
-            color: var(--branco);
+            font-weight: bold;
         }
-        
-        .login-types {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .type-btn {
-            flex: 1;
-            padding: 10px;
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid var(--vermelho-neon);
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
             border-radius: 8px;
-            color: var(--branco);
-            cursor: pointer;
-            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
             transition: all 0.3s;
         }
-        
-        .type-btn.active {
-            background: var(--vermelho-neon);
-            color: var(--preto);
-            font-weight: bold;
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0ff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
 
-        .loading {
-            display: none;
+        .locked-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .locked-message {
+            background: rgba(30, 30, 60, 0.9);
+            padding: 30px;
+            border-radius: 15px;
             text-align: center;
-            margin: 10px 0;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.5s;
         }
 
-        .loading-spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--vermelho-neon);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .countdown {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #0ff;
         }
-        
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00b4db, #0083b0);
+            width: 65%;
+            border-radius: 5px;
+            animation: progressAnimation 3s infinite alternate;
+        }
+
+        @keyframes progressAnimation {
+            0% { width: 65%; }
+            100% { width: 70%; }
+        }
+
+        footer {
+            margin-top: 30px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
         @media (max-width: 768px) {
-            .container {
+            .maintenance-panel {
                 flex-direction: column;
+                align-items: center;
             }
             
-            .image-section {
-                min-height: 200px;
+            .panel-section {
+                width: 100%;
             }
             
-            .logo-img {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .login-section {
-                padding: 30px 20px;
+            h1 {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
+    <div class="background-animation" id="backgroundAnimation"></div>
+    
     <div class="container">
-        <div class="image-section">
-            <div class="logo">
-                <!-- IMAGEM FÚRIA.PNG ADICIONADA -->
-                <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo-img" onerror="this.style.display='none'">
-                <h1>👑 FuriaDaNoitePlay</h1>
-                <p>Sistema de Login</p>
+        <div class="logo">
+            <h1>FuriaDaNoitePlay</h1>
+        </div>
+        
+        <p class="subtitle">Painel de Manutenção - Sistema em Atualização</p>
+        
+        <div class="maintenance-panel">
+            <div class="panel-section">
+                <div class="panel-header">
+                    <h2 class="panel-title">FR0N.html</h2>
+                    <span class="status active">Ativo</span>
+                </div>
+                <div class="panel-content">
+                    <p>Painel de controle principal do sistema. Acesso restrito a administradores.</p>
+                </div>
+                <a href="FR0N.html" class="btn">Acessar FR0N</a>
+            </div>
+            
+            <div class="panel-section">
+                <div class="panel-header">
+                    <h2 class="panel-title">GW.html</h2>
+                    <span class="status active">Ativo</span>
+                </div>
+                <div class="panel-content">
+                    <p>Gateway de configurações do sistema. Acesso restrito a administradores.</p>
+                </div>
+                <a href="GW.html" class="btn secondary">Acessar GW</a>
             </div>
         </div>
         
-        <div class="login-section">
-            <h2>Login</h2>
-            
-            <div id="message" class="message"></div>
-            <div id="loading" class="loading">
-                <div class="loading-spinner"></div>
-                <p>Processando login...</p>
+        <div class="panel-section login-section">
+            <div class="panel-header">
+                <h2 class="panel-title">Login Administrativo</h2>
             </div>
-            
-            <!-- Seleção de tipo de login -->
-            <div class="login-types">
-                <div class="type-btn active" onclick="selecionarTipo('adm')">👑 ADM</div>
-                <div class="type-btn" onclick="selecionarTipo('membro')">👤 MEMBRO</div>
-                <div class="type-btn" onclick="selecionarTipo('equipe')">🏆 EQUIPE</div>
-            </div>
-            
-            <form id="loginForm">
-                <input type="hidden" id="tipoLogin" name="tipo" value="adm">
-                
-                <div class="form-group">
-                    <label for="username" id="usernameLabel">👑 Usuário ADM</label>
-                    <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">🔒 Senha</label>
-                    <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
-                </div>
-                
-                <div class="forgot-password">
-                    <a href="#" id="forgotPassword">Esqueci minha senha</a>
-                </div>
-                
-                <div class="btn-container">
-                    <button type="submit" class="btn btn-login">🎯 ENTRAR NO SISTEMA</button>
-                    <button type="button" class="btn btn-register" onclick="window.location.href='cadastro.html'">
-                        📝 FAZER CADASTRO
-                    </button>
-                    <button type="button" class="btn btn-visitante" onclick="window.location.href='furia.html'">
-                        👁️ SOU VISITANTE
-                    </button>
-                </div>
-            </form>
-            
-            <div class="adm-info">
-                <h3>👑 ADMs AUTORIZADOS - FuriaDaNoitePlay</h3>
-                <ul>
-                    <li><strong>ADM SUPREMO:</strong> FURIAGOD</li>
-                    <li><strong>ADMs GERAIS:</strong> Scorpion, .Son King, NeferpitouI, PNTS, ToxicSkull√</li>
-                    <li><strong>MEMBROS:</strong> Cadastro automático após registro</li>
-                    <li><strong>EQUIPES:</strong> Cadastro automático após inscrição</li>
-                </ul>
+            <div class="panel-content">
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Usuário</label>
+                        <input type="text" id="username" placeholder="Digite seu usuário" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Senha</label>
+                        <input type="password" id="password" placeholder="Digite sua senha" required>
+                    </div>
+                    <button type="submit" class="btn">Entrar</button>
+                </form>
             </div>
         </div>
     </div>
+    
+    <div class="locked-overlay" id="lockedOverlay">
+        <div class="locked-message">
+            <h2>Site em Manutenção</h2>
+            <p>O FuriaDaNoitePlay está passando por uma atualização importante.</p>
+            <div class="countdown" id="countdown">00:00:00</div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <p>Estamos trabalhando para melhorar sua experiência. Volte em breve!</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 FuriaDaNoitePlay - Todos os direitos reservados</p>
+    </footer>
 
     <script>
-        // =============================================
-        // SISTEMA DE LOGIN INTEGRADO COM PHP
-        // =============================================
-
-        let tipoLogin = 'adm'; // Padrão: ADM
+        // Criar bolhas animadas no fundo
+        function createBubbles() {
+            const background = document.getElementById('backgroundAnimation');
+            const bubbleCount = 15;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                const size = Math.random() * 100 + 50;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.top = `${Math.random() * 100}%`;
+                
+                bubble.style.animationDelay = `${Math.random() * 15}s`;
+                
+                background.appendChild(bubble);
+            }
+        }
         
-        // Função para selecionar tipo de login
-        function selecionarTipo(tipo) {
-            tipoLogin = tipo;
-            document.getElementById('tipoLogin').value = tipo;
+        // Contador regressivo
+        function startCountdown() {
+            const countdownElement = document.getElementById('countdown');
+            const targetTime = new Date();
+            targetTime.setHours(targetTime.getHours() + 2); // 2 horas a partir de agora
             
-            // Atualizar botões
-            document.querySelectorAll('.type-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Atualizar labels e placeholders
-            const usernameLabel = document.getElementById('usernameLabel');
-            const usernameInput = document.getElementById('username');
-            
-            switch(tipo) {
-                case 'adm':
-                    usernameLabel.innerHTML = '👑 Usuário ADM';
-                    usernameInput.placeholder = 'Digite seu usuário ADM';
-                    break;
-                case 'membro':
-                    usernameLabel.innerHTML = '👤 Nick do Membro';
-                    usernameInput.placeholder = 'Digite seu nick cadastrado';
-                    break;
-                case 'equipe':
-                    usernameLabel.innerHTML = '🏆 Nome da Equipe';
-                    usernameInput.placeholder = 'Digite o nome da equipe';
-                    break;
+            function updateCountdown() {
+                const now = new Date();
+                const difference = targetTime - now;
+                
+                if (difference <= 0) {
+                    countdownElement.textContent = "Manutenção Concluída!";
+                    return;
+                }
+                
+                const hours = Math.floor(difference / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                countdownElement.textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
-        }
-
-        // Função para exibir mensagens
-        function showMessage(text, type) {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = text;
-            messageDiv.className = 'message ' + type;
-            messageDiv.style.display = 'block';
             
-            setTimeout(() => {
-                messageDiv.style.display = 'none';
-            }, 5000);
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
         }
-
-        // Função para mostrar/ocultar loading
-        function toggleLoading(show) {
-            document.getElementById('loading').style.display = show ? 'block' : 'none';
-        }
-
-        // Processar login via AJAX
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        
+        // Simulação de login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const username = document.getElementById('username').value.trim();
+            const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            const tipo = document.getElementById('tipoLogin').value;
             
-            if (!username || !password) {
-                showMessage('❌ Por favor, preencha todos os campos!', 'error');
-                return;
-            }
-            
-            // Mostrar loading
-            toggleLoading(true);
-            
-            try {
-                // Fazer requisição para o PHP
-                const formData = new FormData();
-                formData.append('tipo', tipo);
-                formData.append('username', username);
-                formData.append('password', password);
-                
-                const response = await fetch('login.php', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const data = await response.json();
-                
-                // Esconder loading
-                toggleLoading(false);
-                
-                if (data.success) {
-                    showMessage(data.message, 'success');
-                    
-                    // Salvar dados no localStorage
-                    if (data.user_data) {
-                        localStorage.setItem('furia_user', JSON.stringify(data.user_data));
-                        localStorage.setItem('furia_tipo', tipo);
-                        localStorage.setItem('furia_login_time', new Date().getTime());
-                    }
-                    
-                    // Redirecionar após 1.5 segundos
-                    setTimeout(() => {
-                        if (data.redirect) {
-                            window.location.href = data.redirect;
-                        } else {
-                            // Redirecionamento padrão baseado no tipo
-                            switch(tipo) {
-                                case 'adm':
-                                    window.location.href = username === 'FURIAGOD' ? 'painel-adm.html' : 'painel-usuario.html';
-                                    break;
-                                case 'membro':
-                                    window.location.href = 'painel-membro.html';
-                                    break;
-                                case 'equipe':
-                                    window.location.href = 'painel-equipe.html';
-                                    break;
-                                default:
-                                    window.location.href = 'furia.html';
-                            }
-                        }
-                    }, 1500);
-                } else {
-                    showMessage(data.message, 'error');
-                }
-                
-            } catch (error) {
-                toggleLoading(false);
-                console.error('Erro no login:', error);
-                showMessage('❌ Erro de conexão. Tente novamente.', 'error');
+            // Simulação de autenticação
+            if (username === 'admin' && password === 'admin') {
+                alert('Login bem-sucedido! Redirecionando para o painel...');
+                // Aqui você redirecionaria para o painel administrativo real
+            } else {
+                alert('Credenciais inválidas. Tente novamente.');
             }
         });
-
-        // Esqueci a senha
-        document.getElementById('forgotPassword').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            let mensagem = '';
-            switch(tipoLogin) {
-                case 'adm':
-                    mensagem = 'Entre em contato com o ADM SUPREMO para redefinir sua senha.';
-                    break;
-                case 'membro':
-                    mensagem = 'Entre em contato com um ADM para recuperar acesso à sua conta.';
-                    break;
-                case 'equipe':
-                    mensagem = 'Entre em contato com a administração para recuperar acesso à equipe.';
-                    break;
-            }
-            
-            showMessage('🔐 ' + mensagem, 'error');
-        });
-
-        // Verificar se já está logado
+        
+        // Inicializar
         document.addEventListener('DOMContentLoaded', function() {
-            const userData = localStorage.getItem('furia_user');
-            if (userData) {
-                const user = JSON.parse(userData);
-                showMessage(`✅ Bem-vindo de volta, ${user.username || user.nick || user.nome_equipe}!`, 'success');
-                
-                // Preencher automaticamente se for ADM
-                if (user.tipo === 'adm') {
-                    document.getElementById('username').value = user.username;
-                    selecionarTipo('adm');
-                }
-            }
-            
-            // Testar conexão com o backend
-            testarBackend();
+            createBubbles();
+            startCountdown();
         });
-
-        // Função para testar conexão com backend
-        async function testarBackend() {
-            try {
-                const response = await fetch('login.php');
-                const data = await response.json();
-                console.log('✅ Backend conectado:', data);
-            } catch (error) {
-                console.warn('⚠️ Backend offline, usando fallback local');
-                // O sistema continuará funcionando com fallback local
-            }
-        }
-
-        // Fallback local para quando o PHP não estiver disponível
-        const admCredentials = {
-            'FURIAGOD': 'Furia2025_$25',
-            'Scorpion': 'Mlk0025',
-            '.Son King': 'God1925',
-            'NeferpitouI': 'Ana02525',
-            'PNTS': 'pNtS25',
-            'ToxicSkull√': 'L@!on25'
-        };
-
-        // Sistema de fallback
-        function loginFallback(username, password, tipo) {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    let success = false;
-                    let message = '';
-                    let redirect = '';
-                    
-                    switch(tipo) {
-                        case 'adm':
-                            if (admCredentials[username] && admCredentials[username] === password) {
-                                success = true;
-                                message = '✅ Login ADM bem-sucedido!';
-                                redirect = username === 'FURIAGOD' ? 'painel-adm.html' : 'painel-usuario.html';
-                            } else {
-                                message = '❌ Credenciais ADM inválidas!';
-                            }
-                            break;
-                            
-                        case 'membro':
-                            const usuarios = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
-                            const usuario = usuarios.find(u => u.nick === username && u.senha === password);
-                            
-                            if (usuario) {
-                                success = true;
-                                message = '✅ Login de membro bem-sucedido!';
-                                redirect = 'painel-membro.html';
-                            } else {
-                                message = '❌ Membro não encontrado ou senha incorreta!';
-                            }
-                            break;
-                            
-                        case 'equipe':
-                            const equipes = JSON.parse(localStorage.getItem('furia_equipes')) || [];
-                            const equipe = equipes.find(e => e.nome_equipe === username && e.senha === password);
-                            
-                            if (equipe) {
-                                success = true;
-                                message = '✅ Login de equipe bem-sucedido!';
-                                redirect = 'painel-equipe.html';
-                            } else {
-                                message = '❌ Equipe não encontrada ou senha incorreta!';
-                            }
-                            break;
-                    }
-                    
-                    resolve({ success, message, redirect });
-                }, 1000);
-            });
-        }
     </script>
 </body>
 </html>
