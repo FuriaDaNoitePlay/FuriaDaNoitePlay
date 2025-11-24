@@ -173,6 +173,16 @@
             background: linear-gradient(45deg, #4a00e0, #8e2de2);
         }
 
+        .btn.furia {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        }
+
+        .btn.furia:hover {
+            box-shadow: 0 8px 20px rgba(255, 65, 108, 0.6);
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+        }
+
         .login-section {
             margin-top: 20px;
         }
@@ -323,6 +333,17 @@
             </div>
         </div>
         
+        <div class="panel-section">
+            <div class="panel-header">
+                <h2 class="panel-title">Página Principal</h2>
+                <span class="status inactive">Em Manutenção</span>
+            </div>
+            <div class="panel-content">
+                <p>A página principal está em manutenção e estará disponível novamente em 01/02/2026.</p>
+            </div>
+            <a href="furia.html" class="btn furia">Acessar Furia (Visualização)</a>
+        </div>
+        
         <div class="panel-section login-section">
             <div class="panel-header">
                 <h2 class="panel-title">Login Administrativo</h2>
@@ -347,7 +368,8 @@
         <div class="locked-message">
             <h2>Site em Manutenção</h2>
             <p>O FuriaDaNoitePlay está passando por uma atualização importante.</p>
-            <div class="countdown" id="countdown">00:00:00</div>
+            <p>Previsão de término: <strong>01/02/2026</strong></p>
+            <div class="countdown" id="countdown">00:00:00:00</div>
             <div class="progress-bar">
                 <div class="progress"></div>
             </div>
@@ -382,27 +404,27 @@
             }
         }
         
-        // Contador regressivo
+        // Contador regressivo até 01/02/2026
         function startCountdown() {
             const countdownElement = document.getElementById('countdown');
-            const targetTime = new Date();
-            targetTime.setHours(targetTime.getHours() + 2); // 2 horas a partir de agora
+            const targetDate = new Date('2026-02-01T00:00:00');
             
             function updateCountdown() {
                 const now = new Date();
-                const difference = targetTime - now;
+                const difference = targetDate - now;
                 
                 if (difference <= 0) {
                     countdownElement.textContent = "Manutenção Concluída!";
                     return;
                 }
                 
-                const hours = Math.floor(difference / (1000 * 60 * 60));
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
                 
                 countdownElement.textContent = 
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
             
             updateCountdown();
