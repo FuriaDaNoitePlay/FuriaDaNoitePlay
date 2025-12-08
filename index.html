@@ -3,95 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema em Manutenção - FuriaDaNoitePlay</title>
+    <title>FuriaDaNoitePlay - Em Manutenção</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="maintenance-card">
-            <div class="header">
-                <div class="logo">
-                    <i class="fas fa-tools"></i>
-                    <h1>SISTEMA EM MANUTENÇÃO</h1>
-                </div>
-                <div class="status-indicator">
-                    <span class="status-dot"></span>
-                    <span class="status-text">MANUTENÇÃO</span>
-                </div>
+    <div class="maintenance-container">
+        <div class="maintenance-header">
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+                <h1>FuriaDaNoitePlay</h1>
             </div>
-            
-            <div class="content">
-                <div class="message">
-                    <p>O <span class="highlight">FuriaDaNoitePlay</span> está passando por atualizações críticas</p>
-                    <p class="return-date">Previsão de retorno: <strong>01 de Fevereiro de 2026</strong></p>
-                </div>
-                
-                <div class="divider"></div>
-                
-                <div class="info-box">
-                    <p><i class="fas fa-exclamation-circle"></i> Apenas os painéis administrativos estão disponíveis durante este período</p>
-                </div>
-                
-                <div class="divider"></div>
-                
-                <p class="thank-you">Obrigado pela compreensão!</p>
-                
-                <!-- Botão para o Jogo da Velha -->
-                <div class="game-button-container">
-                    <button class="game-btn" id="goToGame">
-                        <i class="fas fa-gamepad"></i> Jogar Jogo da Velha
-                    </button>
-                    <p class="game-hint">Enquanto aguarda, divirta-se com um jogo clássico!</p>
-                </div>
-                
-                <div class="positive-badge">
-                    <span>POSITIVO</span>
-                </div>
-            </div>
-            
-            <div class="footer">
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Progresso da Manutenção</span>
-                        <span id="progressPercent">45%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                </div>
-                
-                <div class="contact-info">
-                    <p><i class="fas fa-envelope"></i> suporte@furiadanoiteplay.com</p>
-                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
-                </div>
+            <div class="status">
+                <span class="status-dot"></span>
+                <span class="status-text">EM MANUTENÇÃO</span>
             </div>
         </div>
-        
-        <div class="countdown">
-            <h3><i class="fas fa-clock"></i> Contagem Regressiva</h3>
-            <div class="countdown-timer">
-                <div class="time-unit">
-                    <span id="days">00</span>
-                    <small>Dias</small>
+
+        <div class="maintenance-content">
+            <div class="warning-icon">
+                <i class="fas fa-tools"></i>
+            </div>
+            
+            <h2>SISTEMA EM MANUTENÇÃO</h2>
+            
+            <p class="main-message">
+                O <span class="highlight">FuriaDaNoitePlay</span> está passando por atualizações críticas
+            </p>
+            
+            <div class="return-date">
+                <i class="fas fa-calendar-alt"></i>
+                <p>Previsão de retorno: <strong>01 de Fevereiro de 2026</strong></p>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="info-note">
+                <i class="fas fa-info-circle"></i>
+                <p>Apenas os painéis administrativos estão disponíveis durante este período</p>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <p class="thank-you-message">Obrigado pela compreensão!</p>
+            
+            <!-- Botão para o Jogo da Velha -->
+            <div class="game-section">
+                <button id="gameButton" class="game-button">
+                    <i class="fas fa-gamepad"></i>
+                    JOGAR JOGO DA VELHA
+                </button>
+                <p class="game-description">Enquanto espera, divirta-se com um jogo clássico!</p>
+            </div>
+            
+            <div class="positive-tag">
+                POSITIVO
+            </div>
+        </div>
+
+        <div class="maintenance-footer">
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>Progresso da Manutenção</span>
+                    <span id="progressPercentage">45%</span>
                 </div>
-                <div class="time-unit">
-                    <span id="hours">00</span>
-                    <small>Horas</small>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
-                <div class="time-unit">
-                    <span id="minutes">00</span>
-                    <small>Minutos</small>
+            </div>
+            
+            <div class="countdown-container">
+                <h3><i class="fas fa-clock"></i> Tempo Restante</h3>
+                <div class="countdown">
+                    <div class="time-block">
+                        <span id="days">00</span>
+                        <small>Dias</small>
+                    </div>
+                    <div class="time-block">
+                        <span id="hours">00</span>
+                        <small>Horas</small>
+                    </div>
+                    <div class="time-block">
+                        <span id="minutes">00</span>
+                        <small>Minutos</small>
+                    </div>
+                    <div class="time-block">
+                        <span id="seconds">00</span>
+                        <small>Segundos</small>
+                    </div>
                 </div>
-                <div class="time-unit">
-                    <span id="seconds">00</span>
-                    <small>Segundos</small>
-                </div>
+            </div>
+            
+            <div class="contact-info">
+                <p><i class="fas fa-headset"></i> Suporte: suporte@furiadanoiteplay.com</p>
             </div>
         </div>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
