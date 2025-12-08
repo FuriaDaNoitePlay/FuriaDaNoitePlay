@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FuriaDaNoitePlay - Em Manutenção</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .maintenance-container {
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 3px solid #ff0000;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+        
+        h1 {
+            color: #ff0000;
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px #ff0000;
+            margin-bottom: 20px;
+        }
+        
+        .warning {
+            color: #ff4444;
+            font-size: 1.5rem;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .date {
+            color: #FFD700;
+            font-size: 1.8rem;
+            margin: 25px 0;
+            text-shadow: 0 0 10px #FFD700;
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 25px 0;
+            color: #ccc;
+        }
+        
+        .admin-note {
+            color: #00ff00;
+            font-size: 1rem;
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            background: rgba(0, 255, 0, 0.1);
+        }
+        
+        .button-container {
+            margin: 30px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #cc0000, #ff0000);
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #0066ff, #0044cc);
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #0044cc, #0066ff);
+            box-shadow: 0 0 25px rgba(0, 102, 255, 0.8);
+        }
+        
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 25px #ff0000;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .maintenance-container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .warning {
+                font-size: 1.2rem;
+            }
+            
+            .date {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="fúria.png" alt="Logo Fúria da Noite" class="logo">
+    
+    <div class="maintenance-container">
+        <h1>🔥 FURIA DA NOITE PLAY 🔥</h1>
+        
+        <div class="warning">⚠️ SISTEMA EM MANUTENÇÃO ⚠️</div>
+        
+        <div class="message">
+            O <strong>FuriaDaNoitePlay</strong> está passando por atualizações críticas para melhorar sua experiência.
+            Estamos trabalhando para trazer novas funcionalidades e melhor desempenho.
+        </div>
+        
+        <div class="date">📅 Previsão de retorno: 01 de Fevereiro de 2026</div>
+        
+        <div class="message">
+            Apenas os painéis administrativos estão disponíveis durante este período.
+            Agradecemos sua paciência e compreensão!
+        </div>
+        
+        <div class="admin-note">
+            🔧 <strong>Equipe Técnica:</strong> Atualizações de servidor, otimizações de performance e novas features em desenvolvimento.
+        </div>
+        
+        <div class="button-container">
+            <a href="velha.html" class="btn">
+                🎮 ACESSAR JOGO DA VELHA
+            </a>
+            
+            <button onclick="showAdminMessage()" class="btn btn-secondary">
+                🔐 ÁREA ADMIN
+            </button>
+        </div>
+        
+        <div id="adminMessage" style="display: none; margin-top: 20px; color: #00ff00;">
+            🔒 Acesso administrativo restrito. Contate @ToxicSkull√ para credentials.
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2025 FuriaDaNoitePlay | @ToxicSkull√</p>
+        <p>"A noite brilha sob nossa fúria." 🌙🔥</p>
+    </div>
+
+    <script>
+        function showAdminMessage() {
+            const message = document.getElementById('adminMessage');
+            message.style.display = 'block';
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Efeito de brilho no título
+        const title = document.querySelector('h1');
+        setInterval(() => {
+            const intensity = Math.random() * 20 + 10;
+            title.style.textShadow = `0 0 ${intensity}px #ff0000`;
+        }, 1000);
+    </script>
+</body>
+</html>
