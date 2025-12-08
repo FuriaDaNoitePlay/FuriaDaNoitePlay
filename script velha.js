@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos do DOM
+    // ===== ELEMENTOS DO DOM =====
     const gameBoard = document.getElementById('gameBoard');
     const currentPlayerElement = document.getElementById('currentPlayer');
     const gameStatusElement = document.getElementById('gameStatus');
     const gameMessageElement = document.getElementById('gameMessage');
+    const messageTextElement = document.getElementById('messageText');
     const messagePlayerElement = document.getElementById('messagePlayer');
     const scoreXElement = document.getElementById('scoreX');
     const scoreOElement = document.getElementById('scoreO');
@@ -11,27 +12,40 @@ document.addEventListener('DOMContentLoaded', function() {
     const resetButton = document.getElementById('resetButton');
     const newGameButton = document.getElementById('newGameButton');
     const modeButton = document.getElementById('modeButton');
+    const modeTextElement = document.getElementById('modeText');
+    const difficultyButtons = document.querySelectorAll('.difficulty-btn');
+    const particlesContainer = document.getElementById('particles');
     
-    // Variáveis do jogo
+    // ===== VARIÁVEIS DO JOGO =====
     let board = ['', '', '', '', '', '', '', '', ''];
     let currentPlayer = 'X';
-    let gameActive = true;
+    let gameActive = false;
     let gameMode = 'twoPlayers'; // 'twoPlayers' ou 'vsComputer'
+    let difficulty = 'medium'; // 'easy', 'medium', 'hard'
     let scores = {
         X: 0,
         O: 0,
         tie: 0
     };
     
-    // Combinações vencedoras
-    const winningCombinations = [
+    // ===== COMBINAÇÕES VENCEDORAS =====
+    const winningConditions = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8], // Linhas
         [0, 3, 6], [1, 4, 7], [2, 5, 8], // Colunas
         [0, 4, 8], [2, 4, 6]             // Diagonais
     ];
     
-    // Inicializar o tabuleiro
-    function initGameBoard() {
+    // ===== INICIALIZAÇÃO DO JOGO =====
+    function initializeGame() {
+        createGameBoard();
+        loadScores();
+        setupEventListeners();
+        createParticles();
+        showWelcomeMessage();
+    }
+    
+    // ===== CRIAR TABULEIRO =====
+    function createGameBoard() {
         gameBoard.innerHTML = '';
         
         for (let i = 0; i < 9; i++) {
@@ -39,29 +53,306 @@ document.addEventListener('DOMContentLoaded', function() {
             cell.classList.add('cell');
             cell.dataset.index = i;
             
+            // Efeito de entrada
+            cell.style.opacity = '0';
+            cell.style.transform = 'scale(0.8) rotateY(180deg)';
+            
             // Adicionar evento de clique
             cell.addEventListener('click', () => handleCellClick(i));
             
-            // Adicionar efeito de entrada
-            cell.style.opacity = '0';
-            cell.style.transform = 'scale(0.8)';
-            
+            // Animação de entrada
             setTimeout(() => {
                 cell.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                 cell.style.opacity = '1';
-                cell.style.transform = 'scale(1)';
+                cell.style.transform = 'scale(1) rotateY(0)';
             }, i * 100);
             
             gameBoard.appendChild(cell);
         }
-        
-        updateDisplay();
-        updateMessage(`Vez do jogador ${currentPlayer}`);
     }
     
-    // Atualizar a exibição
-    function updateDisplay() {
-        // Atualizar células
+    // ===== CONFIGURAR EVENTOS =====
+    function setupEventListeners() {
+        // Botões de controle
+        resetButton.addEventListener('click', resetGame);
+        newGameButton.addEventListener('click', newGame);
+        modeButton.addEventListener('click', toggleGameMode);
+        
+        // Botões de dificuldade
+        difficultyButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                setDifficulty(this.dataset.difficulty);
+                updateMessage(`Nível alterado para: ${this.querySelector('span').textContent}`);
+            });
+        });
+    }
+    
+    // ===== MANIPULAR CLIQUE NA CÉLULA =====
+    function handleCellClick(index) {
+        if (!gameActive || board[index] !== '') return;
+        
+        // Efeito visual
+        const cell = document.querySelector(`.cell[data-index="${index}"]`);
+        cell.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            cell.style.transform = 'scale(1)';
+        }, 200);
+        
+        // Fazer jogada
+        makeMove(index, currentPlayer);
+        
+        // Verificar resultado
+        if (checkResult()) return;
+        
+        // Se for modo contra IA
+        if (gameMode === 'vsComputer' && gameActive) {
+            currentPlayer = 'O';
+            updateDisplay();
+            updateMessage('IA da Noite está pensando...');
+            
+            setTimeout(() => {
+                makeComputerMove();
+            }, 800);
+        } else {
+            // Alternar jogador
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            updateDisplay();
+            updateMessage(`Vez do jogador ${currentPlayer}`);
+        }
+    }
+    
+    // ===== FAZER JOGADA =====
+    function makeMove(index, player) {
+        board[index] = player;
+        updateBoardDisplay();
+        
+        // Efeito de brilho
+        const cell = document.querySelector(`.cell[data-index="${index}"]`);
+        cell.style.boxShadow = player === 'X' 
+            ? '0 0 30px var(--azul-neon)' 
+            : '0 0 30px #FFD700';
+        
+        setTimeout(() => {
+            cell.style.boxShadow = '';
+        }, 500);
+    }
+    
+    // ===== JOGADA DA IA =====
+    function makeComputerMove() {
+        if (!gameActive || currentPlayer !== 'O') return;
+        
+        let moveIndex;
+        
+        switch(difficulty) {
+            case 'easy':
+                moveIndex = getEasyMove();
+                break;
+            case 'medium':
+                moveIndex = getMediumMove();
+                break;
+            case 'hard':
+                moveIndex = getHardMove();
+                break;
+        }
+        
+        if (moveIndex !== -1) {
+            setTimeout(() => {
+                makeMove(moveIndex, 'O');
+                if (!checkResult()) {
+                    currentPlayer = 'X';
+                    updateDisplay();
+                    updateMessage('Sua vez! Faça sua jogada.');
+                }
+            }, 600);
+        }
+    }
+    
+    // ===== ALGORITMOS DA IA =====
+    function getEasyMove() {
+        const emptyCells = board.map((cell, index) => cell === '' ? index : null)
+                               .filter(val => val !== null);
+        
+        // 40% de chance de jogar mal
+        if (Math.random() < 0.4 && emptyCells.length > 2) {
+            const goodMoves = getWinningMoves('O').concat(getWinningMoves('X'));
+            const badMoves = emptyCells.filter(index => !goodMoves.includes(index));
+            if (badMoves.length > 0) {
+                return badMoves[Math.floor(Math.random() * badMoves.length)];
+            }
+        }
+        
+        return emptyCells[Math.floor(Math.random() * emptyCells.length)];
+    }
+    
+    function getMediumMove() {
+        // Tentar vencer
+        const winMove = findWinningMove('O');
+        if (winMove !== -1) return winMove;
+        
+        // Bloquear jogador
+        const blockMove = findWinningMove('X');
+        if (blockMove !== -1) return blockMove;
+        
+        // Jogar no centro
+        if (board[4] === '') return 4;
+        
+        // Jogar em canto
+        const corners = [0, 2, 6, 8];
+        const availableCorners = corners.filter(index => board[index] === '');
+        if (availableCorners.length > 0) {
+            return availableCorners[Math.floor(Math.random() * availableCorners.length)];
+        }
+        
+        // Jogar em qualquer lugar
+        const emptyCells = board.map((cell, index) => cell === '' ? index : null)
+                               .filter(val => val !== null);
+        return emptyCells[0];
+    }
+    
+    function getHardMove() {
+        // Algoritmo Minimax melhorado
+        return minimax(board, 'O', true).index;
+    }
+    
+    // ===== MINIMAX =====
+    function minimax(newBoard, player, isMaximizing) {
+        const gameResult = checkGameState(newBoard);
+        
+        if (gameResult === 'X') return { score: -10 };
+        if (gameResult === 'O') return { score: 10 };
+        if (gameResult === 'draw') return { score: 0 };
+        
+        const moves = [];
+        
+        for (let i = 0; i < newBoard.length; i++) {
+            if (newBoard[i] === '') {
+                const move = { index: i };
+                newBoard[i] = player;
+                
+                if (player === 'O') {
+                    const result = minimax(newBoard, 'X', false);
+                    move.score = result.score;
+                } else {
+                    const result = minimax(newBoard, 'O', true);
+                    move.score = result.score;
+                }
+                
+                newBoard[i] = '';
+                moves.push(move);
+            }
+        }
+        
+        let bestMove;
+        if (player === 'O') {
+            let bestScore = -Infinity;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score > bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        } else {
+            let bestScore = Infinity;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score < bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
+        
+        return moves[bestMove];
+    }
+    
+    // ===== FUNÇÕES AUXILIARES =====
+    function findWinningMove(player) {
+        for (let i = 0; i < winningConditions.length; i++) {
+            const [a, b, c] = winningConditions[i];
+            const cells = [board[a], board[b], board[c]];
+            
+            const playerCount = cells.filter(cell => cell === player).length;
+            const emptyCount = cells.filter(cell => cell === '').length;
+            
+            if (playerCount === 2 && emptyCount === 1) {
+                if (board[a] === '') return a;
+                if (board[b] === '') return b;
+                if (board[c] === '') return c;
+            }
+        }
+        return -1;
+    }
+    
+    function getWinningMoves(player) {
+        const moves = [];
+        for (let i = 0; i < winningConditions.length; i++) {
+            const [a, b, c] = winningConditions[i];
+            const cells = [board[a], board[b], board[c]];
+            
+            const playerCount = cells.filter(cell => cell === player).length;
+            const emptyCount = cells.filter(cell => cell === '').length;
+            
+            if (playerCount === 2 && emptyCount === 1) {
+                if (board[a] === '') moves.push(a);
+                if (board[b] === '') moves.push(b);
+                if (board[c] === '') moves.push(c);
+            }
+        }
+        return moves;
+    }
+    
+    // ===== VERIFICAR RESULTADO =====
+    function checkResult() {
+        const result = checkGameState(board);
+        
+        if (result === 'X' || result === 'O') {
+            gameActive = false;
+            scores[result]++;
+            saveScores();
+            
+            // Efeito de vitória
+            createConfetti(result === 'X' ? 'blue' : 'gold');
+            
+            updateMessage(
+                result === 'X' 
+                    ? '🎉 VOCÊ VENCEU! A Fúria está com você!' 
+                    : '💀 IA DA NOITE VENCEU! Tente novamente!',
+                result === 'X' ? 'win' : 'lose'
+            );
+            
+            return true;
+        }
+        
+        if (result === 'draw') {
+            gameActive = false;
+            scores.tie++;
+            saveScores();
+            updateMessage('🤝 EMPATE! A batalha foi equilibrada!', 'draw');
+            return true;
+        }
+        
+        return false;
+    }
+    
+    function checkGameState(boardState) {
+        // Verificar vitórias
+        for (let i = 0; i < winningConditions.length; i++) {
+            const [a, b, c] = winningConditions[i];
+            if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
+                highlightWinningCells([a, b, c]);
+                return boardState[a];
+            }
+        }
+        
+        // Verificar empate
+        if (!boardState.includes('')) {
+            return 'draw';
+        }
+        
+        return null;
+    }
+    
+    // ===== FUNÇÕES DE ATUALIZAÇÃO =====
+    function updateBoardDisplay() {
         const cells = document.querySelectorAll('.cell');
         cells.forEach((cell, index) => {
             cell.textContent = board[index];
@@ -73,240 +364,52 @@ document.addEventListener('DOMContentLoaded', function() {
                 cell.classList.add('o');
             }
         });
-        
-        // Atualizar jogador atual
+    }
+    
+    function updateDisplay() {
+        updateBoardDisplay();
+        updateScoreDisplay();
+        updateCurrentPlayerDisplay();
+    }
+    
+    function updateCurrentPlayerDisplay() {
         currentPlayerElement.textContent = currentPlayer;
-        currentPlayerElement.style.color = currentPlayer === 'X' ? '#ff4757' : '#3742fa';
-        
-        // Atualizar placar
+        currentPlayerElement.style.color = currentPlayer === 'X' ? 'var(--azul-neon)' : '#FFD700';
+        currentPlayerElement.style.textShadow = currentPlayer === 'X' 
+            ? '0 0 20px var(--azul-neon)' 
+            : '0 0 20px #FFD700';
+    }
+    
+    function updateScoreDisplay() {
         scoreXElement.textContent = scores.X;
         scoreOElement.textContent = scores.O;
         scoreTieElement.textContent = scores.tie;
-        
-        // Atualizar texto do botão de modo
-        modeButton.innerHTML = `<i class="fas fa-robot"></i> Modo: ${gameMode === 'twoPlayers' ? '2 Jogadores' : 'vs Computador'}`;
     }
     
-    // Atualizar mensagem
-    function updateMessage(message) {
-        gameMessageElement.innerHTML = `<p>${message}</p>`;
+    function updateMessage(text, type = '') {
+        const messagePlayer = type === 'win' ? 'X' : type === 'lose' ? 'O' : currentPlayer;
+        
+        messageTextElement.innerHTML = text;
+        messagePlayerElement.textContent = messagePlayer;
+        
+        // Efeitos visuais
+        const messageArea = document.querySelector('.game-message');
+        messageArea.style.borderColor = type === 'win' ? 'var(--verde-neon)' : 
+                                       type === 'lose' ? 'var(--vermelho-furia)' : 
+                                       type === 'draw' ? '#FFD700' : 'var(--azul-neon)';
+        
+        messageArea.style.boxShadow = type === 'win' ? '0 0 30px var(--verde-neon)' :
+                                     type === 'lose' ? '0 0 30px var(--vermelho-furia)' :
+                                     type === 'draw' ? '0 0 30px #FFD700' : '0 0 30px var(--azul-neon)';
     }
     
-    // Lidar com clique na célula
-    function handleCellClick(index) {
-        // Verificar se a célula está vazia e se o jogo está ativo
-        if (board[index] !== '' || !gameActive) {
-            return;
-        }
-        
-        // Fazer a jogada
-        makeMove(index);
-        
-        // Verificar resultado
-        checkResult();
-        
-        // Se for modo contra computador e não houver vencedor, fazer jogada do computador
-        if (gameActive && gameMode === 'vsComputer' && currentPlayer === 'O') {
-            setTimeout(makeComputerMove, 800);
-        }
-    }
-    
-    // Fazer uma jogada
-    function makeMove(index) {
-        board[index] = currentPlayer;
-        updateDisplay();
-        
-        // Efeito visual na célula
-        const cell = document.querySelector(`.cell[data-index="${index}"]`);
-        cell.style.transform = 'scale(1.1)';
-        setTimeout(() => {
-            cell.style.transform = 'scale(1)';
-        }, 200);
-    }
-    
-    // Verificar resultado do jogo
-    function checkResult() {
-        let roundWon = false;
-        let winner = null;
-        
-        // Verificar todas as combinações vencedoras
-        for (let i = 0; i < winningCombinations.length; i++) {
-            const [a, b, c] = winningCombinations[i];
-            
-            if (board[a] === '' || board[b] === '' || board[c] === '') {
-                continue;
-            }
-            
-            if (board[a] === board[b] && board[b] === board[c]) {
-                roundWon = true;
-                winner = board[a];
-                
-                // Destacar células vencedoras
-                document.querySelector(`.cell[data-index="${a}"]`).classList.add('winner');
-                document.querySelector(`.cell[data-index="${b}"]`).classList.add('winner');
-                document.querySelector(`.cell[data-index="${c}"]`).classList.add('winner');
-                break;
-            }
-        }
-        
-        // Se houver um vencedor
-        if (roundWon) {
-            gameActive = false;
-            updateMessage(`<span style="color:${winner === 'X' ? '#ff4757' : '#3742fa'}">Jogador ${winner}</span> venceu!`);
-            
-            // Atualizar placar
-            scores[winner]++;
-            updateDisplay();
-            
-            // Efeito de confete visual
-            createConfetti();
-            return;
-        }
-        
-        // Verificar empate
-        const roundDraw = !board.includes('');
-        if (roundDraw) {
-            gameActive = false;
-            updateMessage('Empate!');
-            
-            // Atualizar placar
-            scores.tie++;
-            updateDisplay();
-            return;
-        }
-        
-        // Mudar jogador se o jogo ainda estiver ativo
-        if (gameActive) {
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            updateDisplay();
-            
-            if (gameMode === 'twoPlayers') {
-                updateMessage(`Vez do jogador ${currentPlayer}`);
-            } else {
-                if (currentPlayer === 'X') {
-                    updateMessage(`Sua vez (${currentPlayer})`);
-                } else {
-                    updateMessage('Vez do computador...');
-                }
-            }
-        }
-    }
-    
-    // Fazer jogada do computador
-    function makeComputerMove() {
-        if (!gameActive || currentPlayer !== 'O') return;
-        
-        let moveIndex = -1;
-        
-        // Estratégia do computador
-        // 1. Tentar vencer
-        moveIndex = findWinningMove('O');
-        
-        // 2. Bloquear jogador humano
-        if (moveIndex === -1) {
-            moveIndex = findWinningMove('X');
-        }
-        
-        // 3. Jogar no centro
-        if (moveIndex === -1 && board[4] === '') {
-            moveIndex = 4;
-        }
-        
-        // 4. Jogar em um canto
-        if (moveIndex === -1) {
-            const corners = [0, 2, 6, 8];
-            const availableCorners = corners.filter(index => board[index] === '');
-            if (availableCorners.length > 0) {
-                moveIndex = availableCorners[Math.floor(Math.random() * availableCorners.length)];
-            }
-        }
-        
-        // 5. Jogar em qualquer lugar disponível
-        if (moveIndex === -1) {
-            const availableCells = [];
-            for (let i = 0; i < 9; i++) {
-                if (board[i] === '') {
-                    availableCells.push(i);
-                }
-            }
-            
-            if (availableCells.length > 0) {
-                moveIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
-            }
-        }
-        
-        // Fazer a jogada
-        if (moveIndex !== -1) {
-            // Pequeno delay para parecer que o computador está "pensando"
-            setTimeout(() => {
-                makeMove(moveIndex);
-                checkResult();
-            }, 500);
-        }
-    }
-    
-    // Encontrar jogada vencedora
-    function findWinningMove(player) {
-        for (let i = 0; i < winningCombinations.length; i++) {
-            const [a, b, c] = winningCombinations[i];
-            
-            // Verificar se duas células estão com o mesmo símbolo e a terceira está vazia
-            const cells = [board[a], board[b], board[c]];
-            const playerCount = cells.filter(cell => cell === player).length;
-            const emptyCount = cells.filter(cell => cell === '').length;
-            
-            if (playerCount === 2 && emptyCount === 1) {
-                // Encontrar o índice da célula vazia
-                if (board[a] === '') return a;
-                if (board[b] === '') return b;
-                if (board[c] === '') return c;
-            }
-        }
-        
-        return -1;
-    }
-    
-    // Criar efeito de confete
-    function createConfetti() {
-        const colors = ['#ff4757', '#3742fa', '#2ed573', '#ffa502', '#7158e2'];
-        
-        for (let i = 0; i < 50; i++) {
-            const confetti = document.createElement('div');
-            confetti.style.position = 'fixed';
-            confetti.style.width = '10px';
-            confetti.style.height = '10px';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.borderRadius = '50%';
-            confetti.style.left = `${Math.random() * 100}vw`;
-            confetti.style.top = '-20px';
-            confetti.style.zIndex = '9999';
-            confetti.style.pointerEvents = 'none';
-            
-            document.body.appendChild(confetti);
-            
-            // Animação
-            const animation = confetti.animate([
-                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-            ], {
-                duration: 2000 + Math.random() * 2000,
-                easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
-            });
-            
-            // Remover após animação
-            animation.onfinish = () => {
-                confetti.remove();
-            };
-        }
-    }
-    
-    // Reiniciar partida
-    function resetGame() {
+    // ===== FUNÇÕES DE CONTROLE =====
+    function startNewGame() {
         board = ['', '', '', '', '', '', '', '', ''];
         currentPlayer = 'X';
         gameActive = true;
         updateDisplay();
-        updateMessage(`Vez do jogador ${currentPlayer}`);
+        updateMessage('Vez do jogador X. Faça sua jogada!');
         
         // Efeito visual
         const cells = document.querySelectorAll('.cell');
@@ -322,52 +425,130 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Novo jogo (zerar placar)
-    function newGame() {
-        scores = { X: 0, O: 0, tie: 0 };
-        resetGame();
-        
-        // Efeito visual
-        gameMessageElement.style.transform = 'scale(1.1)';
-        gameMessageElement.style.color = '#2ed573';
-        
-        setTimeout(() => {
-            gameMessageElement.style.transform = 'scale(1)';
-            gameMessageElement.style.color = '';
-        }, 300);
+    function resetGame() {
+        startNewGame();
+        updateMessage('Partida reiniciada! Jogador X começa.');
     }
     
-    // Alterar modo de jogo
+    function newGame() {
+        if (confirm('Tem certeza que deseja começar um novo jogo? O placar será zerado.')) {
+            scores = { X: 0, O: 0, tie: 0 };
+            startNewGame();
+            saveScores();
+            updateMessage('Novo jogo iniciado! Placar zerado.');
+        }
+    }
+    
     function toggleGameMode() {
         gameMode = gameMode === 'twoPlayers' ? 'vsComputer' : 'twoPlayers';
+        modeTextElement.textContent = `Modo: ${gameMode === 'twoPlayers' ? '2 Jogadores' : 'vs Computador'}`;
         resetGame();
-        
-        // Efeito visual
-        modeButton.style.transform = 'scale(1.1)';
-        
-        setTimeout(() => {
-            modeButton.style.transform = 'scale(1)';
-        }, 200);
+        updateMessage(`Modo alterado para: ${gameMode === 'twoPlayers' ? '2 Jogadores' : 'Contra IA'}`);
     }
     
-    // Adicionar eventos aos botões
-    resetButton.addEventListener('click', resetGame);
-    newGameButton.addEventListener('click', newGame);
-    modeButton.addEventListener('click', toggleGameMode);
-    
-    // Efeito de entrada na página
-    const elements = document.querySelectorAll('.game-main > *');
-    elements.forEach((element, index) => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(30px)';
+    function setDifficulty(level) {
+        difficulty = level;
         
-        setTimeout(() => {
-            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-        }, 300 + (index * 150));
-    });
+        // Atualizar botões ativos
+        difficultyButtons.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.difficulty === level) {
+                btn.classList.add('active');
+            }
+        });
+    }
     
-    // Inicializar o jogo
-    initGameBoard();
+    // ===== EFEITOS VISUAIS =====
+    function createParticles() {
+        for (let i = 0; i < 50; i++) {
+            createParticle();
+        }
+    }
+    
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.style.position = 'fixed';
+        particle.style.width = Math.random() * 5 + 2 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.background = Math.random() > 0.5 ? 'var(--azul-neon)' : 'var(--vermelho-furia)';
+        particle.style.borderRadius = '50%';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.opacity = '0.3';
+        particle.style.pointerEvents = 'none';
+        
+        particlesContainer.appendChild(particle);
+        
+        // Animação
+        particle.animate([
+            { transform: 'translateY(0px)', opacity: 0.3 },
+            { transform: `translateY(${Math.random() * 100 - 50}px)`, opacity: 0 }
+        ], {
+            duration: 2000 + Math.random() * 3000,
+            easing: 'ease-in-out'
+        }).onfinish = () => {
+            particle.remove();
+            setTimeout(createParticle, Math.random() * 1000);
+        };
+    }
+    
+    function createConfetti(color) {
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.background = color;
+            confetti.style.borderRadius = '50%';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-20px';
+            confetti.style.zIndex = '9999';
+            confetti.style.pointerEvents = 'none';
+            
+            document.body.appendChild(confetti);
+            
+            confetti.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+            ], {
+                duration: 2000 + Math.random() * 2000,
+                easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+            }).onfinish = () => {
+                confetti.remove();
+            };
+        }
+    }
+    
+    function highlightWinningCells(cells) {
+        cells.forEach(index => {
+            const cell = document.querySelector(`.cell[data-index="${index}"]`);
+            cell.classList.add('winner');
+        });
+    }
+    
+    function showWelcomeMessage() {
+        setTimeout(() => {
+            updateMessage('Bem-vindo ao Jogo da Velha da Fúria! Clique em "Novo Jogo" para começar.');
+        }, 1000);
+    }
+    
+    // ===== SALVAR/CARREGAR PONTUAÇÃO =====
+    function saveScores() {
+        localStorage.setItem('furiaTicTacToeScores', JSON.stringify(scores));
+        updateScoreDisplay();
+    }
+    
+    function loadScores() {
+        const savedScores = localStorage.getItem('furiaTicTacToeScores');
+        if (savedScores) {
+            scores = JSON.parse(savedScores);
+            updateScoreDisplay();
+        }
+    }
+    
+    // ===== INICIALIZAR JOGO =====
+    initializeGame();
+    
+    // Configurar botão para iniciar jogo
+    newGameButton.addEventListener('click', startNewGame);
 });
