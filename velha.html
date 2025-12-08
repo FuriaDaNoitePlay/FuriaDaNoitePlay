@@ -6,6 +6,7 @@
     <title>Jogo da Velha - FuriaDaNoitePlay</title>
     <link rel="stylesheet" href="style-velha.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="game-container">
@@ -15,76 +16,169 @@
                 Voltar
             </a>
             
-            <div class="game-title">
-                <i class="fas fa-times"></i>
-                <h1>JOGO DA VELHA</h1>
-                <i class="fas fa-circle"></i>
+            <div class="logo-header">
+                <img src="fúria.png" alt="Logo FuriaDaNoitePlay" class="game-logo">
+                <h1>JOGO DA VELHA DA FÚRIA</h1>
             </div>
             
             <div class="game-status" id="gameStatus">
-                <span id="currentPlayer">X</span> é a sua vez
+                <span class="status-text">Status:</span>
+                <span id="currentPlayer" class="current-player">X</span>
+                <span class="status-action">é a sua vez</span>
             </div>
         </header>
 
         <main class="game-main">
+            <!-- Placar -->
             <div class="score-board">
-                <div class="score-box">
+                <div class="score-box player-x">
+                    <div class="score-icon">X</div>
                     <h3>JOGADOR X</h3>
-                    <div class="score" id="scoreX">0</div>
+                    <div class="score-number" id="scoreX">0</div>
                 </div>
                 
-                <div class="score-box">
+                <div class="score-box draws">
+                    <div class="score-icon"><i class="fas fa-handshake"></i></div>
                     <h3>EMPATES</h3>
-                    <div class="score" id="scoreTie">0</div>
+                    <div class="score-number" id="scoreTie">0</div>
                 </div>
                 
-                <div class="score-box">
+                <div class="score-box player-o">
+                    <div class="score-icon">O</div>
                     <h3>JOGADOR O</h3>
-                    <div class="score" id="scoreO">0</div>
+                    <div class="score-number" id="scoreO">0</div>
                 </div>
             </div>
 
-            <div class="game-board" id="gameBoard">
-                <!-- As células serão geradas pelo JavaScript -->
+            <!-- Tabuleiro do jogo -->
+            <div class="game-board-container">
+                <div class="board-title">
+                    <i class="fas fa-chess-board"></i>
+                    <h2>TABULEIRO DA BATALHA</h2>
+                </div>
+                <div class="game-board" id="gameBoard">
+                    <!-- As células serão geradas pelo JavaScript -->
+                </div>
             </div>
 
+            <!-- Controles do jogo -->
             <div class="game-controls">
-                <button id="resetButton" class="control-button">
-                    <i class="fas fa-redo"></i>
+                <button id="resetButton" class="control-button reset-btn">
+                    <i class="fas fa-redo-alt"></i>
                     Reiniciar Partida
                 </button>
                 
-                <button id="newGameButton" class="control-button">
+                <button id="newGameButton" class="control-button newgame-btn">
                     <i class="fas fa-plus-circle"></i>
                     Novo Jogo
                 </button>
                 
-                <button id="modeButton" class="control-button">
+                <button id="modeButton" class="control-button mode-btn">
                     <i class="fas fa-robot"></i>
-                    Modo: 2 Jogadores
+                    <span id="modeText">Modo: 2 Jogadores</span>
                 </button>
             </div>
 
+            <!-- Área de mensagens -->
             <div class="game-message" id="gameMessage">
-                <p>Vez do jogador <span id="messagePlayer">X</span></p>
+                <div class="message-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="message-content">
+                    <p id="messageText">Vez do jogador <span id="messagePlayer">X</span></p>
+                </div>
             </div>
 
+            <!-- Instruções -->
             <div class="game-instructions">
-                <h3><i class="fas fa-info-circle"></i> Como Jogar</h3>
-                <ul>
-                    <li>O jogador <strong class="player-x">X</strong> sempre começa</li>
-                    <li>Clique em uma célula vazia para fazer sua jogada</li>
-                    <li>O objetivo é alinhar 3 símbolos iguais</li>
-                    <li>Pode ser na horizontal, vertical ou diagonal</li>
-                    <li>Use o botão "Modo" para jogar contra o computador</li>
-                </ul>
+                <div class="instructions-header">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>COMO DOMINAR O JOGO</h3>
+                </div>
+                <div class="instructions-content">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="instruction-text">
+                            <strong>O jogador X sempre começa</strong>
+                            <p>Comece com força e domine o tabuleiro!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-mouse-pointer"></i>
+                        </div>
+                        <div class="instruction-text">
+                            <strong>Clique em uma célula vazia</strong>
+                            <p>Faça sua jogada estrategicamente</p>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="instruction-text">
+                            <strong>Alinhe 3 símbolos iguais</strong>
+                            <p>Horizontal, vertical ou diagonal</p>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="instruction-text">
+                            <strong>Modo contra IA</strong>
+                            <p>Desafie a inteligência artificial da Noite</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dificuldade -->
+            <div class="difficulty-section">
+                <h3><i class="fas fa-tachometer-alt"></i> NÍVEL DE DESAFIO</h3>
+                <div class="difficulty-buttons">
+                    <button class="difficulty-btn easy active" data-difficulty="easy">
+                        <i class="fas fa-moon"></i>
+                        <span>FÁCIL</span>
+                        <small>Para iniciantes</small>
+                    </button>
+                    <button class="difficulty-btn medium" data-difficulty="medium">
+                        <i class="fas fa-fire"></i>
+                        <span>MÉDIO</span>
+                        <small>Desafio equilibrado</small>
+                    </button>
+                    <button class="difficulty-btn hard" data-difficulty="hard">
+                        <i class="fas fa-skull-crossbones"></i>
+                        <span>IMPOSSÍVEL</span>
+                        <small>Apenas para os fortes</small>
+                    </button>
+                </div>
             </div>
         </main>
 
         <footer class="game-footer">
-            <p><i class="fas fa-gamepad"></i> FuriaDaNoitePlay - Jogo da Velha</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="fúria.png" alt="Logo" class="footer-logo-img">
+                    <span class="footer-title">FuriaDaNoitePlay</span>
+                </div>
+                <div class="footer-divider"></div>
+                <p class="footer-subtitle">Jogo da Velha - Domine o Tabuleiro da Noite</p>
+                <p class="footer-copyright">
+                    <i class="fas fa-copyright"></i> 2025 FuriaDaNoitePlay - 
+                    <span class="signature">@ToxicSkull√</span>
+                </p>
+            </div>
         </footer>
     </div>
+
+    <!-- Efeitos de partículas -->
+    <div class="particles-container" id="particles"></div>
 
     <script src="script-velha.js"></script>
 </body>
