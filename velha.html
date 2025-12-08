@@ -4,27 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo da Velha - FuriaDaNoitePlay</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== RESET E CONFIGURAÇÕES GERAIS ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        /* Estilos mantidos do anterior */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --vermelho-furia: #ff0000;
-            --vermelho-escuro: #cc0000;
             --azul-neon: #0066ff;
             --amarelo-neon: #FFD700;
             --verde-adm: #00ff00;
-            --preto: #0c0c0c;
-            --cinza-escuro: #1a1a2e;
         }
-        
         body {
-            background: linear-gradient(135deg, var(--preto) 0%, var(--cinza-escuro) 50%, #16213e 100%);
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
             color: #fff;
             font-family: 'Arial', sans-serif;
             min-height: 100vh;
@@ -32,18 +22,45 @@
             padding: 20px;
         }
         
-        /* ===== CABEÇALHO ===== */
-        .header {
+        /* NOVO: Barra de usuário */
+        .user-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
-            border-bottom: 2px solid var(--vermelho-furia);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--vermelho-furia);
             margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--azul-neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 0 10px var(--azul-neon);
+        }
+        
+        .user-name {
+            color: var(--verde-adm);
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--verde-adm);
         }
         
         .back-btn {
-            background: linear-gradient(135deg, var(--azul-neon), #0044cc);
+            background: linear-gradient(135deg, var(--vermelho-furia), #cc0000);
             color: white;
             border: none;
             padding: 10px 20px;
@@ -52,112 +69,25 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
         
-        .back-btn:hover {
-            background: linear-gradient(135deg, #0044cc, var(--azul-neon));
-            box-shadow: 0 0 15px var(--azul-neon);
-            transform: translateY(-2px);
-        }
-        
-        .logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px var(--vermelho-furia);
-        }
-        
-        .title {
-            color: var(--vermelho-furia);
-            font-size: 28px;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px var(--vermelho-furia);
-        }
-        
-        /* ===== CONTAINER DO JOGO ===== */
         .game-container {
             max-width: 600px;
             margin: 0 auto;
             background: rgba(0, 0, 0, 0.7);
             border: 2px solid var(--vermelho-furia);
             border-radius: 15px;
-            box-shadow: 0 0 25px var(--vermelho-furia);
             padding: 25px;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
         }
         
-        .game-title {
-            color: var(--vermelho-furia);
-            font-size: 32px;
-            text-shadow: 0 0 20px var(--vermelho-furia);
-            margin-bottom: 5px;
-        }
-        
-        .game-subtitle {
-            color: #ccc;
-            font-size: 16px;
-            margin-bottom: 25px;
-        }
-        
-        /* ===== INFORMAÇÕES DO JOGO ===== */
-        .game-info {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid var(--vermelho-furia);
-            margin-bottom: 25px;
-        }
-        
-        .player-info {
-            text-align: center;
-        }
-        
-        .player-icon {
-            font-size: 30px;
-            margin-bottom: 5px;
-        }
-        
-        .player-x .player-icon {
-            color: var(--azul-neon);
-            text-shadow: 0 0 10px var(--azul-neon);
-        }
-        
-        .player-o .player-icon {
-            color: var(--amarelo-neon);
-            text-shadow: 0 0 10px var(--amarelo-neon);
-        }
-        
-        .player-name {
-            font-size: 14px;
-            font-weight: bold;
-        }
-        
-        .current-player {
-            color: var(--verde-adm);
-            font-weight: bold;
-            text-shadow: 0 0 10px var(--verde-adm);
-        }
-        
-        .score-display {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--vermelho-furia);
-            text-shadow: 0 0 10px var(--vermelho-furia);
-        }
-        
-        /* ===== TABULEIRO ===== */
         .game-board {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-gap: 10px;
             width: 100%;
             max-width: 400px;
-            margin: 0 auto 25px;
+            margin: 25px auto;
         }
         
         .cell {
@@ -172,7 +102,6 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
         
         .cell:hover {
@@ -191,17 +120,8 @@
             text-shadow: 0 0 20px var(--amarelo-neon);
         }
         
-        /* ===== CONTROLES ===== */
-        .game-controls {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
         .btn-game {
-            background: linear-gradient(135deg, var(--vermelho-furia), var(--vermelho-escuro));
+            background: linear-gradient(135deg, var(--vermelho-furia), #cc0000);
             color: white;
             border: none;
             padding: 12px 25px;
@@ -209,614 +129,326 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 16px;
-            min-width: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            margin: 10px;
         }
         
-        .btn-game:hover {
-            background: linear-gradient(135deg, var(--vermelho-escuro), var(--vermelho-furia));
-            box-shadow: 0 0 20px var(--vermelho-furia);
-            transform: translateY(-3px);
-        }
-        
-        .btn-game.secondary {
-            background: linear-gradient(135deg, var(--azul-neon), #0044cc);
-        }
-        
-        .btn-game.secondary:hover {
-            background: linear-gradient(135deg, #0044cc, var(--azul-neon));
-            box-shadow: 0 0 20px var(--azul-neon);
-        }
-        
-        /* ===== DIFICULDADE ===== */
-        .difficulty-selector {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .difficulty-btn {
-            background: rgba(0, 0, 0, 0.7);
-            color: #ccc;
-            border: 1px solid var(--vermelho-furia);
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .difficulty-btn.active {
-            background: var(--vermelho-furia);
-            color: white;
-            box-shadow: 0 0 15px var(--vermelho-furia);
-        }
-        
-        /* ===== MENSAGENS ===== */
         .message-area {
             margin: 20px 0;
             padding: 15px;
             border-radius: 10px;
-            font-weight: bold;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--vermelho-furia);
             min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--vermelho-furia);
-        }
-        
-        .win-message {
-            color: var(--verde-adm);
-            text-shadow: 0 0 15px var(--verde-adm);
-            animation: pulse 1.5s infinite;
-        }
-        
-        .lose-message {
-            color: var(--vermelho-furia);
-            text-shadow: 0 0 15px var(--vermelho-furia);
-        }
-        
-        .draw-message {
-            color: var(--amarelo-neon);
-            text-shadow: 0 0 15px var(--amarelo-neon);
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { opacity: 0.7; }
-        }
-        
-        /* ===== RESPONSIVIDADE ===== */
-        @media (max-width: 768px) {
-            .game-board {
-                max-width: 300px;
-            }
-            
-            .cell {
-                font-size: 50px;
-            }
-            
-            .btn-game {
-                min-width: 140px;
-                padding: 10px 20px;
-            }
-            
-            .header {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .title {
-                font-size: 24px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .game-board {
-                max-width: 280px;
-            }
-            
-            .cell {
-                font-size: 40px;
-            }
-            
-            .game-title {
-                font-size: 24px;
-            }
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <!-- ===== CABEÇALHO ===== -->
-    <div class="header">
-        <a href="index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> VOLTAR
-        </a>
-        
-        <div>
-            <img src="fúria.png" alt="Logo Fúria" class="logo">
-            <h1 class="title">FURIA DA NOITE</h1>
+    <!-- NOVO: Barra de usuário -->
+    <div class="user-bar">
+        <div class="user-info">
+            <div class="user-avatar" id="userAvatar">?</div>
+            <div>
+                <div class="user-name" id="userName">Carregando...</div>
+                <div style="font-size: 12px; color: #ccc;" id="userType"></div>
+            </div>
         </div>
         
-        <div style="width: 100px;"></div> <!-- Espaçador -->
+        <button onclick="voltarParaHome()" class="back-btn">
+            ← VOLTAR
+        </button>
     </div>
     
-    <!-- ===== CONTAINER DO JOGO ===== -->
+    <!-- Jogo -->
     <div class="game-container">
-        <h2 class="game-title">🎮 JOGO DA VELHA DA FÚRIA</h2>
-        <p class="game-subtitle">Desafie a IA da Noite e mostre seu poder!</p>
+        <h1 style="color: var(--vermelho-furia); text-shadow: 0 0 20px var(--vermelho-furia);">
+            🎮 JOGO DA VELHA DA FÚRIA
+        </h1>
         
-        <!-- Informações do jogo -->
-        <div class="game-info">
-            <div class="player-info player-x">
-                <div class="player-icon">X</div>
-                <div class="player-name">VOCÊ</div>
-                <div class="score-display" id="playerScore">0</div>
+        <p style="color: #ccc; margin: 10px 0;">
+            Desafie a IA da Noite!
+        </p>
+        
+        <!-- Placar -->
+        <div style="display: flex; justify-content: center; gap: 50px; margin: 20px 0;">
+            <div>
+                <div style="color: var(--azul-neon);">VOCÊ (X)</div>
+                <div id="playerScore" style="font-size: 30px; font-weight: bold;">0</div>
             </div>
-            
-            <div class="player-info">
-                <div style="font-size: 14px; color: #ccc; margin-top: 10px;">
-                    Vez: <span id="currentPlayer" class="current-player">Você (X)</span>
-                </div>
-            </div>
-            
-            <div class="player-info player-o">
-                <div class="player-icon">O</div>
-                <div class="player-name">IA DA NOITE</div>
-                <div class="score-display" id="aiScore">0</div>
+            <div>
+                <div style="color: var(--amarelo-neon);">IA (O)</div>
+                <div id="aiScore" style="font-size: 30px; font-weight: bold;">0</div>
             </div>
         </div>
         
-        <!-- Tabuleiro do jogo -->
-        <div class="game-board" id="gameBoard">
-            <!-- Células serão geradas por JavaScript -->
-        </div>
+        <!-- Tabuleiro -->
+        <div class="game-board" id="gameBoard"></div>
         
-        <!-- Área de mensagens -->
+        <!-- Mensagem -->
         <div class="message-area" id="messageArea">
-            Selecione a dificuldade e clique em "Novo Jogo" para começar!
+            Clique em NOVO JOGO para começar!
         </div>
         
-        <!-- Seletor de dificuldade -->
-        <div class="difficulty-selector">
-            <button class="difficulty-btn active" data-difficulty="easy">FÁCIL 🌙</button>
-            <button class="difficulty-btn" data-difficulty="medium">MÉDIO 🔥</button>
-            <button class="difficulty-btn" data-difficulty="hard">IMPOSSÍVEL 💀</button>
+        <!-- Controles -->
+        <div>
+            <button onclick="startNewGame()" class="btn-game">
+                🎮 NOVO JOGO
+            </button>
+            <button onclick="resetScore()" class="btn-game" style="background: linear-gradient(135deg, #0066ff, #0044cc);">
+                🔄 ZERAR PLACAR
+            </button>
         </div>
         
-        <!-- Controles do jogo -->
-        <div class="game-controls">
-            <button class="btn-game" id="newGameBtn">
-                <i class="fas fa-play-circle"></i> NOVO JOGO
-            </button>
-            <button class="btn-game secondary" id="resetScoreBtn">
-                <i class="fas fa-redo"></i> ZERAR PLACAR
-            </button>
+        <!-- Dificuldade -->
+        <div style="margin: 20px 0;">
+            <p style="color: #ccc; margin-bottom: 10px;">Dificuldade:</p>
+            <button onclick="setDifficulty('easy')" class="btn-game" style="padding: 8px 15px;">FÁCIL</button>
+            <button onclick="setDifficulty('medium')" class="btn-game" style="padding: 8px 15px;">MÉDIO</button>
+            <button onclick="setDifficulty('hard')" class="btn-game" style="padding: 8px 15px;">DIFÍCIL</button>
         </div>
     </div>
-    
-    <!-- ===== RODAPÉ ===== -->
-    <footer style="margin-top: 40px; color: #ff0000; text-shadow: 0 0 10px #ff0000;">
-        <p>© 2025 FuriaDaNoitePlay - Jogo da Velha | @ToxicSkull√</p>
-        <p>"A fúria não dorme, ela espera." 🌙🔥</p>
-    </footer>
 
     <script>
-        // ===== VARIÁVEIS GLOBAIS DO JOGO =====
+        // =============================================
+        // SISTEMA DO JOGO
+        // =============================================
+        
         let board = ['', '', '', '', '', '', '', '', ''];
-        let currentPlayer = 'X'; // Jogador é X, IA é O
         let gameActive = false;
-        let scores = { player: 0, ai: 0, draws: 0 };
-        let difficulty = 'medium'; // Padrão: médio
+        let scores = { player: 0, ai: 0 };
+        let difficulty = 'medium';
+        let currentPlayer = 'X';
         
-        // Combinações vencedoras
-        const winningConditions = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Linhas
-            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Colunas
-            [0, 4, 8], [2, 4, 6]             // Diagonais
-        ];
-        
-        // ===== INICIALIZAÇÃO DO JOGO =====
-        function initializeGame() {
-            // Criar o tabuleiro
+        // Inicializar jogo
+        function initGame() {
+            // Criar tabuleiro
             const gameBoard = document.getElementById('gameBoard');
             gameBoard.innerHTML = '';
             
             for (let i = 0; i < 9; i++) {
                 const cell = document.createElement('div');
-                cell.classList.add('cell');
-                cell.setAttribute('data-index', i);
-                cell.addEventListener('click', () => cellClicked(i));
+                cell.className = 'cell';
+                cell.textContent = board[i];
+                cell.onclick = () => makeMove(i);
                 gameBoard.appendChild(cell);
             }
             
-            // Configurar botões de dificuldade
-            document.querySelectorAll('.difficulty-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    difficulty = this.getAttribute('data-difficulty');
-                    updateMessage(`Dificuldade alterada para: ${this.textContent}`);
-                });
-            });
-            
-            // Configurar botões de controle
-            document.getElementById('newGameBtn').addEventListener('click', startNewGame);
-            document.getElementById('resetScoreBtn').addEventListener('click', resetScore);
-            
-            // Carregar pontuação salva
-            const savedScores = localStorage.getItem('furiaTicTacToeScores');
+            // Carregar placar
+            const savedScores = localStorage.getItem('furia_scores');
             if (savedScores) {
                 scores = JSON.parse(savedScores);
-                updateScoreDisplay();
+                updateScores();
             }
             
-            // Atualizar exibição inicial
-            updateMessage('Selecione a dificuldade e clique em "Novo Jogo" para começar!');
+            // Verificar usuário
+            checkUser();
         }
         
-        // ===== FUNÇÕES DO JOGO =====
+        // Verificar usuário logado
+        function checkUser() {
+            const user = localStorage.getItem('furia_user') || 'Visitante';
+            const tipo = localStorage.getItem('furia_tipo') || 'visitante';
+            
+            document.getElementById('userName').textContent = user;
+            document.getElementById('userType').textContent = tipo === 'adm' ? 'Administrador' : 
+                                                           tipo === 'membro' ? 'Membro' : 'Visitante';
+            
+            // Gerar avatar com primeira letra
+            document.getElementById('userAvatar').textContent = user.charAt(0).toUpperCase();
+            
+            // Cor diferente para adm
+            if (tipo === 'adm') {
+                document.getElementById('userAvatar').style.background = 'linear-gradient(135deg, #ff0000, #cc0000)';
+            }
+        }
+        
+        // Voltar para home
+        function voltarParaHome() {
+            window.location.href = 'index.html';
+        }
+        
+        // =============================================
+        // LÓGICA DO JOGO
+        // =============================================
+        
         function startNewGame() {
-            // Resetar o tabuleiro
             board = ['', '', '', '', '', '', '', '', ''];
             gameActive = true;
             currentPlayer = 'X';
-            
-            // Atualizar exibição
-            updateBoardDisplay();
-            updateCurrentPlayerDisplay();
-            updateMessage('Sua vez! Você é X. Clique em uma célula para jogar.');
+            updateBoard();
+            document.getElementById('messageArea').textContent = 'Sua vez! Clique em uma célula.';
         }
         
-        function cellClicked(index) {
-            if (!gameActive || board[index] !== '' || currentPlayer !== 'X') return;
+        function makeMove(index) {
+            if (!gameActive || board[index] !== '') return;
             
-            // Fazer a jogada do jogador
-            makeMove(index, 'X');
+            // Jogador faz jogada
+            board[index] = 'X';
+            updateBoard();
             
-            // Verificar se o jogo acabou
-            if (checkGameResult()) return;
-            
-            // Alternar para a IA
-            currentPlayer = 'O';
-            updateCurrentPlayerDisplay();
-            updateMessage('IA da Noite está pensando...');
-            
-            // IA faz sua jogada após um pequeno delay
-            setTimeout(makeAiMove, 600);
-        }
-        
-        function makeMove(index, player) {
-            board[index] = player;
-            updateBoardDisplay();
-        }
-        
-        function makeAiMove() {
-            if (!gameActive || currentPlayer !== 'O') return;
-            
-            let moveIndex;
-            
-            // Lógica da IA baseada na dificuldade
-            switch(difficulty) {
-                case 'easy':
-                    moveIndex = getEasyAiMove();
-                    break;
-                case 'medium':
-                    moveIndex = getMediumAiMove();
-                    break;
-                case 'hard':
-                    moveIndex = getHardAiMove();
-                    break;
-                default:
-                    moveIndex = getMediumAiMove();
-            }
-            
-            // Fazer a jogada da IA
-            makeMove(moveIndex, 'O');
-            
-            // Verificar se o jogo acabou
-            if (!checkGameResult()) {
-                currentPlayer = 'X';
-                updateCurrentPlayerDisplay();
-                updateMessage('Sua vez! Escolha uma célula.');
-            }
-        }
-        
-        function getEasyAiMove() {
-            // IA fácil: escolhe aleatoriamente
-            const emptyCells = board.map((cell, index) => cell === '' ? index : null).filter(val => val !== null);
-            
-            // 30% de chance de fazer uma jogada ruim (se houver)
-            if (Math.random() < 0.3 && emptyCells.length > 1) {
-                // Evitar bloquear vitórias do jogador
-                const winningMoves = getWinningMoves('X');
-                const blockingMoves = getWinningMoves('O');
-                
-                // Remover jogadas boas
-                const badMoves = emptyCells.filter(index => 
-                    !winningMoves.includes(index) && !blockingMoves.includes(index)
-                );
-                
-                if (badMoves.length > 0) {
-                    return badMoves[Math.floor(Math.random() * badMoves.length)];
-                }
-            }
-            
-            // Jogada normal
-            return emptyCells[Math.floor(Math.random() * emptyCells.length)];
-        }
-        
-        function getMediumAiMove() {
-            // IA média: tenta vencer ou bloquear, senão joga aleatoriamente
-            
-            // 1. Verificar se pode vencer
-            const winningMove = findWinningMove('O');
-            if (winningMove !== -1) return winningMove;
-            
-            // 2. Verificar se precisa bloquear o jogador
-            const blockingMove = findWinningMove('X');
-            if (blockingMove !== -1) return blockingMove;
-            
-            // 3. Jogar no centro se disponível
-            if (board[4] === '') return 4;
-            
-            // 4. Jogar em um canto se disponível
-            const corners = [0, 2, 6, 8];
-            const availableCorners = corners.filter(index => board[index] === '');
-            if (availableCorners.length > 0) {
-                return availableCorners[Math.floor(Math.random() * availableCorners.length)];
-            }
-            
-            // 5. Jogar em uma borda
-            const edges = [1, 3, 5, 7];
-            const availableEdges = edges.filter(index => board[index] === '');
-            if (availableEdges.length > 0) {
-                return availableEdges[Math.floor(Math.random() * availableEdges.length)];
-            }
-            
-            // Fallback: qualquer célula vazia
-            const emptyCells = board.map((cell, index) => cell === '' ? index : null).filter(val => val !== null);
-            return emptyCells[0];
-        }
-        
-        function getHardAiMove() {
-            // IA difícil: usa algoritmo Minimax (quase perfeita)
-            
-            // 1. Verificar se pode vencer
-            const winningMove = findWinningMove('O');
-            if (winningMove !== -1) return winningMove;
-            
-            // 2. Verificar se precisa bloquear
-            const blockingMove = findWinningMove('X');
-            if (blockingMove !== -1) return blockingMove;
-            
-            // 3. Usar Minimax para a melhor jogada
-            return minimax(board, 'O').index;
-        }
-        
-        function findWinningMove(player) {
-            for (let i = 0; i < winningConditions.length; i++) {
-                const [a, b, c] = winningConditions[i];
-                const cells = [board[a], board[b], board[c]];
-                
-                // Contar células do jogador e vazias
-                const playerCount = cells.filter(cell => cell === player).length;
-                const emptyCount = cells.filter(cell => cell === '').length;
-                
-                if (playerCount === 2 && emptyCount === 1) {
-                    // Retornar a célula vazia nesta combinação
-                    if (board[a] === '') return a;
-                    if (board[b] === '') return b;
-                    if (board[c] === '') return c;
-                }
-            }
-            
-            return -1; // Nenhuma jogada vencedora encontrada
-        }
-        
-        function getWinningMoves(player) {
-            const moves = [];
-            for (let i = 0; i < winningConditions.length; i++) {
-                const [a, b, c] = winningConditions[i];
-                const cells = [board[a], board[b], board[c]];
-                
-                const playerCount = cells.filter(cell => cell === player).length;
-                const emptyCount = cells.filter(cell => cell === '').length;
-                
-                if (playerCount === 2 && emptyCount === 1) {
-                    if (board[a] === '') moves.push(a);
-                    if (board[b] === '') moves.push(b);
-                    if (board[c] === '') moves.push(c);
-                }
-            }
-            return moves;
-        }
-        
-        // Algoritmo Minimax para IA difícil
-        function minimax(newBoard, player) {
-            // Verificar estado do jogo
-            const gameResult = checkGameState(newBoard);
-            
-            if (gameResult === 'X') return {score: -10};
-            if (gameResult === 'O') return {score: 10};
-            if (gameResult === 'draw') return {score: 0};
-            
-            // Array para armazenar todas as jogadas possíveis
-            const moves = [];
-            
-            // Gerar todas as jogadas possíveis
-            for (let i = 0; i < newBoard.length; i++) {
-                if (newBoard[i] === '') {
-                    const move = {};
-                    move.index = i;
-                    
-                    // Fazer a jogada
-                    newBoard[i] = player;
-                    
-                    // Chamar minimax recursivamente para o próximo jogador
-                    if (player === 'O') {
-                        const result = minimax(newBoard, 'X');
-                        move.score = result.score;
-                    } else {
-                        const result = minimax(newBoard, 'O');
-                        move.score = result.score;
-                    }
-                    
-                    // Desfazer a jogada
-                    newBoard[i] = '';
-                    
-                    // Adicionar a jogada ao array
-                    moves.push(move);
-                }
-            }
-            
-            // Escolher a melhor jogada
-            let bestMove;
-            if (player === 'O') {
-                let bestScore = -Infinity;
-                for (let i = 0; i < moves.length; i++) {
-                    if (moves[i].score > bestScore) {
-                        bestScore = moves[i].score;
-                        bestMove = i;
-                    }
-                }
-            } else {
-                let bestScore = Infinity;
-                for (let i = 0; i < moves.length; i++) {
-                    if (moves[i].score < bestScore) {
-                        bestScore = moves[i].score;
-                        bestMove = i;
-                    }
-                }
-            }
-            
-            return moves[bestMove];
-        }
-        
-        function checkGameState(boardState) {
-            // Verificar vitórias
-            for (let i = 0; i < winningConditions.length; i++) {
-                const [a, b, c] = winningConditions[i];
-                if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
-                    return boardState[a]; // Retorna 'X' ou 'O'
-                }
+            // Verificar vitória
+            if (checkWinner('X')) {
+                gameActive = false;
+                scores.player++;
+                updateScores();
+                document.getElementById('messageArea').textContent = '🎉 VOCÊ VENCEU!';
+                return;
             }
             
             // Verificar empate
-            if (!boardState.includes('')) {
-                return 'draw';
+            if (board.every(cell => cell !== '')) {
+                gameActive = false;
+                document.getElementById('messageArea').textContent = '🤝 EMPATE!';
+                return;
             }
             
-            return null; // Jogo ainda não acabou
+            // IA joga
+            setTimeout(() => {
+                if (!gameActive) return;
+                
+                const aiMove = getAIMove();
+                if (aiMove !== -1) {
+                    board[aiMove] = 'O';
+                    updateBoard();
+                    
+                    if (checkWinner('O')) {
+                        gameActive = false;
+                        scores.ai++;
+                        updateScores();
+                        document.getElementById('messageArea').textContent = '💀 IA VENCEU!';
+                    } else if (board.every(cell => cell !== '')) {
+                        gameActive = false;
+                        document.getElementById('messageArea').textContent = '🤝 EMPATE!';
+                    }
+                }
+            }, 500);
         }
         
-        function checkGameResult() {
-            const result = checkGameState(board);
-            
-            if (result === 'X') {
-                // Jogador venceu
-                gameActive = false;
-                scores.player++;
-                updateScoreDisplay();
-                saveScores();
-                updateMessage('🎉 VOCÊ VENCEU! A Fúria está com você!', 'win');
-                return true;
-            } else if (result === 'O') {
-                // IA venceu
-                gameActive = false;
-                scores.ai++;
-                updateScoreDisplay();
-                saveScores();
-                updateMessage('💀 A IA da Noite venceu! Tente novamente!', 'lose');
-                return true;
-            } else if (result === 'draw') {
-                // Empate
-                gameActive = false;
-                scores.draws++;
-                updateScoreDisplay();
-                saveScores();
-                updateMessage('🤝 EMPATE! A batalha foi equilibrada!', 'draw');
-                return true;
+        function getAIMove() {
+            const emptyCells = [];
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === '') emptyCells.push(i);
             }
             
-            return false; // Jogo continua
+            if (emptyCells.length === 0) return -1;
+            
+            // Lógica simples baseada na dificuldade
+            if (difficulty === 'easy') {
+                // Aleatório
+                return emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            } else if (difficulty === 'medium') {
+                // Tenta bloquear ou ganhar
+                // Verificar se pode ganhar
+                for (let i = 0; i < emptyCells.length; i++) {
+                    const testBoard = [...board];
+                    testBoard[emptyCells[i]] = 'O';
+                    if (checkWinnerBoard('O', testBoard)) {
+                        return emptyCells[i];
+                    }
+                }
+                
+                // Verificar se precisa bloquear
+                for (let i = 0; i < emptyCells.length; i++) {
+                    const testBoard = [...board];
+                    testBoard[emptyCells[i]] = 'X';
+                    if (checkWinnerBoard('X', testBoard)) {
+                        return emptyCells[i];
+                    }
+                }
+                
+                // Aleatório
+                return emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            } else {
+                // Difícil - estratégia melhor
+                // Centro primeiro
+                if (board[4] === '') return 4;
+                
+                // Tenta ganhar
+                for (let i = 0; i < emptyCells.length; i++) {
+                    const testBoard = [...board];
+                    testBoard[emptyCells[i]] = 'O';
+                    if (checkWinnerBoard('O', testBoard)) {
+                        return emptyCells[i];
+                    }
+                }
+                
+                // Tenta bloquear
+                for (let i = 0; i < emptyCells.length; i++) {
+                    const testBoard = [...board];
+                    testBoard[emptyCells[i]] = 'X';
+                    if (checkWinnerBoard('X', testBoard)) {
+                        return emptyCells[i];
+                    }
+                }
+                
+                // Aleatório
+                return emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            }
         }
         
-        // ===== FUNÇÕES DE ATUALIZAÇÃO DA INTERFACE =====
-        function updateBoardDisplay() {
+        function checkWinner(player) {
+            return checkWinnerBoard(player, board);
+        }
+        
+        function checkWinnerBoard(player, boardState) {
+            const winPatterns = [
+                [0,1,2], [3,4,5], [6,7,8], // Linhas
+                [0,3,6], [1,4,7], [2,5,8], // Colunas
+                [0,4,8], [2,4,6] // Diagonais
+            ];
+            
+            for (const pattern of winPatterns) {
+                if (pattern.every(index => boardState[index] === player)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        function updateBoard() {
             const cells = document.querySelectorAll('.cell');
             cells.forEach((cell, index) => {
                 cell.textContent = board[index];
-                cell.className = 'cell';
                 if (board[index] === 'X') {
-                    cell.classList.add('x');
+                    cell.className = 'cell x';
                 } else if (board[index] === 'O') {
-                    cell.classList.add('o');
+                    cell.className = 'cell o';
+                } else {
+                    cell.className = 'cell';
                 }
             });
         }
         
-        function updateCurrentPlayerDisplay() {
-            const currentPlayerElement = document.getElementById('currentPlayer');
-            if (currentPlayer === 'X') {
-                currentPlayerElement.textContent = 'Você (X)';
-                currentPlayerElement.style.color = '#0066ff';
-            } else {
-                currentPlayerElement.textContent = 'IA da Noite (O)';
-                currentPlayerElement.style.color = '#FFD700';
-            }
-        }
-        
-        function updateScoreDisplay() {
+        function updateScores() {
             document.getElementById('playerScore').textContent = scores.player;
             document.getElementById('aiScore').textContent = scores.ai;
-        }
-        
-        function updateMessage(message, type = '') {
-            const messageArea = document.getElementById('messageArea');
-            messageArea.textContent = message;
-            
-            // Remover classes anteriores
-            messageArea.classList.remove('win-message', 'lose-message', 'draw-message');
-            
-            // Adicionar classe conforme o tipo
-            if (type === 'win') {
-                messageArea.classList.add('win-message');
-            } else if (type === 'lose') {
-                messageArea.classList.add('lose-message');
-            } else if (type === 'draw') {
-                messageArea.classList.add('draw-message');
-            }
+            localStorage.setItem('furia_scores', JSON.stringify(scores));
         }
         
         function resetScore() {
-            if (confirm('Tem certeza que deseja zerar o placar?')) {
-                scores = { player: 0, ai: 0, draws: 0 };
-                updateScoreDisplay();
-                saveScores();
-                updateMessage('Placar zerado! Inicie um novo jogo.');
+            if (confirm('Zerar placar?')) {
+                scores = { player: 0, ai: 0 };
+                updateScores();
             }
         }
         
-        function saveScores() {
-            localStorage.setItem('furiaTicTacToeScores', JSON.stringify(scores));
+        function setDifficulty(level) {
+            difficulty = level;
+            document.getElementById('messageArea').textContent = `Dificuldade: ${level.toUpperCase()}`;
         }
         
-        // ===== INICIALIZAR O JOGO =====
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeGame();
+        // Iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            initGame();
+            startNewGame(); // Começa automaticamente
             
-            // Efeito de brilho no título
-            const title = document.querySelector('.game-title');
+            // Efeito visual
+            const title = document.querySelector('h1');
             setInterval(() => {
-                const intensity = Math.random() * 20 + 10;
+                const intensity = Math.random() * 15 + 10;
                 title.style.textShadow = `0 0 ${intensity}px #ff0000`;
             }, 1000);
         });
