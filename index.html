@@ -3,294 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FuriaDaNoitePlay - Em Manutenção</title>
-    <style>
-        /* Estilos mantidos do anterior */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-        }
-        .maintenance-container {
-            max-width: 800px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 3px solid #ff0000;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-        }
-        h1 { color: #ff0000; font-size: 2.5rem; text-shadow: 0 0 20px #ff0000; }
-        .warning { color: #ff4444; font-size: 1.5rem; margin: 20px 0; }
-        .date { color: #FFD700; font-size: 1.8rem; margin: 25px 0; }
-        .message { font-size: 1.2rem; line-height: 1.6; margin: 25px 0; color: #ccc; }
-        
-        /* NOVO: Sistema de Login Integrado */
-        .login-box {
-            margin: 30px 0;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #0066ff;
-            border-radius: 10px;
-        }
-        
-        .login-input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 2px solid #ff0000;
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            font-size: 16px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-            margin: 10px;
-        }
-        
-        .btn:hover {
-            background: linear-gradient(135deg, #cc0000, #ff0000);
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
-            transform: translateY(-3px);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #0066ff, #0044cc);
-            box-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
-        }
-        
-        .btn-secondary:hover {
-            background: linear-gradient(135deg, #0044cc, #0066ff);
-            box-shadow: 0 0 25px rgba(0, 102, 255, 0.8);
-        }
-        
-        .status-login {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 8px;
-            display: none;
-        }
-        
-        .status-success {
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid #00ff00;
-            color: #00ff00;
-            display: block;
-        }
-        
-        .status-error {
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid #ff0000;
-            color: #ff0000;
-            display: block;
-        }
-        
-        .user-info {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(0, 102, 255, 0.1);
-            border: 1px solid #0066ff;
-            border-radius: 8px;
-            color: #0066ff;
-        }
-        
-        .user-info h3 {
-            color: #ff0000;
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>Sistema em Manutenção - FuriaDaNoitePlay</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <img src="fúria.png" alt="Logo Fúria da Noite" class="logo">
-    
-    <div class="maintenance-container">
-        <h1>🔥 FURIA DA NOITE PLAY 🔥</h1>
-        
-        <div class="warning">⚠️ SISTEMA EM MANUTENÇÃO ⚠️</div>
-        
-        <div class="message">
-            O <strong>FuriaDaNoitePlay</strong> está passando por atualizações críticas.
-            <br>Previsão de retorno: <span class="date">01 de Fevereiro de 2026</span>
-        </div>
-        
-        <!-- NOVO: Sistema de Login Integrado -->
-        <div class="login-box">
-            <h2>🎮 ACESSO AO JOGO</h2>
-            
-            <div id="userLoggedIn" class="user-info" style="display: none;">
-                <h3>👤 Usuário Conectado</h3>
-                <p id="userName"></p>
-                <button onclick="fazerLogout()" class="btn">🚪 Sair</button>
+    <div class="container">
+        <div class="maintenance-card">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-tools"></i>
+                    <h1>SISTEMA EM MANUTENÇÃO</h1>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">MANUTENÇÃO</span>
+                </div>
             </div>
             
-            <div id="loginForm">
-                <input type="text" id="loginUser" class="login-input" placeholder="Usuário ou Nick">
-                <input type="password" id="loginPass" class="login-input" placeholder="Senha">
+            <div class="content">
+                <div class="message">
+                    <p>O <span class="highlight">FuriaDaNoitePlay</span> está passando por atualizações críticas</p>
+                    <p class="return-date">Previsão de retorno: <strong>01 de Fevereiro de 2026</strong></p>
+                </div>
                 
-                <button onclick="tentarLogin()" class="btn">🔓 ENTRAR</button>
-                <button onclick="entrarComoVisitante()" class="btn btn-secondary">👤 VISITANTE</button>
+                <div class="divider"></div>
                 
-                <p style="margin-top: 15px; color: #ccc;">
-                    Não tem conta? <a href="cadastro.html" style="color: #ff0000;">Cadastre-se aqui</a>
-                </p>
+                <div class="info-box">
+                    <p><i class="fas fa-exclamation-circle"></i> Apenas os painéis administrativos estão disponíveis durante este período</p>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <p class="thank-you">Obrigado pela compreensão!</p>
+                
+                <!-- Botão para o Jogo da Velha -->
+                <div class="game-button-container">
+                    <button class="game-btn" id="goToGame">
+                        <i class="fas fa-gamepad"></i> Jogar Jogo da Velha
+                    </button>
+                    <p class="game-hint">Enquanto aguarda, divirta-se com um jogo clássico!</p>
+                </div>
+                
+                <div class="positive-badge">
+                    <span>POSITIVO</span>
+                </div>
             </div>
             
-            <div id="loginStatus" class="status-login"></div>
+            <div class="footer">
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Progresso da Manutenção</span>
+                        <span id="progressPercent">45%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> suporte@furiadanoiteplay.com</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                </div>
+            </div>
         </div>
         
-        <!-- Botão do Jogo -->
-        <div class="button-container">
-            <button onclick="acessarJogo()" class="btn">
-                🎮 JOGAR JOGO DA VELHA
-            </button>
+        <div class="countdown">
+            <h3><i class="fas fa-clock"></i> Contagem Regressiva</h3>
+            <div class="countdown-timer">
+                <div class="time-unit">
+                    <span id="days">00</span>
+                    <small>Dias</small>
+                </div>
+                <div class="time-unit">
+                    <span id="hours">00</span>
+                    <small>Horas</small>
+                </div>
+                <div class="time-unit">
+                    <span id="minutes">00</span>
+                    <small>Minutos</small>
+                </div>
+                <div class="time-unit">
+                    <span id="seconds">00</span>
+                    <small>Segundos</small>
+                </div>
+            </div>
         </div>
     </div>
-
-    <script>
-        // =============================================
-        // SISTEMA DE LOGIN SIMPLIFICADO
-        // =============================================
-        
-        // Dados de usuários (compatível com sistema antigo)
-        const usuariosPadrao = [
-            { nick: "FURIAGOD", senha: "Furia2025_$25", tipo: "adm" },
-            { nick: "Scorpion", senha: "Mlk0025", tipo: "adm" },
-            { nick: "ToxicSkull√", senha: "L@!on25", tipo: "adm" }
-        ];
-        
-        // Verificar se já está logado
-        function verificarLogin() {
-            const user = localStorage.getItem('furia_user');
-            if (user) {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('userLoggedIn').style.display = 'block';
-                document.getElementById('userName').textContent = user;
-                return user;
-            }
-            return null;
-        }
-        
-        // Tentar login
-        function tentarLogin() {
-            const user = document.getElementById('loginUser').value;
-            const pass = document.getElementById('loginPass').value;
-            const status = document.getElementById('loginStatus');
-            
-            if (!user || !pass) {
-                status.className = 'status-error';
-                status.textContent = '❌ Preencha usuário e senha!';
-                return;
-            }
-            
-            // Verificar usuários padrão
-            const usuarioValido = usuariosPadrao.find(u => 
-                u.nick === user && u.senha === pass
-            );
-            
-            if (usuarioValido) {
-                // Login bem-sucedido
-                localStorage.setItem('furia_user', user);
-                localStorage.setItem('furia_tipo', usuarioValido.tipo);
-                
-                status.className = 'status-success';
-                status.textContent = '✅ Login bem-sucedido! Redirecionando...';
-                
-                setTimeout(() => {
-                    verificarLogin();
-                }, 1000);
-            } else {
-                // Verificar usuários cadastrados
-                const usuariosSalvos = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
-                const usuarioCadastrado = usuariosSalvos.find(u => 
-                    u.nick === user && u.senha === pass
-                );
-                
-                if (usuarioCadastrado) {
-                    localStorage.setItem('furia_user', user);
-                    localStorage.setItem('furia_tipo', 'membro');
-                    
-                    status.className = 'status-success';
-                    status.textContent = '✅ Login bem-sucedido!';
-                    
-                    setTimeout(() => {
-                        verificarLogin();
-                    }, 1000);
-                } else {
-                    status.className = 'status-error';
-                    status.textContent = '❌ Usuário ou senha incorretos!';
-                }
-            }
-        }
-        
-        // Entrar como visitante
-        function entrarComoVisitante() {
-            localStorage.setItem('furia_user', 'Visitante');
-            localStorage.setItem('furia_tipo', 'visitante');
-            
-            document.getElementById('loginStatus').className = 'status-success';
-            document.getElementById('loginStatus').textContent = '✅ Modo visitante ativado!';
-            
-            setTimeout(() => {
-                verificarLogin();
-            }, 1000);
-        }
-        
-        // Fazer logout
-        function fazerLogout() {
-            localStorage.removeItem('furia_user');
-            localStorage.removeItem('furia_tipo');
-            
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('userLoggedIn').style.display = 'none';
-            document.getElementById('loginStatus').className = 'status-success';
-            document.getElementById('loginStatus').textContent = '✅ Logout realizado!';
-        }
-        
-        // Acessar jogo
-        function acessarJogo() {
-            const user = localStorage.getItem('furia_user');
-            
-            if (!user) {
-                document.getElementById('loginStatus').className = 'status-error';
-                document.getElementById('loginStatus').textContent = '❌ Faça login primeiro!';
-                return;
-            }
-            
-            // Redirecionar para o jogo
-            window.location.href = 'velha.html';
-        }
-        
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', () => {
-            verificarLogin();
-            
-            // Efeito visual
-            const title = document.querySelector('h1');
-            setInterval(() => {
-                const intensity = Math.random() * 20 + 10;
-                title.style.textShadow = `0 0 ${intensity}px #ff0000`;
-            }, 1000);
-        });
-    </script>
+    
+    <script src="script.js"></script>
 </body>
 </html>
