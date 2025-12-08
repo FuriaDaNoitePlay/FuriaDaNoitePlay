@@ -3,182 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo da Velha - FuriaDaNoitePlay</title>
+    <title>🎮 JOGO DA VELHA DA FÚRIA 🎮</title>
     <link rel="stylesheet" href="style-velha.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Oxanium:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Efeitos de Partículas -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Fogo de Fundo -->
+    <div class="fire-background"></div>
+    
+    <!-- Container Principal -->
     <div class="game-container">
-        <header class="game-header">
-            <a href="index.html" class="back-button">
-                <i class="fas fa-arrow-left"></i>
-                Voltar
-            </a>
-            
-            <div class="logo-header">
-                <img src="fúria.png" alt="Logo FuriaDaNoitePlay" class="game-logo">
-                <h1>JOGO DA VELHA DA FÚRIA</h1>
-            </div>
-            
-            <div class="game-status" id="gameStatus">
-                <span class="status-text">Status:</span>
-                <span id="currentPlayer" class="current-player">X</span>
-                <span class="status-action">é a sua vez</span>
-            </div>
-        </header>
-
-        <main class="game-main">
-            <!-- Placar -->
-            <div class="score-board">
-                <div class="score-box player-x">
-                    <div class="score-icon">X</div>
-                    <h3>JOGADOR X</h3>
-                    <div class="score-number" id="scoreX">0</div>
+        <!-- Cabeçalho -->
+        <div class="header-container">
+            <div class="top-bar">
+                <a href="index.html" class="back-btn pulse">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>VOLTAR AO SISTEMA</span>
+                </a>
+                
+                <div class="logo-title">
+                    <div class="logo-glow">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h1 class="main-title">
+                        <span class="title-text">JOGO DA VELHA</span>
+                        <span class="title-sub">DA FÚRIA</span>
+                    </h1>
                 </div>
                 
-                <div class="score-box draws">
-                    <div class="score-icon"><i class="fas fa-handshake"></i></div>
-                    <h3>EMPATES</h3>
-                    <div class="score-number" id="scoreTie">0</div>
+                <div class="status-indicator">
+                    <div class="status-dot pulse"></div>
+                    <span class="status-text">ONLINE</span>
+                </div>
+            </div>
+            
+            <!-- Status do Jogo -->
+            <div class="game-status-header">
+                <div class="status-box">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="status-label">STATUS:</span>
+                    <span class="player-turn" id="currentPlayer">X</span>
+                    <span class="turn-text">É A SUA VEZ</span>
+                </div>
+                <div class="timer-box">
+                    <i class="fas fa-clock"></i>
+                    <span id="timer">00:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="game-content">
+            <!-- Painel de Placar -->
+            <div class="score-panel">
+                <!-- Jogador X -->
+                <div class="player-card player-x-card">
+                    <div class="player-header">
+                        <div class="player-icon x-icon">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <h3 class="player-name">JOGADOR X</h3>
+                        <div class="player-badge">VOCÊ</div>
+                    </div>
+                    <div class="score-display">
+                        <div class="score-label">PONTOS</div>
+                        <div class="score-number glow-x" id="scoreX">0</div>
+                    </div>
+                    <div class="player-stats">
+                        <div class="stat">
+                            <i class="fas fa-trophy"></i>
+                            <span>Vitórias</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="score-box player-o">
-                    <div class="score-icon">O</div>
-                    <h3>JOGADOR O</h3>
-                    <div class="score-number" id="scoreO">0</div>
+                <!-- Empates -->
+                <div class="draw-card">
+                    <div class="draw-header">
+                        <div class="draw-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="draw-name">EMPATES</h3>
+                    </div>
+                    <div class="draw-display">
+                        <div class="draw-label">PARTIDAS</div>
+                        <div class="draw-number" id="scoreTie">0</div>
+                    </div>
+                </div>
+                
+                <!-- Jogador O / IA -->
+                <div class="player-card player-o-card">
+                    <div class="player-header">
+                        <div class="player-icon o-icon">
+                            <i class="fas fa-circle"></i>
+                        </div>
+                        <h3 class="player-name">JOGADOR O</h3>
+                        <div class="player-badge ia-badge">
+                            <i class="fas fa-robot"></i>
+                            IA
+                        </div>
+                    </div>
+                    <div class="score-display">
+                        <div class="score-label">PONTOS</div>
+                        <div class="score-number glow-o" id="scoreO">0</div>
+                    </div>
+                    <div class="player-stats">
+                        <div class="stat">
+                            <i class="fas fa-robot"></i>
+                            <span>IA Ativa</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Tabuleiro do jogo -->
-            <div class="game-board-container">
+            <!-- Área do Jogo -->
+            <div class="game-area">
+                <!-- Título do Tabuleiro -->
                 <div class="board-title">
-                    <i class="fas fa-chess-board"></i>
-                    <h2>TABULEIRO DA BATALHA</h2>
+                    <div class="title-decor left-decor"></div>
+                    <h2 class="board-title-text">
+                        <i class="fas fa-chess-board"></i>
+                        TABULEIRO DA BATALHA
+                    </h2>
+                    <div class="title-decor right-decor"></div>
                 </div>
-                <div class="game-board" id="gameBoard">
-                    <!-- As células serão geradas pelo JavaScript -->
+                
+                <!-- Tabuleiro do Jogo -->
+                <div class="board-container">
+                    <div class="grid-overlay"></div>
+                    <div class="game-board" id="gameBoard">
+                        <!-- Células geradas por JavaScript -->
+                    </div>
+                    <div class="board-effects"></div>
+                </div>
+                
+                <!-- Controles do Jogo -->
+                <div class="controls-panel">
+                    <button class="control-btn reset-btn pulse" id="resetButton">
+                        <div class="btn-icon">
+                            <i class="fas fa-redo-alt"></i>
+                        </div>
+                        <div class="btn-content">
+                            <span class="btn-label">REINICIAR</span>
+                            <span class="btn-desc">Partida Atual</span>
+                        </div>
+                        <div class="btn-glow"></div>
+                    </button>
+                    
+                    <button class="control-btn newgame-btn pulse" id="newGameButton">
+                        <div class="btn-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div class="btn-content">
+                            <span class="btn-label">NOVO JOGO</span>
+                            <span class="btn-desc">Zerar Placar</span>
+                        </div>
+                        <div class="btn-glow"></div>
+                    </button>
+                    
+                    <button class="control-btn mode-btn pulse" id="modeButton">
+                        <div class="btn-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="btn-content">
+                            <span class="btn-label">MODO</span>
+                            <span class="btn-desc" id="modeText">2 JOGADORES</span>
+                        </div>
+                        <div class="btn-glow"></div>
+                    </button>
+                </div>
+                
+                <!-- Dificuldade -->
+                <div class="difficulty-panel">
+                    <h3 class="difficulty-title">
+                        <i class="fas fa-sliders-h"></i>
+                        NÍVEL DE DIFICULDADE
+                    </h3>
+                    <div class="difficulty-buttons">
+                        <button class="diff-btn easy active" data-difficulty="easy">
+                            <span class="diff-icon">
+                                <i class="fas fa-moon"></i>
+                            </span>
+                            <span class="diff-text">FÁCIL</span>
+                            <span class="diff-desc">Para iniciantes</span>
+                        </button>
+                        
+                        <button class="diff-btn medium" data-difficulty="medium">
+                            <span class="diff-icon">
+                                <i class="fas fa-fire"></i>
+                            </span>
+                            <span class="diff-text">MÉDIO</span>
+                            <span class="diff-desc">Desafio equilibrado</span>
+                        </button>
+                        
+                        <button class="diff-btn hard" data-difficulty="hard">
+                            <span class="diff-icon">
+                                <i class="fas fa-skull"></i>
+                            </span>
+                            <span class="diff-text">IMPOSÍVEL</span>
+                            <span class="diff-desc">Para os fortes</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Controles do jogo -->
-            <div class="game-controls">
-                <button id="resetButton" class="control-button reset-btn">
-                    <i class="fas fa-redo-alt"></i>
-                    Reiniciar Partida
-                </button>
-                
-                <button id="newGameButton" class="control-button newgame-btn">
-                    <i class="fas fa-plus-circle"></i>
-                    Novo Jogo
-                </button>
-                
-                <button id="modeButton" class="control-button mode-btn">
-                    <i class="fas fa-robot"></i>
-                    <span id="modeText">Modo: 2 Jogadores</span>
-                </button>
-            </div>
-
-            <!-- Área de mensagens -->
-            <div class="game-message" id="gameMessage">
-                <div class="message-icon">
+            <!-- Painel de Mensagens -->
+            <div class="message-panel" id="messagePanel">
+                <div class="message-header">
                     <i class="fas fa-bullhorn"></i>
+                    <h3>STATUS DA PARTIDA</h3>
+                    <div class="message-indicator pulse"></div>
                 </div>
                 <div class="message-content">
-                    <p id="messageText">Vez do jogador <span id="messagePlayer">X</span></p>
+                    <div class="message-text" id="messageText">
+                        Vez do jogador <span class="player-highlight" id="messagePlayer">X</span>
+                    </div>
+                    <div class="message-sub" id="messageSub">
+                        Clique em uma célula para fazer sua jogada
+                    </div>
+                </div>
+                <div class="message-effects">
+                    <div class="effect-dot dot1"></div>
+                    <div class="effect-dot dot2"></div>
+                    <div class="effect-dot dot3"></div>
                 </div>
             </div>
 
             <!-- Instruções -->
-            <div class="game-instructions">
+            <div class="instructions-panel">
                 <div class="instructions-header">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h3>COMO DOMINAR O JOGO</h3>
+                    <i class="fas fa-info-circle"></i>
+                    <h3>COMO JOGAR</h3>
                 </div>
-                <div class="instructions-content">
+                <div class="instructions-grid">
                     <div class="instruction-item">
-                        <div class="instruction-icon">
-                            <i class="fas fa-play-circle"></i>
+                        <div class="inst-icon">
+                            <i class="fas fa-play"></i>
                         </div>
-                        <div class="instruction-text">
-                            <strong>O jogador X sempre começa</strong>
-                            <p>Comece com força e domine o tabuleiro!</p>
+                        <div class="inst-content">
+                            <h4>Jogador X Começa</h4>
+                            <p>Sempre inicia a partida com vantagem</p>
                         </div>
                     </div>
                     
                     <div class="instruction-item">
-                        <div class="instruction-icon">
+                        <div class="inst-icon">
                             <i class="fas fa-mouse-pointer"></i>
                         </div>
-                        <div class="instruction-text">
-                            <strong>Clique em uma célula vazia</strong>
-                            <p>Faça sua jogada estrategicamente</p>
+                        <div class="inst-content">
+                            <h4>Clique para Jogar</h4>
+                            <p>Selecione uma célula vazia</p>
                         </div>
                     </div>
                     
                     <div class="instruction-item">
-                        <div class="instruction-icon">
+                        <div class="inst-icon">
                             <i class="fas fa-bullseye"></i>
                         </div>
-                        <div class="instruction-text">
-                            <strong>Alinhe 3 símbolos iguais</strong>
+                        <div class="inst-content">
+                            <h4>Alinhe 3 Símbolos</h4>
                             <p>Horizontal, vertical ou diagonal</p>
                         </div>
                     </div>
                     
                     <div class="instruction-item">
-                        <div class="instruction-icon">
-                            <i class="fas fa-robot"></i>
+                        <div class="inst-icon">
+                            <i class="fas fa-cogs"></i>
                         </div>
-                        <div class="instruction-text">
-                            <strong>Modo contra IA</strong>
-                            <p>Desafie a inteligência artificial da Noite</p>
+                        <div class="inst-content">
+                            <h4>Modos de Jogo</h4>
+                            <p>2 jogadores ou contra a IA</p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Dificuldade -->
-            <div class="difficulty-section">
-                <h3><i class="fas fa-tachometer-alt"></i> NÍVEL DE DESAFIO</h3>
-                <div class="difficulty-buttons">
-                    <button class="difficulty-btn easy active" data-difficulty="easy">
-                        <i class="fas fa-moon"></i>
-                        <span>FÁCIL</span>
-                        <small>Para iniciantes</small>
-                    </button>
-                    <button class="difficulty-btn medium" data-difficulty="medium">
-                        <i class="fas fa-fire"></i>
-                        <span>MÉDIO</span>
-                        <small>Desafio equilibrado</small>
-                    </button>
-                    <button class="difficulty-btn hard" data-difficulty="hard">
-                        <i class="fas fa-skull-crossbones"></i>
-                        <span>IMPOSSÍVEL</span>
-                        <small>Apenas para os fortes</small>
-                    </button>
-                </div>
-            </div>
         </main>
 
+        <!-- Rodapé -->
         <footer class="game-footer">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="fúria.png" alt="Logo" class="footer-logo-img">
-                    <span class="footer-title">FuriaDaNoitePlay</span>
+                    <i class="fas fa-fire-alt"></i>
+                    <span class="footer-title">FURIA DA NOITE</span>
                 </div>
                 <div class="footer-divider"></div>
-                <p class="footer-subtitle">Jogo da Velha - Domine o Tabuleiro da Noite</p>
-                <p class="footer-copyright">
-                    <i class="fas fa-copyright"></i> 2025 FuriaDaNoitePlay - 
-                    <span class="signature">@ToxicSkull√</span>
-                </p>
+                <div class="footer-info">
+                    <p class="footer-text">
+                        <i class="fas fa-gamepad"></i>
+                        JOGO DA VELHA AVANÇADO - VERSÃO 2.0
+                    </p>
+                    <p class="footer-copy">
+                        <i class="far fa-copyright"></i> 2025 FURIANOITEPLAY 
+                        <span class="signature">@TOXICSKULL√</span>
+                    </p>
+                </div>
             </div>
+            <div class="footer-particles"></div>
         </footer>
     </div>
 
-    <!-- Efeitos de partículas -->
-    <div class="particles-container" id="particles"></div>
+    <!-- Áudio -->
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" preload="auto"></audio>
+    <audio id="winSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" preload="auto"></audio>
+    <audio id="drawSound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-show-wrong-answer-buzz-950.mp3" preload="auto"></audio>
 
     <script src="script-velha.js"></script>
 </body>
