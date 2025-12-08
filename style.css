@@ -427,3 +427,65 @@ body {
         font-size: 1.5rem;
     }
 }
+/* ===== ANIMAÇÕES ADICIONAIS PARA O JAVASCRIPT ===== */
+.score-update {
+    animation: scoreUpdate 0.5s ease-out;
+}
+
+@keyframes scoreUpdate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.glow {
+    animation: cellGlow 0.3s ease-out;
+}
+
+@keyframes cellGlow {
+    0% { box-shadow: 0 0 10px currentColor; }
+    100% { box-shadow: 0 0 40px currentColor, 0 0 60px currentColor; }
+}
+
+.firework {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 0 10px currentColor;
+}
+
+/* ===== ANIMAÇÃO DE ENTRADA ===== */
+.game-container {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.game-container.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== RESPONSIVIDADE ADICIONAL ===== */
+@media (max-width: 768px) {
+    .victory-line {
+        height: 6px;
+    }
+    
+    @keyframes particleFloat {
+        0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+        100% { transform: translateY(-50vh) rotate(180deg); opacity: 0; }
+    }
+}
+
+/* ===== MELHORIAS DE PERFORMANCE ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
