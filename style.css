@@ -40,16 +40,30 @@ body {
     gap: 15px;
 }
 
-.logo i {
-    font-size: 2.8rem;
-    color: #ff4757;
-    animation: pulse 2s infinite;
+/* Estilo da imagem da logo */
+.logo-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #ff4757;
+    border: 2px solid #ff4757;
+    object-fit: cover;
+    animation: pulse-logo 2s infinite;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+@keyframes pulse-logo {
+    0% { 
+        transform: scale(1); 
+        box-shadow: 0 0 15px #ff4757;
+    }
+    50% { 
+        transform: scale(1.05); 
+        box-shadow: 0 0 25px #ff4757, 0 0 15px #ff6b81;
+    }
+    100% { 
+        transform: scale(1); 
+        box-shadow: 0 0 15px #ff4757;
+    }
 }
 
 .logo h1 {
@@ -182,6 +196,14 @@ body {
     padding: 15px;
     background: rgba(46, 213, 115, 0.1);
     border-radius: 10px;
+    animation: typing 3s steps(30, end);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
 }
 
 /* Seção do Jogo */
@@ -333,6 +355,16 @@ body {
         text-align: center;
     }
     
+    .logo {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .logo-image {
+        width: 50px;
+        height: 50px;
+    }
+    
     .logo h1 {
         font-size: 1.8rem;
     }
@@ -384,5 +416,14 @@ body {
     
     .time-block span {
         font-size: 1.8rem;
+    }
+    
+    .logo-image {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .logo h1 {
+        font-size: 1.5rem;
     }
 }
