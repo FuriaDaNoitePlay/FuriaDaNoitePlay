@@ -5,12 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FuriaDaNoitePlay - Em Manutenção</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        /* Estilos mantidos do anterior */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
             color: #fff;
@@ -23,7 +19,6 @@
             text-align: center;
             padding: 20px;
         }
-        
         .maintenance-container {
             max-width: 800px;
             background: rgba(0, 0, 0, 0.8);
@@ -32,47 +27,29 @@
             padding: 40px;
             box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
         }
+        h1 { color: #ff0000; font-size: 2.5rem; text-shadow: 0 0 20px #ff0000; }
+        .warning { color: #ff4444; font-size: 1.5rem; margin: 20px 0; }
+        .date { color: #FFD700; font-size: 1.8rem; margin: 25px 0; }
+        .message { font-size: 1.2rem; line-height: 1.6; margin: 25px 0; color: #ccc; }
         
-        h1 {
-            color: #ff0000;
-            font-size: 2.5rem;
-            text-shadow: 0 0 20px #ff0000;
-            margin-bottom: 20px;
-        }
-        
-        .warning {
-            color: #ff4444;
-            font-size: 1.5rem;
-            margin: 20px 0;
-            font-weight: bold;
-        }
-        
-        .date {
-            color: #FFD700;
-            font-size: 1.8rem;
-            margin: 25px 0;
-            text-shadow: 0 0 10px #FFD700;
-        }
-        
-        .message {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin: 25px 0;
-            color: #ccc;
-        }
-        
-        .admin-note {
-            color: #00ff00;
-            font-size: 1rem;
-            margin-top: 30px;
-            padding: 15px;
-            border: 1px solid #00ff00;
-            border-radius: 8px;
-            background: rgba(0, 255, 0, 0.1);
-        }
-        
-        .button-container {
+        /* NOVO: Sistema de Login Integrado */
+        .login-box {
             margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #0066ff;
+            border-radius: 10px;
+        }
+        
+        .login-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ff0000;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 16px;
         }
         
         .btn {
@@ -107,39 +84,39 @@
             box-shadow: 0 0 25px rgba(0, 102, 255, 0.8);
         }
         
-        .logo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid #ff0000;
-            box-shadow: 0 0 25px #ff0000;
-            margin-bottom: 20px;
-            object-fit: cover;
+        .status-login {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
         }
         
-        .footer {
-            margin-top: 40px;
+        .status-success {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            display: block;
+        }
+        
+        .status-error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0000;
             color: #ff0000;
-            text-shadow: 0 0 10px #ff0000;
-            font-size: 0.9rem;
+            display: block;
         }
         
-        @media (max-width: 768px) {
-            .maintenance-container {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .warning {
-                font-size: 1.2rem;
-            }
-            
-            .date {
-                font-size: 1.5rem;
-            }
+        .user-info {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 102, 255, 0.1);
+            border: 1px solid #0066ff;
+            border-radius: 8px;
+            color: #0066ff;
+        }
+        
+        .user-info h3 {
+            color: #ff0000;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -152,56 +129,168 @@
         <div class="warning">⚠️ SISTEMA EM MANUTENÇÃO ⚠️</div>
         
         <div class="message">
-            O <strong>FuriaDaNoitePlay</strong> está passando por atualizações críticas para melhorar sua experiência.
-            Estamos trabalhando para trazer novas funcionalidades e melhor desempenho.
+            O <strong>FuriaDaNoitePlay</strong> está passando por atualizações críticas.
+            <br>Previsão de retorno: <span class="date">01 de Fevereiro de 2026</span>
         </div>
         
-        <div class="date">📅 Previsão de retorno: 01 de Fevereiro de 2026</div>
-        
-        <div class="message">
-            Apenas os painéis administrativos estão disponíveis durante este período.
-            Agradecemos sua paciência e compreensão!
-        </div>
-        
-        <div class="admin-note">
-            🔧 <strong>Equipe Técnica:</strong> Atualizações de servidor, otimizações de performance e novas features em desenvolvimento.
-        </div>
-        
-        <div class="button-container">
-            <a href="velha.html" class="btn">
-                🎮 ACESSAR JOGO DA VELHA
-            </a>
+        <!-- NOVO: Sistema de Login Integrado -->
+        <div class="login-box">
+            <h2>🎮 ACESSO AO JOGO</h2>
             
-            <button onclick="showAdminMessage()" class="btn btn-secondary">
-                🔐 ÁREA ADMIN
+            <div id="userLoggedIn" class="user-info" style="display: none;">
+                <h3>👤 Usuário Conectado</h3>
+                <p id="userName"></p>
+                <button onclick="fazerLogout()" class="btn">🚪 Sair</button>
+            </div>
+            
+            <div id="loginForm">
+                <input type="text" id="loginUser" class="login-input" placeholder="Usuário ou Nick">
+                <input type="password" id="loginPass" class="login-input" placeholder="Senha">
+                
+                <button onclick="tentarLogin()" class="btn">🔓 ENTRAR</button>
+                <button onclick="entrarComoVisitante()" class="btn btn-secondary">👤 VISITANTE</button>
+                
+                <p style="margin-top: 15px; color: #ccc;">
+                    Não tem conta? <a href="cadastro.html" style="color: #ff0000;">Cadastre-se aqui</a>
+                </p>
+            </div>
+            
+            <div id="loginStatus" class="status-login"></div>
+        </div>
+        
+        <!-- Botão do Jogo -->
+        <div class="button-container">
+            <button onclick="acessarJogo()" class="btn">
+                🎮 JOGAR JOGO DA VELHA
             </button>
         </div>
-        
-        <div id="adminMessage" style="display: none; margin-top: 20px; color: #00ff00;">
-            🔒 Acesso administrativo restrito. Contate @ToxicSkull√ para credentials.
-        </div>
-    </div>
-    
-    <div class="footer">
-        <p>© 2025 FuriaDaNoitePlay | @ToxicSkull√</p>
-        <p>"A noite brilha sob nossa fúria." 🌙🔥</p>
     </div>
 
     <script>
-        function showAdminMessage() {
-            const message = document.getElementById('adminMessage');
-            message.style.display = 'block';
-            setTimeout(() => {
-                message.style.display = 'none';
-            }, 3000);
+        // =============================================
+        // SISTEMA DE LOGIN SIMPLIFICADO
+        // =============================================
+        
+        // Dados de usuários (compatível com sistema antigo)
+        const usuariosPadrao = [
+            { nick: "FURIAGOD", senha: "Furia2025_$25", tipo: "adm" },
+            { nick: "Scorpion", senha: "Mlk0025", tipo: "adm" },
+            { nick: "ToxicSkull√", senha: "L@!on25", tipo: "adm" }
+        ];
+        
+        // Verificar se já está logado
+        function verificarLogin() {
+            const user = localStorage.getItem('furia_user');
+            if (user) {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('userLoggedIn').style.display = 'block';
+                document.getElementById('userName').textContent = user;
+                return user;
+            }
+            return null;
         }
         
-        // Efeito de brilho no título
-        const title = document.querySelector('h1');
-        setInterval(() => {
-            const intensity = Math.random() * 20 + 10;
-            title.style.textShadow = `0 0 ${intensity}px #ff0000`;
-        }, 1000);
+        // Tentar login
+        function tentarLogin() {
+            const user = document.getElementById('loginUser').value;
+            const pass = document.getElementById('loginPass').value;
+            const status = document.getElementById('loginStatus');
+            
+            if (!user || !pass) {
+                status.className = 'status-error';
+                status.textContent = '❌ Preencha usuário e senha!';
+                return;
+            }
+            
+            // Verificar usuários padrão
+            const usuarioValido = usuariosPadrao.find(u => 
+                u.nick === user && u.senha === pass
+            );
+            
+            if (usuarioValido) {
+                // Login bem-sucedido
+                localStorage.setItem('furia_user', user);
+                localStorage.setItem('furia_tipo', usuarioValido.tipo);
+                
+                status.className = 'status-success';
+                status.textContent = '✅ Login bem-sucedido! Redirecionando...';
+                
+                setTimeout(() => {
+                    verificarLogin();
+                }, 1000);
+            } else {
+                // Verificar usuários cadastrados
+                const usuariosSalvos = JSON.parse(localStorage.getItem('furia_usuarios')) || [];
+                const usuarioCadastrado = usuariosSalvos.find(u => 
+                    u.nick === user && u.senha === pass
+                );
+                
+                if (usuarioCadastrado) {
+                    localStorage.setItem('furia_user', user);
+                    localStorage.setItem('furia_tipo', 'membro');
+                    
+                    status.className = 'status-success';
+                    status.textContent = '✅ Login bem-sucedido!';
+                    
+                    setTimeout(() => {
+                        verificarLogin();
+                    }, 1000);
+                } else {
+                    status.className = 'status-error';
+                    status.textContent = '❌ Usuário ou senha incorretos!';
+                }
+            }
+        }
+        
+        // Entrar como visitante
+        function entrarComoVisitante() {
+            localStorage.setItem('furia_user', 'Visitante');
+            localStorage.setItem('furia_tipo', 'visitante');
+            
+            document.getElementById('loginStatus').className = 'status-success';
+            document.getElementById('loginStatus').textContent = '✅ Modo visitante ativado!';
+            
+            setTimeout(() => {
+                verificarLogin();
+            }, 1000);
+        }
+        
+        // Fazer logout
+        function fazerLogout() {
+            localStorage.removeItem('furia_user');
+            localStorage.removeItem('furia_tipo');
+            
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('userLoggedIn').style.display = 'none';
+            document.getElementById('loginStatus').className = 'status-success';
+            document.getElementById('loginStatus').textContent = '✅ Logout realizado!';
+        }
+        
+        // Acessar jogo
+        function acessarJogo() {
+            const user = localStorage.getItem('furia_user');
+            
+            if (!user) {
+                document.getElementById('loginStatus').className = 'status-error';
+                document.getElementById('loginStatus').textContent = '❌ Faça login primeiro!';
+                return;
+            }
+            
+            // Redirecionar para o jogo
+            window.location.href = 'velha.html';
+        }
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            verificarLogin();
+            
+            // Efeito visual
+            const title = document.querySelector('h1');
+            setInterval(() => {
+                const intensity = Math.random() * 20 + 10;
+                title.style.textShadow = `0 0 ${intensity}px #ff0000`;
+            }, 1000);
+        });
     </script>
 </body>
 </html>
