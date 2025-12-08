@@ -6,72 +6,86 @@
     <title>Jogo da Velha - FuriaDaNoitePlay</title>
     <link rel="stylesheet" href="style-velha.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-times"></i>
-                <i class="fas fa-circle"></i>
-                <h1>JOGO DA VELHA</h1>
-            </div>
-            <a href="index.html" class="back-btn">
-                <i class="fas fa-arrow-left"></i> Voltar
+    <div class="game-container">
+        <header class="game-header">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Voltar
             </a>
+            
+            <div class="game-title">
+                <i class="fas fa-times"></i>
+                <h1>JOGO DA VELHA</h1>
+                <i class="fas fa-circle"></i>
+            </div>
+            
+            <div class="game-status" id="gameStatus">
+                <span id="currentPlayer">X</span> é a sua vez
+            </div>
         </header>
-        
-        <div class="game-info">
-            <div class="player-turn" id="playerTurn">
-                Vez do: <span class="player-x">X</span>
+
+        <main class="game-main">
+            <div class="score-board">
+                <div class="score-box">
+                    <h3>JOGADOR X</h3>
+                    <div class="score" id="scoreX">0</div>
+                </div>
+                
+                <div class="score-box">
+                    <h3>EMPATES</h3>
+                    <div class="score" id="scoreTie">0</div>
+                </div>
+                
+                <div class="score-box">
+                    <h3>JOGADOR O</h3>
+                    <div class="score" id="scoreO">0</div>
+                </div>
             </div>
-            <div class="scoreboard">
-                <div class="score">
-                    <span class="player-label">X</span>
-                    <span id="scoreX">0</span>
-                </div>
-                <div class="score">
-                    <span class="player-label">O</span>
-                    <span id="scoreO">0</span>
-                </div>
-                <div class="score">
-                    <span class="player-label">Empates</span>
-                    <span id="scoreTie">0</span>
-                </div>
+
+            <div class="game-board" id="gameBoard">
+                <!-- As células serão geradas pelo JavaScript -->
             </div>
-        </div>
-        
-        <div class="game-board" id="gameBoard">
-            <!-- As células serão criadas via JavaScript -->
-        </div>
-        
-        <div class="controls">
-            <button id="resetBtn" class="control-btn">
-                <i class="fas fa-redo"></i> Reiniciar Jogo
-            </button>
-            <button id="newGameBtn" class="control-btn">
-                <i class="fas fa-plus-circle"></i> Novo Jogo
-            </button>
-            <button id="changeModeBtn" class="control-btn">
-                <i class="fas fa-robot"></i> Modo: 2 Jogadores
-            </button>
-        </div>
-        
-        <div class="message" id="message">
-            <p>Comece clicando em qualquer célula!</p>
-        </div>
-        
-        <div class="instructions">
-            <h3><i class="fas fa-info-circle"></i> Como Jogar</h3>
-            <ul>
-                <li>O jogador <span class="player-x">X</span> começa o jogo</li>
-                <li>Clique em uma célula vazia para fazer sua jogada</li>
-                <li>O objetivo é alinhar 3 símbolos iguais na horizontal, vertical ou diagonal</li>
-                <li>Use o botão "Modo" para alternar entre 2 jogadores e jogar contra o computador</li>
-            </ul>
-        </div>
+
+            <div class="game-controls">
+                <button id="resetButton" class="control-button">
+                    <i class="fas fa-redo"></i>
+                    Reiniciar Partida
+                </button>
+                
+                <button id="newGameButton" class="control-button">
+                    <i class="fas fa-plus-circle"></i>
+                    Novo Jogo
+                </button>
+                
+                <button id="modeButton" class="control-button">
+                    <i class="fas fa-robot"></i>
+                    Modo: 2 Jogadores
+                </button>
+            </div>
+
+            <div class="game-message" id="gameMessage">
+                <p>Vez do jogador <span id="messagePlayer">X</span></p>
+            </div>
+
+            <div class="game-instructions">
+                <h3><i class="fas fa-info-circle"></i> Como Jogar</h3>
+                <ul>
+                    <li>O jogador <strong class="player-x">X</strong> sempre começa</li>
+                    <li>Clique em uma célula vazia para fazer sua jogada</li>
+                    <li>O objetivo é alinhar 3 símbolos iguais</li>
+                    <li>Pode ser na horizontal, vertical ou diagonal</li>
+                    <li>Use o botão "Modo" para jogar contra o computador</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer class="game-footer">
+            <p><i class="fas fa-gamepad"></i> FuriaDaNoitePlay - Jogo da Velha</p>
+        </footer>
     </div>
-    
+
     <script src="script-velha.js"></script>
 </body>
 </html>
