@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifa do Guerreiro - FuriaDaNoitePlay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-top: 15px;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+        }
+        
+        .title {
+            font-size: 2rem;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #ff4444;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+        }
+        
+        .price-tag {
+            background: linear-gradient(135deg, #8B0000, #B22222);
+            color: white;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 10px 0;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            font-size: 1.2rem;
+        }
+        
+        .description {
+            color: #ccc;
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            text-align: center;
+        }
+        
+        .warriors-title {
+            text-align: center;
+            font-size: 1.6rem;
+            color: #ff0000;
+            margin: 25px 0 15px;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+            text-transform: uppercase;
+        }
+        
+        .warriors-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .warrior-card {
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid #ff0000;
+            border-radius: 8px;
+            padding: 12px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+        }
+        
+        .warrior-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            background: rgba(40, 0, 0, 0.9);
+        }
+        
+        .warrior-card.selected {
+            background: linear-gradient(135deg, #8B0000, #B22222);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+            border-color: #ff4444;
+        }
+        
+        .warrior-card.reserved {
+            background: linear-gradient(135deg, #333, #555);
+            border-color: #666;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .warrior-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        
+        .warrior-label {
+            font-size: 0.85rem;
+            color: #ff9999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .warrior-name {
+            font-size: 0.75rem;
+            color: #ccc;
+            margin-top: 5px;
+            height: 20px;
+            overflow: hidden;
+        }
+        
+        .selection-info {
+            background: rgba(30, 30, 30, 0.95);
+            border: 1px solid #ff0000;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .selection-info h3 {
+            color: #ff4444;
+            margin-bottom: 12px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+        
+        .selected-numbers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+        
+        .selected-number {
+            background: linear-gradient(135deg, #8B0000, #B22222);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+        }
+        
+        .total-price {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #ff4444;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        
+        .payment-info {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #ff4444;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+        }
+        
+        .payment-info h4 {
+            color: #ff4444;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        .pix-key {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            border: 1px dashed #ff4444;
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #ff9999;
+            word-break: break-all;
+        }
+        
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 16px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-decoration: none;
+            margin: 20px auto;
+            max-width: 300px;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
+            background: linear-gradient(135deg, #20b858, #0f7a5f);
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .btn {
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .select-btn {
+            background: linear-gradient(135deg, #ff0000, #ff4444);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        
+        .select-btn:hover {
+            background: linear-gradient(135deg, #cc0000, #ff2222);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            transform: translateY(-3px);
+        }
+        
+        .reset-btn {
+            background: linear-gradient(135deg, #333, #555);
+            color: white;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+        }
+        
+        .reset-btn:hover {
+            background: linear-gradient(135deg, #444, #666);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+        }
+        
+        .back-btn {
+            background: linear-gradient(135deg, #222, #444);
+            color: #ff4444;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(135deg, #333, #555);
+            box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+        }
+        
+        .prize-info {
+            background: rgba(20, 20, 20, 0.8);
+            border-left: 4px solid #ff0000;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .prize-info h4 {
+            color: #ff4444;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .prize-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .prize-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        
+        .prize-total {
+            font-weight: bold;
+            color: #ff4444;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #444;
+            text-align: center;
+        }
+        
+        .instructions {
+            background: rgba(20, 20, 20, 0.7);
+            border-left: 4px solid #ff4444;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .instructions h4 {
+            color: #ff4444;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+            color: #ccc;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        
+        .social-mention {
+            color: #ff9999;
+            font-style: italic;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .warriors-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+            
+            .title {
+                font-size: 1.7rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .warrior-card {
+                min-height: 85px;
+                padding: 10px 5px;
+            }
+            
+            .warrior-number {
+                font-size: 1.6rem;
+            }
+            
+            .pix-key {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .warriors-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .title {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 14px;
+                font-size: 0.95rem;
+            }
+            
+            .whatsapp-btn {
+                padding: 14px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .warriors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo">
+            </div>
+            <h1 class="title">RIFA DO GUERREIRO</h1>
+            <h2 class="subtitle">FuriaDaNoitePlay</h2>
+            <div class="price-tag">Valor: R$ 3,00 por número</div>
+            <p class="description">Rifa exclusiva para a comunidade de Mobile Legends: Bang Bang (MLBB)</p>
+        </div>
+        
+        <h2 class="warriors-title">Tabela dos Guerreiros</h2>
+        
+        <div class="warriors-grid" id="warriorsGrid">
+            <!-- Os números de 1 a 31 serão gerados por JavaScript -->
+        </div>
+        
+        <div class="selection-info">
+            <h3>Seus Guerreiros Selecionados</h3>
+            <div class="selected-numbers" id="selectedNumbers">
+                <p style="color: #888; text-align: center; width: 100%;">Nenhum guerreiro selecionado ainda</p>
+            </div>
+            
+            <div class="total-price" id="totalPrice">Total: R$ 0,00</div>
+            
+            <div class="action-buttons">
+                <button class="btn select-btn" id="confirmSelection">Confirmar Seleção</button>
+                <button class="btn reset-btn" id="resetSelection">Limpar Seleção</button>
+                <a href="index.html" class="btn back-btn">Voltar para Manutenção</a>
+            </div>
+        </div>
+        
+        <div class="payment-info">
+            <h4>Pagamento via PIX</h4>
+            <p>Envie o valor para a chave PIX abaixo e envie o comprovante pelo WhatsApp:</p>
+            
+            <div class="pix-key">
+                furiadanoiteplay2025@gmail.com
+            </div>
+            
+            <p><strong>Telefone para envio do comprovante:</strong> +55 (31) 97319-008</p>
+            <p><strong>Envie junto:</strong> Seu nome e os números escolhidos</p>
+            
+            <a href="https://wa.me/553197319008?text=Olá!%20Acabei%20de%20participar%20da%20Rifa%20do%20Guerreiro.%20Segue%20comprovante..." 
+               class="whatsapp-btn" target="_blank">
+               <i class="fab fa-whatsapp"></i> Enviar Comprovante no WhatsApp
+            </a>
+        </div>
+        
+        <div class="prize-info">
+            <h4>Premiação</h4>
+            <p>O ganhador receberá:</p>
+            
+            <div class="prize-breakdown">
+                <div class="prize-item">
+                    <span>60% da arrecadação da rifa</span>
+                    <span>R$ ???</span>
+                </div>
+                <div class="prize-item">
+                    <span>Parte dos colaboradores e patrocinadores</span>
+                    <span>R$ ???</span>
+                </div>
+            </div>
+            
+            <div class="prize-total">Prêmio Total: A ser divulgado após sorteio</div>
+            <p class="social-mention">O prêmio total será divulgado no Instagram e WhatsApp após o sorteio!</p>
+        </div>
+        
+        <div class="instructions">
+            <h4>Como Participar:</h4>
+            <ul>
+                <li>Selecione até 5 números de guerreiros (1 a 31)</li>
+                <li>Cada número custa R$ 3,00 (exclusivo para comunidade MLBB)</li>
+                <li>Clique em "Confirmar Seleção"</li>
+                <li>Faça o PIX para: <strong>furiadanoiteplay2025@gmail.com</strong></li>
+                <li>Envie o comprovante para +55 (31) 97319-008 pelo WhatsApp</li>
+                <li>Informe seu nome e números escolhidos</li>
+                <li>Após confirmação do pagamento, seus números serão reservados</li>
+                <li>Sorteio será realizado quando todos os números forem vendidos</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>FuriaDaNoitePlay &copy; 2024 - Rifa exclusiva para a comunidade MLBB</p>
+            <p>O resultado será divulgado no Instagram, WhatsApp e grupos da comunidade</p>
+            <p>Dúvidas? Entre em contato pelo WhatsApp: +55 (31) 97319-008</p>
+        </div>
+    </div>
+
+    <script>
+        // Gerar os números de 1 a 31
+        const warriorsGrid = document.getElementById('warriorsGrid');
+        const selectedNumbersContainer = document.getElementById('selectedNumbers');
+        const totalPriceElement = document.getElementById('totalPrice');
+        const confirmBtn = document.getElementById('confirmSelection');
+        const resetBtn = document.getElementById('resetSelection');
+        
+        let selectedNumbers = [];
+        const maxSelection = 5;
+        const pricePerNumber = 3.00;
+        
+        // Nomes fictícios para os guerreiros (tema MLBB)
+        const warriorNames = [
+            "Alucard", "Miya", "Zilong", "Layla", "Chou", "Gusion", "Harley", "Lancelot", "Fanny", "Kagura",
+            "Hayabusa", "Claude", "Karrie", "Granger", "Bruno", "Wanwan", "Clint", "Lesley", "Beatrix", "Brody",
+            "Esmeralda", "Lunox", "Harith", "Cecilion", "Pharsa", "Odette", "Yve", "Valentina", "Xavier", "Lylia",
+            "Benedetta"
+        ];
+        
+        // Criar os cartões de 1 a 31
+        for (let i = 1; i <= 31; i++) {
+            const warriorCard = document.createElement('div');
+            warriorCard.className = 'warrior-card';
+            warriorCard.dataset.number = i;
+            
+            const warriorNumber = document.createElement('div');
+            warriorNumber.className = 'warrior-number';
+            warriorNumber.textContent = i;
+            
+            const warriorLabel = document.createElement('div');
+            warriorLabel.className = 'warrior-label';
+            warriorLabel.textContent = 'Guerreiro';
+            
+            const warriorName = document.createElement('div');
+            warriorName.className = 'warrior-name';
+            warriorName.textContent = warriorNames[i-1];
+            
+            warriorCard.appendChild(warriorNumber);
+            warriorCard.appendChild(warriorLabel);
+            warriorCard.appendChild(warriorName);
+            
+            warriorCard.addEventListener('click', () => toggleNumberSelection(i, warriorCard));
+            
+            warriorsGrid.appendChild(warriorCard);
+        }
+        
+        // Alternar seleção de número
+        function toggleNumberSelection(number, cardElement) {
+            if (cardElement.classList.contains('reserved')) return;
+            
+            const index = selectedNumbers.indexOf(number);
+            
+            if (index > -1) {
+                // Remover seleção
+                selectedNumbers.splice(index, 1);
+                cardElement.classList.remove('selected');
+            } else {
+                // Adicionar seleção (se não atingiu o limite)
+                if (selectedNumbers.length < maxSelection) {
+                    selectedNumbers.push(number);
+                    cardElement.classList.add('selected');
+                } else {
+                    alert(`Você só pode selecionar no máximo ${maxSelection} números!`);
+                    return;
+                }
+            }
+            
+            updateSelectedNumbersDisplay();
+            updateTotalPrice();
+        }
+        
+        // Atualizar display dos números selecionados
+        function updateSelectedNumbersDisplay() {
+            selectedNumbersContainer.innerHTML = '';
+            
+            if (selectedNumbers.length === 0) {
+                selectedNumbersContainer.innerHTML = '<p style="color: #888; text-align: center; width: 100%;">Nenhum guerreiro selecionado ainda</p>';
+                return;
+            }
+            
+            selectedNumbers.sort((a, b) => a - b).forEach(number => {
+                const numberElement = document.createElement('div');
+                numberElement.className = 'selected-number';
+                numberElement.textContent = number;
+                selectedNumbersContainer.appendChild(numberElement);
+            });
+        }
+        
+        // Atualizar preço total
+        function updateTotalPrice() {
+            const total = selectedNumbers.length * pricePerNumber;
+            totalPriceElement.textContent = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+        
+        // Botão de confirmação
+        confirmBtn.addEventListener('click', () => {
+            if (selectedNumbers.length === 0) {
+                alert('Por favor, selecione pelo menos um número para participar!');
+                return;
+            }
+            
+            const numbersText = selectedNumbers.sort((a, b) => a - b).join(', ');
+            const total = selectedNumbers.length * pricePerNumber;
+            
+            alert(`Seleção confirmada!\n\nNúmeros: ${numbersText}\nTotal: R$ ${total.toFixed(2)}\n\nFaça o PIX para: furiadanoiteplay2025@gmail.com\nEnvie o comprovante para +55 (31) 97319-008\n\nBoa sorte!`);
+            
+            // Aqui você pode adicionar lógica para enviar os dados para um servidor
+        });
+        
+        // Botão de limpar seleção
+        resetBtn.addEventListener('click', () => {
+            selectedNumbers = [];
+            
+            // Remover classe 'selected' de todos os cartões
+            document.querySelectorAll('.warrior-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            updateSelectedNumbersDisplay();
+            updateTotalPrice();
+        });
+        
+        // Inicializar display
+        updateSelectedNumbersDisplay();
+        updateTotalPrice();
+        
+        // Adicionar Font Awesome para o ícone do WhatsApp
+        const fontAwesomeScript = document.createElement('script');
+        fontAwesomeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js';
+        document.head.appendChild(fontAwesomeScript);
+    </script>
+</body>
+</html>
