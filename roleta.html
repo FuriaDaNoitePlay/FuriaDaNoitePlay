@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roleta - FuriaDaNoitePlay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            color: white;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #ff0000;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+        
+        .title {
+            color: #ff0000;
+            font-size: 32px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+        }
+        
+        .subtitle {
+            color: #ff6666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .roulette-container {
+            background: rgba(30, 30, 40, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid #ff0000;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+            margin-bottom: 30px;
+        }
+        
+        .roulette-wheel {
+            width: 400px;
+            height: 400px;
+            margin: 0 auto 30px;
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #ff0000;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+        }
+        
+        .wheel-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 5s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+        
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: bottom right;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        .wheel-pointer {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #ff0000;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 10;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8));
+        }
+        
+        .controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .spin-btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 200px;
+        }
+        
+        .spin-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #cc0000, #aa0000);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
+        }
+        
+        .spin-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .reset-btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #333, #555);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 200px;
+        }
+        
+        .reset-btn:hover {
+            background: linear-gradient(135deg, #555, #777);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+        
+        .result-display {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+            border: 2px solid #ff0000;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .result-title {
+            color: #ff9999;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .result-value {
+            color: #ff0000;
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .participants-list {
+            background: rgba(30, 30, 40, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #ff0000;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+        
+        .participants-title {
+            color: #ff0000;
+            font-size: 22px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .participants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .participant-card {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #333;
+            transition: all 0.3s;
+        }
+        
+        .participant-card:hover {
+            border-color: #ff0000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .participant-name {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .participant-number {
+            color: #ff6666;
+            font-size: 14px;
+        }
+        
+        .winner-highlight {
+            animation: pulse 2s infinite;
+            border-color: #00ff00 !important;
+            background: rgba(0, 255, 0, 0.1) !important;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 800px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-box {
+            background: rgba(30, 30, 40, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #ff0000;
+            text-align: center;
+            min-width: 180px;
+            flex: 1;
+        }
+        
+        .stat-value {
+            color: #ff0000;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #ff9999;
+            font-size: 16px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #ff6666;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: 1px solid #ff6666;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff0000;
+            border-color: #ff0000;
+            transform: translateY(-2px);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.8); }
+        }
+        
+        @keyframes celebrate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .celebration {
+            animation: celebrate 0.5s ease 3;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .roulette-wheel {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .wheel-segment {
+                font-size: 14px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .spin-btn, .reset-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .participants-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .roulette-wheel {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+            
+            .result-value {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="fúria.png" alt="Logo FuriaDaNoitePlay" class="logo" onerror="this.src='https://via.placeholder.com/100'">
+        <h1 class="title">ROULETTE DA SORTE</h1>
+        <p class="subtitle">Sorteio da Rifa - FuriaDaNoitePlay</p>
+    </div>
+    
+    <div class="roulette-container">
+        <div class="roulette-wheel">
+            <div class="wheel-pointer"></div>
+            <div class="wheel-inner" id="wheelInner">
+                <!-- Segmentos serão gerados via JavaScript -->
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="spin-btn" id="spinButton">GIRAR ROLETA</button>
+            <button class="reset-btn" id="resetButton">REINICIAR SORTEIO</button>
+        </div>
+        
+        <div class="result-display">
+            <div class="result-title">ÚLTIMO SORTEADO:</div>
+            <div class="result-value" id="resultValue">Aguardando sorteio...</div>
+        </div>
+    </div>
+    
+    <div class="participants-list">
+        <h2 class="participants-title">PARTICIPANTES DA RIFA</h2>
+        <div class="participants-grid" id="participantsGrid">
+            <!-- Lista de participantes será gerada via JavaScript -->
+        </div>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-label">TOTAL DE PARTICIPANTES</div>
+            <div class="stat-value" id="totalParticipants">0</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">SORTEIOS REALIZADOS</div>
+            <div class="stat-value" id="spinsCount">0</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">PRÊMIO ACUMULADO</div>
+            <div class="stat-value" id="prizeValue">R$ 0,00</div>
+        </div>
+    </div>
+    
+    <a href="index.html" class="back-link">← Voltar para a Página Principal</a>
+
+    <script>
+        // Configurações da roleta
+        const PARTICIPANTS = [
+            { name: "ToxicSkull", number: 1 },
+            { name: "ShadowWolf", number: 2 },
+            { name: "NightFury", number: 3 },
+            { name: "DarkKnight", number: 4 },
+            { name: "BloodMoon", number: 5 },
+            { name: "CyberGhost", number: 6 },
+            { name: "Phantom", number: 7 },
+            { name: "Viper", number: 8 },
+            { name: "Raven", number: 9 },
+            { name: "Spectre", number: 10 },
+            { name: "Wraith", number: 11 },
+            { name: "Necro", number: 12 },
+            { name: "Vortex", number: 13 },
+            { name: "Blaze", number: 14 },
+            { name: "Frost", number: 15 },
+            { name: "Storm", number: 16 },
+            { name: "Titan", number: 17 },
+            { name: "Oracle", number: 18 },
+            { name: "Mystic", number: 19 },
+            { name: "Zenith", number: 20 }
+        ];
+        
+        // Variáveis de estado
+        let isSpinning = false;
+        let spinCount = 0;
+        let winners = [];
+        let currentSpinDegrees = 0;
+        
+        // Elementos DOM
+        const wheelInner = document.getElementById('wheelInner');
+        const spinButton = document.getElementById('spinButton');
+        const resetButton = document.getElementById('resetButton');
+        const resultValue = document.getElementById('resultValue');
+        const participantsGrid = document.getElementById('participantsGrid');
+        const totalParticipantsEl = document.getElementById('totalParticipants');
+        const spinsCountEl = document.getElementById('spinsCount');
+        const prizeValueEl = document.getElementById('prizeValue');
+        
+        // Inicialização
+        function init() {
+            createWheelSegments();
+            renderParticipants();
+            updateStats();
+            setupEventListeners();
+        }
+        
+        // Criar segmentos da roleta
+        function createWheelSegments() {
+            wheelInner.innerHTML = '';
+            const totalParticipants = PARTICIPANTS.length;
+            const anglePerSegment = 360 / totalParticipants;
+            
+            PARTICIPANTS.forEach((participant, index) => {
+                const segment = document.createElement('div');
+                segment.className = 'wheel-segment';
+                segment.textContent = participant.number;
+                segment.dataset.name = participant.name;
+                segment.dataset.number = participant.number;
+                
+                // Cores alternadas
+                const hue = (index * 137) % 360; // Número áureo para distribuição de cores
+                segment.style.background = `linear-gradient(135deg, 
+                    hsl(${hue}, 70%, 40%) 0%, 
+                    hsl(${hue}, 80%, 50%) 100%)`;
+                segment.style.border = `2px solid hsl(${hue}, 90%, 60%)`;
+                
+                // Posicionamento
+                const rotation = index * anglePerSegment;
+                segment.style.transform = `rotate(${rotation}deg)`;
+                
+                // Texto invertido para metade inferior
+                if (rotation > 90 && rotation < 270) {
+                    segment.style.transform += ' rotate(180deg)';
+                }
+                
+                wheelInner.appendChild(segment);
+            });
+        }
+        
+        // Renderizar lista de participantes
+        function renderParticipants() {
+            participantsGrid.innerHTML = '';
+            
+            PARTICIPANTS.forEach(participant => {
+                const card = document.createElement('div');
+                card.className = 'participant-card';
+                card.dataset.number = participant.number;
+                
+                card.innerHTML = `
+                    <div class="participant-name">${participant.name}</div>
+                    <div class="participant-number">Nº ${participant.number}</div>
+                `;
+                
+                participantsGrid.appendChild(card);
+            });
+            
+            totalParticipantsEl.textContent = PARTICIPANTS.length;
+        }
+        
+        // Configurar event listeners
+        function setupEventListeners() {
+            spinButton.addEventListener('click', spinRoulette);
+            resetButton.addEventListener('click', resetRoulette);
+            
+            // Atalhos de teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && !isSpinning) {
+                    e.preventDefault();
+                    spinRoulette();
+                }
+                
+                if (e.ctrlKey && e.code === 'KeyR') {
+                    e.preventDefault();
+                    resetRoulette();
+                }
+            });
+        }
+        
+        // Girar a roleta
+        function spinRoulette() {
+            if (isSpinning) return;
+            
+            isSpinning = true;
+            spinButton.disabled = true;
+            
+            // Gerar um vencedor aleatório
+            const winnerIndex = Math.floor(Math.random() * PARTICIPANTS.length);
+            const winner = PARTICIPANTS[winnerIndex];
+            
+            // Calcular rotação (mínimo 3 voltas completas + posição do vencedor)
+            const fullRotations = 3;
+            const segmentAngle = 360 / PARTICIPANTS.length;
+            const targetRotation = (fullRotations * 360) + (winnerIndex * segmentAngle);
+            
+            // Adicionar rotação aleatória para efeito
+            const randomOffset = Math.random() * 30 - 15;
+            currentSpinDegrees += targetRotation + randomOffset;
+            
+            // Animar a roleta
+            wheelInner.style.transition = 'transform 5s cubic-bezier(0.2, 0.8, 0.3, 1)';
+            wheelInner.style.transform = `rotate(${currentSpinDegrees}deg)`;
+            
+            // Efeitos sonoros/sonoros simulados
+            createSpinEffects();
+            
+            // Mostrar resultado após animação
+            setTimeout(() => {
+                showWinner(winner);
+                spinButton.disabled = false;
+                isSpinning = false;
+                spinCount++;
+                updateStats();
+            }, 5000);
+        }
+        
+        // Criar efeitos visuais durante o giro
+        function createSpinEffects() {
+            // Efeito de brilho na roleta
+            wheelInner.style.filter = 'brightness(1.2)';
+            
+            // Partículas
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createParticle();
+                }, i * 100);
+            }
+            
+            setTimeout(() => {
+                wheelInner.style.filter = '';
+            }, 5000);
+        }
+        
+        // Criar partícula
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: #ff0000;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1000;
+                left: 50%;
+                top: 50%;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 100 + Math.random() * 100;
+            
+            particle.animate([
+                {
+                    transform: 'translate(-50%, -50%) scale(1)',
+                    opacity: 1
+                },
+                {
+                    transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`,
+                    opacity: 0
+                }
+            ], {
+                duration: 1000,
+                easing: 'cubic-bezier(0.2, 0, 0.8, 1)'
+            }).onfinish = () => particle.remove();
+        }
+        
+        // Mostrar vencedor
+        function showWinner(winner) {
+            // Atualizar display
+            resultValue.textContent = `${winner.name} (Nº ${winner.number})`;
+            resultValue.classList.add('celebration');
+            
+            // Destacar vencedor na lista
+            const winnerCard = document.querySelector(`.participant-card[data-number="${winner.number}"]`);
+            if (winnerCard) {
+                winnerCard.classList.add('winner-highlight');
+                
+                // Scroll para o vencedor
+                winnerCard.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+            
+            // Adicionar à lista de vencedores
+            winners.push(winner);
+            
+            // Remover animação após 2 segundos
+            setTimeout(() => {
+                resultValue.classList.remove('celebration');
+            }, 2000);
+        }
+        
+        // Reiniciar sorteio
+        function resetRoulette() {
+            if (isSpinning) return;
+            
+            if (confirm('Tem certeza que deseja reiniciar o sorteio? Todos os resultados serão perdidos.')) {
+                // Resetar estado
+                spinCount = 0;
+                winners = [];
+                currentSpinDegrees = 0;
+                
+                // Resetar display
+                resultValue.textContent = 'Aguardando sorteio...';
+                wheelInner.style.transform = 'rotate(0deg)';
+                
+                // Remover destaque dos vencedores
+                document.querySelectorAll('.winner-highlight').forEach(el => {
+                    el.classList.remove('winner-highlight');
+                });
+                
+                // Atualizar estatísticas
+                updateStats();
+                
+                // Feedback visual
+                spinButton.style.animation = 'pulse 1s';
+                setTimeout(() => {
+                    spinButton.style.animation = '';
+                }, 1000);
+            }
+        }
+        
+        // Atualizar estatísticas
+        function updateStats() {
+            spinsCountEl.textContent = spinCount;
+            
+            // Calcular prêmio (exemplo: R$ 10 por participante)
+            const prize = PARTICIPANTS.length * 10;
+            prizeValueEl.textContent = `R$ ${prize.toFixed(2).replace('.', ',')}`;
+        }
+        
+        // Inicializar quando a página carregar
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // Prevenir zoom com scroll
+        document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Detectar dispositivo móvel
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+            document.body.classList.add('mobile');
+        }
+    </script>
+</body>
+</html>
