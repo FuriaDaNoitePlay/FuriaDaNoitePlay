@@ -20,11 +20,12 @@
             line-height: 1.6;
         }
         
+        /* BOTÃO ADM NO CANTO SUPERIOR DIREITO */
         .admin-access {
-            position: absolute;
+            position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 100;
+            z-index: 1000;
         }
         
         .admin-btn {
@@ -61,7 +62,7 @@
         .header {
             text-align: center;
             margin-bottom: 25px;
-            padding-top: 15px;
+            padding-top: 60px; /* Espaço para o botão ADM */
         }
         
         .logo-container {
@@ -495,7 +496,7 @@
     </style>
 </head>
 <body>
-    <!-- Botão de acesso ADM (canto superior direito) -->
+    <!-- BOTÃO ADM FIXO NO CANTO SUPERIOR DIREITO -->
     <div class="admin-access">
         <a href="ADM.html" class="admin-btn">
             <i class="fas fa-user-shield"></i> ACESSO ADM
