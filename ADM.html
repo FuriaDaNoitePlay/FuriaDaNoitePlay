@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso ADM - FuriaDaNoitePlay</title>
+    <title>Login ADM - FuriaDaNoitePlay</title>
     <style>
         * {
             margin: 0;
@@ -14,7 +14,7 @@
         body {
             background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
             color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,121 +22,57 @@
             padding: 20px;
         }
         
-        .login-container {
+        .login-box {
+            background: rgba(30, 30, 40, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            border: 3px solid #ff0000;
             width: 100%;
             max-width: 400px;
-            background: rgba(20, 20, 30, 0.95);
-            border-radius: 20px;
-            padding: 40px 30px;
-            border: 3px solid #ff0000;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
         }
         
-        .login-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, rgba(255,0,0,0) 70%);
-            z-index: 0;
-        }
-        
-        .login-header {
+        .title {
             text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .logo {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            border-radius: 50%;
-            border: 2px solid #ff0000;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-        }
-        
-        .login-title {
-            font-size: 2rem;
             color: #ff0000;
+            font-size: 28px;
+            margin-bottom: 5px;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
         }
         
-        .login-subtitle {
+        .subtitle {
+            text-align: center;
             color: #ff4444;
-            font-size: 1rem;
-            opacity: 0.8;
+            margin-bottom: 30px;
+            font-size: 14px;
         }
         
-        .login-form {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .form-group {
+        .input-group {
             margin-bottom: 25px;
         }
         
-        .form-label {
+        .input-label {
             display: block;
             color: #ff4444;
             margin-bottom: 8px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: bold;
+            font-size: 14px;
         }
         
-        .form-input {
+        .input-field {
             width: 100%;
             padding: 15px;
             background: rgba(0, 0, 0, 0.5);
             border: 2px solid #333;
-            border-radius: 10px;
+            border-radius: 8px;
             color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            font-size: 16px;
         }
         
-        .form-input:focus {
+        .input-field:focus {
             outline: none;
             border-color: #ff0000;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-            background: rgba(0, 0, 0, 0.7);
-        }
-        
-        .password-container {
-            position: relative;
-        }
-        
-        .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #888;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-        
-        .toggle-password:hover {
-            color: #ff4444;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
         
         .login-btn {
@@ -145,38 +81,27 @@
             background: linear-gradient(135deg, #ff0000, #cc0000);
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
+            border-radius: 8px;
+            font-size: 18px;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.3s ease;
             margin-top: 10px;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            transition: all 0.3s;
         }
         
         .login-btn:hover {
             background: linear-gradient(135deg, #cc0000, #aa0000);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
             transform: translateY(-2px);
-        }
-        
-        .login-btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
         }
         
         .back-link {
             display: block;
             text-align: center;
             color: #888;
-            text-decoration: none;
             margin-top: 25px;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
         }
         
         .back-link:hover {
@@ -187,302 +112,120 @@
             color: #ff4444;
             text-align: center;
             margin-top: 15px;
-            font-size: 0.9rem;
             display: none;
+            font-size: 14px;
         }
         
-        .security-warning {
+        .warning {
             background: rgba(255, 68, 68, 0.1);
             border: 1px solid #ff4444;
-            border-radius: 10px;
             padding: 15px;
+            border-radius: 8px;
             margin-top: 25px;
-            text-align: center;
-            font-size: 0.8rem;
+            font-size: 12px;
             color: #ff9999;
-        }
-        
-        .attempts-counter {
             text-align: center;
-            margin-top: 15px;
-            font-size: 0.8rem;
-            color: #888;
         }
         
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 30px 20px;
-            }
-            
-            .login-title {
-                font-size: 1.7rem;
-            }
-            
-            .logo {
-                width: 70px;
-                height: 70px;
-            }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #ff0000;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-header">
-            <div class="logo-container">
-                <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo">
-            </div>
-            <h1 class="login-title">ACESSO ADM</h1>
-            <p class="login-subtitle">Painel Administrativo da Rifa</p>
+    <div class="login-box">
+        <img src="fúria.png" alt="Logo" class="logo" onerror="this.style.display='none'">
+        
+        <h1 class="title">ACESSO ADM</h1>
+        <p class="subtitle">Painel Administrativo da Rifa</p>
+        
+        <div class="input-group">
+            <label class="input-label">USUÁRIO ADM</label>
+            <input type="text" class="input-field" id="username" placeholder="Toxicskull">
         </div>
         
-        <form class="login-form" id="loginForm">
-            <div class="form-group">
-                <label class="form-label">USUÁRIO ADM</label>
-                <input 
-                    type="text" 
-                    class="form-input" 
-                    placeholder="Digite seu usuário"
-                    id="username"
-                    required
-                    autocomplete="username"
-                >
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">SENHA</label>
-                <div class="password-container">
-                    <input 
-                        type="password" 
-                        class="form-input" 
-                        placeholder="Digite sua senha"
-                        id="password"
-                        required
-                        autocomplete="current-password"
-                    >
-                    <button type="button" class="toggle-password" id="togglePassword">
-                        👁️
-                    </button>
-                </div>
-            </div>
-            
-            <div class="error-message" id="errorMessage">
-                ❌ Usuário ou senha incorretos!
-            </div>
-            
-            <div class="attempts-counter" id="attemptsCounter">
-                Tentativas restantes: <span id="remainingAttempts">3</span>
-            </div>
-            
-            <button type="submit" class="login-btn" id="loginButton">
-                ENTRAR NO PAINEL
-            </button>
-            
-            <a href="rifa.html" class="back-link">
-                ← Voltar para a página da Rifa
-            </a>
-            
-            <div class="security-warning">
-                ⚠️ Acesso restrito aos administradores. 
-                Mantenha suas credenciais em segredo.
-            </div>
-        </form>
+        <div class="input-group">
+            <label class="input-label">SENHA</label>
+            <input type="password" class="input-field" id="password" placeholder="123qweasdzxc">
+        </div>
+        
+        <button class="login-btn" id="loginButton">ENTRAR NO PAINEL</button>
+        
+        <div class="error-message" id="errorMessage">
+            ❌ Usuário ou senha incorretos!
+        </div>
+        
+        <a href="rifa.html" class="back-link">← Voltar para a página da Rifa</a>
+        
+        <div class="warning">
+            ⚠️ Acesso restrito aos administradores. Mantenha suas credenciais em segredo.
+        </div>
     </div>
 
     <script>
-        // Credenciais seguras (não visíveis no código fonte)
-        // Em um sistema real, isso seria validado no servidor
-        const VALID_CREDENTIALS = {
-            username: 'Toxicskull',
-            password: '123qweasdzxc'
-        };
+        // Configuração de login
+        const CORRECT_USERNAME = 'Toxicskull';
+        const CORRECT_PASSWORD = '123qweasdzxc';
         
-        // Controle de tentativas
-        let remainingAttempts = 3;
-        let isLocked = false;
-        let lockUntil = null;
-        
-        // Elementos do DOM
-        const loginForm = document.getElementById('loginForm');
+        // Elementos
+        const loginButton = document.getElementById('loginButton');
         const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
-        const togglePasswordBtn = document.getElementById('togglePassword');
         const errorMessage = document.getElementById('errorMessage');
-        const loginButton = document.getElementById('loginButton');
-        const attemptsCounter = document.getElementById('attemptsCounter');
-        const remainingAttemptsSpan = document.getElementById('remainingAttempts');
         
-        // Alternar visibilidade da senha
-        togglePasswordBtn.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            togglePasswordBtn.textContent = type === 'password' ? '👁️' : '🙈';
-        });
-        
-        // Verificar se há bloqueio ativo
-        function checkLockStatus() {
-            if (isLocked && lockUntil) {
-                const now = new Date().getTime();
-                if (now < lockUntil) {
-                    const minutesLeft = Math.ceil((lockUntil - now) / (1000 * 60));
-                    errorMessage.textContent = `⏳ Acesso bloqueado. Tente novamente em ${minutesLeft} minuto(s).`;
-                    errorMessage.style.display = 'block';
-                    loginButton.disabled = true;
-                    return true;
-                } else {
-                    // Desbloquear após o tempo
-                    isLocked = false;
-                    lockUntil = null;
-                    remainingAttempts = 3;
-                    updateAttemptsDisplay();
-                    loginButton.disabled = false;
-                }
-            }
-            return false;
-        }
-        
-        // Atualizar display de tentativas
-        function updateAttemptsDisplay() {
-            remainingAttemptsSpan.textContent = remainingAttempts;
-            attemptsCounter.style.display = remainingAttempts < 3 ? 'block' : 'none';
-        }
-        
-        // Bloquear acesso
-        function lockAccess(minutes) {
-            isLocked = true;
-            lockUntil = new Date().getTime() + (minutes * 60 * 1000);
-            loginButton.disabled = true;
-            
-            // Salvar no localStorage
-            localStorage.setItem('loginLockedUntil', lockUntil.toString());
-            
-            // Mostrar mensagem
-            errorMessage.textContent = `⏳ Muitas tentativas falhas. Acesso bloqueado por ${minutes} minutos.`;
-            errorMessage.style.display = 'block';
-        }
-        
-        // Verificar bloqueio salvo
-        function checkSavedLock() {
-            const savedLock = localStorage.getItem('loginLockedUntil');
-            if (savedLock) {
-                const lockTime = parseInt(savedLock);
-                const now = new Date().getTime();
-                
-                if (now < lockTime) {
-                    isLocked = true;
-                    lockUntil = lockTime;
-                    checkLockStatus();
-                } else {
-                    localStorage.removeItem('loginLockedUntil');
-                }
-            }
-        }
-        
-        // Validar credenciais (simulação - em produção isso seria no servidor)
-        function validateCredentials(username, password) {
-            // Simulação de validação segura
-            return username === VALID_CREDENTIALS.username && 
-                   password === VALID_CREDENTIALS.password;
-        }
-        
-        // Limpar formulário
-        function clearForm() {
-            usernameInput.value = '';
-            passwordInput.value = '';
-            passwordInput.setAttribute('type', 'password');
-            togglePasswordBtn.textContent = '👁️';
-        }
-        
-        // Enviar formulário
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Verificar bloqueio
-            if (checkLockStatus()) {
-                return;
-            }
-            
+        // Função para fazer login
+        function fazerLogin() {
             const username = usernameInput.value.trim();
             const password = passwordInput.value;
             
-            // Validação básica
-            if (!username || !password) {
-                errorMessage.textContent = '⚠️ Preencha todos os campos!';
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            // Desabilitar botão durante validação
-            loginButton.disabled = true;
-            loginButton.textContent = 'VERIFICANDO...';
-            
-            // Simular delay de validação
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
             // Validar credenciais
-            if (validateCredentials(username, password)) {
+            if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
                 // Login bem-sucedido
                 errorMessage.style.display = 'none';
                 
-                // Limpar bloqueio se existir
-                localStorage.removeItem('loginLockedUntil');
+                // Criar sessão (simples)
+                localStorage.setItem('admin_logged_in', 'true');
+                localStorage.setItem('admin_username', username);
                 
-                // Criar token de sessão (simulado)
-                const sessionToken = btoa(Date.now() + ':' + username + ':' + Math.random());
-                localStorage.setItem('adminSession', sessionToken);
-                
-                // Redirecionar para painel ADM
+                // Redirecionar PARA ADM.html (ESSA É A PARTE IMPORTANTE)
                 window.location.href = 'ADM.html';
                 
             } else {
                 // Login falhou
-                remainingAttempts--;
-                updateAttemptsDisplay();
-                
-                if (remainingAttempts <= 0) {
-                    // Bloquear acesso por 15 minutos
-                    lockAccess(15);
-                } else {
-                    errorMessage.style.display = 'block';
-                    errorMessage.textContent = `❌ Credenciais inválidas! Tentativas restantes: ${remainingAttempts}`;
-                    
-                    // Limpar senha
-                    passwordInput.value = '';
-                    passwordInput.focus();
-                }
+                errorMessage.style.display = 'block';
+                passwordInput.value = ''; // Limpar senha
+                passwordInput.focus();
             }
-            
-            // Reabilitar botão
-            loginButton.disabled = false;
-            loginButton.textContent = 'ENTRAR NO PAINEL';
-        });
+        }
         
-        // Limpar mensagem de erro ao começar a digitar
+        // Evento de clique no botão
+        loginButton.addEventListener('click', fazerLogin);
+        
+        // Permitir login com Enter
         [usernameInput, passwordInput].forEach(input => {
-            input.addEventListener('input', () => {
-                errorMessage.style.display = 'none';
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    fazerLogin();
+                }
             });
         });
         
-        // Prevenir autopreenchimento de desenvolvedor
-        document.addEventListener('contextmenu', (e) => {
-            if (e.target.type === 'password') {
-                e.preventDefault();
-            }
+        // Preencher automaticamente para facilitar
+        window.addEventListener('load', function() {
+            usernameInput.value = CORRECT_USERNAME;
+            passwordInput.value = CORRECT_PASSWORD;
+            passwordInput.type = 'password'; // Garantir que seja tipo password
         });
         
-        // Inicializar
-        checkSavedLock();
-        updateAttemptsDisplay();
-        
-        // Foco no campo de usuário
-        usernameInput.focus();
-        
-        // Proteção adicional contra inspeção
-        Object.defineProperty(window, 'VALID_CREDENTIALS', {
-            value: VALID_CREDENTIALS,
-            writable: false,
-            configurable: false
-        });
+        // Foco no campo de senha
+        setTimeout(() => {
+            passwordInput.focus();
+        }, 100);
     </script>
 </body>
-    </html>
+</html>
