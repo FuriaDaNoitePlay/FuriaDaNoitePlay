@@ -12,7 +12,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
@@ -20,9 +20,42 @@
             line-height: 1.6;
         }
         
+        .admin-access {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .admin-btn {
+            background: linear-gradient(135deg, #333, #111);
+            color: #ff4444;
+            border: 2px solid #ff0000;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .admin-btn:hover {
+            background: linear-gradient(135deg, #444, #222);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            transform: translateY(-2px);
+            color: #ff0000;
+        }
+        
         .container {
             max-width: 100%;
             margin: 0 auto;
+            position: relative;
         }
         
         .header {
@@ -422,6 +455,16 @@
             .pix-key {
                 font-size: 1rem;
             }
+            
+            .admin-access {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .admin-btn {
+                padding: 10px 15px;
+                font-size: 0.8rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -452,6 +495,13 @@
     </style>
 </head>
 <body>
+    <!-- Botão de acesso ADM (canto superior direito) -->
+    <div class="admin-access">
+        <a href="ADM.html" class="admin-btn">
+            <i class="fas fa-user-shield"></i> ACESSO ADM
+        </a>
+    </div>
+    
     <div class="container">
         <div class="header">
             <div class="logo-container">
@@ -748,10 +798,20 @@ ${selectedNumbers.map(item => `➤ ${item.number} - ${item.name}`).join('\n')}
         updateTotalPrice();
         updateWhatsAppButton();
         
-        // Adicionar Font Awesome para o ícone do WhatsApp
+        // Adicionar Font Awesome para o ícone do WhatsApp e ADM
         const fontAwesomeScript = document.createElement('script');
         fontAwesomeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js';
         document.head.appendChild(fontAwesomeScript);
+        
+        // Proteger o botão ADM (opcional - você pode remover se quiser acesso livre)
+        document.querySelector('.admin-btn').addEventListener('click', (e) => {
+            // Se quiser adicionar uma senha básica para o botão ADM
+            const password = prompt('🔒 Digite a senha de acesso ADM:');
+            if (password !== '123qweasdzxc') {
+                e.preventDefault();
+                alert('❌ Senha incorreta! Acesso negado.');
+            }
+        });
     </script>
 </body>
     </html>
