@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login ADM - Rifa do Guerreiro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: rgba(20, 20, 30, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+            text-align: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            margin-right: 15px;
+        }
+        
+        .login-title {
+            font-size: 2rem;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        .login-subtitle {
+            color: #ff4444;
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .input-group {
+            text-align: left;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ff9999;
+            font-weight: bold;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #ff4444;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        
+        .login-btn {
+            padding: 18px;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(135deg, #cc0000, #aa0000);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            transform: translateY(-2px);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+            font-size: 0.9rem;
+        }
+        
+        .back-link {
+            margin-top: 25px;
+            color: #999;
+        }
+        
+        .back-link a {
+            color: #ff4444;
+            text-decoration: none;
+        }
+        
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .credentials-hint {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 68, 68, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #ff9999;
+            border-left: 3px solid #ff4444;
+        }
+        
+        .credentials-hint h4 {
+            color: #ff4444;
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            .login-title {
+                font-size: 1.7rem;
+            }
+            
+            .logo {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="loginContainer">
+        <div class="logo-container">
+            <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo">
+            <div>
+                <h1 class="login-title">ACESSO ADM</h1>
+                <p class="login-subtitle">Painel Administrativo da Rifa</p>
+            </div>
+        </div>
+        
+        <div class="credentials-hint">
+            <h4>📋 Credenciais de Acesso:</h4>
+            <p><strong>Usuário:</strong> Toxicskull</p>
+            <p><strong>Senha:</strong> 123qweasdzxc</p>
+        </div>
+        
+        <form class="login-form" id="loginForm">
+            <div class="input-group">
+                <label for="username"><i class="fas fa-user"></i> USUÁRIO ADM</label>
+                <input type="text" id="username" name="username" required 
+                       placeholder="Digite seu usuário" autocomplete="username">
+            </div>
+            
+            <div class="input-group">
+                <label for="password"><i class="fas fa-lock"></i> SENHA</label>
+                <input type="password" id="password" name="password" required 
+                       placeholder="Digite sua senha" autocomplete="current-password">
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                ❌ Usuário ou senha incorretos!
+            </div>
+            
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> ENTRAR NO PAINEL
+            </button>
+        </form>
+        
+        <div class="back-link">
+            <a href="rifa.html"><i class="fas fa-arrow-left"></i> Voltar para a página da Rifa</a>
+        </div>
+    </div>
+    
+    <!-- Painel ADM (inicialmente escondido) -->
+    <div class="admin-panel" id="adminPanel" style="display: none; width: 100%;">
+        <!-- O conteúdo do painel ADM será inserido aqui após login -->
+    </div>
+
+    <script>
+        // Credenciais válidas
+        const VALID_USERNAME = "Toxicskull";
+        const VALID_PASSWORD = "123qweasdzxc";
+        
+        // Elementos do DOM
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const loginContainer = document.getElementById('loginContainer');
+        const adminPanel = document.getElementById('adminPanel');
+        
+        // Tentativas de login
+        let loginAttempts = 0;
+        const MAX_ATTEMPTS = 5;
+        
+        // Verificar login ao enviar formulário
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Verificar credenciais
+            if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+                // Login bem-sucedido
+                loginSuccess();
+            } else {
+                // Login falhou
+                loginAttempts++;
+                loginFailed();
+            }
+        });
+        
+        // Função para login bem-sucedido
+        function loginSuccess() {
+            // Esconder mensagem de erro se estiver visível
+            errorMessage.style.display = 'none';
+            
+            // Efeito visual de sucesso
+            loginContainer.style.animation = 'none';
+            setTimeout(() => {
+                loginContainer.style.animation = 'pulse 0.5s';
+            }, 10);
+            
+            // Salvar sessão no localStorage
+            localStorage.setItem('adminLoggedIn', 'true');
+            localStorage.setItem('adminUsername', VALID_USERNAME);
+            
+            // Mostrar mensagem de sucesso
+            alert(`✅ Login bem-sucedido!\n\nBem-vindo, ${VALID_USERNAME}!`);
+            
+            // Carregar o painel ADM
+            loadAdminPanel();
+        }
+        
+        // Função para login falhado
+        function loginFailed() {
+            // Mostrar mensagem de erro
+            errorMessage.style.display = 'block';
+            
+            // Efeito visual de erro
+            loginForm.style.animation = 'none';
+            setTimeout(() => {
+                loginForm.style.animation = 'shake 0.5s';
+            }, 10);
+            
+            // Limpar campo de senha
+            document.getElementById('password').value = '';
+            document.getElementById('password').focus();
+            
+            // Verificar se atingiu o limite de tentativas
+            if (loginAttempts >= MAX_ATTEMPTS) {
+                alert(`❌ Muitas tentativas falhadas!\n\nO acesso foi bloqueado por 5 minutos.`);
+                document.querySelector('.login-btn').disabled = true;
+                
+                // Reativar após 5 minutos (300000ms)
+                setTimeout(() => {
+                    document.querySelector('.login-btn').disabled = false;
+                    loginAttempts = 0;
+                    alert('🔓 O acesso foi reativado. Tente novamente.');
+                }, 300000);
+            }
+        }
+        
+        // Carregar painel ADM após login
+        function loadAdminPanel() {
+            // Esconder formulário de login
+            loginContainer.style.display = 'none';
+            
+            // Criar conteúdo do painel ADM
+            adminPanel.innerHTML = `
+                <style>
+                    .admin-container {
+                        max-width: 1200px;
+                        margin: 0 auto;
+                        padding: 20px;
+                    }
+                    
+                    .admin-header {
+                        text-align: center;
+                        margin-bottom: 30px;
+                        padding: 20px;
+                        background: rgba(0, 0, 0, 0.5);
+                        border-radius: 15px;
+                        border: 2px solid #ff0000;
+                        box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+                    }
+                    
+                    .logo-container {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-bottom: 15px;
+                    }
+                    
+                    .logo {
+                        width: 80px;
+                        height: 80px;
+                        object-fit: contain;
+                        border-radius: 50%;
+                        border: 2px solid #ff0000;
+                        box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+                        margin-right: 20px;
+                    }
+                    
+                    .admin-title {
+                        font-size: 2.5rem;
+                        color: #ff0000;
+                        text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                    }
+                    
+                    .admin-subtitle {
+                        color: #ff4444;
+                        font-size: 1.2rem;
+                        margin-top: 10px;
+                    }
+                    
+                    .user-info {
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        background: rgba(0, 0, 0, 0.6);
+                        padding: 10px 20px;
+                        border-radius: 10px;
+                        border: 1px solid #ff4444;
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    }
+                    
+                    .logout-btn {
+                        background: linear-gradient(135deg, #333, #555);
+                        color: white;
+                        border: 1px solid #ff4444;
+                        padding: 8px 15px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 0.9rem;
+                    }
+                    
+                    .logout-btn:hover {
+                        background: linear-gradient(135deg, #444, #666);
+                    }
+                    
+                    .admin-content {
+                        display: grid;
+                        grid-template-columns: 1fr 2fr;
+                        gap: 30px;
+                        margin-bottom: 40px;
+                    }
+                    
+                    .control-panel {
+                        background: rgba(20, 20, 30, 0.9);
+                        border-radius: 15px;
+                        padding: 25px;
+                        border: 2px solid #ff4444;
+                        box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+                    }
+                    
+                    .panel-title {
+                        color: #ff4444;
+                        font-size: 1.5rem;
+                        margin-bottom: 20px;
+                        text-align: center;
+                        text-transform: uppercase;
+                    }
+                    
+                    .stats-grid {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 15px;
+                        margin-bottom: 25px;
+                    }
+                    
+                    .stat-card {
+                        background: rgba(0, 0, 0, 0.4);
+                        border-radius: 10px;
+                        padding: 15px;
+                        text-align: center;
+                        border: 1px solid #333;
+                    }
+                    
+                    .stat-number {
+                        font-size: 2.2rem;
+                        font-weight: bold;
+                        color: #ff4444;
+                        margin-bottom: 5px;
+                    }
+                    
+                    .stat-label {
+                        color: #aaa;
+                        font-size: 0.9rem;
+                        text-transform: uppercase;
+                    }
+                    
+                    .control-buttons {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 15px;
+                        margin: 25px 0;
+                    }
+                    
+                    .admin-btn {
+                        padding: 18px;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 1.1rem;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        text-align: center;
+                    }
+                    
+                    .sync-btn {
+                        background: linear-gradient(135deg, #0066cc, #004499);
+                        color: white;
+                        box-shadow: 0 0 15px rgba(0, 102, 204, 0.5);
+                    }
+                    
+                    .sync-btn:hover {
+                        background: linear-gradient(135deg, #0055aa, #003377);
+                        box-shadow: 0 0 20px rgba(0, 102, 204, 0.7);
+                    }
+                    
+                    .draw-btn {
+                        background: linear-gradient(135deg, #ff0000, #cc0000);
+                        color: white;
+                        box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+                    }
+                    
+                    .draw-btn:hover {
+                        background: linear-gradient(135deg, #cc0000, #aa0000);
+                        box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+                    }
+                    
+                    .reset-btn {
+                        background: linear-gradient(135deg, #666, #444);
+                        color: white;
+                        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+                    }
+                    
+                    .reset-btn:hover {
+                        background: linear-gradient(135deg, #777, #555);
+                        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+                    }
+                    
+                    .roulette-container {
+                        background: rgba(20, 20, 30, 0.9);
+                        border-radius: 15px;
+                        padding: 25px;
+                        border: 2px solid #ff4444;
+                        box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+                        position: relative;
+                        overflow: hidden;
+                    }
+                    
+                    .roulette-wheel {
+                        width: 500px;
+                        height: 500px;
+                        border-radius: 50%;
+                        background: linear-gradient(135deg, #1a1a2e, #16213e);
+                        border: 8px solid #ff0000;
+                        position: relative;
+                        margin: 0 auto 30px;
+                        box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+                        transition: transform 3s cubic-bezier(0.1, 0.7, 0.1, 1);
+                    }
+                    
+                    .roulette-pointer {
+                        position: absolute;
+                        top: -20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 40px;
+                        height: 40px;
+                        background: #ff0000;
+                        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+                        z-index: 10;
+                        box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+                    }
+                    
+                    .roulette-item {
+                        position: absolute;
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 50%;
+                        background: linear-gradient(135deg, #8B0000, #B22222);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: bold;
+                        font-size: 1.2rem;
+                        color: white;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                        border: 2px solid gold;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        text-align: center;
+                        overflow: hidden;
+                    }
+                    
+                    .roulette-item:hover {
+                        transform: scale(1.1);
+                        box-shadow: 0 0 15px gold;
+                        z-index: 5;
+                    }
+                    
+                    .roulette-item.selected {
+                        background: linear-gradient(135deg, gold, #ffd700);
+                        color: #000;
+                        box-shadow: 0 0 20px gold;
+                        border-color: white;
+                        transform: scale(1.2);
+                        z-index: 20;
+                        animation: pulse 1s infinite;
+                    }
+                    
+                    @keyframes pulse {
+                        0% { box-shadow: 0 0 20px gold; }
+                        50% { box-shadow: 0 0 30px gold; }
+                        100% { box-shadow: 0 0 20px gold; }
+                    }
+                    
+                    .result-display {
+                        background: rgba(0, 0, 0, 0.6);
+                        border-radius: 10px;
+                        padding: 25px;
+                        margin-top: 30px;
+                        text-align: center;
+                        border: 2px solid gold;
+                        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+                    }
+                    
+                    .winner-title {
+                        color: gold;
+                        font-size: 1.8rem;
+                        margin-bottom: 15px;
+                        text-transform: uppercase;
+                    }
+                    
+                    .winner-number {
+                        font-size: 4rem;
+                        font-weight: bold;
+                        color: white;
+                        text-shadow: 0 0 20px gold;
+                        margin: 10px 0;
+                    }
+                    
+                    .winner-hero {
+                        font-size: 2rem;
+                        color: #ff4444;
+                        margin: 10px 0;
+                    }
+                    
+                    .participants-list {
+                        background: rgba(20, 20, 30, 0.9);
+                        border-radius: 15px;
+                        padding: 25px;
+                        border: 2px solid #ff4444;
+                        box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+                        margin-top: 30px;
+                    }
+                    
+                    .participants-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                        gap: 15px;
+                        margin-top: 20px;
+                        max-height: 300px;
+                        overflow-y: auto;
+                        padding: 10px;
+                    }
+                    
+                    .participant-card {
+                        background: rgba(0, 0, 0, 0.4);
+                        border-radius: 10px;
+                        padding: 15px;
+                        text-align: center;
+                        border: 1px solid #333;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .participant-card:hover {
+                        border-color: #ff4444;
+                        transform: translateY(-3px);
+                    }
+                    
+                    .participant-number {
+                        font-size: 1.8rem;
+                        font-weight: bold;
+                        color: #ff4444;
+                        margin-bottom: 5px;
+                    }
+                    
+                    .participant-name {
+                        color: #aaa;
+                        font-size: 0.9rem;
+                        margin-bottom: 5px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    
+                    .participant-status {
+                        font-size: 0.8rem;
+                        padding: 3px 8px;
+                        border-radius: 5px;
+                        display: inline-block;
+                    }
+                    
+                    .status-available {
+                        background: rgba(0, 255, 0, 0.2);
+                        color: #0f0;
+                    }
+                    
+                    .status-reserved {
+                        background: rgba(255, 255, 0, 0.2);
+                        color: #ff0;
+                    }
+                    
+                    .status-sold {
+                        background: rgba(255, 0, 0, 0.2);
+                        color: #f00;
+                    }
+                    
+                    .footer {
+                        text-align: center;
+                        margin-top: 40px;
+                        padding-top: 20px;
+                        border-top: 1px solid #333;
+                        color: #888;
+                        font-size: 0.9rem;
+                    }
+                    
+                    .modal {
+                        display: none;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.8);
+                        z-index: 1000;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    
+                    .modal-content {
+                        background: linear-gradient(135deg, #1a1a2e, #16213e);
+                        padding: 40px;
+                        border-radius: 15px;
+                        border: 3px solid #ff0000;
+                        box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+                        max-width: 500px;
+                        text-align: center;
+                    }
+                    
+                    .modal-title {
+                        color: #ff4444;
+                        font-size: 1.8rem;
+                        margin-bottom: 20px;
+                    }
+                    
+                    .modal-winner {
+                        font-size: 3.5rem;
+                        color: gold;
+                        font-weight: bold;
+                        margin: 20px 0;
+                        text-shadow: 0 0 20px gold;
+                    }
+                    
+                    .modal-hero {
+                        font-size: 2rem;
+                        color: #ff4444;
+                        margin-bottom: 30px;
+                    }
+                    
+                    .close-modal {
+                        padding: 12px 30px;
+                        background: linear-gradient(135deg, #ff0000, #cc0000);
+                        color: white;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 1.1rem;
+                        cursor: pointer;
+                        margin-top: 20px;
+                    }
+                    
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0); }
+                        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                        20%, 40%, 60%, 80% { transform: translateX(5px); }
+                    }
+                    
+                    @keyframes pulse {
+                        0% { transform: scale(1); }
+                        50% { transform: scale(1.05); }
+                        100% { transform: scale(1); }
+                    }
+                    
+                    @media (max-width: 1024px) {
+                        .admin-content {
+                            grid-template-columns: 1fr;
+                        }
+                        
+                        .roulette-wheel {
+                            width: 400px;
+                            height: 400px;
+                        }
+                    }
+                    
+                    @media (max-width: 768px) {
+                        .roulette-wheel {
+                            width: 300px;
+                            height: 300px;
+                        }
+                        
+                        .roulette-item {
+                            width: 50px;
+                            height: 50px;
+                            font-size: 1rem;
+                        }
+                        
+                        .admin-title {
+                            font-size: 2rem;
+                        }
+                    }
+                </style>
+                
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>${VALID_USERNAME}</span>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </div>
+                
+                <div class="admin-container">
+                    <div class="admin-header">
+                        <div class="logo-container">
+                            <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo">
+                            <div>
+                                <h1 class="admin-title">PAINEL ADMINISTRATIVO</h1>
+                                <p class="admin-subtitle">Sorteio da Rifa do Guerreiro - MLBB</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-content">
+                        <div class="control-panel">
+                            <h2 class="panel-title">CONTROLE DO SORTEIO</h2>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-number" id="totalNumbers">31</div>
+                                    <div class="stat-label">Total de Números</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-number" id="soldNumbers">0</div>
+                                    <div class="stat-label">Vendidos</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-number" id="availableNumbers">31</div>
+                                    <div class="stat-label">Disponíveis</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-number" id="totalRevenue">R$ 0</div>
+                                    <div class="stat-label">Arrecadação</div>
+                                </div>
+                            </div>
+                            
+                            <div class="control-buttons">
+                                <button class="admin-btn sync-btn" id="syncData">
+                                    🔄 SINCRONIZAR DADOS DA RIFA
+                                </button>
+                                <button class="admin-btn draw-btn" id="startDraw">
+                                    🎯 INICIAR SORTEIO
+                                </button>
+                                <button class="admin-btn reset-btn" id="resetDraw">
+                                    🔄 REINICIAR SORTEIO
+                                </button>
+                            </div>
+                            
+                            <div class="participants-list">
+                                <h3 style="color: #ff4444; margin-bottom: 15px;">PARTICIPANTES CONFIRMADOS</h3>
+                                <div class="participants-grid" id="participantsGrid">
+                                    <!-- Lista de participantes será gerada aqui -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="roulette-container">
+                            <h2 class="panel-title">ROLETA DO SORTEIO</h2>
+                            <div class="roulette-pointer"></div>
+                            <div class="roulette-wheel" id="rouletteWheel">
+                                <!-- Itens da roleta serão gerados aqui -->
+                            </div>
+                            
+                            <div class="result-display" id="resultDisplay" style="display: none;">
+                                <h3 class="winner-title">🏆 GANHADOR SORTEADO 🏆</h3>
+                                <div class="winner-number" id="winnerNumber">00</div>
+                                <div class="winner-hero" id="winnerHero">HERÓI</div>
+                                <p style="color: #aaa; margin-top: 15px;">Parabéns ao vencedor da Rifa do Guerreiro!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="footer">
+                        <p>FuriaDaNoitePlay &copy; 2024 - Painel Administrativo do Sorteio</p>
+                        <p>Acesso restrito aos administradores da rifa</p>
+                    </div>
+                </div>
+                
+                <!-- Modal do Vencedor -->
+                <div class="modal" id="winnerModal">
+                    <div class="modal-content">
+                        <h2 class="modal-title">🎉 PARABÉNS AO VENCEDOR! 🎉</h2>
+                        <div class="modal-winner" id="modalWinnerNumber">00</div>
+                        <div class="modal-hero" id="modalWinnerHero">HERÓI DO MLBB</div>
+                        <p style="color: #ccc; margin: 20px 0;">Este é o número sorteado da Rifa do Guerreiro!</p>
+                        <p style="color: #ff4444; font-size: 1.1rem;">Prêmio: 60% da arrecadação + bônus</p>
+                        <button class="close-modal" onclick="closeWinnerModal()">FECHAR</button>
+                    </div>
+                </div>
+            `;
+            
+            // Mostrar painel ADM
+            adminPanel.style.display = 'block';
+            
+            // Inicializar funcionalidades do painel ADM
+            initAdminPanel();
+        }
+        
+        // Função para logout
+        function logout() {
+            if (confirm('Deseja realmente sair do painel administrativo?')) {
+                localStorage.removeItem('adminLoggedIn');
+                localStorage.removeItem('adminUsername');
+                location.reload();
+            }
+        }
+        
+        // Verificar se já está logado
+        function checkLogin() {
+            const isLoggedIn = localStorage.getItem('adminLoggedIn');
+            const username = localStorage.getItem('adminUsername');
+            
+            if (isLoggedIn === 'true' && username === VALID_USERNAME) {
+                // Usuário já está logado, carregar painel diretamente
+                loadAdminPanel();
+            }
+        }
+        
+        // Adicionar animações CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+            
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Adicionar Font Awesome
+        const fontAwesomeScript = document.createElement('script');
+        fontAwesomeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js';
+        document.head.appendChild(fontAwesomeScript);
+        
+        // Verificar login ao carregar a página
+        window.addEventListener('DOMContentLoaded', checkLogin);
+        
+        // Inicializar funcionalidades do painel ADM
+        function initAdminPanel() {
+            // Dados dos heróis MLBB (31 heróis)
+            const mlbbHeroes = [
+                { number: 1, name: "Alucard", role: "Assassin" },
+                { number: 2, name: "Miya", role: "Marksman" },
+                { number: 3, name: "Zilong", role: "Fighter" },
+                { number: 4, name: "Layla", role: "Marksman" },
+                { number: 5, name: "Chou", role: "Fighter" },
+                { number: 6, name: "Gusion", role: "Assassin" },
+                { number: 7, name: "Harley", role: "Mage" },
+                { number: 8, name: "Lancelot", role: "Assassin" },
+                { number: 9, name: "Fanny", role: "Assassin" },
+                { number: 10, name: "Kagura", role: "Mage" },
+                { number: 11, name: "Hayabusa", role: "Assassin" },
+                { number: 12, name: "Claude", role: "Marksman" },
+                { number: 13, name: "Karrie", role: "Marksman" },
+                { number: 14, name: "Granger", role: "Marksman" },
+                { number: 15, name: "Bruno", role: "Marksman" },
+                { number: 16, name: "Wanwan", role: "Marksman" },
+                { number: 17, name: "Clint", role: "Marksman" },
+                { number: 18, name: "Lesley", role: "Marksman" },
+                { number: 19, name: "Beatrix", role: "Marksman" },
+                { number: 20, name: "Brody", role: "Marksman" },
+                { number: 21, name: "Esmeralda", role: "Mage" },
+                { number: 22, name: "Lunox", role: "Mage" },
+                { number: 23, name: "Harith", role: "Mage" },
+                { number: 24, name: "Cecilion", role: "Mage" },
+                { number: 25, name: "Pharsa", role: "Mage" },
+                { number: 26, name: "Odette", role: "Mage" },
+                { number: 27, name: "Yve", role: "Mage" },
+                { number: 28, name: "Valentina", role: "Mage" },
+                { number: 29, name: "Xavier", role: "Mage" },
+                { number: 30, name: "Lylia", role: "Mage" },
+                { number: 31, name: "Benedetta", role: "Assassin" }
+            ];
+            
+            // Dados simulados da rifa (serão sincronizados)
+            let participantsData = [];
+            let soldNumbers = [];
+            let availableNumbers = Array.from({length: 31}, (_, i) => i + 1);
+            
+            // Elementos do DOM
+            const rouletteWheel = document.getElementById('rouletteWheel');
+            const participantsGrid = document.getElementById('participantsGrid');
+            const resultDisplay = document.getElementById('resultDisplay');
+            const winnerNumber = document.getElementById('winnerNumber');
+            const winnerHero = document.getElementById('winnerHero');
+            const modalWinnerNumber = document.getElementById('modalWinnerNumber');
+            const modalWinnerHero = document.getElementById('modalWinnerHero');
+            const winnerModal = document.getElementById('winnerModal');
+            
+            // Elementos de estatísticas
+            const soldNumbersElement = document.getElementById('soldNumbers');
+            const availableNumbersElement = document.getElementById('availableNumbers');
+            const totalRevenueElement = document.getElementById('totalRevenue');
+            
+            // Inicializar roleta
+            function initRoulette() {
+                rouletteWheel.innerHTML = '';
+                
+                // Posicionar os números na roleta (círculo)
+                const radius = 200; // Raio do círculo
+                const centerX = 250;
+                const centerY = 250;
+                const totalItems = mlbbHeroes.length;
+                
+                mlbbHeroes.forEach((hero, index) => {
+                    const angle = (index / totalItems) * 2 * Math.PI;
+                    const x = centerX + radius * Math.cos(angle);
+                    const y = centerY + radius * Math.sin(angle);
+                    
+                    const item = document.createElement('div');
+                    item.className = 'roulette-item';
+                    item.textContent = hero.number;
+                    item.dataset.number = hero.number;
+                    item.dataset.hero = hero.name;
+                    
+                    item.style.left = `${x - 30}px`;
+                    item.style.top = `${y - 30}px`;
+                    
+                    // Adicionar tooltip
+                    item.title = `${hero.number} - ${hero.name} (${hero.role})`;
+                    
+                    rouletteWheel.appendChild(item);
+                });
+            }
+            
+            // Sincronizar dados da rifa
+            function syncRaffleData() {
+                // Simulação de sincronização
+                // Em um sistema real, aqui você buscaria os dados do servidor ou localStorage
+                
+                // Gerar dados de exemplo
+                participantsData = generateMockParticipants();
+                soldNumbers = participantsData.map(p => p.number);
+                availableNumbers = mlbbHeroes
+                    .map(h => h.number)
+                    .filter(num => !soldNumbers.includes(num));
+                
+                // Atualizar estatísticas
+                updateStats();
+                
+                // Atualizar lista de participantes
+                updateParticipantsList();
+                
+                alert(`✅ Dados sincronizados!\nVendidos: ${soldNumbers.length} números\nParticipantes: ${participantsData.length}`);
+            }
+            
+            // Gerar participantes de exemplo
+            function generateMockParticipants() {
+                const names = [
+                    "Carlos Silva", "Ana Santos", "Pedro Oliveira", "Mariana Costa", 
+                    "João Pereira", "Julia Rodrigues", "Lucas Almeida", "Fernanda Lima",
+                    "Rafael Souza", "Camila Ferreira", "Diego Castro", "Amanda Gomes",
+                    "Marcos Ribeiro", "Letícia Martins", "Gabriel Carvalho", "Isabela Araujo"
+                ];
+                
+                // Selecionar aleatoriamente alguns números vendidos
+                const soldCount = Math.floor(Math.random() * 15) + 5;
+                const shuffled = [...mlbbHeroes].sort(() => 0.5 - Math.random());
+                const soldHeroes = shuffled.slice(0, soldCount);
+                
+                return soldHeroes.map((hero, index) => ({
+                    number: hero.number,
+                    name: names[index % names.length],
+                    hero: hero.name,
+                    purchaseDate: new Date().toLocaleDateString('pt-BR'),
+                    status: 'pago'
+                }));
+            }
+            
+            // Atualizar estatísticas
+            function updateStats() {
+                soldNumbersElement.textContent = soldNumbers.length;
+                availableNumbersElement.textContent = availableNumbers.length;
+                
+                const totalRevenue = soldNumbers.length * 3; // R$ 3 por número
+                totalRevenueElement.textContent = `R$ ${totalRevenue}`;
+            }
+            
+            // Atualizar lista de participantes
+            function updateParticipantsList() {
+                participantsGrid.innerHTML = '';
+                
+                participantsData.forEach(participant => {
+                    const card = document.createElement('div');
+                    card.className = 'participant-card';
+                    
+                    const number = document.createElement('div');
+                    number.className = 'participant-number';
+                    number.textContent = participant.number;
+                    
+                    const name = document.createElement('div');
+                    name.className = 'participant-name';
+                    name.textContent = participant.name;
+                    
+                    const hero = document.createElement('div');
+                    hero.className = 'participant-name';
+                    hero.textContent = participant.hero;
+                    hero.style.color = '#ff9999';
+                    
+                    const status = document.createElement('div');
+                    status.className = `participant-status status-${participant.status === 'pago' ? 'sold' : 'reserved'}`;
+                    status.textContent = participant.status === 'pago' ? 'PAGO' : 'RESERVADO';
+                    
+                    card.appendChild(number);
+                    card.appendChild(name);
+                    card.appendChild(hero);
+                    card.appendChild(status);
+                    
+                    participantsGrid.appendChild(card);
+                });
+            }
+            
+            // Realizar sorteio
+            function startDraw() {
+                if (availableNumbers.length === 0) {
+                    alert('⚠️ Todos os números já foram sorteados!');
+                    return;
+                }
+                
+                // Desabilitar botão durante o sorteio
+                document.getElementById('startDraw').disabled = true;
+                
+                // Resetar resultado anterior
+                document.querySelectorAll('.roulette-item.selected').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                resultDisplay.style.display = 'none';
+                
+                // Girar a roleta
+                const spinDuration = 3000 + Math.random() * 2000; // 3-5 segundos
+                const spins = 5 + Math.random() * 3; // 5-8 voltas completas
+                
+                rouletteWheel.style.transition = `transform ${spinDuration}ms cubic-bezier(0.1, 0.7, 0.1, 1)`;
+                rouletteWheel.style.transform = `rotate(${spins * 360 + Math.random() * 360}deg)`;
+                
+                // Escolher um número vencedor aleatoriamente
+                setTimeout(() => {
+                    // Selecionar um número disponível aleatoriamente
+                    const winnerIndex = Math.floor(Math.random() * availableNumbers.length);
+                    const winningNumber = availableNumbers[winnerIndex];
+                    
+                    // Encontrar o herói correspondente
+                    const winningHero = mlbbHeroes.find(h => h.number === winningNumber);
+                    
+                    // Mostrar resultado
+                    showWinner(winningNumber, winningHero);
+                    
+                    // Remover número da lista de disponíveis
+                    availableNumbers.splice(winnerIndex, 1);
+                    
+                    // Reabilitar botão
+                    document.getElementById('startDraw').disabled = false;
+                    
+                    // Atualizar estatísticas
+                    updateStats();
+                    
+                }, spinDuration);
+            }
+            
+            // Mostrar vencedor
+            function showWinner(number, hero) {
+                // Destacar o número na roleta
+                document.querySelectorAll('.roulette-item').forEach(item => {
+                    if (parseInt(item.dataset.number) === number) {
+                        item.classList.add('selected');
+                    }
+                });
+                
+                // Mostrar resultado
+                resultDisplay.style.display = 'block';
+                winnerNumber.textContent = number.toString().padStart(2, '0');
+                winnerHero.textContent = `${hero.name} (${hero.role})`;
+                
+                // Mostrar modal
+                modalWinnerNumber.textContent = number.toString().padStart(2, '0');
+                modalWinnerHero.textContent = `${hero.name} - ${hero.role}`;
+                winnerModal.style.display = 'flex';
+            }
+            
+            // Fechar modal
+            function closeWinnerModal() {
+                winnerModal.style.display = 'none';
+            }
+            
+            // Reiniciar sorteio
+            function resetDraw() {
+                if (confirm('⚠️ Tem certeza que deseja reiniciar o sorteio?\nIsso resetará todos os números sorteados.')) {
+                    // Resetar dados
+                    availableNumbers = Array.from({length: 31}, (_, i) => i + 1);
+                    
+                    // Resetar roleta
+                    rouletteWheel.style.transition = 'none';
+                    rouletteWheel.style.transform = 'rotate(0deg)';
+                    
+                    // Remover seleção dos itens
+                    document.querySelectorAll('.roulette-item.selected').forEach(item => {
+                        item.classList.remove('selected');
+                    });
+                    
+                    // Esconder resultado
+                    resultDisplay.style.display = 'none';
+                    
+                    // Atualizar estatísticas
+                    updateStats();
+                    
+                    alert('🔄 Sorteio reiniciado com sucesso!');
+                }
+            }
+            
+            // Event Listeners
+            document.getElementById('syncData').addEventListener('click', syncRaffleData);
+            document.getElementById('startDraw').addEventListener('click', startDraw);
+            document.getElementById('resetDraw').addEventListener('click', resetDraw);
+            
+            // Inicializar
+            initRoulette();
+            syncRaffleData(); // Sincronizar dados automaticamente ao carregar
+        }
+    </script>
+</body>
+  </html>
