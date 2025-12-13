@@ -595,4 +595,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // Verificar suporte a Web Animations API
 if (!('animate' in document.documentElement)) {
     console.warn('Web Animations API não suportada neste navegador');
-                          }
+                    }
