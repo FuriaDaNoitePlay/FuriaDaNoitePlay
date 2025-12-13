@@ -130,3 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300 + (index * 100));
     });
 });
+document.querySelector('.admin-btn').addEventListener('click', (e) => {
+    const password = prompt('🔒 Digite a senha de acesso ADM:');
+    if (password !== '123qweasdzxc') {
+        e.preventDefault();
+        alert('❌ Senha incorreta! Acesso negado.');
+    }
+});
