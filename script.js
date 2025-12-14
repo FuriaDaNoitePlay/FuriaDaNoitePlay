@@ -1,69 +1,425 @@
-// script.js - Página de Manutenção FuriaDaNoitePlay
+// script.js - Página de Manutenção FuriaDaNoitePlay com Chat Discord
 document.addEventListener('DOMContentLoaded', function() {
-    // Configurações atualizadas
-    const RETURN_DATE = new Date('February 1, 2026 00:00:00 GMT-0300');
-    const START_DATE = new Date('August 1, 2025 00:00:00 GMT-0300');
-    const CURRENT_DATE = new Date();
+    // ================= CONFIGURAÇÕES GLOBAIS =================
+    const CONFIG = {
+        RETURN_DATE: new Date('February 1, 2026 00:00:00 GMT-0300'),
+        START_DATE: new Date('August 1, 2025 00:00:00 GMT-0300'),
+        CURRENT_DATE: new Date(),
+        DISCORD_CHANNELS: ['1330988731376861257', '1328458975615651882'],
+        WS_SERVER_URL: 'wss://SEU-REPLIT-AQUI.replit.app', // ⚠️ ALTERE AQUI!
+        RECONNECT_DELAY: 5000,
+        MAX_RECONNECT_ATTEMPTS: 10
+    };
     
-    // Elementos atualizados
-    const daysEl = document.getElementById('days');
-    const hoursEl = document.getElementById('hours');
-    const minutesEl = document.getElementById('minutes');
-    const secondsEl = document.getElementById('seconds');
-    const progressFill = document.getElementById('progressFill');
-    const progressPercentage = document.getElementById('progressPercentage');
-    const gameButton = document.getElementById('gameButton');
-    const thankYouMessage = document.querySelector('.thank-you-message');
-    const statusDot = document.querySelector('.status-dot');
-    const positiveTag = document.querySelector('.positive-tag');
-    const maintenanceHeader = document.querySelector('.maintenance-header');
-    const countdownElements = document.querySelectorAll('.time-block span');
+    // ================= ELEMENTOS DOM =================
+    const elements = {
+        // Contador
+        days: document.getElementById('days'),
+        hours: document.getElementById('hours'),
+        minutes: document.getElementById('minutes'),
+        seconds: document.getElementById('seconds'),
+        
+        // Progresso
+        progressFill: document.getElementById('progressFill'),
+        progressPercentage: document.getElementById('progressPercentage'),
+        
+        // Chat Discord
+        messagesContainer: document.getElementById('messagesContainer'),
+        nickInput: document.getElementById('nickInput'),
+        messageInput: document.getElementById('messageInput'),
+        sendButton: document.getElementById('sendButton'),
+        statusIndicator: document.getElementById('statusIndicator'),
+        statusText: document.getElementById('statusText'),
+        connectionStatus: document.getElementById('connectionStatus'),
+        welcomeTime: document.getElementById('welcomeTime'),
+        
+        // Interface
+        gameButton: document.getElementById('gameButton'),
+        thankYouMessage: document.querySelector('.thank-you-message'),
+        statusDot: document.querySelector('.status-dot'),
+        positiveTag: document.querySelector('.positive-tag'),
+        maintenanceHeader: document.querySelector('.maintenance-header'),
+        timeBlocks: document.querySelectorAll('.time-block span'),
+        chatSection: document.querySelector('.chat-section')
+    };
     
-    // Variáveis de controle
-    let isGameButtonClicked = false;
-    let typingInterval;
-    let animationInterval;
+    // ================= VARIÁVEIS DE ESTADO =================
+    const state = {
+        isGameButtonClicked: false,
+        typingInterval: null,
+        animationInterval: null,
+        socket: null,
+        isConnected: false,
+        userNick: '',
+        reconnectAttempts: 0,
+        chatMessages: [],
+        isTyping: false,
+        discordUsers: new Set()
+    };
     
-    // Inicialização completa
+    // ================= INICIALIZAÇÃO PRINCIPAL =================
     function init() {
         setupEventListeners();
         updateAll();
-        setInterval(updateCountdown, 1000);
         initStatusIndicator();
         initPositiveTagAnimation();
         initCountdownAnimation();
         initHeaderEffects();
         initProgressAnimation();
+        initChatSystem();
         
-        // Iniciar animações após carregamento
+        // Iniciar temporizadores
+        setInterval(updateCountdown, 1000);
+        
+        // Animações de entrada
         setTimeout(() => {
             initTypingEffect();
             initEntranceAnimations();
         }, 500);
     }
     
-    // Configurar todos os event listeners
+    // ================= SISTEMA DE CHAT DISCORD =================
+    function initChatSystem() {
+        if (!elements.messagesContainer) return;
+        
+        // Configurar hora de boas-vindas
+        elements.welcomeTime.textContent = getCurrentTime();
+        
+        // Carregar nick salvo
+        loadSavedNick();
+        
+        // Conectar ao servidor WebSocket
+        connectToDiscordServer();
+        
+        // Adicionar mensagem inicial
+        setTimeout(() => {
+            addSystemMessage('💡 Digite seu nick e comece a conversar no chat Discord!');
+        }, 2000);
+    }
+    
+    function connectToDiscordServer() {
+        updateConnectionStatus('Conectando ao Discord...', false);
+        
+        try {
+            state.socket = new WebSocket(CONFIG.WS_SERVER_URL);
+            
+            state.socket.onopen = function() {
+                console.log('✅ Conectado ao servidor Discord');
+                updateConnectionStatus('Conectado ao Discord ✓', true);
+                state.isConnected = true;
+                state.reconnectAttempts = 0;
+                
+                // Enviar inscrição nos canais
+                state.socket.send(JSON.stringify({
+                    type: 'subscribe',
+                    channels: CONFIG.DISCORD_CHANNELS
+                }));
+                
+                addSystemMessage('✅ Chat conectado ao Discord!');
+            };
+            
+            state.socket.onmessage = function(event) {
+                try {
+                    const data = JSON.parse(event.data);
+                    handleDiscordMessage(data);
+                } catch (error) {
+                    console.error('Erro ao processar mensagem:', error);
+                }
+            };
+            
+            state.socket.onerror = function(error) {
+                console.error('❌ Erro na conexão Discord:', error);
+                updateConnectionStatus('Erro na conexão', false);
+                state.isConnected = false;
+            };
+            
+            state.socket.onclose = function() {
+                console.log('🔌 Conexão Discord fechada');
+                updateConnectionStatus('Desconectado do Discord', false);
+                state.isConnected = false;
+                
+                // Tentar reconectar
+                attemptReconnect();
+            };
+            
+        } catch (error) {
+            console.error('❌ Erro ao conectar ao Discord:', error);
+            updateConnectionStatus('Falha na conexão', false);
+            addSystemMessage('⚠️ Modo demonstração do chat ativado');
+            simulateDiscordDemo();
+        }
+    }
+    
+    function handleDiscordMessage(data) {
+        switch(data.type) {
+            case 'discord_message':
+                addDiscordMessage(data.author, data.content, data.timestamp);
+                break;
+                
+            case 'connected':
+                addSystemMessage(data.message || 'Conectado ao chat Discord!');
+                break;
+                
+            case 'message_sent':
+                if (data.success) {
+                    showNotification('✅ Mensagem enviada para o Discord!', 'success');
+                } else {
+                    showNotification('❌ Erro ao enviar: ' + (data.error || 'Desconhecido'), 'error');
+                }
+                break;
+                
+            case 'user_joined':
+                addSystemMessage(`👋 ${data.nick} entrou no chat`);
+                state.discordUsers.add(data.nick);
+                break;
+                
+            case 'user_left':
+                addSystemMessage(`👋 ${data.nick} saiu do chat`);
+                state.discordUsers.delete(data.nick);
+                break;
+        }
+    }
+    
+    function sendChatMessage() {
+        const nick = elements.nickInput.value.trim();
+        const message = elements.messageInput.value.trim();
+        
+        // Validações
+        if (!nick || nick.length < 2) {
+            showNotification('⚠️ Digite um nick com pelo menos 2 caracteres!', 'warning');
+            elements.nickInput.focus();
+            return;
+        }
+        
+        if (!message) {
+            showNotification('⚠️ Digite uma mensagem!', 'warning');
+            elements.messageInput.focus();
+            return;
+        }
+        
+        if (message.length > 500) {
+            showNotification('⚠️ Mensagem muito longa! Máximo 500 caracteres.', 'warning');
+            return;
+        }
+        
+        // Salvar nick
+        saveNick(nick);
+        
+        // Adicionar mensagem localmente
+        const timestamp = getCurrentTime();
+        addUserMessage(nick, message, timestamp);
+        
+        // Enviar para o servidor
+        if (state.isConnected && state.socket && state.socket.readyState === WebSocket.OPEN) {
+            try {
+                state.socket.send(JSON.stringify({
+                    type: 'send_message',
+                    nick: nick,
+                    message: message,
+                    timestamp: timestamp,
+                    channel_id: CONFIG.DISCORD_CHANNELS[0]
+                }));
+            } catch (error) {
+                console.error('❌ Erro ao enviar para Discord:', error);
+                showNotification('❌ Erro ao enviar mensagem', 'error');
+            }
+        } else {
+            showNotification('⚠️ Modo demonstração - Mensagem não enviada ao Discord', 'warning');
+        }
+        
+        // Limpar e focar
+        elements.messageInput.value = '';
+        updateSendButtonState();
+        elements.messageInput.focus();
+    }
+    
+    function addUserMessage(nick, message, timestamp) {
+        if (elements.messagesContainer.children.length === 1 && 
+            elements.messagesContainer.firstChild.classList.contains('system-message')) {
+            elements.messagesContainer.innerHTML = '';
+        }
+        
+        const messageElement = createMessageElement(nick, message, timestamp, 'user');
+        elements.messagesContainer.appendChild(messageElement);
+        scrollToBottom();
+        state.chatMessages.push({ nick, message, timestamp, type: 'user' });
+    }
+    
+    function addDiscordMessage(author, content, timestamp) {
+        const messageElement = createMessageElement(author, content, timestamp, 'discord');
+        elements.messagesContainer.appendChild(messageElement);
+        scrollToBottom();
+        state.chatMessages.push({ nick: author, message: content, timestamp, type: 'discord' });
+    }
+    
+    function addSystemMessage(message) {
+        const timestamp = getCurrentTime();
+        const messageElement = createMessageElement('Sistema', message, timestamp, 'system');
+        elements.messagesContainer.appendChild(messageElement);
+        scrollToBottom();
+        state.chatMessages.push({ nick: 'Sistema', message, timestamp, type: 'system' });
+    }
+    
+    function createMessageElement(nick, message, timestamp, type = 'user') {
+        const messageElement = document.createElement('div');
+        messageElement.className = `message ${type === 'discord' ? 'discord-message' : ''} ${type === 'system' ? 'system-message' : ''}`;
+        
+        const time = timestamp || getCurrentTime();
+        const discordIcon = type === 'discord' ? '<i class="fab fa-discord"></i> ' : '';
+        const systemIcon = type === 'system' ? '<i class="fas fa-robot"></i> ' : '';
+        
+        messageElement.innerHTML = `
+            <div class="message-header">
+                <span class="message-user">${systemIcon}${discordIcon}${nick}</span>
+                <span class="message-time">${time}</span>
+            </div>
+            <div class="message-content">${formatChatMessage(message)}</div>
+        `;
+        
+        return messageElement;
+    }
+    
+    function formatChatMessage(text) {
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        return text.replace(urlRegex, url => {
+            const displayUrl = url.length > 40 ? url.substring(0, 37) + '...' : url;
+            return `<a href="${url}" target="_blank" rel="noopener">${displayUrl}</a>`;
+        });
+    }
+    
+    function scrollToBottom() {
+        if (elements.messagesContainer) {
+            elements.messagesContainer.scrollTop = elements.messagesContainer.scrollHeight;
+        }
+    }
+    
+    function updateConnectionStatus(text, connected) {
+        if (!elements.statusText || !elements.statusIndicator) return;
+        
+        elements.statusText.textContent = text;
+        
+        if (connected) {
+            elements.statusIndicator.className = 'status-dot connected';
+            elements.connectionStatus.style.background = 'rgba(68, 255, 68, 0.1)';
+        } else {
+            elements.statusIndicator.className = 'status-dot';
+            elements.connectionStatus.style.background = 'rgba(255, 68, 68, 0.1)';
+        }
+    }
+    
+    function attemptReconnect() {
+        if (state.reconnectAttempts < CONFIG.MAX_RECONNECT_ATTEMPTS) {
+            state.reconnectAttempts++;
+            const delay = Math.min(1000 * state.reconnectAttempts, 10000);
+            
+            addSystemMessage(`🔄 Reconectando em ${delay/1000}s... (${state.reconnectAttempts}/${CONFIG.MAX_RECONNECT_ATTEMPTS})`);
+            
+            setTimeout(() => {
+                console.log(`🔄 Tentativa ${state.reconnectAttempts} de reconexão`);
+                connectToDiscordServer();
+            }, delay);
+        } else {
+            addSystemMessage('❌ Falha na conexão Discord. Recarregue a página.');
+        }
+    }
+    
+    function simulateDiscordDemo() {
+        updateConnectionStatus('Modo Demonstração', true);
+        
+        const demoMessages = [
+            { nick: 'DiscordBot', message: '✅ Chat em modo demonstração! Configure o servidor para conectar ao Discord real.', type: 'discord', delay: 1000 },
+            { nick: 'Guerreiro88', message: 'Eae galera! Como vai a manutenção?', type: 'discord', delay: 3000 },
+            { nick: 'NightWolf', message: 'Site em 73.6% já! Quase lá! 🔥', type: 'discord', delay: 5000 },
+            { nick: 'FuriaFan', message: 'Visitem: https://furiadanoiteplay.com.br', type: 'discord', delay: 7000 }
+        ];
+        
+        demoMessages.forEach(msg => {
+            setTimeout(() => {
+                if (msg.type === 'discord') {
+                    addDiscordMessage(msg.nick, msg.message, getCurrentTime());
+                }
+            }, msg.delay);
+        });
+    }
+    
+    // ================= FUNÇÕES DO CHAT LOCAL =================
+    function loadSavedNick() {
+        if (!elements.nickInput) return;
+        
+        const savedNick = localStorage.getItem('furia_chat_nick');
+        if (savedNick) {
+            elements.nickInput.value = savedNick;
+            state.userNick = savedNick;
+            elements.messageInput.focus();
+        } else {
+            elements.nickInput.focus();
+        }
+        updateSendButtonState();
+    }
+    
+    function saveNick(nick) {
+        if (nick && nick !== state.userNick) {
+            state.userNick = nick;
+            localStorage.setItem('furia_chat_nick', nick);
+            elements.nickInput.value = nick;
+        }
+    }
+    
+    function updateSendButtonState() {
+        if (!elements.sendButton || !elements.nickInput || !elements.messageInput) return;
+        
+        const hasNick = elements.nickInput.value.trim().length >= 2;
+        const hasMessage = elements.messageInput.value.trim().length > 0;
+        elements.sendButton.disabled = !hasNick || !hasMessage;
+    }
+    
+    // ================= FUNÇÕES DA PÁGINA DE MANUTENÇÃO =================
     function setupEventListeners() {
         // Botão do Jogo da Velha
-        if (gameButton) {
-            gameButton.addEventListener('click', handleGameButtonClick);
-            gameButton.addEventListener('mouseenter', () => {
-                if (!isGameButtonClicked) {
-                    gameButton.style.transform = 'translateY(-5px)';
-                    gameButton.style.boxShadow = '0 10px 25px rgba(0, 123, 255, 0.4)';
+        if (elements.gameButton) {
+            elements.gameButton.addEventListener('click', handleGameButtonClick);
+            elements.gameButton.addEventListener('mouseenter', handleGameButtonHover);
+            elements.gameButton.addEventListener('mouseleave', handleGameButtonLeave);
+        }
+        
+        // Sistema de Chat
+        if (elements.sendButton) {
+            elements.sendButton.addEventListener('click', sendChatMessage);
+        }
+        
+        if (elements.messageInput) {
+            elements.messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendChatMessage();
                 }
             });
             
-            gameButton.addEventListener('mouseleave', () => {
-                if (!isGameButtonClicked) {
-                    gameButton.style.transform = '';
-                    gameButton.style.boxShadow = '';
+            elements.messageInput.addEventListener('input', updateSendButtonState);
+        }
+        
+        if (elements.nickInput) {
+            elements.nickInput.addEventListener('blur', function() {
+                if (this.value.trim()) {
+                    saveNick(this.value.trim());
                 }
             });
+            
+            elements.nickInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    elements.messageInput.focus();
+                    if (this.value.trim()) {
+                        saveNick(this.value.trim());
+                    }
+                }
+            });
+            
+            elements.nickInput.addEventListener('input', updateSendButtonState);
         }
         
         // Efeitos nos blocos de tempo
-        countdownElements.forEach(element => {
+        elements.timeBlocks.forEach(element => {
             element.addEventListener('mouseenter', () => {
                 element.style.transform = 'scale(1.1)';
                 element.style.color = '#ff4757';
@@ -75,7 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Atualizar ao redimensionar a janela
+        // Atualizar ao redimensionar
         window.addEventListener('resize', updateProgressBar);
         
         // Keyboard shortcuts
@@ -83,27 +439,28 @@ document.addEventListener('DOMContentLoaded', function() {
             // Espaço para jogo
             if (e.code === 'Space' && !e.target.matches('input, textarea')) {
                 e.preventDefault();
-                if (gameButton) gameButton.click();
+                if (elements.gameButton) elements.gameButton.click();
             }
             
-            // Enter para refresh
-            if (e.ctrlKey && e.code === 'Enter') {
-                location.reload();
+            // Foco no chat com Ctrl+C
+            if (e.ctrlKey && e.code === 'KeyC') {
+                e.preventDefault();
+                if (elements.messageInput) {
+                    elements.messageInput.focus();
+                }
             }
         });
     }
     
-    // Atualizar todos os elementos
     function updateAll() {
         updateCountdown();
         updateProgressBar();
         updateDateTimeDisplay();
     }
     
-    // Atualizar contagem regressiva
     function updateCountdown() {
         const now = new Date();
-        const timeRemaining = RETURN_DATE - now;
+        const timeRemaining = CONFIG.RETURN_DATE - now;
         
         if (timeRemaining <= 0) {
             handleCountdownComplete();
@@ -115,22 +472,21 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCountdownColors(timeRemaining);
     }
     
-    // Atualizar elementos de tempo
     function updateTimeElements(timeRemaining) {
         const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
         
-        // Adicionar animação nas mudanças
-        animateNumberChange(daysEl, days);
-        animateNumberChange(hoursEl, hours);
-        animateNumberChange(minutesEl, minutes);
-        animateNumberChange(secondsEl, seconds);
+        animateNumberChange(elements.days, days);
+        animateNumberChange(elements.hours, hours);
+        animateNumberChange(elements.minutes, minutes);
+        animateNumberChange(elements.seconds, seconds);
     }
     
-    // Animação para mudança de números
     function animateNumberChange(element, newValue) {
+        if (!element) return;
+        
         const oldValue = parseInt(element.textContent) || 0;
         
         if (oldValue !== newValue) {
@@ -150,41 +506,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Atualizar barra de progresso dinamicamente
     function updateProgressBar() {
         const now = new Date();
-        const totalTime = RETURN_DATE - START_DATE;
-        const timePassed = now - START_DATE;
+        const totalTime = CONFIG.RETURN_DATE - CONFIG.START_DATE;
+        const timePassed = now - CONFIG.START_DATE;
         let percentage = Math.min(100, Math.max(0, (timePassed / totalTime) * 100));
-        percentage = Math.round(percentage * 10) / 10; // Uma casa decimal
+        percentage = Math.round(percentage * 10) / 10;
         
-        if (progressFill && progressPercentage) {
-            progressFill.style.width = `${percentage}%`;
-            progressPercentage.textContent = `${percentage.toFixed(1)}%`;
+        if (elements.progressFill && elements.progressPercentage) {
+            elements.progressFill.style.width = `${percentage}%`;
+            elements.progressPercentage.textContent = `${percentage.toFixed(1)}%`;
             
             updateProgressColor(percentage);
             updateProgressGlow(percentage);
         }
     }
     
-    // Progresso dinâmico baseado no tempo restante
     function updateDynamicProgress(timeRemaining) {
-        const totalTime = RETURN_DATE - START_DATE;
+        const totalTime = CONFIG.RETURN_DATE - CONFIG.START_DATE;
         const timePassed = totalTime - timeRemaining;
         const percentage = (timePassed / totalTime) * 100;
         
-        // Atualizar velocidade baseada na porcentagem
         const speed = Math.max(0.1, 1 - (percentage / 100));
         document.documentElement.style.setProperty('--progress-speed', `${speed}s`);
     }
     
-    // Atualizar cores da barra de progresso
     function updateProgressColor(percentage) {
-        const hue = Math.floor((percentage / 100) * 120); // 0-120 (vermelho-verde)
+        const hue = Math.floor((percentage / 100) * 120);
         const color = `hsl(${hue}, 80%, 50%)`;
         
-        if (progressFill) {
-            progressFill.style.background = `
+        if (elements.progressFill) {
+            elements.progressFill.style.background = `
                 linear-gradient(90deg, 
                     ${color} 0%, 
                     hsl(${hue}, 90%, 60%) 50%, 
@@ -193,121 +545,119 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Adicionar brilho à barra de progresso
     function updateProgressGlow(percentage) {
+        if (!elements.progressFill) return;
+        
         if (percentage >= 70) {
-            progressFill.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.3)';
+            elements.progressFill.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.3)';
         } else if (percentage >= 40) {
-            progressFill.style.boxShadow = '0 0 10px rgba(255, 165, 0, 0.3)';
+            elements.progressFill.style.boxShadow = '0 0 10px rgba(255, 165, 0, 0.3)';
         } else {
-            progressFill.style.boxShadow = '0 0 5px rgba(255, 71, 87, 0.3)';
+            elements.progressFill.style.boxShadow = '0 0 5px rgba(255, 71, 87, 0.3)';
         }
     }
     
-    // Atualizar cores da contagem regressiva
     function updateCountdownColors(timeRemaining) {
         const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
         
-        countdownElements.forEach((element, index) => {
+        elements.timeBlocks.forEach((element, index) => {
             if (days < 7) {
-                // Menos de 1 semana: vermelho
                 element.style.color = '#ff4757';
                 element.style.textShadow = '0 0 10px rgba(255, 71, 87, 0.5)';
             } else if (days < 30) {
-                // Menos de 1 mês: laranja
                 element.style.color = '#ffa502';
                 element.style.textShadow = '0 0 8px rgba(255, 165, 2, 0.4)';
             } else {
-                // Normal: branco
                 element.style.color = '#ffffff';
                 element.style.textShadow = '0 0 5px rgba(255, 255, 255, 0.3)';
             }
         });
     }
     
-    // Efeito de digitação
     function initTypingEffect() {
-        if (!thankYouMessage) return;
+        if (!elements.thankYouMessage) return;
         
-        const originalText = thankYouMessage.textContent;
-        thankYouMessage.textContent = '';
-        thankYouMessage.style.opacity = '0';
+        const originalText = elements.thankYouMessage.textContent;
+        elements.thankYouMessage.textContent = '';
+        elements.thankYouMessage.style.opacity = '0';
         
         let i = 0;
         const typingSpeed = 50;
         const cursor = document.createElement('span');
         cursor.textContent = '|';
         cursor.style.animation = 'blink 1s infinite';
-        thankYouMessage.appendChild(cursor);
+        elements.thankYouMessage.appendChild(cursor);
         
         function type() {
             if (i < originalText.length) {
                 const char = originalText.charAt(i);
-                thankYouMessage.insertBefore(document.createTextNode(char), cursor);
+                elements.thankYouMessage.insertBefore(document.createTextNode(char), cursor);
                 i++;
                 
-                // Efeito sonoro opcional (simulado)
                 if (i % 3 === 0) {
-                    thankYouMessage.style.transform = 'translateY(-1px)';
+                    elements.thankYouMessage.style.transform = 'translateY(-1px)';
                     setTimeout(() => {
-                        thankYouMessage.style.transform = '';
+                        elements.thankYouMessage.style.transform = '';
                     }, 50);
                 }
                 
-                typingInterval = setTimeout(type, typingSpeed);
+                state.typingInterval = setTimeout(type, typingSpeed);
             } else {
                 cursor.remove();
-                thankYouMessage.style.opacity = '1';
-                thankYouMessage.style.transform = 'translateY(0)';
+                elements.thankYouMessage.style.opacity = '1';
+                elements.thankYouMessage.style.transform = 'translateY(0)';
             }
         }
         
-        // Adicionar estilo de cursor piscando
         const style = document.createElement('style');
-        style.textContent = `
-            @keyframes blink {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0; }
-            }
-        `;
+        style.textContent = `@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`;
         document.head.appendChild(style);
         
         setTimeout(type, 1500);
     }
     
-    // Manipular clique no botão do jogo
     function handleGameButtonClick() {
-        if (isGameButtonClicked) return;
+        if (state.isGameButtonClicked) return;
         
-        isGameButtonClicked = true;
+        state.isGameButtonClicked = true;
         
-        // Efeito visual
-        gameButton.style.transform = 'scale(0.9)';
-        gameButton.style.opacity = '0.7';
-        gameButton.style.background = 'linear-gradient(135deg, #00b09b, #96c93d)';
-        gameButton.style.boxShadow = '0 0 30px rgba(0, 176, 155, 0.5)';
+        elements.gameButton.style.transform = 'scale(0.9)';
+        elements.gameButton.style.opacity = '0.7';
+        elements.gameButton.style.background = 'linear-gradient(135deg, #00b09b, #96c93d)';
+        elements.gameButton.style.boxShadow = '0 0 30px rgba(0, 176, 155, 0.5)';
         
-        // Efeito de partículas (simulado)
         createButtonParticles();
-        
-        // Feedback sonoro (simulado)
-        gameButton.style.animation = 'pulse 0.5s';
+        elements.gameButton.style.animation = 'pulse 0.5s';
         
         setTimeout(() => {
-            gameButton.style.transform = '';
-            gameButton.style.opacity = '';
-            gameButton.style.animation = '';
+            elements.gameButton.style.transform = '';
+            elements.gameButton.style.opacity = '';
+            elements.gameButton.style.animation = '';
             
-            // Redirecionar após animação
             setTimeout(() => {
                 window.location.href = 'velha.html';
             }, 300);
         }, 300);
     }
     
-    // Criar partículas para o botão
+    function handleGameButtonHover() {
+        if (!state.isGameButtonClicked) {
+            elements.gameButton.style.transform = 'translateY(-5px)';
+            elements.gameButton.style.boxShadow = '0 10px 25px rgba(0, 123, 255, 0.4)';
+        }
+    }
+    
+    function handleGameButtonLeave() {
+        if (!state.isGameButtonClicked) {
+            elements.gameButton.style.transform = '';
+            elements.gameButton.style.boxShadow = '';
+        }
+    }
+    
     function createButtonParticles() {
-        const buttonRect = gameButton.getBoundingClientRect();
+        if (!elements.gameButton) return;
+        
+        const buttonRect = elements.gameButton.getBoundingClientRect();
         const particles = 10;
         
         for (let i = 0; i < particles; i++) {
@@ -326,7 +676,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             document.body.appendChild(particle);
             
-            // Animação da partícula
             const angle = (Math.PI * 2 * i) / particles;
             const speed = 2 + Math.random();
             const duration = 500 + Math.random() * 500;
@@ -347,11 +696,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Animações de entrada
     function initEntranceAnimations() {
-        const elements = document.querySelectorAll('.maintenance-content > *:not(.positive-tag)');
+        const elementsList = document.querySelectorAll('.maintenance-content > *:not(.positive-tag)');
         
-        elements.forEach((element, index) => {
+        elementsList.forEach((element, index) => {
             element.style.opacity = '0';
             element.style.transform = 'translateY(30px) rotateX(10deg)';
             element.style.transition = 'all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
@@ -362,81 +710,74 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100 + (index * 150));
         });
         
-        // Animação especial para a tag POSITIVO
-        if (positiveTag) {
-            positiveTag.style.opacity = '0';
-            positiveTag.style.transform = 'scale(0) rotate(180deg)';
-            positiveTag.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        if (elements.positiveTag) {
+            elements.positiveTag.style.opacity = '0';
+            elements.positiveTag.style.transform = 'scale(0) rotate(180deg)';
+            elements.positiveTag.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
             
             setTimeout(() => {
-                positiveTag.style.opacity = '1';
-                positiveTag.style.transform = 'scale(1) rotate(0deg)';
+                elements.positiveTag.style.opacity = '1';
+                elements.positiveTag.style.transform = 'scale(1) rotate(0deg)';
             }, 1000);
         }
     }
     
-    // Indicador de status pulsante
     function initStatusIndicator() {
-        if (statusDot) {
+        if (elements.statusDot) {
             setInterval(() => {
-                statusDot.style.boxShadow = '0 0 10px 5px rgba(255, 71, 87, 0.5)';
+                elements.statusDot.style.boxShadow = '0 0 10px 5px rgba(255, 71, 87, 0.5)';
                 setTimeout(() => {
-                    statusDot.style.boxShadow = '';
+                    elements.statusDot.style.boxShadow = '';
                 }, 500);
             }, 2000);
         }
     }
     
-    // Animação da tag POSITIVO
     function initPositiveTagAnimation() {
-        if (!positiveTag) return;
+        if (!elements.positiveTag) return;
         
-        animationInterval = setInterval(() => {
-            positiveTag.style.transform = 'scale(1.05)';
-            positiveTag.style.boxShadow = '0 0 20px rgba(0, 176, 155, 0.5)';
+        state.animationInterval = setInterval(() => {
+            elements.positiveTag.style.transform = 'scale(1.05)';
+            elements.positiveTag.style.boxShadow = '0 0 20px rgba(0, 176, 155, 0.5)';
             
             setTimeout(() => {
-                positiveTag.style.transform = 'scale(1)';
-                positiveTag.style.boxShadow = '';
+                elements.positiveTag.style.transform = 'scale(1)';
+                elements.positiveTag.style.boxShadow = '';
             }, 300);
         }, 5000);
     }
     
-    // Animação do contador
     function initCountdownAnimation() {
-        countdownElements.forEach(element => {
+        elements.timeBlocks.forEach(element => {
             element.style.transition = 'all 0.3s ease';
         });
     }
     
-    // Efeitos no cabeçalho
     function initHeaderEffects() {
-        if (maintenanceHeader) {
-            maintenanceHeader.style.transition = 'all 0.5s ease';
+        if (elements.maintenanceHeader) {
+            elements.maintenanceHeader.style.transition = 'all 0.5s ease';
             
             window.addEventListener('scroll', () => {
                 const scrolled = window.pageYOffset;
                 if (scrolled > 50) {
-                    maintenanceHeader.style.transform = 'translateY(-10px)';
-                    maintenanceHeader.style.opacity = '0.9';
+                    elements.maintenanceHeader.style.transform = 'translateY(-10px)';
+                    elements.maintenanceHeader.style.opacity = '0.9';
                 } else {
-                    maintenanceHeader.style.transform = '';
-                    maintenanceHeader.style.opacity = '1';
+                    elements.maintenanceHeader.style.transform = '';
+                    elements.maintenanceHeader.style.opacity = '1';
                 }
             });
         }
     }
     
-    // Animação inicial da barra de progresso
     function initProgressAnimation() {
-        if (progressFill) {
+        if (elements.progressFill) {
             setTimeout(() => {
-                progressFill.style.transition = 'width 2s cubic-bezier(0.4, 0, 0.2, 1)';
+                elements.progressFill.style.transition = 'width 2s cubic-bezier(0.4, 0, 0.2, 1)';
             }, 1000);
         }
     }
     
-    // Atualizar display de data/hora
     function updateDateTimeDisplay() {
         const now = new Date();
         const dateOptions = { 
@@ -451,7 +792,6 @@ document.addEventListener('DOMContentLoaded', function() {
             second: '2-digit' 
         };
         
-        // Adicionar data/hora atual se houver elemento
         const dateTimeElement = document.getElementById('currentDateTime');
         if (!dateTimeElement) {
             const newElement = document.createElement('div');
@@ -474,77 +814,97 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Manipular conclusão da contagem regressiva
     function handleCountdownComplete() {
-        // Parar todas as animações
-        clearInterval(typingInterval);
-        clearInterval(animationInterval);
+        clearInterval(state.typingInterval);
+        clearInterval(state.animationInterval);
         
-        // Atualizar para "PRONTO"
-        daysEl.textContent = '00';
-        hoursEl.textContent = '00';
-        minutesEl.textContent = '00';
-        secondsEl.textContent = '00';
+        if (elements.days) elements.days.textContent = '00';
+        if (elements.hours) elements.hours.textContent = '00';
+        if (elements.minutes) elements.minutes.textContent = '00';
+        if (elements.seconds) elements.seconds.textContent = '00';
         
-        // Efeito especial
         document.querySelectorAll('.time-block').forEach(block => {
             block.style.animation = 'celebrate 1s ease infinite';
         });
         
-        // Atualizar progresso para 100%
-        if (progressFill && progressPercentage) {
-            progressFill.style.width = '100%';
-            progressPercentage.textContent = '100%';
-            progressFill.style.background = 'linear-gradient(90deg, #00b09b, #96c93d)';
-            progressFill.style.boxShadow = '0 0 20px rgba(0, 176, 155, 0.5)';
+        if (elements.progressFill && elements.progressPercentage) {
+            elements.progressFill.style.width = '100%';
+            elements.progressPercentage.textContent = '100%';
+            elements.progressFill.style.background = 'linear-gradient(90deg, #00b09b, #96c93d)';
+            elements.progressFill.style.boxShadow = '0 0 20px rgba(0, 176, 155, 0.5)';
         }
         
-        // Atualizar status
-        if (statusDot) {
-            statusDot.style.background = '#00b09b';
-            statusDot.style.boxShadow = '0 0 15px #00b09b';
+        if (elements.statusDot) {
+            elements.statusDot.style.background = '#00b09b';
+            elements.statusDot.style.boxShadow = '0 0 15px #00b09b';
         }
         
-        // Adicionar animação de celebração
         const style = document.createElement('style');
-        style.textContent = `
-            @keyframes celebrate {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-10px); }
-            }
-        `;
+        style.textContent = `@keyframes celebrate { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }`;
         document.head.appendChild(style);
     }
     
-    // Funções auxiliares
+    // ================= FUNÇÕES AUXILIARES =================
+    function showNotification(text, type = 'info') {
+        const colors = {
+            success: 'linear-gradient(45deg, #00b09b, #96c93d)',
+            error: 'linear-gradient(45deg, #ff416c, #ff4b2b)',
+            warning: 'linear-gradient(45deg, #FF6B35, #FF8C42)',
+            info: 'linear-gradient(45deg, #4A00E0, #8E2DE2)'
+        };
+        
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = text;
+        notification.style.background = colors[type] || colors.info;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease-out';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+    
+    function getCurrentTime() {
+        return new Date().toLocaleTimeString('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+    
     function padZero(num) {
         return num.toString().padStart(2, '0');
     }
     
-    // Cleanup function
     function cleanup() {
-        clearInterval(typingInterval);
-        clearInterval(animationInterval);
+        clearInterval(state.typingInterval);
+        clearInterval(state.animationInterval);
         
-        // Remover event listeners
-        if (gameButton) {
-            gameButton.removeEventListener('click', handleGameButtonClick);
+        if (state.socket) {
+            state.socket.close();
+        }
+        
+        if (elements.gameButton) {
+            elements.gameButton.removeEventListener('click', handleGameButtonClick);
         }
         
         window.removeEventListener('resize', updateProgressBar);
     }
     
-    // Inicializar quando a página estiver completamente carregada
+    // ================= INICIALIZAÇÃO =================
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
     
-    // Cleanup quando a página for descarregada
     window.addEventListener('beforeunload', cleanup);
     
-    // Adicionar estilos CSS dinâmicos
+    // ================= ESTILOS DINÂMICOS =================
     const dynamicStyles = `
         .time-block {
             transition: all 0.3s ease;
@@ -585,6 +945,42 @@ document.addEventListener('DOMContentLoaded', function() {
             50% { transform: scale(0.95); }
             100% { transform: scale(1); }
         }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 0.3s ease-out;
+            max-width: 350px;
+            font-weight: 500;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
     `;
     
     const styleSheet = document.createElement('style');
@@ -595,4 +991,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // Verificar suporte a Web Animations API
 if (!('animate' in document.documentElement)) {
     console.warn('Web Animations API não suportada neste navegador');
-                    }
+                   }
