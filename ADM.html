@@ -148,16 +148,37 @@
             height: 100%;
             border-radius: 50%;
             background: conic-gradient(
-                #ff0000 0deg 36deg,
-                #ff4400 36deg 72deg,
-                #ff8800 72deg 108deg,
-                #ffcc00 108deg 144deg,
-                #ffff00 144deg 180deg,
-                #ccff00 180deg 216deg,
-                #88ff00 216deg 252deg,
-                #44ff00 252deg 288deg,
-                #00ff00 288deg 324deg,
-                #00ff44 324deg 360deg
+                #ff0000 0deg 11.6deg,
+                #ff4400 11.6deg 23.2deg,
+                #ff8800 23.2deg 34.8deg,
+                #ffcc00 34.8deg 46.4deg,
+                #ffff00 46.4deg 58deg,
+                #ccff00 58deg 69.6deg,
+                #88ff00 69.6deg 81.2deg,
+                #44ff00 81.2deg 92.8deg,
+                #00ff00 92.8deg 104.4deg,
+                #00ff44 104.4deg 116deg,
+                #ff0000 116deg 127.6deg,
+                #ff4400 127.6deg 139.2deg,
+                #ff8800 139.2deg 150.8deg,
+                #ffcc00 150.8deg 162.4deg,
+                #ffff00 162.4deg 174deg,
+                #ccff00 174deg 185.6deg,
+                #88ff00 185.6deg 197.2deg,
+                #44ff00 197.2deg 208.8deg,
+                #00ff00 208.8deg 220.4deg,
+                #00ff44 220.4deg 232deg,
+                #ff0000 232deg 243.6deg,
+                #ff4400 243.6deg 255.2deg,
+                #ff8800 255.2deg 266.8deg,
+                #ffcc00 266.8deg 278.4deg,
+                #ffff00 278.4deg 290deg,
+                #ccff00 290deg 301.6deg,
+                #88ff00 301.6deg 313.2deg,
+                #44ff00 313.2deg 324.8deg,
+                #00ff00 324.8deg 336.4deg,
+                #00ff44 336.4deg 348deg,
+                #ff0000 348deg 360deg
             );
             position: relative;
             transition: transform 5s cubic-bezier(0.2, 0.8, 0.3, 1);
@@ -336,6 +357,108 @@
             color: #ff4444;
         }
         
+        /* Botões de ação */
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+        
+        .edit-btn {
+            background: rgba(255, 165, 0, 0.3);
+            color: #ffa500;
+            border: 1px solid #ffa500;
+            padding: 4px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .edit-btn:hover {
+            background: rgba(255, 165, 0, 0.5);
+        }
+        
+        .save-btn {
+            background: rgba(0, 255, 0, 0.3);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 4px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: none;
+        }
+        
+        .save-btn:hover {
+            background: rgba(0, 255, 0, 0.5);
+        }
+        
+        /* Modal de edição */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+            border: 2px solid #ff0000;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+        }
+        
+        .modal-title {
+            color: #ff4444;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+            color: white;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .confirm-btn {
+            background: linear-gradient(135deg, #ff0000, #ff4444);
+            color: white;
+        }
+        
+        .cancel-btn {
+            background: linear-gradient(135deg, #333, #555);
+            color: white;
+        }
+        
         /* Rodapé */
         .footer {
             text-align: center;
@@ -439,8 +562,8 @@
                         <div class="status-value" id="availableNumbers">31</div>
                     </div>
                     <div class="status-item">
-                        <div>Reservados</div>
-                        <div class="status-value" id="reservedNumbers">0</div>
+                        <div>Vendidos</div>
+                        <div class="status-value" id="soldNumbers">0</div>
                     </div>
                     <div class="status-item">
                         <div>Arrecadado</div>
@@ -458,10 +581,10 @@
                                style="width: 100%; padding: 10px; background: rgba(0,0,0,0.3); 
                                       border: 1px solid #ff0000; border-radius: 5px; color: white;">
                     </div>
-                    <button id="updateBtn" style="width: 100%; padding: 10px; margin-top: 10px;
+                    <button id="addTestDataBtn" style="width: 100%; padding: 10px; margin-top: 5px;
                             background: linear-gradient(135deg, #333, #555); color: white; 
                             border: none; border-radius: 5px; cursor: pointer;">
-                        <i class="fas fa-sync-alt"></i> ATUALIZAR DADOS
+                        <i class="fas fa-plus"></i> ADICIONAR DADOS TESTE
                     </button>
                 </div>
             </div>
@@ -516,12 +639,37 @@
                         <th>Status</th>
                         <th>Comprador</th>
                         <th>Valor</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody id="numbersTableBody">
                     <!-- Os números serão preenchidos por JavaScript -->
                 </tbody>
             </table>
+        </div>
+        
+        <!-- Modal de edição -->
+        <div class="modal-overlay" id="editModal">
+            <div class="modal-content">
+                <h3 class="modal-title">EDITAR COMPRADOR</h3>
+                <input type="hidden" id="editNumber">
+                <div>
+                    <label style="color: #ff9999; display: block; margin-bottom: 5px;">Número:</label>
+                    <input type="text" id="editNumberDisplay" class="modal-input" readonly>
+                </div>
+                <div>
+                    <label style="color: #ff9999; display: block; margin-bottom: 5px;">Guerreiro:</label>
+                    <input type="text" id="editWarrior" class="modal-input" readonly>
+                </div>
+                <div>
+                    <label style="color: #ff9999; display: block; margin-bottom: 5px;">Nome do Comprador:</label>
+                    <input type="text" id="editBuyer" class="modal-input" placeholder="Digite o nome do comprador">
+                </div>
+                <div class="modal-buttons">
+                    <button class="modal-btn confirm-btn" id="saveEditBtn">SALVAR</button>
+                    <button class="modal-btn cancel-btn" id="cancelEditBtn">CANCELAR</button>
+                </div>
+            </div>
         </div>
         
         <!-- Rodapé -->
@@ -532,11 +680,10 @@
     </div>
 
     <script>
-        // Dados da rifa (sincronizados com rifa.html)
+        // Dados da rifa
         let rifaData = {
             totalNumbers: 31,
             available: Array.from({length: 31}, (_, i) => i + 1), // Números 1-31 disponíveis
-            reserved: [], // Números reservados
             sold: [], // Números vendidos
             buyers: {}, // Mapeamento número -> comprador
             totalAmount: 0,
@@ -544,7 +691,7 @@
             prizeValue: 0 // Valor do prêmio
         };
         
-        // Nomes dos guerreiros (mesmo da rifa.html)
+        // Nomes dos guerreiros
         const warriorNames = [
             "Alucard", "Miya", "Zilong", "Layla", "Chou", "Gusion", "Harley", "Lancelot", "Fanny", "Kagura",
             "Hayabusa", "Claude", "Karrie", "Granger", "Bruno", "Wanwan", "Clint", "Lesley", "Beatrix", "Brody",
@@ -563,38 +710,21 @@
         const winnersList = document.getElementById('winnersList');
         const numbersTableBody = document.getElementById('numbersTableBody');
         const logoutBtn = document.getElementById('logoutBtn');
-        const updateBtn = document.getElementById('updateBtn');
+        const addTestDataBtn = document.getElementById('addTestDataBtn');
         const prizeValueInput = document.getElementById('prizeValue');
+        const editModal = document.getElementById('editModal');
+        const editNumber = document.getElementById('editNumber');
+        const editNumberDisplay = document.getElementById('editNumberDisplay');
+        const editWarrior = document.getElementById('editWarrior');
+        const editBuyer = document.getElementById('editBuyer');
+        const saveEditBtn = document.getElementById('saveEditBtn');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
         
         // Elementos de status
         const totalNumbersEl = document.getElementById('totalNumbers');
         const availableNumbersEl = document.getElementById('availableNumbers');
-        const reservedNumbersEl = document.getElementById('reservedNumbers');
+        const soldNumbersEl = document.getElementById('soldNumbers');
         const totalAmountEl = document.getElementById('totalAmount');
-        
-        // Verificar autenticação
-        function checkAuth() {
-            const isLoggedIn = localStorage.getItem('adminLoggedIn');
-            const loginTimestamp = localStorage.getItem('loginTimestamp');
-            
-            if (!isLoggedIn || isLoggedIn !== 'true') {
-                window.location.href = 'ADM.html';
-                return false;
-            }
-            
-            // Verificar se o login expirou (1 hora)
-            const currentTime = Date.now();
-            const timeDiff = currentTime - parseInt(loginTimestamp);
-            
-            if (timeDiff > 3600000) { // 1 hora em milissegundos
-                localStorage.removeItem('adminLoggedIn');
-                localStorage.removeItem('loginTimestamp');
-                window.location.href = 'ADM.html';
-                return false;
-            }
-            
-            return true;
-        }
         
         // Carregar dados da rifa do localStorage
         function loadRifaData() {
@@ -615,7 +745,7 @@
             // Atualizar status
             totalNumbersEl.textContent = rifaData.totalNumbers;
             availableNumbersEl.textContent = rifaData.available.length;
-            reservedNumbersEl.textContent = rifaData.reserved.length + rifaData.sold.length;
+            soldNumbersEl.textContent = rifaData.sold.length;
             totalAmountEl.textContent = `R$ ${rifaData.totalAmount.toFixed(2).replace('.', ',')}`;
             
             // Atualizar valor do prêmio (60% do total arrecadado)
@@ -654,9 +784,6 @@
                 if (rifaData.sold.includes(i)) {
                     statusBadge.className = 'status-badge sold';
                     statusBadge.textContent = 'VENDIDO';
-                } else if (rifaData.reserved.includes(i)) {
-                    statusBadge.className = 'status-badge reserved';
-                    statusBadge.textContent = 'RESERVADO';
                 } else {
                     statusBadge.className = 'status-badge available';
                     statusBadge.textContent = 'DISPONÍVEL';
@@ -668,6 +795,7 @@
                 // Comprador
                 const buyerCell = document.createElement('td');
                 buyerCell.textContent = rifaData.buyers[i] || '-';
+                buyerCell.id = `buyer-${i}`;
                 row.appendChild(buyerCell);
                 
                 // Valor
@@ -675,8 +803,68 @@
                 valueCell.textContent = rifaData.sold.includes(i) ? 'R$ 3,00' : '-';
                 row.appendChild(valueCell);
                 
+                // Ações
+                const actionsCell = document.createElement('td');
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'action-buttons';
+                
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                editBtn.onclick = () => openEditModal(i);
+                
+                actionsDiv.appendChild(editBtn);
+                actionsCell.appendChild(actionsDiv);
+                row.appendChild(actionsCell);
+                
                 numbersTableBody.appendChild(row);
             }
+        }
+        
+        // Abrir modal de edição
+        function openEditModal(number) {
+            editNumber.value = number;
+            editNumberDisplay.value = number;
+            editWarrior.value = warriorNames[number-1];
+            editBuyer.value = rifaData.buyers[number] || '';
+            editModal.style.display = 'flex';
+            editBuyer.focus();
+        }
+        
+        // Fechar modal de edição
+        function closeEditModal() {
+            editModal.style.display = 'none';
+            editBuyer.value = '';
+        }
+        
+        // Salvar edição do comprador
+        function saveEdit() {
+            const number = parseInt(editNumber.value);
+            const buyerName = editBuyer.value.trim();
+            
+            if (buyerName === '') {
+                alert('Digite o nome do comprador!');
+                return;
+            }
+            
+            // Adicionar comprador
+            rifaData.buyers[number] = buyerName;
+            
+            // Se o número ainda não estava vendido, marcar como vendido
+            if (!rifaData.sold.includes(number)) {
+                rifaData.sold.push(number);
+                rifaData.available = rifaData.available.filter(n => n !== number);
+                rifaData.totalAmount += 3.00;
+            }
+            
+            // Salvar e atualizar
+            saveRifaData();
+            updateDisplay();
+            
+            closeEditModal();
+            
+            // Feedback
+            alert(`Número ${number} atualizado!\nComprador: ${buyerName}\nStatus: VENDIDO\nValor: R$ 3,00`);
         }
         
         // Atualizar lista de vencedores
@@ -717,8 +905,8 @@
         
         // Girar roleta
         function spinRoulette() {
-            if (rifaData.available.length === 0 && rifaData.reserved.length === 0) {
-                alert('Todos os números já foram sorteados!');
+            if (rifaData.available.length === 0) {
+                alert('Todos os números já foram vendidos! Não é possível sortear.');
                 return;
             }
             
@@ -726,12 +914,9 @@
             spinBtn.disabled = true;
             spinBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GIRANDO...';
             
-            // Números que podem ser sorteados (disponíveis + reservados)
-            const availableNumbers = [...rifaData.available, ...rifaData.reserved];
-            
-            // Selecionar vencedor aleatório
-            const randomIndex = Math.floor(Math.random() * availableNumbers.length);
-            const winningNumber = availableNumbers[randomIndex];
+            // Selecionar vencedor aleatório apenas entre os disponíveis
+            const randomIndex = Math.floor(Math.random() * rifaData.available.length);
+            const winningNumber = rifaData.available[randomIndex];
             const winningName = warriorNames[winningNumber - 1];
             const winnerPrizeValue = rifaData.prizeValue;
             
@@ -746,10 +931,8 @@
             
             // Atualizar dados após a animação
             setTimeout(() => {
-                // Remover número sorteado das listas
+                // Remover número sorteado da lista de disponíveis
                 rifaData.available = rifaData.available.filter(n => n !== winningNumber);
-                rifaData.reserved = rifaData.reserved.filter(n => n !== winningNumber);
-                rifaData.sold.push(winningNumber);
                 
                 // Adicionar à lista de vencedores
                 const now = new Date();
@@ -823,57 +1006,41 @@
             }
         }
         
-        // Atualizar dados manualmente
-        function updateData() {
-            // Simular atualização de dados da rifa
-            // Em um sistema real, isso viria de um banco de dados ou API
+        // Adicionar dados de teste
+        function addTestData() {
+            if (!confirm('Adicionar dados de teste? Isso irá criar algumas vendas fictícias.')) {
+                return;
+            }
             
-            // Atualizar valores aleatoriamente para demonstração
-            const randomSold = Math.floor(Math.random() * 10);
-            const randomReserved = Math.floor(Math.random() * 5);
+            // Adicionar alguns compradores de teste
+            const testBuyers = [
+                {number: 1, name: "Maria Silva"},
+                {number: 3, name: "João Santos"},
+                {number: 5, name: "Ana Oliveira"},
+                {number: 7, name: "Pedro Costa"},
+                {number: 10, name: "Carla Lima"}
+            ];
             
-            // Atualizar arrays (apenas para demonstração)
-            for (let i = 0; i < randomSold; i++) {
-                if (rifaData.available.length > 0) {
-                    const num = rifaData.available[0];
-                    rifaData.available.shift();
-                    rifaData.sold.push(num);
+            testBuyers.forEach(buyer => {
+                if (!rifaData.sold.includes(buyer.number)) {
+                    rifaData.buyers[buyer.number] = buyer.name;
+                    rifaData.sold.push(buyer.number);
+                    rifaData.available = rifaData.available.filter(n => n !== buyer.number);
                     rifaData.totalAmount += 3.00;
-                    
-                    // Adicionar comprador fictício
-                    rifaData.buyers[num] = `Comprador ${Math.floor(Math.random() * 1000)}`;
                 }
-            }
-            
-            for (let i = 0; i < randomReserved; i++) {
-                if (rifaData.available.length > 0) {
-                    const num = rifaData.available[0];
-                    rifaData.available.shift();
-                    rifaData.reserved.push(num);
-                }
-            }
+            });
             
             // Salvar e atualizar
             saveRifaData();
             updateDisplay();
             
-            // Feedback
-            alert(`Dados atualizados!\n\nVendidos: ${randomSold} números\nReservados: ${randomReserved} números\n\nTotal arrecadado: R$ ${rifaData.totalAmount.toFixed(2).replace('.', ',')}`);
+            alert('Dados de teste adicionados! Foram criadas 5 vendas fictícias.');
         }
         
-        // Event Listeners
-        spinBtn.addEventListener('click', spinRoulette);
-        resetBtn.addEventListener('click', resetRoulette);
-        logoutBtn.addEventListener('click', logout);
-        updateBtn.addEventListener('click', updateData);
-        
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            if (!checkAuth()) return;
+        // Inicializar roleta com números
+        function initRoulette() {
+            wheel.innerHTML = '';
             
-            loadRifaData();
-            
-            // Adicionar números à roleta
             for (let i = 0; i < 31; i++) {
                 const numberDiv = document.createElement('div');
                 numberDiv.style.position = 'absolute';
@@ -887,6 +1054,27 @@
                 numberDiv.textContent = (i + 1).toString().padStart(2, '0');
                 wheel.appendChild(numberDiv);
             }
+        }
+        
+        // Event Listeners
+        spinBtn.addEventListener('click', spinRoulette);
+        resetBtn.addEventListener('click', resetRoulette);
+        logoutBtn.addEventListener('click', logout);
+        addTestDataBtn.addEventListener('click', addTestData);
+        saveEditBtn.addEventListener('click', saveEdit);
+        cancelEditBtn.addEventListener('click', closeEditModal);
+        
+        // Fechar modal ao clicar fora
+        editModal.addEventListener('click', function(e) {
+            if (e.target === editModal) {
+                closeEditModal();
+            }
+        });
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRifaData();
+            initRoulette();
             
             // Auto-save a cada 30 segundos
             setInterval(saveRifaData, 30000);
@@ -899,10 +1087,11 @@
         
         // Proteger contra F5
         window.addEventListener('beforeunload', function(e) {
-            if (!confirm('Tem certeza que deseja sair? As alterações podem não ser salvas.')) {
-                e.preventDefault();
-                e.returnValue = '';
-            }
+            // Comentado para não incomodar durante testes
+            // if (!confirm('Tem certeza que deseja sair? As alterações podem não ser salvas.')) {
+            //     e.preventDefault();
+            //     e.returnValue = '';
+            // }
         });
     </script>
 </body>
