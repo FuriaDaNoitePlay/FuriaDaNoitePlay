@@ -241,10 +241,26 @@
             <p class="thank-you-message">Obrigado pela compreensão!</p>
             
             <div class="game-section">
-                <button id="gameButton" class="game-button">
-                    <i class="fas fa-gamepad"></i>
+                <a href="velha.html" id="gameButton" class="game-button" style="
+                    display: inline-block;
+                    background: linear-gradient(135deg, #8B0000, #B22222);
+                    color: white;
+                    padding: 15px 30px;
+                    border-radius: 50px;
+                    text-decoration: none;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+                    transition: all 0.3s ease;
+                    border: none;
+                    cursor: pointer;
+                    margin: 10px 0;
+                ">
+                    <i class="fas fa-gamepad" style="margin-right: 10px;"></i>
                     JOGAR JOGO DA VELHA
-                </button>
+                </a>
                 <p class="game-description">Enquanto espera, divirta-se com um jogo clássico!</p>
             </div>
             
@@ -290,7 +306,7 @@
                         <div class="message bot">
                             <span class="message-sender">FuriaBot</span>
                             <div class="message-content">
-                                Bem-vindo ao Chat Galáctico! 🌌
+                                Olá! Bem-vindo ao FuriaDaNoitePlay! 😎
                             </div>
                             <span class="message-time">Agora</span>
                         </div>
@@ -459,12 +475,6 @@
             if (e.key === 'Enter') {
                 sendMessage();
             }
-        });
-        
-        // Jogo da Velha
-        document.getElementById('gameButton').addEventListener('click', function(e) {
-            e.stopPropagation(); // Evita que o evento se propague
-            alert('🎮 Jogo da Velha será aberto em breve! 🕹️\n\nEnquanto isso, continue conversando no chat! 😊');
         });
         
         // Progresso animado
