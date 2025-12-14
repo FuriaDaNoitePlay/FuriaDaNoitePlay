@@ -290,15 +290,7 @@
                         <div class="message bot">
                             <span class="message-sender">FuriaBot</span>
                             <div class="message-content">
-                                Olá! Bem-vindo ao FuriaDaNoitePlay! 😎
-                            </div>
-                            <span class="message-time">Agora</span>
-                        </div>
-                        
-                        <div class="message bot">
-                            <span class="message-sender">FuriaBot</span>
-                            <div class="message-content">
-                                Enquanto aguarda a manutenção, sinta-se à vontade para conversar com outros membros da comunidade!
+                                Bem-vindo ao Chat Galáctico! 🌌
                             </div>
                             <span class="message-time">Agora</span>
                         </div>
@@ -406,21 +398,31 @@
         
         // Nomes de usuário aleatórios
         const userNames = ['GuerreiroNoite', 'FuriaPlayer', 'DarkShadow', 'RedKnight', 'NoiteAtiva', 'FuriaFan', 'BloodGamer'];
-        const currentUser = userNames[Math.floor(Math.random() * userNames.length)];
+        let currentUser = '';
         
-        // Respostas automáticas do bot
-        const botResponses = [
-            "O sistema está quase pronto! 🚀",
-            "Que ansiedade para voltar a jogar, né? 😅",
-            "Aguarde só mais um pouquinho, valerá a pena! ⏳",
-            "Estou tão animado quanto você! 🤩",
-            "Novas features incríveis estão chegando... 🔥",
-            "Já participou da Rifa do Guerreiro? É uma oportunidade única! 🏆",
-            "Enquanto isso, já testou o Jogo da Velha ali em cima? É divertido! ⭕❌",
-            "A comunidade Furia é a melhor! Obrigado por fazer parte! ❤️",
-            "Fique ligado nas nossas redes sociais para novidades! 📱",
-            "Qual é seu jogo favorito no FuriaDaNoitePlay? 🎮"
-        ];
+        // Função para obter ou criar nome de usuário
+        function getUserName() {
+            // Tenta obter o nome salvo no localStorage
+            const savedName = localStorage.getItem('furiaChatUsername');
+            if (savedName) {
+                return savedName;
+            }
+            
+            // Se não tem nome salvo, pede ao usuário
+            const newName = prompt('Digite seu nick para o chat:', userNames[Math.floor(Math.random() * userNames.length)]);
+            if (newName && newName.trim() !== '') {
+                localStorage.setItem('furiaChatUsername', newName.trim());
+                return newName.trim();
+            } else {
+                // Se o usuário cancelar ou não digitar nada, usa um aleatório
+                const randomName = userNames[Math.floor(Math.random() * userNames.length)];
+                localStorage.setItem('furiaChatUsername', randomName);
+                return randomName;
+            }
+        }
+        
+        // Inicializa o nome do usuário
+        currentUser = getUserName();
         
         function addMessage(sender, message, isUser = false) {
             const messageDiv = document.createElement('div');
@@ -446,34 +448,8 @@
             addMessage(currentUser, message, true);
             chatInput.value = '';
             
-            // Mostrar indicador de digitação
-            typingIndicator.style.display = 'block';
+            // Rolar para a última mensagem
             chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // Resposta do bot após delay
-            setTimeout(() => {
-                typingIndicator.style.display = 'none';
-                
-                const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-                addMessage('FuriaBot', randomResponse, false);
-                
-                // Resposta automática de outros "usuários" ocasionalmente
-                if (Math.random() > 0.7) {
-                    setTimeout(() => {
-                        const randomUser = userNames.filter(name => name !== currentUser)[Math.floor(Math.random() * (userNames.length - 1))];
-                        const userMessages = [
-                            "Também estou no aguardo!",
-                            "Mal posso esperar!",
-                            "Ansioso demais!",
-                            "Vai ser incrível!",
-                            "⏳⏳⏳",
-                            "🚀🚀🚀"
-                        ];
-                        const randomUserMessage = userMessages[Math.floor(Math.random() * userMessages.length)];
-                        addMessage(randomUser, randomUserMessage, true);
-                    }, 1000);
-                }
-            }, 1500 + Math.random() * 2000);
         }
         
         // Event Listeners
@@ -485,17 +461,9 @@
             }
         });
         
-        // Adicionar algumas mensagens iniciais
-        setTimeout(() => {
-            addMessage('DarkShadow', 'Alguém mais ansioso para o retorno?', true);
-        }, 2000);
-        
-        setTimeout(() => {
-            addMessage('RedKnight', 'Demais! Mal posso esperar! 🔥', true);
-        }, 4000);
-        
-        // Jogo da Velha (simples)
-        document.getElementById('gameButton').addEventListener('click', function() {
+        // Jogo da Velha
+        document.getElementById('gameButton').addEventListener('click', function(e) {
+            e.stopPropagation(); // Evita que o evento se propague
             alert('🎮 Jogo da Velha será aberto em breve! 🕹️\n\nEnquanto isso, continue conversando no chat! 😊');
         });
         
@@ -511,6 +479,16 @@
             progressElement.innerText = Math.floor(progress) + '%';
             fillElement.style.width = progress + '%';
         }, 3000);
+        
+        // Botão para trocar nome de usuário
+        chatInput.addEventListener('dblclick', function() {
+            const newName = prompt('Digite um novo nick para o chat:', currentUser);
+            if (newName && newName.trim() !== '') {
+                currentUser = newName.trim();
+                localStorage.setItem('furiaChatUsername', currentUser);
+                addMessage('FuriaBot', `${currentUser}, seu nick foi alterado com sucesso!`, false);
+            }
+        });
     </script>
 </body>
-                    </html>
+    </html>
