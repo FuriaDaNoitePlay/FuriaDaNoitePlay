@@ -68,87 +68,6 @@
             flex-direction: column;
         }
         
-        /* Área de login */
-        .login-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 0, 2, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(5px);
-        }
-        
-        .login-box {
-            background: rgba(255, 0, 51, 0.1);
-            border: 2px solid #ff0033;
-            border-radius: 10px;
-            padding: 40px;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 0 30px rgba(255, 0, 51, 0.4);
-        }
-        
-        .login-title {
-            color: #ff0033;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
-        }
-        
-        .login-input {
-            width: 100%;
-            padding: 15px;
-            margin: 15px 0;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #ff0033;
-            border-radius: 5px;
-            color: white;
-            font-size: 1rem;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        
-        .login-input:focus {
-            outline: none;
-            box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .login-button {
-            background: linear-gradient(45deg, #ff0033, #cc0029);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .login-button:hover {
-            background: linear-gradient(45deg, #cc0029, #99001f);
-            box-shadow: 0 0 20px rgba(255, 0, 51, 0.6);
-            transform: translateY(-2px);
-        }
-        
-        .login-note {
-            color: #aaa;
-            font-size: 0.9rem;
-            margin-top: 20px;
-            font-style: italic;
-        }
-        
         /* Área de mensagens */
         .messages-container {
             flex: 1;
@@ -201,6 +120,17 @@
             word-wrap: break-word;
         }
         
+        .message-content a {
+            color: #ff3366;
+            text-decoration: none;
+            border-bottom: 1px dotted #ff3366;
+        }
+        
+        .message-content a:hover {
+            color: #ff6699;
+            border-bottom: 1px solid #ff6699;
+        }
+        
         .system-message {
             background: rgba(255, 100, 0, 0.1);
             border-left-color: #ff6400;
@@ -212,13 +142,34 @@
             color: #ff6400;
         }
         
-        /* Área de input */
+        /* Área de input COM NICK */
         .input-container {
             background: rgba(20, 0, 5, 0.95);
             padding: 15px;
             border-top: 2px solid #ff0033;
             display: flex;
             gap: 10px;
+        }
+        
+        .nick-input {
+            width: 150px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ff0033;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .nick-input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .nick-input::placeholder {
+            color: #aaa;
         }
         
         .message-input {
@@ -238,6 +189,10 @@
             background: rgba(255, 255, 255, 0.15);
         }
         
+        .message-input::placeholder {
+            color: #aaa;
+        }
+        
         .send-button {
             background: linear-gradient(45deg, #ff0033, #cc0029);
             color: white;
@@ -247,7 +202,7 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
-            min-width: 80px;
+            min-width: 100px;
         }
         
         .send-button:hover {
@@ -277,19 +232,41 @@
             text-shadow: 0 0 5px rgba(255, 0, 51, 0.3);
         }
         
-        .logout-button {
-            background: transparent;
-            border: 1px solid #ff0033;
-            color: #ff0033;
-            padding: 5px 15px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s;
+        /* Notificação flutuante */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 0, 51, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(255, 0, 51, 0.3);
+            animation: slideIn 0.3s ease-out;
+            max-width: 300px;
         }
         
-        .logout-button:hover {
-            background: rgba(255, 0, 51, 0.2);
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
         }
         
         /* Custom scrollbar */
@@ -321,22 +298,18 @@
                 height: 400px;
             }
             
-            .login-box {
-                padding: 30px 20px;
+            .input-container {
+                flex-direction: column;
+            }
+            
+            .nick-input, .message-input, .send-button {
+                width: 100%;
             }
         }
         
         @media (max-width: 480px) {
             .chat-title {
                 font-size: 1.5rem;
-            }
-            
-            .input-container {
-                flex-direction: column;
-            }
-            
-            .send-button {
-                width: 100%;
             }
         }
     </style>
@@ -423,54 +396,30 @@
         <div class="chat-section">
             <div class="chat-header">
                 <h2 class="chat-title">Chat Neon da Fúria</h2>
-                <p class="chat-subtitle">Converse com outros guerreiros enquanto aguarda o retorno!</p>
+                <p class="chat-subtitle">Digite seu nick e converse em tempo real com outros guerreiros!</p>
             </div>
             
             <div class="chat-container">
-                <!-- Overlay de login (aparece primeiro) -->
-                <div class="login-overlay" id="loginOverlay">
-                    <div class="login-box">
-                        <h3 class="login-title">🌙 ENTRAR NO CHAT</h3>
-                        <input type="text" 
-                               id="nickInput" 
-                               class="login-input" 
-                               placeholder="Digite seu nick/nome"
-                               maxlength="20"
-                               autocomplete="off">
-                        <button id="enterChatButton" class="login-button">
-                            <i class="fas fa-sign-in-alt"></i> ENTRAR NO CHAT
-                        </button>
-                        <p class="login-note">
-                            Seu nick será visível para todos no chat<br>
-                            Mantenha o respeito e boa conversa!
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Informações do usuário logado -->
-                <div class="user-info" id="userInfo" style="display: none;">
-                    <div>
-                        Conectado como: <span id="currentUserNick"></span>
-                    </div>
-                    <button class="logout-button" id="logoutButton">
-                        <i class="fas fa-sign-out-alt"></i> Sair
-                    </button>
-                </div>
-                
                 <!-- Container de mensagens -->
                 <div class="messages-container" id="messagesContainer">
                     <!-- Mensagens serão adicionadas aqui dinamicamente -->
                 </div>
                 
-                <!-- Input para enviar mensagens -->
-                <div class="input-container" id="inputContainer" style="display: none;">
+                <!-- Input para nick e mensagem -->
+                <div class="input-container">
+                    <input type="text" 
+                           id="nickInput" 
+                           class="nick-input" 
+                           placeholder="Seu nick"
+                           maxlength="15"
+                           autocomplete="off">
                     <input type="text" 
                            id="messageInput" 
                            class="message-input" 
                            placeholder="Digite sua mensagem..."
-                           maxlength="500"
+                           maxlength="300"
                            autocomplete="off">
-                    <button id="sendButton" class="send-button" disabled>
+                    <button id="sendButton" class="send-button">
                         <i class="fas fa-paper-plane"></i> Enviar
                     </button>
                 </div>
@@ -521,228 +470,344 @@
         // CHAT SCRIPT - Código completo do chat
         document.addEventListener('DOMContentLoaded', function() {
             // Elementos do DOM
-            const loginOverlay = document.getElementById('loginOverlay');
-            const userInfo = document.getElementById('userInfo');
-            const inputContainer = document.getElementById('inputContainer');
             const messagesContainer = document.getElementById('messagesContainer');
             const nickInput = document.getElementById('nickInput');
-            const enterChatButton = document.getElementById('enterChatButton');
             const messageInput = document.getElementById('messageInput');
             const sendButton = document.getElementById('sendButton');
-            const currentUserNick = document.getElementById('currentUserNick');
-            const logoutButton = document.getElementById('logoutButton');
             
             // Variáveis do chat
-            let currentNick = '';
             let messages = [];
-            let isTyping = false;
+            let userNick = '';
             
-            // Mensagens iniciais do sistema
-            const initialMessages = [
-                {
-                    user: 'Sistema',
-                    message: 'Bem-vindo ao Chat Neon da Fúria!',
-                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    type: 'system'
-                },
-                {
-                    user: 'Sistema',
-                    message: 'Converse com outros guerreiros enquanto aguardamos o retorno do FuriaDaNoitePlay!',
-                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    type: 'system'
-                },
-                {
-                    user: 'Sistema',
-                    message: 'Respeite todos os participantes e divirta-se!',
-                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    type: 'system'
-                }
-            ];
+            // URL do servidor WebSocket (altere para seu servidor real)
+            // Para teste local, usamos um mock
+            const useWebSocket = false; // Mude para true quando tiver servidor
+            let socket = null;
             
-            // Inicializar chat com mensagens do sistema
-            initialMessages.forEach(msg => {
-                addMessageToChat(msg.user, msg.message, msg.time, msg.type);
-            });
-            
-            // Função para adicionar mensagem ao chat
-            function addMessageToChat(user, message, time, type = 'user') {
-                const messageElement = document.createElement('div');
-                messageElement.className = `message ${type === 'system' ? 'system-message' : ''}`;
+            // Inicializar chat
+            function initChat() {
+                // Adicionar mensagens iniciais do sistema
+                addSystemMessage('Bem-vindo ao Chat Neon da Fúria!');
+                addSystemMessage('Digite seu nick no campo à esquerda e comece a conversar!');
+                addSystemMessage('Links digitados serão automaticamente clicáveis.');
                 
-                // Formatar hora se não for fornecida
-                if (!time) {
-                    time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                // Configurar eventos
+                setupEventListeners();
+                
+                // Tentar conectar ao WebSocket se configurado
+                if (useWebSocket) {
+                    connectWebSocket();
+                } else {
+                    // Modo demo - adicionar algumas mensagens de exemplo
+                    setTimeout(addDemoMessages, 1000);
                 }
+                
+                // Tentar carregar nick salvo
+                loadSavedNick();
+            }
+            
+            // Conectar ao WebSocket
+            function connectWebSocket() {
+                try {
+                    // Substitua esta URL pelo seu servidor WebSocket real
+                    socket = new WebSocket('wss://seu-servidor.com/chat');
+                    
+                    socket.onopen = function() {
+                        console.log('Conectado ao chat em tempo real');
+                        addSystemMessage('Conectado ao chat em tempo real!');
+                    };
+                    
+                    socket.onmessage = function(event) {
+                        try {
+                            const data = JSON.parse(event.data);
+                            addMessage(data.nick, data.message, data.timestamp);
+                        } catch (e) {
+                            console.error('Erro ao processar mensagem:', e);
+                        }
+                    };
+                    
+                    socket.onerror = function(error) {
+                        console.error('Erro WebSocket:', error);
+                        addSystemMessage('Conexão com chat interrompida. Modo local ativado.');
+                    };
+                    
+                    socket.onclose = function() {
+                        console.log('Conexão WebSocket fechada');
+                        setTimeout(connectWebSocket, 5000); // Tentar reconectar
+                    };
+                    
+                } catch (error) {
+                    console.error('Erro ao conectar WebSocket:', error);
+                    addSystemMessage('Usando modo local. Para chat em tempo real, configure o servidor.');
+                }
+            }
+            
+            // Configurar listeners de eventos
+            function setupEventListeners() {
+                // Enviar mensagem ao clicar no botão
+                sendButton.addEventListener('click', sendMessage);
+                
+                // Enviar mensagem ao pressionar Enter
+                messageInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+                
+                // Salvar nick quando perder o foco
+                nickInput.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        saveNick(this.value.trim());
+                    }
+                });
+                
+                // Atualizar nick quando pressionar Enter
+                nickInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        messageInput.focus();
+                        if (this.value.trim()) {
+                            saveNick(this.value.trim());
+                        }
+                    }
+                });
+                
+                // Habilitar/desabilitar botão de enviar
+                messageInput.addEventListener('input', function() {
+                    sendButton.disabled = !this.value.trim() || !nickInput.value.trim();
+                });
+                
+                nickInput.addEventListener('input', function() {
+                    sendButton.disabled = !messageInput.value.trim() || !this.value.trim();
+                });
+            }
+            
+            // Adicionar mensagem de sistema
+            function addSystemMessage(text) {
+                addMessage('Sistema', text, new Date().toLocaleTimeString([], { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                }), true);
+            }
+            
+            // Adicionar mensagem ao chat
+            function addMessage(nick, message, timestamp, isSystem = false) {
+                const messageElement = document.createElement('div');
+                messageElement.className = `message ${isSystem ? 'system-message' : ''}`;
+                
+                // Formatar links no texto
+                const formattedMessage = formatLinks(message);
                 
                 messageElement.innerHTML = `
                     <div class="message-header">
-                        <span class="message-user">${user}</span>
-                        <span class="message-time">${time}</span>
+                        <span class="message-user">${nick}</span>
+                        <span class="message-time">${timestamp}</span>
                     </div>
-                    <div class="message-content">${message}</div>
+                    <div class="message-content">${formattedMessage}</div>
                 `;
                 
                 messagesContainer.appendChild(messageElement);
                 
                 // Salvar mensagem no histórico
                 messages.push({
-                    user,
+                    nick,
                     message,
-                    time,
-                    type
+                    timestamp,
+                    isSystem
                 });
+                
+                // Limitar histórico a 100 mensagens
+                if (messages.length > 100) {
+                    messages.shift();
+                    if (messagesContainer.children.length > 100) {
+                        messagesContainer.removeChild(messagesContainer.firstChild);
+                    }
+                }
                 
                 // Rolagem automática para a última mensagem
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             }
             
-            // Função para entrar no chat
-            function enterChat() {
-                const nick = nickInput.value.trim();
+            // Formatar links no texto
+            function formatLinks(text) {
+                // Expressão regular para encontrar URLs
+                const urlRegex = /(https?:\/\/[^\s]+)/g;
                 
-                if (nick.length < 2) {
-                    showNotification('Digite um nick com pelo menos 2 caracteres!');
-                    nickInput.focus();
-                    return;
-                }
-                
-                if (nick.length > 20) {
-                    showNotification('Nick muito longo! Máximo 20 caracteres.');
-                    nickInput.focus();
-                    return;
-                }
-                
-                currentNick = nick;
-                currentUserNick.textContent = nick;
-                
-                // Esconder login, mostrar chat
-                loginOverlay.style.display = 'none';
-                userInfo.style.display = 'flex';
-                inputContainer.style.display = 'flex';
-                sendButton.disabled = false;
-                
-                // Mensagem de boas-vindas
-                addMessageToChat(
-                    'Sistema',
-                    `${nick} entrou no chat!`,
-                    new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    'system'
-                );
-                
-                // Salvar nick no localStorage
-                localStorage.setItem('furia_chat_nick', nick);
-                
-                // Focar no input de mensagem
-                messageInput.focus();
-                
-                showNotification(`Bem-vindo, ${nick}!`);
+                return text.replace(urlRegex, function(url) {
+                    // Encurtar URLs muito longas
+                    let displayUrl = url;
+                    if (url.length > 50) {
+                        displayUrl = url.substring(0, 47) + '...';
+                    }
+                    
+                    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${displayUrl}</a>`;
+                });
             }
             
-            // Função para enviar mensagem
+            // Enviar mensagem
             function sendMessage() {
+                const nick = nickInput.value.trim();
                 const message = messageInput.value.trim();
                 
+                // Validar nick
+                if (!nick) {
+                    showNotification('Digite um nick primeiro!');
+                    nickInput.focus();
+                    return;
+                }
+                
+                if (nick.length < 2) {
+                    showNotification('Nick deve ter pelo menos 2 caracteres');
+                    nickInput.focus();
+                    return;
+                }
+                
+                // Validar mensagem
                 if (!message) {
                     showNotification('Digite uma mensagem!');
+                    messageInput.focus();
                     return;
                 }
                 
-                if (message.length > 500) {
-                    showNotification('Mensagem muito longa! Máximo 500 caracteres.');
+                if (message.length > 300) {
+                    showNotification('Mensagem muito longa! Máximo 300 caracteres.');
                     return;
                 }
                 
-                // Adicionar mensagem ao chat
-                addMessageToChat(
-                    currentNick,
-                    message,
-                    new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                );
+                // Salvar nick
+                saveNick(nick);
                 
-                // Limpar input
+                // Timestamp atual
+                const timestamp = new Date().toLocaleTimeString([], { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                
+                // Adicionar mensagem localmente
+                addMessage(nick, message, timestamp);
+                
+                // Enviar via WebSocket se conectado
+                if (useWebSocket && socket && socket.readyState === WebSocket.OPEN) {
+                    try {
+                        socket.send(JSON.stringify({
+                            nick: nick,
+                            message: message,
+                            timestamp: timestamp
+                        }));
+                    } catch (error) {
+                        console.error('Erro ao enviar via WebSocket:', error);
+                    }
+                }
+                
+                // Limpar input de mensagem
                 messageInput.value = '';
-                
-                // Simular respostas de outros "usuários" (para demonstração)
-                if (Math.random() > 0.7) {
-                    setTimeout(() => {
-                        const botMessages = [
-                            'Alguém mais animado pro retorno do site?',
-                            'Esse chat neon é muito top!',
-                            'Quem vai participar da rifa?',
-                            'Alguém já jogou o jogo da velha?',
-                            'FuriaDaNoitePlay vai voltar com tudo!',
-                            'Que tema maneiro esse vermelho neon!',
-                            'Alguém online aí?'
-                        ];
-                        
-                        const botNicks = [
-                            'Guerreiro88',
-                            'NightWolf',
-                            'FuriaFan',
-                            'NeonPlayer',
-                            'ChatMaster',
-                            'RedWarrior'
-                        ];
-                        
-                        const randomBot = botNicks[Math.floor(Math.random() * botNicks.length)];
-                        const randomMessage = botMessages[Math.floor(Math.random() * botMessages.length)];
-                        
-                        addMessageToChat(
-                            randomBot,
-                            randomMessage,
-                            new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                        );
-                    }, 1000 + Math.random() * 2000);
-                }
-            }
-            
-            // Função para sair do chat
-            function logout() {
-                // Mensagem de despedida
-                addMessageToChat(
-                    'Sistema',
-                    `${currentNick} saiu do chat.`,
-                    new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    'system'
-                );
-                
-                // Resetar estado
-                currentNick = '';
-                
-                // Mostrar login, esconder chat
-                loginOverlay.style.display = 'flex';
-                userInfo.style.display = 'none';
-                inputContainer.style.display = 'none';
                 sendButton.disabled = true;
                 
-                // Limpar input
-                nickInput.value = '';
-                messageInput.value = '';
+                // Focar no input de mensagem novamente
+                messageInput.focus();
                 
-                // Remover nick do localStorage
-                localStorage.removeItem('furia_chat_nick');
-                
-                showNotification('Você saiu do chat.');
+                // Simular resposta automática (apenas em modo demo)
+                if (!useWebSocket && Math.random() > 0.5) {
+                    setTimeout(simulateResponse, 1000 + Math.random() * 3000);
+                }
             }
             
-            // Função para mostrar notificação
-            function showNotification(text) {
-                // Criar elemento de notificação
-                const notification = document.createElement('div');
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    background: rgba(255, 0, 51, 0.9);
-                    color: white;
-                    padding: 15px 20px;
-                    border-radius: 5px;
-                    z-index: 1000;
-                    box-shadow: 0 5px 15px rgba(255, 0, 51, 0.3);
-                    animation: slideIn 0.3s ease-out;
-                    max-width: 300px;
-                `;
+            // Simular resposta de outros usuários (modo demo)
+            function simulateResponse() {
+                const botNicks = ['Guerreiro88', 'NightWolf', 'FuriaFan', 'NeonPlayer', 'RedWarrior'];
+                const botMessages = [
+                    'Alguém mais animado pro retorno?',
+                    'Esse chat neon é incrível! 🌟',
+                    'Já viram a rifa? Parece ótima!',
+                    'Link legal que vi hoje: https://furiadanoiteplay.com.br',
+                    'Alguém quer jogar algo enquanto espera?',
+                    'O tema vermelho combina demais com a Fúria!',
+                    'Chat em tempo real é tudo!',
+                    'Mais alguém ansioso pro dia 01/02/2026?'
+                ];
                 
+                const randomNick = botNicks[Math.floor(Math.random() * botNicks.length)];
+                const randomMessage = botMessages[Math.floor(Math.random() * botMessages.length)];
+                
+                addMessage(
+                    randomNick,
+                    randomMessage,
+                    new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                );
+            }
+            
+            // Adicionar mensagens de demonstração
+            function addDemoMessages() {
+                setTimeout(() => {
+                    addMessage(
+                        'Guerreiro88',
+                        'Eae galera! Alguém online?',
+                        new Date(Date.now() - 300000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    );
+                }, 1500);
+                
+                setTimeout(() => {
+                    addMessage(
+                        'NightWolf',
+                        'To aqui! Ansioso pro retorno do site!',
+                        new Date(Date.now() - 240000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    );
+                }, 2500);
+                
+                setTimeout(() => {
+                    addMessage(
+                        'FuriaFan',
+                        'Vou deixar meu insta aqui: https://instagram.com/furiadanoiteplay',
+                        new Date(Date.now() - 180000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    );
+                }, 3500);
+                
+                setTimeout(() => {
+                    addMessage(
+                        'NeonPlayer',
+                        'Alguém já jogou o jogo da velha? É bem legal!',
+                        new Date(Date.now() - 120000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    );
+                }, 4500);
+            }
+            
+            // Salvar nick no localStorage
+            function saveNick(nick) {
+                if (nick && nick !== userNick) {
+                    userNick = nick;
+                    localStorage.setItem('furia_chat_nick', nick);
+                    nickInput.value = nick;
+                    
+                    // Mostrar notificação apenas na primeira vez
+                    if (!localStorage.getItem('furia_nick_saved')) {
+                        showNotification(`Nick salvo: ${nick}`);
+                        localStorage.setItem('furia_nick_saved', 'true');
+                    }
+                }
+            }
+            
+            // Carregar nick salvo
+            function loadSavedNick() {
+                const savedNick = localStorage.getItem('furia_chat_nick');
+                if (savedNick) {
+                    nickInput.value = savedNick;
+                    userNick = savedNick;
+                    messageInput.focus();
+                } else {
+                    nickInput.focus();
+                }
+            }
+            
+            // Mostrar notificação
+            function showNotification(text) {
+                // Remover notificações anteriores
+                const oldNotifications = document.querySelectorAll('.notification');
+                oldNotifications.forEach(notif => notif.remove());
+                
+                // Criar nova notificação
+                const notification = document.createElement('div');
+                notification.className = 'notification';
                 notification.textContent = text;
                 document.body.appendChild(notification);
                 
@@ -750,111 +815,35 @@
                 setTimeout(() => {
                     notification.style.animation = 'slideOut 0.3s ease-out';
                     setTimeout(() => {
-                        document.body.removeChild(notification);
+                        if (notification.parentNode) {
+                            document.body.removeChild(notification);
+                        }
                     }, 300);
                 }, 3000);
             }
             
-            // Adicionar estilo para animações da notificação
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from {
-                        transform: translateX(100%);
-                        opacity: 0;
+            // Iniciar efeito de neon no título
+            function initNeonEffect() {
+                const chatTitle = document.querySelector('.chat-title');
+                let pulseDirection = 0;
+                
+                setInterval(() => {
+                    if (pulseDirection === 0) {
+                        chatTitle.style.textShadow = 
+                            '0 0 5px #ff0033, 0 0 10px #ff0033, 0 0 20px #ff0033';
+                        pulseDirection = 1;
+                    } else {
+                        chatTitle.style.textShadow = 
+                            '0 0 10px #ff0033, 0 0 20px #ff0033, 0 0 40px #ff0033';
+                        pulseDirection = 0;
                     }
-                    to {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                }
-                @keyframes slideOut {
-                    from {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                    to {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Verificar se já tem nick salvo
-            const savedNick = localStorage.getItem('furia_chat_nick');
-            if (savedNick) {
-                nickInput.value = savedNick;
-                // Auto-entrar após 1 segundo
-                setTimeout(() => {
-                    enterChat();
-                }, 1000);
+                }, 1500);
             }
             
-            // Event Listeners
-            enterChatButton.addEventListener('click', enterChat);
-            
-            nickInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    enterChat();
-                }
-            });
-            
-            sendButton.addEventListener('click', sendMessage);
-            
-            messageInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                }
-            });
-            
-            messageInput.addEventListener('input', function() {
-                // Habilitar/desabilitar botão baseado no conteúdo
-                sendButton.disabled = this.value.trim().length === 0;
-            });
-            
-            logoutButton.addEventListener('click', logout);
-            
-            // Atualizar título do chat com efeito de piscar
-            const chatTitle = document.querySelector('.chat-title');
-            let pulseDirection = 0;
-            
-            setInterval(() => {
-                if (pulseDirection === 0) {
-                    chatTitle.style.textShadow = 
-                        '0 0 5px #ff0033, 0 0 10px #ff0033, 0 0 20px #ff0033';
-                    pulseDirection = 1;
-                } else {
-                    chatTitle.style.textShadow = 
-                        '0 0 10px #ff0033, 0 0 20px #ff0033, 0 0 40px #ff0033';
-                    pulseDirection = 0;
-                }
-            }, 1500);
-            
-            // Adicionar algumas mensagens de exemplo após um tempo
-            setTimeout(() => {
-                if (messages.length < 5) {
-                    addMessageToChat(
-                        'Guerreiro88',
-                        'Esse chat está incrível! Adorei o tema neon!',
-                        new Date(Date.now() - 300000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                    );
-                    
-                    addMessageToChat(
-                        'NightWolf',
-                        'Mal posso esperar pelo retorno do site!',
-                        new Date(Date.now() - 240000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                    );
-                    
-                    addMessageToChat(
-                        'FuriaFan',
-                        'Alguém já viu a nova rifa? Parece sensacional!',
-                        new Date(Date.now() - 180000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                    );
-                }
-            }, 2000);
+            // Inicializar tudo
+            initChat();
+            initNeonEffect();
         });
     </script>
 </body>
-    </html>
+</html>
