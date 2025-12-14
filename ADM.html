@@ -183,6 +183,7 @@
             position: relative;
             transition: transform 5s cubic-bezier(0.2, 0.8, 0.3, 1);
             box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            transform: rotate(-5.8deg); /* Ajuste para centralizar o primeiro número */
         }
         
         .wheel-pointer {
@@ -194,6 +195,15 @@
             color: #ff0000;
             text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
             z-index: 10;
+        }
+        
+        /* Números da roleta */
+        .roulette-number {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            z-index: 2;
         }
         
         .roulette-controls {
@@ -497,8 +507,12 @@
                 height: 300px;
             }
             
+            .roulette-number {
+                font-size: 1.1rem;
+            }
+            
             .control-panel {
-                grid-template-columns: 1fr;
+                grid-template-columns = 1fr;
             }
             
             .roulette-controls {
@@ -520,6 +534,10 @@
             .roulette-wheel {
                 width: 250px;
                 height: 250px;
+            }
+            
+            .roulette-number {
+                font-size: 0.9rem;
             }
             
             .winner-number {
@@ -596,7 +614,9 @@
                 <div class="wheel-pointer">
                     <i class="fas fa-caret-down"></i>
                 </div>
-                <div class="wheel" id="wheel"></div>
+                <div class="wheel" id="wheel">
+                    <!-- Números serão adicionados via JavaScript -->
+                </div>
             </div>
             
             <div class="roulette-controls">
@@ -821,6 +841,35 @@
             }
         }
         
+        // Inicializar roleta com números
+        function initRoulette() {
+            wheel.innerHTML = '';
+            
+            const radius = 180; // Raio da roleta
+            const centerX = 200; // Centro X da roleta
+            const centerY = 200; // Centro Y da roleta
+            
+            for (let i = 0; i < 31; i++) {
+                const angle = (i * (360 / 31)) * (Math.PI / 180);
+                const angleDeg = i * (360 / 31);
+                
+                // Calcular posição do número
+                const x = centerX + (radius * 0.85) * Math.sin(angle);
+                const y = centerY - (radius * 0.85) * Math.cos(angle);
+                
+                // Criar elemento do número
+                const numberDiv = document.createElement('div');
+                numberDiv.className = 'roulette-number';
+                numberDiv.textContent = (i + 1).toString().padStart(2, '0');
+                numberDiv.style.left = `${x}px`;
+                numberDiv.style.top = `${y}px`;
+                numberDiv.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
+                
+                // Adicionar à roleta
+                wheel.appendChild(numberDiv);
+            }
+        }
+        
         // Abrir modal de edição
         function openEditModal(number) {
             editNumber.value = number;
@@ -927,7 +976,7 @@
             
             // Animação da roleta
             wheel.style.transition = 'transform 5s cubic-bezier(0.2, 0.8, 0.3, 1)';
-            wheel.style.transform = `rotate(${totalAngle}deg)`;
+            wheel.style.transform = `rotate(${-5.8 + totalAngle}deg)`;
             
             // Atualizar dados após a animação
             setTimeout(() => {
@@ -984,7 +1033,7 @@
             
             // Resetar roleta
             wheel.style.transition = 'transform 1s ease';
-            wheel.style.transform = 'rotate(0deg)';
+            wheel.style.transform = 'rotate(-5.8deg)';
             
             // Esconder vencedor atual
             winnerDisplay.style.display = 'none';
@@ -1037,25 +1086,6 @@
             alert('Dados de teste adicionados! Foram criadas 5 vendas fictícias.');
         }
         
-        // Inicializar roleta com números
-        function initRoulette() {
-            wheel.innerHTML = '';
-            
-            for (let i = 0; i < 31; i++) {
-                const numberDiv = document.createElement('div');
-                numberDiv.style.position = 'absolute';
-                numberDiv.style.left = '50%';
-                numberDiv.style.top = '10px';
-                numberDiv.style.transformOrigin = '0% 200%';
-                numberDiv.style.transform = `rotate(${i * (360/31)}deg) translateX(10px)`;
-                numberDiv.style.color = 'white';
-                numberDiv.style.fontWeight = 'bold';
-                numberDiv.style.fontSize = '1.2rem';
-                numberDiv.textContent = (i + 1).toString().padStart(2, '0');
-                wheel.appendChild(numberDiv);
-            }
-        }
-        
         // Event Listeners
         spinBtn.addEventListener('click', spinRoulette);
         resetBtn.addEventListener('click', resetRoulette);
@@ -1078,20 +1108,6 @@
             
             // Auto-save a cada 30 segundos
             setInterval(saveRifaData, 30000);
-            
-            // Atualizar timestamp de login a cada 5 minutos
-            setInterval(() => {
-                localStorage.setItem('loginTimestamp', Date.now());
-            }, 5 * 60 * 1000);
-        });
-        
-        // Proteger contra F5
-        window.addEventListener('beforeunload', function(e) {
-            // Comentado para não incomodar durante testes
-            // if (!confirm('Tem certeza que deseja sair? As alterações podem não ser salvas.')) {
-            //     e.preventDefault();
-            //     e.returnValue = '';
-            // }
         });
     </script>
 </body>
