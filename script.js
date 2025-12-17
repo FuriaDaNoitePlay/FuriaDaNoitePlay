@@ -992,3 +992,126 @@ document.addEventListener('DOMContentLoaded', function() {
 if (!('animate' in document.documentElement)) {
     console.warn('Web Animations API não suportada neste navegador');
                    }
+// script.js - Lógica central da aplicação
+
+// Banco de dados simulado no localStorage
+const DB = {
+    NUMEROS_RIFA: 'numerosRifa',
+    NUMEROS_SELECIONADOS: 'numerosSelecionados',
+    ULTIMO_NUMERO: 'ultimoNumeroSelecionado',
+    NUMERO_ADM: 'numeroAdmSelecionado'
+};
+
+// Inicializar dados se não existirem
+function inicializarDados() {
+    if (!localStorage.getItem(DB.NUMEROS_RIFA)) {
+        // Criar 100 números de rifa (1 a 100)
+        const numeros = Array.from({length: 100}, (_, i) => ({
+            numero: i + 1,
+            selecionado: false,
+            dataSelecao: null,
+            selecionadoPor: ''
+        }));
+        localStorage.setItem(DB.NUMEROS_RIFA, JSON.stringify(numeros));
+    }
+    
+    if (!localStorage.getItem(DB.NUMEROS_SELECIONADOS)) {
+        localStorage.setItem(DB.NUMEROS_SELECIONADOS, JSON.stringify([]));
+    }
+}
+
+// Obter todos os números da rifa
+function getNumerosRifa() {
+    return JSON.parse(localStorage.getItem(DB.NUMEROS_RIFA) || '[]');
+}
+
+// Obter números já selecionados
+function getNumerosSelecionados() {
+    return JSON.parse(localStorage.getItem(DB.NUMEROS_SELECIONADOS) || '[]');
+}
+
+// Selecionar um número
+function selecionarNumero(numero, nomeComprador = 'Anônimo') {
+    const numerosRifa = getNumerosRifa();
+    const numerosSelecionados = getNumerosSelecionados();
+    
+    // Verificar se o número existe
+    const numeroObj = numerosRifa.find(n => n.numero === numero);
+    if (!numeroObj) {
+        throw new Error(`Número ${numero} não existe`);
+    }
+    
+    // Verificar se já foi selecionado
+    if (numeroObj.selecionado) {
+        throw new Error(`Número ${numero} já foi selecionado`);
+    }
+    
+    // Atualizar o número
+    numeroObj.selecionado = true;
+    numeroObj.dataSelecao = new Date().toISOString();
+    numeroObj.selecionadoPor = nomeComprador;
+    
+    // Atualizar localStorage
+    localStorage.setItem(DB.NUMEROS_RIFA, JSON.stringify(numerosRifa));
+    
+    // Adicionar à lista de selecionados
+    numerosSelecionados.push(numero);
+    localStorage.setItem(DB.NUMEROS_SELECIONADOS, JSON.stringify(numerosSelecionados));
+    
+    // Salvar como último número selecionado (para notificação)
+    localStorage.setItem(DB.ULTIMO_NUMERO, numero.toString());
+    
+    // Disparar evento personalizado
+    window.dispatchEvent(new CustomEvent('numeroSelecionado', { 
+        detail: { numero, nomeComprador } 
+    }));
+    
+    return true;
+}
+
+// Liberar um número (ADM)
+function liberarNumero(numero) {
+    const numerosRifa = getNumerosRifa();
+    const numeroObj = numerosRifa.find(n => n.numero === numero);
+    
+    if (!numeroObj) {
+        throw new Error(`Número ${numero} não existe`);
+    }
+    
+    if (!numeroObj.selecionado) {
+        throw new Error(`Número ${numero} não está selecionado`);
+    }
+    
+    // Liberar o número
+    numeroObj.selecionado = false;
+    numeroObj.dataSelecao = null;
+    numeroObj.selecionadoPor = '';
+    
+    // Atualizar localStorage
+    localStorage.setItem(DB.NUMEROS_RIFA, JSON.stringify(numerosRifa));
+    
+    // Remover da lista de selecionados
+    let numerosSelecionados = getNumerosSelecionados();
+    numerosSelecionados = numerosSelecionados.filter(n => n !== numero);
+    localStorage.setItem(DB.NUMEROS_SELECIONADOS, JSON.stringify(numerosSelecionados));
+    
+    return true;
+}
+
+// Obter estatísticas
+function getEstatisticas() {
+    const numerosRifa = getNumerosRifa();
+    const total = numerosRifa.length;
+    const selecionados = numerosRifa.filter(n => n.selecionado).length;
+    const disponiveis = total - selecionados;
+    
+    return {
+        total,
+        selecionados,
+        disponiveis,
+        percentual: (selecionados / total * 100).toFixed(1)
+    };
+}
+
+// Inicializar quando o script carregar
+inicializarDados();
