@@ -24,12 +24,37 @@
             margin: 0 auto;
         }
         
+        /* BOTÃO ADM FIXO */
+        .admin-btn-fixed {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #333, #111);
+            color: #ff4444;
+            border: 2px solid #ff0000;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .admin-btn-fixed:hover {
+            background: linear-gradient(135deg, #444, #222);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+        }
+        
         /* HEADER */
         .header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 20px;
-            border-bottom: 2px solid #ff0000;
+            padding-top: 60px;
         }
         
         .title {
@@ -45,39 +70,39 @@
             margin-bottom: 20px;
         }
         
-        /* BOTÕES DE NAVEGAÇÃO */
-        .nav-buttons {
-            display: flex;
-            justify-content: center;
+        /* BOTÕES PRINCIPAIS */
+        .main-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin: 30px 0;
         }
         
-        .nav-btn {
-            padding: 15px 30px;
+        .action-btn {
             background: linear-gradient(135deg, #8B0000, #B22222);
             color: white;
             border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
+            border-radius: 15px;
+            padding: 25px;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
             text-align: center;
-            min-width: 200px;
+            text-decoration: none;
+            display: block;
         }
         
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
         }
         
-        .nav-btn.rifa {
+        .action-btn.rifa {
             background: linear-gradient(135deg, #ff0000, #ff4444);
         }
         
-        .nav-btn.adm {
+        .action-btn.adm {
             background: linear-gradient(135deg, #333, #111);
             border: 2px solid #ff0000;
             color: #ff4444;
@@ -88,7 +113,7 @@
             background: rgba(20, 20, 20, 0.8);
             border: 2px solid #ff4444;
             border-radius: 15px;
-            padding: 30px;
+            padding: 25px;
             margin: 30px 0;
             box-shadow: 0 0 20px rgba(255, 68, 68, 0.3);
         }
@@ -103,7 +128,7 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            gap: 15px;
         }
         
         .stat-card {
@@ -131,7 +156,7 @@
             background: rgba(20, 20, 20, 0.8);
             border: 2px solid #ff4444;
             border-radius: 15px;
-            padding: 30px;
+            padding: 25px;
             margin: 30px 0;
         }
         
@@ -145,23 +170,27 @@
         .numbers-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
-            min-height: 100px;
+            min-height: 80px;
         }
         
         .number-badge {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             background: linear-gradient(135deg, #8B0000, #B22222);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: white;
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        
+        .number-badge.confirmed {
+            background: linear-gradient(135deg, #006400, #228B22);
             animation: pulse 2s infinite;
         }
         
@@ -179,16 +208,16 @@
             background: linear-gradient(135deg, #333, #111);
             border: 2px solid #ff0000;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             max-width: 300px;
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
             display: none;
-            z-index: 1000;
+            z-index: 1001;
+            animation: slideIn 0.5s ease;
         }
         
         .notification.show {
             display: block;
-            animation: slideIn 0.5s ease;
         }
         
         @keyframes slideIn {
@@ -198,7 +227,38 @@
         
         .notification h4 {
             color: #ff4444;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .notification p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        /* INSTRUÇÕES */
+        .instructions {
+            background: rgba(20, 20, 20, 0.7);
+            border-left: 4px solid #ff4444;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .instructions h3 {
+            color: #ff4444;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+            color: #ccc;
+        }
+        
+        .instructions li {
             margin-bottom: 10px;
+            line-height: 1.5;
         }
         
         /* RODAPÉ */
@@ -208,18 +268,24 @@
             padding-top: 20px;
             border-top: 1px solid #333;
             color: #888;
+            font-size: 0.9rem;
         }
         
         /* RESPONSIVO */
         @media (max-width: 768px) {
-            .nav-buttons {
-                flex-direction: column;
-                align-items: center;
+            .main-actions {
+                grid-template-columns: 1fr;
             }
             
-            .nav-btn {
-                width: 100%;
-                max-width: 300px;
+            .admin-btn-fixed {
+                padding: 10px 15px;
+                font-size: 0.8rem;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .title {
+                font-size: 2rem;
             }
             
             .stats-grid {
@@ -233,31 +299,48 @@
             }
             
             .title {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .action-btn {
+                padding: 20px;
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- BOTÃO ADM FIXO -->
+    <a href="ADM.html" class="admin-btn-fixed" id="adminBtn">
+        <i class="fas fa-user-shield"></i> ACESSO ADM
+    </a>
+    
+    <!-- NOTIFICAÇÃO -->
+    <div class="notification" id="notification">
+        <h4>🎉 NOVO GUERREIRO! 🎉</h4>
+        <p id="notificationText"></p>
+        <small id="notificationStatus"></small>
+    </div>
+    
     <div class="container">
-        <!-- NOTIFICAÇÃO -->
-        <div class="notification" id="notification">
-            <h4>🎉 NOVO GUERREIRO! 🎉</h4>
-            <p id="notificationText"></p>
-            <small>Aguarde confirmação do ADM</small>
-        </div>
-        
         <!-- HEADER -->
         <div class="header">
             <h1 class="title">RIFA DO GUERREIRO</h1>
             <h2 class="subtitle">FuriaDaNoitePlay - Comunidade MLBB</h2>
-            <p>Página principal - Acompanhe os números selecionados</p>
+            <p style="color: #ccc; margin-top: 10px;">Página Principal - Acompanhe em tempo real</p>
         </div>
         
-        <!-- BOTÕES DE NAVEGAÇÃO -->
-        <div class="nav-buttons">
-            <a href="rifa.html" class="nav-btn rifa">🎫 IR PARA RIFA</a>
-            <a href="ADM.html" class="nav-btn adm">⚙️ PAINEL ADM</a>
+        <!-- BOTÕES DE AÇÃO -->
+        <div class="main-actions">
+            <a href="rifa.html" class="action-btn rifa">
+                🎫 SELECIONAR NÚMEROS<br>
+                <small style="font-size: 0.9rem; opacity: 0.9;">Escolha seus guerreiros</small>
+            </a>
+            
+            <button class="action-btn" onclick="atualizarTudo()">
+                🔄 ATUALIZAR AGORA<br>
+                <small style="font-size: 0.9rem; opacity: 0.9;">Ver últimas seleções</small>
+            </button>
         </div>
         
         <!-- ESTATÍSTICAS -->
@@ -265,9 +348,9 @@
             <h2 class="stats-title">📊 ESTATÍSTICAS DA RIFA</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-label">TOTAL DE NÚMEROS</div>
+                    <div class="stat-label">TOTAL</div>
                     <div class="stat-number" id="totalNumbers">31</div>
-                    <div class="stat-label">Guerreiros disponíveis</div>
+                    <div class="stat-label">Guerreiros</div>
                 </div>
                 
                 <div class="stat-card">
@@ -279,157 +362,52 @@
                 <div class="stat-card">
                     <div class="stat-label">DISPONÍVEIS</div>
                     <div class="stat-number" id="availableNumbers">31</div>
-                    <div class="stat-label">Aguardando heróis</div>
+                    <div class="stat-label">Para escolher</div>
                 </div>
                 
                 <div class="stat-card">
                     <div class="stat-label">CONFIRMADOS</div>
                     <div class="stat-number" id="confirmedNumbers">0</div>
-                    <div class="stat-label">Pagos e confirmados</div>
+                    <div class="stat-label">Pagamentos OK</div>
                 </div>
             </div>
         </div>
         
         <!-- NÚMEROS RECENTES -->
         <div class="recent-container">
-            <h2 class="recent-title">⚔️ ÚLTIMOS GUERREIROS SELECIONADOS ⚔️</h2>
+            <h2 class="recent-title">⚔️ ÚLTIMOS GUERREIROS SELECIONADOS</h2>
             <div class="numbers-grid" id="recentNumbers">
-                <!-- Os números aparecerão aqui -->
-                <p style="color: #888; text-align: center; width: 100%;">
+                <p style="color: #888; text-align: center; width: 100%; padding: 20px;">
                     Nenhum guerreiro selecionado ainda. Seja o primeiro!
                 </p>
             </div>
         </div>
         
         <!-- INSTRUÇÕES -->
-        <div class="stats-container">
-            <h2 class="stats-title">📋 COMO FUNCIONA</h2>
-            <div style="color: #ccc; line-height: 1.6; padding: 20px;">
-                <p>1. <strong>Selecione números</strong> na página da Rifa (máximo 5 por pessoa)</p>
-                <p>2. <strong>Faça o PIX</strong> para: furiadanoiteplay2025@gmail.com</p>
-                <p>3. <strong>Envie comprovante</strong> pelo WhatsApp automaticamente</p>
-                <p>4. <strong>Aguarde confirmação</strong> do administrador</p>
-                <p>5. <strong>Seu número aparecerá aqui</strong> quando confirmado</p>
-                <p>6. <strong>Sorteio realizado</strong> quando todos os números forem vendidos</p>
-            </div>
+        <div class="instructions">
+            <h3>📋 COMO PARTICIPAR</h3>
+            <ul>
+                <li><strong>1.</strong> Clique em "SELECIONAR NÚMEROS" para escolher seus guerreiros (1 a 31)</li>
+                <li><strong>2.</strong> Cada número custa <strong>R$ 3,00</strong> (máximo 5 números por pessoa)</li>
+                <li><strong>3.</strong> Faça o <strong>PIX</strong> para: furiadanoiteplay2025@gmail.com</li>
+                <li><strong>4.</strong> Envie o comprovante pelo <strong>WhatsApp</strong></li>
+                <li><strong>5.</strong> Aguarde a <strong>confirmação do ADM</strong></li>
+                <li><strong>6.</strong> Seu número aparecerá aqui quando confirmado</li>
+                <li><strong>7.</strong> Sorteio quando todos os números forem vendidos</li>
+            </ul>
         </div>
         
         <!-- RODAPÉ -->
         <div class="footer">
             <p>FuriaDaNoitePlay &copy; 2024 - Sistema de Rifa Automatizado</p>
             <p>WhatsApp: +55 (31) 97319-008 | Comunidade MLBB</p>
+            <p style="margin-top: 10px; color: #666; font-size: 0.8rem;">
+                Esta página atualiza automaticamente quando números são selecionados
+            </p>
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <script>
-        // Função para atualizar estatísticas
-        function updateStats() {
-            // Buscar dados do localStorage
-            const selectedNumbers = JSON.parse(localStorage.getItem('selectedNumbers') || '[]');
-            const confirmedNumbers = JSON.parse(localStorage.getItem('confirmedNumbers') || '[]');
-            
-            const totalNumbers = 31;
-            const selectedCount = selectedNumbers.length;
-            const confirmedCount = confirmedNumbers.length;
-            const availableCount = totalNumbers - selectedCount;
-            const selectedPercent = ((selectedCount / totalNumbers) * 100).toFixed(1);
-            
-            // Atualizar elementos HTML
-            document.getElementById('selectedNumbers').textContent = selectedCount;
-            document.getElementById('confirmedNumbers').textContent = confirmedCount;
-            document.getElementById('availableNumbers').textContent = availableCount;
-            document.getElementById('selectedPercent').textContent = `${selectedPercent}%`;
-            
-            // Atualizar números recentes
-            updateRecentNumbers(selectedNumbers.slice(-10)); // Últimos 10 números
-        }
-        
-        // Atualizar números recentes
-        function updateRecentNumbers(numbers) {
-            const container = document.getElementById('recentNumbers');
-            
-            if (numbers.length === 0) {
-                container.innerHTML = '<p style="color: #888; text-align: center; width: 100%;">Nenhum guerreiro selecionado ainda. Seja o primeiro!</p>';
-                return;
-            }
-            
-            container.innerHTML = '';
-            numbers.forEach(num => {
-                const badge = document.createElement('div');
-                badge.className = 'number-badge';
-                badge.textContent = num;
-                badge.title = `Guerreiro ${num} selecionado`;
-                container.appendChild(badge);
-            });
-        }
-        
-        // Mostrar notificação
-        function showNotification(number) {
-            const notification = document.getElementById('notification');
-            const text = document.getElementById('notificationText');
-            
-            text.textContent = `GUERREIRO ${number} FOI SELECIONADO! 🎮`;
-            notification.classList.add('show');
-            
-            // Esconder após 5 segundos
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 5000);
-        }
-        
-        // Configurar ouvintes de eventos
-        function setupEventListeners() {
-            // Ouvir mudanças no localStorage
-            window.addEventListener('storage', function(e) {
-                if (e.key === 'selectedNumbers' || e.key === 'confirmedNumbers') {
-                    updateStats();
-                    
-                    // Se for novo número selecionado, mostrar notificação
-                    if (e.key === 'selectedNumbers' && e.newValue) {
-                        const newNumbers = JSON.parse(e.newValue);
-                        const oldNumbers = e.oldValue ? JSON.parse(e.oldValue) : [];
-                        
-                        // Encontrar o novo número
-                        const newNumber = newNumbers.find(num => !oldNumbers.includes(num));
-                        if (newNumber) {
-                            showNotification(newNumber);
-                        }
-                    }
-                }
-            });
-            
-            // Também ouvir eventos personalizados (para mesma aba)
-            window.addEventListener('newSelection', function(e) {
-                if (e.detail && e.detail.number) {
-                    updateStats();
-                    showNotification(e.detail.number);
-                }
-            });
-        }
-        
-        // Proteger acesso ADM
-        document.querySelector('.nav-btn.adm').addEventListener('click', function(e) {
-            const password = prompt('🔐 DIGITE A SENHA DE ACESSO AO PAINEL ADM:');
-            if (password !== 'FuriaMLBB2024!') {
-                e.preventDefault();
-                alert('❌ SENHA INCORRETA! ACESSO NEGADO.');
-            }
-        });
-        
-        // Inicializar quando a página carregar
-        window.onload = function() {
-            // Inicializar dados se não existirem
-            if (!localStorage.getItem('selectedNumbers')) {
-                localStorage.setItem('selectedNumbers', JSON.stringify([]));
-            }
-            if (!localStorage.getItem('confirmedNumbers')) {
-                localStorage.setItem('confirmedNumbers', JSON.stringify([]));
-            }
-            
-            updateStats();
-            setupEventListeners();
-        };
-    </script>
+    <!-- VOCÊ VAI COLOCAR SEU SCRIPT AQUI -->
+    
 </body>
-    </html>
+                </html>
