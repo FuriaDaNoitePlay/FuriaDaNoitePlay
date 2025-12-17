@@ -47,11 +47,6 @@
             color: #fff;
         }
         
-        .neon-border {
-            border: 2px solid var(--neon-red);
-            box-shadow: var(--neon-glow);
-        }
-        
         /* ===== CONTAINER PRINCIPAL ===== */
         .maintenance-container {
             max-width: 1200px;
@@ -116,7 +111,7 @@
             text-shadow: 0 0 10px var(--neon-red);
         }
         
-        /* ===== SEÇÃO DE COLABORADORES ===== */
+        /* ===== SEÇÃO DE COLABORADORES (IMAGENS GRANDES) ===== */
         .collaborators-section {
             background: var(--card-bg);
             border-radius: 15px;
@@ -152,53 +147,61 @@
             text-shadow: 0 0 15px rgba(255, 0, 60, 0.5);
         }
         
-        .collaborators-grid {
+        /* GRID PARA IMAGENS GRANDES */
+        .collaborators-grid-large {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             margin-bottom: 25px;
         }
         
-        .collaborator-card {
+        .collaborator-card-large {
             background: rgba(10, 0, 2, 0.7);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
+            border-radius: 15px;
+            overflow: hidden;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 0, 60, 0.2);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 10px;
         }
         
-        .collaborator-card:hover {
+        .collaborator-card-large:hover {
             transform: translateY(-5px);
             border-color: var(--neon-red);
-            box-shadow: 0 10px 20px rgba(255, 0, 60, 0.3);
+            box-shadow: 0 15px 30px rgba(255, 0, 60, 0.4);
         }
         
-        .collaborator-img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid var(--neon-red);
-            padding: 2px;
-            background: rgba(255, 255, 255, 0.1);
-            filter: drop-shadow(0 0 5px var(--neon-red));
+        .collaborator-img-large {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+        }
+        
+        .collaborator-info {
+            padding: 20px;
+            text-align: center;
+            background: rgba(255, 0, 60, 0.05);
         }
         
         .collaborator-name {
-            font-size: 0.9rem;
+            font-size: 1.3rem;
             font-weight: bold;
-            color: #fff;
-            text-shadow: 0 0 5px var(--neon-red);
+            color: var(--neon-red);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+        }
+        
+        .collaborator-desc {
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
         }
         
         .tarifas-info {
             background: rgba(255, 0, 60, 0.1);
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             text-align: center;
             margin-top: 20px;
@@ -209,6 +212,7 @@
             color: var(--neon-red);
             margin-bottom: 10px;
             text-shadow: 0 0 10px var(--neon-red);
+            font-size: 1.2rem;
         }
         
         /* ===== CONTEÚDO PRINCIPAL ===== */
@@ -411,8 +415,14 @@
         }
         
         /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 1024px) {
+            .collaborators-grid-large {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+        
         @media (max-width: 768px) {
-            .collaborators-grid {
+            .collaborators-grid-large {
                 grid-template-columns: repeat(2, 1fr);
             }
             
@@ -430,8 +440,8 @@
             }
         }
         
-        @media (max-width: 480px) {
-            .collaborators-grid {
+        @media (max-width: 600px) {
+            .collaborators-grid-large {
                 grid-template-columns: 1fr;
             }
             
@@ -444,6 +454,24 @@
             .maintenance-header {
                 flex-direction: column;
                 gap: 20px;
+            }
+            
+            .collaborator-img-large {
+                height: 220px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .maintenance-container {
+                padding: 10px;
+            }
+            
+            .maintenance-content {
+                padding: 25px;
+            }
+            
+            .collaborators-section {
+                padding: 20px;
             }
         }
     </style>
@@ -461,39 +489,63 @@
             </div>
         </div>
 
-        <!-- SEÇÃO DE COLABORADORES -->
+        <!-- SEÇÃO DE COLABORADORES COM IMAGENS GRANDES -->
         <div class="collaborators-section">
             <h2 class="collaborators-title">COLABORADORES & PARCEIROS</h2>
             
-            <div class="collaborators-grid">
-                <div class="collaborator-card">
-                    <img src="quintadopexe.png" alt="Quinta do Pexe" class="collaborator-img">
-                    <div class="collaborator-name">Quinta do Pexe</div>
+            <div class="collaborators-grid-large">
+                <!-- Safão José Campo -->
+                <div class="collaborator-card-large">
+                    <img src="1000325425.png" alt="Safão José Campo" class="collaborator-img-large">
+                    <div class="collaborator-info">
+                        <div class="collaborator-name">Safão José Campo</div>
+                        <div class="collaborator-desc">Horário: De segunda a Sábado com horário marcado<br>Contato: (31) 8809-0238</div>
+                    </div>
                 </div>
                 
-                <div class="collaborator-card">
-                    <img src="ridoce.png" alt="Ridoce" class="collaborator-img">
-                    <div class="collaborator-name">Ridoce</div>
+                <!-- Fubá da Serra -->
+                <div class="collaborator-card-large">
+                    <img src="1000324651.png" alt="Fubá da Serra" class="collaborator-img-large">
+                    <div class="collaborator-info">
+                        <div class="collaborator-name">Fubá da Serra</div>
+                        <div class="collaborator-desc">Fubá Moinho de pedra 1Kg<br>Órrego Água Limpa, Caratinga/MG<br>(33) 99929-9850</div>
+                    </div>
                 </div>
                 
-                <div class="collaborator-card">
-                    <img src="valdiesel.png" alt="Valdiesel" class="collaborator-img">
-                    <div class="collaborator-name">Valdiesel</div>
+                <!-- RIDOCE -->
+                <div class="collaborator-card-large">
+                    <img src="1000324656.png" alt="Ridoce" class="collaborator-img-large">
+                    <div class="collaborator-info">
+                        <div class="collaborator-name">RIDOCE</div>
+                        <div class="collaborator-desc">Tornos PVC, Divisórias Drywall, Decorações<br>Maria do Carmo: (31) 99163-8060<br>Ipatinga/MG</div>
+                    </div>
                 </div>
                 
-                <div class="collaborator-card">
-                    <img src="fubádaserra.png" alt="Fubá da Serra" class="collaborator-img">
-                    <div class="collaborator-name">Fubá da Serra</div>
+                <!-- Valdiesel -->
+                <div class="collaborator-card-large">
+                    <img src="1000324655.png" alt="Valdiesel" class="collaborator-img-large">
+                    <div class="collaborator-info">
+                        <div class="collaborator-name">VALDIESEL</div>
+                        <div class="collaborator-desc">Bombas e Instalação Eletrônica Diesel<br>(31) 3821-9931 / (31) 98990-8080<br>Caravelas - Ipatinga/MG</div>
+                    </div>
                 </div>
                 
-                <div class="collaborator-card">
-                    <img src="Fabiano.png" alt="Fabiano" class="collaborator-img">
-                    <div class="collaborator-name">Fabiano</div>
+                <!-- Bar do Fabiano -->
+                <div class="collaborator-card-large">
+                    <img src="1000324650.png" alt="Bar do Fabiano" class="collaborator-img-large">
+                    <div class="collaborator-info">
+                        <div class="collaborator-name">BAR DO FABIANO</div>
+                        <div class="collaborator-desc">Seg-Sáb: 10:00 às 20:00<br>Domingo: 10:00 às 14:00<br>Contato: (32) 9814-0141</div>
+                    </div>
                 </div>
                 
-                <div class="collaborator-card">
-                    <img src="zeze.png" alt="Zeze" class="collaborator-img">
-                    <div class="collaborator-name">Zeze</div>
+                <!-- Quintal do Peixe -->
+                <div class="collaborator-card-large">
+                    <img src="1000324657.png" alt="Quintal do Peixe" class="collaborator-img-large">
+                    <div class="collaborator-info">
+                        <div class="collaborator-name">QUINTAL DO PEIXE</div>
+                        <div class="collaborator-desc">Terça a Domingo: 18h às 23h<br>Almoço Sáb/Dom: 11h às 14h<br>Almoço Seg-Sex: 10:30h às 14h</div>
+                    </div>
                 </div>
             </div>
             
@@ -757,4 +809,4 @@
         });
     </script>
 </body>
-                    </html>
+    </html>
