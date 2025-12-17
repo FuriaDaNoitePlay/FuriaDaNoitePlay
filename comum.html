@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifa - Página Principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .reservado {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 Sistema de Rifa 🏆</h1>
+        <p>Bem-vindo à rifa! Escolha uma opção:</p>
+        
+        <div>
+            <button onclick="irParaRifa()">🎫 Selecionar Números da Rifa</button>
+            <button onclick="irParaADM()">⚙️ Painel Administrativo</button>
+        </div>
+        
+        <div id="status"></div>
+        
+        <h3>Números Selecionados Recentemente:</h3>
+        <div id="numeros-recentes">
+            <p>Nenhum número selecionado ainda.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Carregar números recentes ao abrir a página
+        window.onload = function() {
+            carregarNumerosRecentes();
+        };
+
+        function irParaRifa() {
+            window.location.href = "rifa.html";
+        }
+
+        function irParaADM() {
+            window.location.href = "ADM.html";
+        }
+
+        function carregarNumerosRecentes() {
+            const numeros = JSON.parse(localStorage.getItem('numerosSelecionados') || '[]');
+            const container = document.getElementById('numeros-recentes');
+            
+            if (numeros.length === 0) {
+                container.innerHTML = '<p>Nenhum número selecionado ainda.</p>';
+                return;
+            }
+
+            // Pegar os últimos 5 números
+            const recentes = numeros.slice(-5);
+            container.innerHTML = recentes.map(num => 
+                `<span style="display: inline-block; padding: 5px 10px; margin: 5px; 
+                  background: #007bff; color: white; border-radius: 3px;">${num}</span>`
+            ).join('');
+        }
+
+        // Ouvir eventos de atualização do localStorage
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'numerosSelecionados' || e.key === 'ultimoNumeroSelecionado') {
+                carregarNumerosRecentes();
+                
+                // Mostrar notificação se for o último número
+                if (e.key === 'ultimoNumeroSelecionado' && e.newValue) {
+                    const status = document.getElementById('status');
+                    status.innerHTML = `🎉 Novo número selecionado: <strong>${e.newValue}</strong>`;
+                    status.className = 'reservado';
+                    status.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        status.style.display = 'none';
+                    }, 5000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
