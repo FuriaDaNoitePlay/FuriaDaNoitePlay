@@ -505,3 +505,363 @@ window.RifaComunicacao = {
 };
 
 console.log('📡 Sistema de comunicação da rifa carregado!');
+<!-- ADICIONAR APÓS O ÚLTIMO </script> E ANTES DO </body> -->
+<script>
+// ==================== SISTEMA DE COMUNICAÇÃO DA RIFA ====================
+
+// Função para comunicar seleção com outras páginas
+function comunicarSelecaoParaSistema() {
+    console.log('📤 Comunicando seleção para o sistema...');
+    
+    if (selectedNumbers.length === 0) {
+        console.log('⚠️ Nenhum número selecionado para comunicar');
+        return;
+    }
+    
+    try {
+        // Obter dados do localStorage
+        const numerosSelecionados = JSON.parse(
+            localStorage.getItem('rifa_com_selecionados') || '[]'
+        );
+        
+        const numerosPendentes = JSON.parse(
+            localStorage.getItem('rifa_com_pendentes') || '[]'
+        );
+        
+        // Obter nome do usuário
+        const nomeUsuario = prompt('Por favor, digite seu nome para confirmar a seleção:') || 'Anônimo';
+        
+        // Para cada número selecionado
+        selectedNumbers.forEach(item => {
+            const numero = item.number;
+            
+            // Verificar se número já foi selecionado
+            if (numerosSelecionados.includes(numero)) {
+                alert(`⚠️ O número ${numero} já foi selecionado por outra pessoa!`);
+                return;
+            }
+            
+            // Adicionar à lista de selecionados
+            numerosSelecionados.push(numero);
+            
+            // Adicionar à lista de pendentes
+            numerosPendentes.push({
+                numero: numero,
+                usuario: nomeUsuario,
+                timestamp: Date.now(),
+                data: new Date().toISOString()
+            });
+            
+            console.log(`✅ Número ${numero} adicionado às listas de comunicação`);
+        });
+        
+        // Salvar no localStorage
+        localStorage.setItem('rifa_com_selecionados', JSON.stringify(numerosSelecionados));
+        localStorage.setItem('rifa_com_pendentes', JSON.stringify(numerosPendentes));
+        
+        // Salvar como última seleção (para notificação)
+        const ultimaSelecao = {
+            numeros: selectedNumbers.map(item => item.number),
+            usuario: nomeUsuario,
+            timestamp: Date.now(),
+            total: selectedNumbers.length * pricePerNumber
+        };
+        
+        localStorage.setItem('rifa_com_ultimo', JSON.stringify(ultimaSelecao));
+        
+        // Marcar números como reservados na interface
+        marcarNumerosComoReservados();
+        
+        // Mostrar confirmação
+        alert(`✅ Seleção comunicada com sucesso!\n\n📊 Números: ${selectedNumbers.map(n => n.number).join(', ')}\n👤 Nome: ${nomeUsuario}\n💰 Total: R$ ${(selectedNumbers.length * pricePerNumber).toFixed(2)}\n\n📱 O WhatsApp já está aberto com sua mensagem. Envie o comprovante para confirmar!`);
+        
+        console.log('🎯 Seleção comunicada com sucesso ao sistema!');
+        
+    } catch (error) {
+        console.error('❌ Erro ao comunicar seleção:', error);
+        alert('❌ Erro ao processar sua seleção. Por favor, tente novamente.');
+    }
+}
+
+// Marcar números como reservados na interface
+function marcarNumerosComoReservados() {
+    selectedNumbers.forEach(item => {
+        const card = document.querySelector(`.warrior-card[data-number="${item.number}"]`);
+        if (card) {
+            card.classList.remove('selected');
+            card.classList.add('reserved');
+            card.querySelector('.warrior-number').textContent = '✓';
+            card.querySelector('.warrior-number').style.color = '#00ff00';
+        }
+    });
+}
+
+// Verificar status dos números ao carregar a página
+function verificarStatusNumeros() {
+    console.log('🔍 Verificando status dos números...');
+    
+    const numerosSelecionados = JSON.parse(
+        localStorage.getItem('rifa_com_selecionados') || '[]'
+    );
+    
+    const numerosConfirmados = JSON.parse(
+        localStorage.getItem('rifa_com_confirmados') || '[]'
+    );
+    
+    // Para cada número de 1 a 31
+    for (let i = 1; i <= 31; i++) {
+        const card = document.querySelector(`.warrior-card[data-number="${i}"]`);
+        if (!card) continue;
+        
+        if (numerosConfirmados.includes(i)) {
+            // Número confirmado (vendido)
+            card.classList.add('reserved');
+            card.querySelector('.warrior-number').textContent = '✓';
+            card.querySelector('.warrior-number').style.color = '#00ff00';
+            card.querySelector('.warrior-label').textContent = 'CONFIRMADO';
+            card.querySelector('.warrior-label').style.color = '#00ff00';
+            card.style.cursor = 'not-allowed';
+            card.title = 'Este número já foi vendido e confirmado';
+        } else if (numerosSelecionados.includes(i)) {
+            // Número selecionado (pendente)
+            card.classList.add('reserved');
+            card.querySelector('.warrior-number').textContent = '⏳';
+            card.querySelector('.warrior-number').style.color = '#ffa500';
+            card.querySelector('.warrior-label').textContent = 'PENDENTE';
+            card.querySelector('.warrior-label').style.color = '#ffa500';
+            card.style.cursor = 'not-allowed';
+            card.title = 'Este número está aguardando confirmação de pagamento';
+        }
+    }
+    
+    console.log('✅ Status dos números verificado');
+}
+
+// Atualizar botão de confirmação para incluir comunicação
+function atualizarBotaoConfirmacao() {
+    const originalConfirmHandler = confirmBtn.onclick;
+    
+    confirmBtn.onclick = function() {
+        if (selectedNumbers.length === 0) {
+            alert('Por favor, selecione pelo menos um número para participar!');
+            return;
+        }
+        
+        // Verificar se algum número já está reservado
+        const numerosSelecionados = JSON.parse(
+            localStorage.getItem('rifa_com_selecionados') || '[]'
+        );
+        
+        const numerosConfirmados = JSON.parse(
+            localStorage.getItem('rifa_com_confirmados') || '[]'
+        );
+        
+        const numerosIndisponiveis = selectedNumbers.filter(item => 
+            numerosSelecionados.includes(item.number) || 
+            numerosConfirmados.includes(item.number)
+        );
+        
+        if (numerosIndisponiveis.length > 0) {
+            const numerosLista = numerosIndisponiveis.map(item => item.number).join(', ');
+            alert(`⚠️ Os seguintes números já foram selecionados por outras pessoas: ${numerosLista}\n\nPor favor, escolha outros números.`);
+            
+            // Remover números indisponíveis da seleção
+            selectedNumbers = selectedNumbers.filter(item => 
+                !numerosSelecionados.includes(item.number) && 
+                !numerosConfirmados.includes(item.number)
+            );
+            
+            // Atualizar interface
+            updateSelectedNumbersDisplay();
+            updateTotalPrice();
+            updateWhatsAppButton();
+            
+            // Remover seleção visual dos cartões
+            document.querySelectorAll('.warrior-card').forEach(card => {
+                const num = parseInt(card.dataset.number);
+                if (numerosIndisponiveis.some(item => item.number === num)) {
+                    card.classList.remove('selected');
+                }
+            });
+            
+            return;
+        }
+        
+        // Ordenar por número
+        selectedNumbers.sort((a, b) => a.number - b.number);
+        
+        // Criar mensagem detalhada para WhatsApp
+        const total = selectedNumbers.length * pricePerNumber;
+        
+        const message = `📱 *CONFIRMAÇÃO DE SELEÇÃO - RIFA DO GUERREIRO* 📱
+
+✅ *NÚMEROS SELECIONADOS:*
+${selectedNumbers.map(item => `➤ ${item.number} - ${item.name}`).join('\n')}
+
+💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}
+📧 *CHAVE PIX:* furiadanoiteplay2025@gmail.com
+
+👤 *MEU NOME:* [DIGITE SEU NOME AQUI]
+
+📋 *INSTRUÇÕES:*
+1️⃣ Vou fazer o PIX agora mesmo
+2️⃣ Envio o comprovante nesta conversa
+3️⃣ Aguardo a confirmação dos meus números
+
+🎮 *FuriaDaNoitePlay - Comunidade MLBB* 🎮`;
+        
+        // Abrir WhatsApp automaticamente
+        window.open(`https://wa.me/553197319008?text=${encodeURIComponent(message)}`, '_blank');
+        
+        // Comunicar seleção para o sistema
+        comunicarSelecaoParaSistema();
+    };
+}
+
+// Configurar proteção do botão ADM
+function configurarProtecaoADM() {
+    document.querySelector('.admin-btn').addEventListener('click', function(e) {
+        // Verificar se já está logado
+        const adminLoggedIn = localStorage.getItem('adminLoggedIn');
+        const loginTime = localStorage.getItem('adminLoginTime');
+        
+        if (adminLoggedIn && loginTime) {
+            // Verificar tempo da sessão (8 horas)
+            const sessionTime = 8 * 60 * 60 * 1000;
+            const now = Date.now();
+            
+            if (now - parseInt(loginTime) <= sessionTime) {
+                // Sessão válida, permitir acesso
+                return true;
+            } else {
+                // Sessão expirada
+                localStorage.removeItem('adminLoggedIn');
+                localStorage.removeItem('adminLoginTime');
+            }
+        }
+        
+        // Solicitar senha
+        const password = prompt('🔐 DIGITE A SENHA DE ACESSO AO PAINEL ADM:');
+        if (password !== 'FuriaMLBB2024!') {
+            e.preventDefault();
+            alert('❌ SENHA INCORRETA! ACESSO NEGADO.');
+        } else {
+            // Salvar login
+            localStorage.setItem('adminLoggedIn', 'true');
+            localStorage.setItem('adminLoginTime', Date.now().toString());
+        }
+    });
+}
+
+// Inicializar sistema de comunicação
+function inicializarSistemaComunicacao() {
+    console.log('🔗 Inicializando sistema de comunicação da rifa...');
+    
+    // Verificar se existem dados de comunicação
+    if (!localStorage.getItem('rifa_com_selecionados')) {
+        localStorage.setItem('rifa_com_selecionados', JSON.stringify([]));
+        localStorage.setItem('rifa_com_confirmados', JSON.stringify([]));
+        localStorage.setItem('rifa_com_pendentes', JSON.stringify([]));
+        console.log('📁 Dados de comunicação inicializados');
+    }
+    
+    // Verificar status dos números
+    verificarStatusNumeros();
+    
+    // Atualizar botão de confirmação
+    atualizarBotaoConfirmacao();
+    
+    // Configurar proteção ADM
+    configurarProtecaoADM();
+    
+    // Configurar ouvinte para atualizações do ADM
+    window.addEventListener('storage', function(event) {
+        if (event.key === 'rifa_com_confirmados') {
+            console.log('🔄 Atualizando status dos números confirmados...');
+            verificarStatusNumeros();
+        }
+    });
+    
+    console.log('✅ Sistema de comunicação inicializado!');
+}
+
+// Inicializar quando a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    // Aguardar um pouco para garantir que tudo esteja carregado
+    setTimeout(inicializarSistemaComunicacao, 1000);
+});
+
+// Atualizar botão do WhatsApp dinamicamente
+function atualizarBotaoWhatsAppComComunicacao() {
+    const originalUpdateWhatsAppButton = updateWhatsAppButton;
+    
+    updateWhatsAppButton = function() {
+        whatsappBtnContainer.innerHTML = '';
+        
+        if (selectedNumbers.length === 0) {
+            // Botão padrão quando não há seleção
+            const defaultBtn = document.createElement('a');
+            defaultBtn.href = `https://wa.me/553197319008?text=${encodeURIComponent('Olá! Gostaria de participar da Rifa do Guerreiro.')}`;
+            defaultBtn.className = 'whatsapp-btn';
+            defaultBtn.target = '_blank';
+            defaultBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Comprovante no WhatsApp';
+            whatsappBtnContainer.appendChild(defaultBtn);
+            return;
+        }
+        
+        // Ordenar por número
+        selectedNumbers.sort((a, b) => a.number - b.number);
+        
+        // Criar mensagem detalhada para WhatsApp
+        const total = selectedNumbers.length * pricePerNumber;
+        
+        const message = `📱 *CONFIRMAÇÃO DE SELEÇÃO - RIFA DO GUERREIRO* 📱
+
+✅ *NÚMEROS SELECIONADOS:*
+${selectedNumbers.map(item => `➤ ${item.number} - ${item.name}`).join('\n')}
+
+💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}
+📧 *CHAVE PIX:* furiadanoiteplay2025@gmail.com
+
+👤 *MEU NOME:* [DIGITE SEU NOME AQUI]
+
+📋 *INSTRUÇÕES:*
+1️⃣ Vou fazer o PIX agora mesmo
+2️⃣ Envio o comprovante nesta conversa
+3️⃣ Aguardo a confirmação dos meus números
+
+🎮 *FuriaDaNoitePlay - Comunidade MLBB* 🎮`;
+        
+        const whatsappBtn = document.createElement('a');
+        whatsappBtn.href = `https://wa.me/553197319008?text=${encodeURIComponent(message)}`;
+        whatsappBtn.className = 'whatsapp-btn';
+        whatsappBtn.target = '_blank';
+        whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i> ENVIAR COMPROVANTE NO WHATSAPP';
+        whatsappBtn.id = 'dynamicWhatsAppBtn';
+        
+        // Adicionar evento para comunicação do sistema
+        whatsappBtn.addEventListener('click', function(e) {
+            // Não prevenir o comportamento padrão (abrir WhatsApp)
+            // A comunicação do sistema será feita pelo botão CONFIRMAR SELEÇÃO
+        });
+        
+        whatsappBtnContainer.appendChild(whatsappBtn);
+    };
+    
+    // Substituir a função original
+    updateWhatsAppButton();
+}
+
+// Substituir a função updateWhatsAppButton
+atualizarBotaoWhatsAppComComunicacao();
+
+// Adicionar Font Awesome se não estiver presente
+if (!document.querySelector('link[href*="font-awesome"]')) {
+    const fontAwesomeLink = document.createElement('link');
+    fontAwesomeLink.rel = 'stylesheet';
+    fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+    document.head.appendChild(fontAwesomeLink);
+}
+
+console.log('🎮 Sistema de Rifa do Guerreiro com Comunicação carregado!');
+</script>
