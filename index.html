@@ -210,6 +210,32 @@
             text-shadow: none;
         }
 
+        /* CONTROLE DE ÁUDIO FLUTUANTE */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            border: 2px solid #ff0000;
+            border-radius: 50px;
+            padding: 8px 15px;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #ff4d4d;
+        }
+
+        .audio-control:hover {
+            background: #ff0000;
+            color: #000;
+            transform: scale(1.05);
+        }
+
         /* RODAPÉ */
         .footer {
             text-align: center;
@@ -280,6 +306,12 @@
                 font-size: 0.9rem;
                 padding: 6px 12px;
             }
+            .audio-control {
+                bottom: 10px;
+                right: 10px;
+                padding: 5px 12px;
+                font-size: 0.7rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -338,43 +370,87 @@
     </div>
 </div>
 
-<!-- ÁUDIO AUTOMÁTICO - SEM BOTÃO -->
+<!-- ÁUDIO AUTOMÁTICO -->
 <audio id="musicaFuria" autoplay loop>
     <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mp4">
     <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mpeg">
     Seu navegador não suporta áudio.
 </audio>
 
+<!-- CONTROLE DE ÁUDIO FLUTUANTE -->
+<div class="audio-control" id="audioControl" onclick="toggleMusica()">
+    <span>🔊</span>
+    <span>Yasuo Mix</span>
+</div>
+
 <script>
     const audio = document.getElementById('musicaFuria');
-    
-    // Forçar reprodução automática de todas as formas possíveis
-    function tocarMusica() {
+    const audioControl = document.getElementById('audioControl');
+    let musicaTocando = true;
+
+    // Tentar reproduzir automaticamente (navegadores modernos bloqueiam)
+    // Por isso criamos um overlay de interação
+    function tentarPlayAutomatico() {
         audio.play().then(() => {
-            console.log("🎵 Música tocando automaticamente!");
-        }).catch((erro) => {
-            console.log("Autoplay bloqueado:", erro);
-            // Tenta de novo com interação do usuário
-            document.body.addEventListener('click', function playOnClick() {
+            musicaTocando = true;
+            audioControl.innerHTML = '<span>🔊</span><span>Yasuo Mix</span>';
+        }).catch(() => {
+            musicaTocando = false;
+            audioControl.innerHTML = '<span>🔇</span><span>Clique para tocar</span>';
+            
+            // Cria um alerta sutil pedindo interação
+            const alerta = document.createElement('div');
+            alerta.style.position = 'fixed';
+            alerta.style.bottom = '80px';
+            alerta.style.right = '20px';
+            alerta.style.background = '#ff0000cc';
+            alerta.style.color = '#fff';
+            alerta.style.padding = '10px 15px';
+            alerta.style.borderRadius = '10px';
+            alerta.style.fontSize = '0.8rem';
+            alerta.style.zIndex = '99';
+            alerta.style.cursor = 'pointer';
+            alerta.innerHTML = '🎵 Clique aqui para ativar a música!';
+            alerta.onclick = function() {
                 audio.play();
-                document.body.removeEventListener('click', playOnClick);
-            }, { once: true });
+                musicaTocando = true;
+                audioControl.innerHTML = '<span>🔊</span><span>Yasuo Mix</span>';
+                alerta.remove();
+            };
+            document.body.appendChild(alerta);
+            
+            // Remove o alerta após 5 segundos
+            setTimeout(() => {
+                if(alerta.parentNode) alerta.remove();
+            }, 5000);
         });
     }
 
-    // Tocar ao carregar a página
+    function toggleMusica() {
+        if (musicaTocando) {
+            audio.pause();
+            musicaTocando = false;
+            audioControl.innerHTML = '<span>🔇</span><span>Yasuo Mix</span>';
+        } else {
+            audio.play();
+            musicaTocando = true;
+            audioControl.innerHTML = '<span>🔊</span><span>Yasuo Mix</span>';
+        }
+    }
+
+    // Tentar iniciar a música automaticamente ao carregar a página
     window.addEventListener('load', () => {
-        setTimeout(tocarMusica, 100);
+        setTimeout(tentarPlayAutomatico, 500);
     });
-    
-    // Garantir que a música toque mesmo se o usuário interagir com qualquer botão
-    const botoes = document.querySelectorAll('.btn');
-    botoes.forEach(botao => {
-        botao.addEventListener('click', function() {
-            if (audio.paused) {
-                audio.play();
-            }
-        });
+
+    // Se o usuário clicar em qualquer lugar da página, tenta tocar (último recurso)
+    document.body.addEventListener('click', function iniciarMusica() {
+        if (!musicaTocando && audio.paused) {
+            audio.play();
+            musicaTocando = true;
+            audioControl.innerHTML = '<span>🔊</span><span>Yasuo Mix</span>';
+        }
+        document.body.removeEventListener('click', iniciarMusica);
     });
 </script>
 
