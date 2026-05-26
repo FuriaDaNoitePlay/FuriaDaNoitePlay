@@ -393,7 +393,7 @@
     function tentarPlayAutomatico() {
         audio.play().then(() => {
             musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Yasuo Mix</span>';
+            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
         }).catch(() => {
             musicaTocando = false;
             audioControl.innerHTML = '<span>🔇</span><span>Clique para tocar</span>';
@@ -414,7 +414,7 @@
             alerta.onclick = function() {
                 audio.play();
                 musicaTocando = true;
-                audioControl.innerHTML = '<span>🔊</span><span>Yasuo Mix</span>';
+                audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
                 alerta.remove();
             };
             document.body.appendChild(alerta);
@@ -430,7 +430,7 @@
         if (musicaTocando) {
             audio.pause();
             musicaTocando = false;
-            audioControl.innerHTML = '<span>🔇</span><span>Yasuo Mix</span>';
+            audioControl.innerHTML = '<span>🔇</span><span>Musica</span>';
         } else {
             audio.play();
             musicaTocando = true;
@@ -448,7 +448,7 @@
         if (!musicaTocando && audio.paused) {
             audio.play();
             musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Yasuo Mix</span>';
+            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
         }
         document.body.removeEventListener('click', iniciarMusica);
     });
