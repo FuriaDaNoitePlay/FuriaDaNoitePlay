@@ -59,7 +59,7 @@
             text-shadow: 0 0 10px var(--secondary);
         }
 
-        /* RELÓGIO FURIA */
+        /* RELÓGIO FURIA - HORÁRIO DE BRASÍLIA */
         .relogio-furia {
             background: linear-gradient(45deg, var(--primary), var(--secondary), var(--azul-galatico));
             padding: 15px;
@@ -258,10 +258,10 @@
             <p>Regras e Diretrizes Oficiais da Comunidade</p>
         </div>
 
-        <!-- RELÓGIO FURIA -->
+        <!-- RELÓGIO FURIA - HORÁRIO DE BRASÍLIA -->
         <div class="relogio-furia">
             <div class="horario-furia" id="horarioFuria">00:00:00</div>
-            <div class="zona-furia">⏰ HORÁRIO FURIA - ZONA DE COMBATE</div>
+            <div class="zona-furia">⏰ HORÁRIO DE BRASÍLIA - ZONA DE COMBATE</div>
         </div>
 
         <!-- REGRAS GERAIS -->
@@ -280,90 +280,9 @@
                     <span class="icone-regra">🎯</span>
                     <span class="destaque">IDADE:</span> Mínimo de 16 anos - verificação obrigatória
                 </li>
-                <li class="item-regra">
-                    <span class="icone-regra">⚡</span>
-                    <span class="destaque">ATIVIDADE:</span> Participação semanal mínima exigida
-                </li>
                 <li class="item-regra importante">
                     <span class="icone-regra">🚫</span>
                     <span class="destaque">PROIBIDO:</span> Racismo, homofobia e qualquer discriminação
-                </li>
-            </ul>
-        </div>
-
-        <!-- REGRAS DE COMPORTAMENTO -->
-        <div class="secao-regras">
-            <h2 class="titulo-secao"><i class="fas fa-users"></i> COMPORTAMENTO EM JOGO</h2>
-            <ul class="lista-regras">
-                <li class="item-regra">
-                    <span class="icone-regra">⚔️</span>
-                    <span class="destaque">FAIR PLAY:</span> Jogue limpo - sem trapaças ou exploits
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">💀</span>
-                    <span class="destaque">TOXICIDADE:</span> Zero tolerância - respeite adversários
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">⏱️</span>
-                    <span class="destaque">PONTUALIDADE:</span> Cumpra horários de partidas marcadas
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">🎮</span>
-                    <span class="destaque">ESTRATÉGIA:</span> Siga táticas da equipe - trabalho em grupo
-                </li>
-                <li class="item-regra positivo">
-                    <span class="icone-regra">🌟</span>
-                    <span class="destaque">ENCORAJADO:</span> Ajudar novatos e compartilhar conhecimento
-                </li>
-            </ul>
-        </div>
-
-        <!-- SISTEMA DE PONTUAÇÃO -->
-        <div class="secao-regras">
-            <h2 class="titulo-secao"><i class="fas fa-trophy"></i> SISTEMA DE PONTUAÇÃO</h2>
-            <ul class="lista-regras">
-                <li class="item-regra positivo">
-                    <span class="icone-regra">✅</span>
-                    <span class="destaque">VITÓRIA:</span> +4 pontos para a equipe
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">⚖️</span>
-                    <span class="destaque">EMPATE:</span> +1 ponto para cada equipe
-                </li>
-                <li class="item-regra importante">
-                    <span class="icone-regra">❌</span>
-                    <span class="destaque">DERROTA:</span> -1 ponto da equipe
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">🔥</span>
-                    <span class="destaque">STREAK BÔNUS:</span> Vitórias consecutivas = pontos extras
-                </li>
-            </ul>
-        </div>
-
-        <!-- REGRAS DO TRUCU -->
-        <div class="secao-regras">
-            <h2 class="titulo-secao"><i class="fas fa-cards"></i> TRUCU DA FÚRIA</h2>
-            <ul class="lista-regras">
-                <li class="item-regra">
-                    <span class="icone-regra">🎯</span>
-                    <span class="destaque">MODO:</span> 4x4 online - formato oficial
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">📜</span>
-                    <span class="destaque">REGRAS:</span> Estilo mineiro personalizado Furia
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">🃏</span>
-                    <span class="destaque">CARTAS:</span> 7 (maior) > A > K > Q > J > ...
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">🔄</span>
-                    <span class="destaque">RODADAS:</span> Melhor de 3 rounds - morte súbita
-                </li>
-                <li class="item-regra positivo">
-                    <span class="icone-regra">🏆</span>
-                    <span class="destaque">PREMIAÇÃO:</span> Pontos no ranking + reconhecimento
                 </li>
             </ul>
         </div>
@@ -372,7 +291,7 @@
         <div class="secao-regras">
             <h2 class="titulo-secao"><i class="fas fa-gavel"></i> SISTEMA DE PENALIDADES</h2>
             <ul class="lista-regras">
-                <li class="item-regra importante">
+                <li class="item-regra">
                     <span class="icone-regra">1️⃣</span>
                     <span class="destaque">1ª OCORRÊNCIA:</span> Aviso formal + orientação
                 </li>
@@ -391,45 +310,50 @@
             </ul>
         </div>
 
+        <!-- BOTÃO CONCORDAR -->
         <button class="btn-regras" onclick="concordarRegras()">
-            <i class="fas fa-shield-alt"></i> EU ACEITO E CONCORDO COM AS REGRAS
+            <i class="fas fa-shield-alt"></i> 🔴 REGRAS JÁ ACEITAS - IR PARA CADASTRO
         </button>
 
         <div class="links">
-            <a href="cadastro-membro.html" class="link">
-                <i class="fas fa-user-plus"></i> FAZER CADASTRO
+            <a href="recrutamento.html" class="link">
+                <i class="fas fa-user-plus"></i> + FAZER CADASTRO
             </a>
             <a href="index.html" class="link">
                 <i class="fas fa-home"></i> VOLTAR AO INÍCIO
             </a>
-            <a href="md4.html" class="link">
+            <a href="equipe.html" class="link">
                 <i class="fas fa-users"></i> NOSSA EQUIPE
             </a>
         </div>
     </div>
 
     <script>
-        // RELÓGIO FURIA
-        function atualizarHorarioFuria() {
+        // RELÓGIO HORÁRIO DE BRASÍLIA (GMT-3)
+        function atualizarHorarioBrasilia() {
             const agora = new Date();
-            const options = { 
-                hour: '2-digit',
-                minute: '2-digit', 
-                second: '2-digit',
-                hour12: false
-            };
-            const horarioFuria = agora.toLocaleTimeString('pt-BR', options);
-            document.getElementById('horarioFuria').textContent = horarioFuria;
+            
+            // Ajustar para horário de Brasília (GMT-3)
+            const offsetBrasilia = -3;
+            const utc = agora.getTime() + (agora.getTimezoneOffset() * 60000);
+            const brasilia = new Date(utc + (offsetBrasilia * 3600000));
+            
+            const horas = brasilia.getHours().toString().padStart(2, '0');
+            const minutos = brasilia.getMinutes().toString().padStart(2, '0');
+            const segundos = brasilia.getSeconds().toString().padStart(2, '0');
+            
+            const horarioFormatado = `${horas}:${minutos}:${segundos}`;
+            document.getElementById('horarioFuria').textContent = horarioFormatado;
         }
 
-        setInterval(atualizarHorarioFuria, 1000);
-        atualizarHorarioFuria();
+        setInterval(atualizarHorarioBrasilia, 1000);
+        atualizarHorarioBrasilia();
 
-        // CONCORDAR COM REGRAS
+        // CONCORDAR COM REGRAS E IR PARA RECRUTAMENTO
         function concordarRegras() {
             localStorage.setItem('regrasAceitasFuria', 'true');
-            alert('🎉 REGRAS ACEITAS COM SUCESSO!\n\nAgora você pode fazer seu cadastro e entrar para a FuriaDaNoitePlay!');
-            window.location.href = 'cadastro-membro.html';
+            alert('🎉 REGRAS ACEITAS COM SUCESSO!\n\nAgora você pode fazer seu cadastro para entrar na FuriaDaNoitePlay!');
+            window.location.href = 'recrutamento.html';
         }
 
         // Verificar se já aceitou as regras
@@ -437,41 +361,12 @@
             const regrasAceitas = localStorage.getItem('regrasAceitasFuria');
             if (regrasAceitas) {
                 const btn = document.querySelector('.btn-regras');
-                btn.innerHTML = '<i class="fas fa-check-circle"></i> REGRAS JÁ ACEITAS - IR PARA CADASTRO';
-                btn.style.background = 'linear-gradient(45deg, #00ff00, var(--secondary))';
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> ✅ REGRAS JÁ ACEITAS - FAZER CADASTRO';
                 btn.onclick = function() {
-                    window.location.href = 'cadastro-membro.html';
+                    window.location.href = 'recrutamento.html';
                 };
             }
         });
-
-        // Efeitos visuais nas regras
-        const itensRegra = document.querySelectorAll('.item-regra');
-        itensRegra.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(10px) scale(1.02)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0) scale(1)';
-            });
-        });
-
-        // Efeito de digitação no título
-        const titulo = document.querySelector('.logo h1');
-        const textoOriginal = titulo.textContent;
-        titulo.textContent = '';
-        let i = 0;
-        
-        function digitarTitulo() {
-            if (i < textoOriginal.length) {
-                titulo.textContent += textoOriginal.charAt(i);
-                i++;
-                setTimeout(digitarTitulo, 100);
-            }
-        }
-        
-        setTimeout(digitarTitulo, 500);
     </script>
 </body>
 </html>
