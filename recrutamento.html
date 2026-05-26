@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Recrutamento | FuriaDaNoitePlay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* BORDA VERMELHA NEON NAS LATERAIS */
+        .neon-border {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            background: #111;
+        }
+
+        .neon-border::before,
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: #ff0000;
+            box-shadow: 0 0 15px #ff0000, 0 0 30px #ff3300;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .neon-border::before { left: 0; }
+        .neon-border::after { right: 0; }
+
+        .container {
+            padding: 40px 30px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* TÍTULO */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #ff1a1a;
+            text-shadow: 0 0 8px #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .sub {
+            color: #ccc;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* FORMULÁRIO */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #ff4d4d;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            background: #1a1a1a;
+            border: 2px solid #ff0000;
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #ff6666;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* BOTÃO WHATSAPP */
+        .btn-whatsapp {
+            width: 100%;
+            background: #25D366;
+            border: none;
+            padding: 16px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: inherit;
+            margin-top: 10px;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #25D36666;
+        }
+
+        /* BOTÃO VOLTAR */
+        .btn-back {
+            background: transparent;
+            border: 2px solid #ff0000;
+            color: #ff1a1a;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .btn-back:hover {
+            background: #ff0000;
+            color: #000;
+            box-shadow: 0 0 15px #ff0000;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .requisitos {
+            background: #1a1a1a;
+            border: 1px solid #ff000044;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .requisitos h3 {
+            color: #ff4d4d;
+            margin-bottom: 12px;
+        }
+
+        .requisitos ul {
+            color: #ccc;
+            padding-left: 20px;
+        }
+
+        .requisitos li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 25px 15px; }
+            h1 { font-size: 1.5rem; }
+            .btn-whatsapp { font-size: 1rem; }
+            .neon-border::before,
+            .neon-border::after { width: 3px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="neon-border">
+    <div class="container">
+        <div class="header">
+            <h1>🔥 RECRUTAMENTO 🔥</h1>
+            <div class="sub">FuriaDaNoitePlay | RQZ ESPORTS</div>
+        </div>
+
+        <!-- REQUISITOS -->
+        <div class="requisitos">
+            <h3>📌 Requisitos para entrar:</h3>
+            <ul>
+                <li>✔ Idade mínima: 16 anos</li>
+                <li>✔ Disponibilidade no horário noturno (22h às 02h)</li>
+                <li>✔ Microfone e comunicação ativa</li>
+                <li>✔ Respeito e trabalho em equipe</li>
+            </ul>
+        </div>
+
+        <!-- FORMULÁRIO -->
+        <form id="formRecrutamento">
+            <div class="form-group">
+                <label>🎮 NICK</label>
+                <input type="text" id="nick" placeholder="Seu nick no jogo" required>
+            </div>
+
+            <div class="form-group">
+                <label>👤 NOME</label>
+                <input type="text" id="nome" placeholder="Seu nome real" required>
+            </div>
+
+            <div class="form-group">
+                <label>🏆 ÚLTIMO ELO</label>
+                <select id="elo" required>
+                    <option value="">Selecione seu último elo</option>
+                    <option>Ferro</option>
+                    <option>Bronze</option>
+                    <option>Prata</option>
+                    <option>Ouro</option>
+                    <option>Platina</option>
+                    <option>Esmeralda</option>
+                    <option>Diamante</option>
+                    <option>Mestre</option>
+                    <option>Grão-Mestre</option>
+                    <option>Desafiante</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>📝 QUAL É SUA EXPERIÊNCIA NA MICRO E NA MACRO?</label>
+                <textarea id="experiencia" placeholder="Descreva sua experiência com micro (mecânicas, aim, reflexos) e macro (rotação, visão de jogo, estratégia)..." required></textarea>
+            </div>
+
+            <button type="button" class="btn-whatsapp" onclick="enviarWhatsApp()">
+                💬 ENVIAR PARA WHATSAPP
+            </button>
+        </form>
+
+        <div class="footer">
+            <a href="index.html" class="btn-back">⬅ VOLTAR PARA INÍCIO</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function enviarWhatsApp() {
+        // Pegando os valores
+        let nick = document.getElementById('nick').value.trim();
+        let nome = document.getElementById('nome').value.trim();
+        let elo = document.getElementById('elo').value;
+        let experiencia = document.getElementById('experiencia').value.trim();
+
+        // Validando campos
+        if (nick === "") {
+            alert("❌ Por favor, preencha seu NICK!");
+            document.getElementById('nick').focus();
+            return;
+        }
+        if (nome === "") {
+            alert("❌ Por favor, preencha seu NOME!");
+            document.getElementById('nome').focus();
+            return;
+        }
+        if (elo === "") {
+            alert("❌ Selecione seu ÚLTIMO ELO!");
+            document.getElementById('elo').focus();
+            return;
+        }
+        if (experiencia === "") {
+            alert("❌ Descreva sua experiência na micro e macro!");
+            document.getElementById('experiencia').focus();
+            return;
+        }
+
+        // Montando a mensagem
+        let mensagem = `📋 *NOVO RECRUTA - FURIA DA NOITE* 📋%0A%0A`;
+        mensagem += `🎮 *NICK:* ${nick}%0A`;
+        mensagem += `👤 *NOME:* ${nome}%0A`;
+        mensagem += `🏆 *ÚLTIMO ELO:* ${elo}%0A`;
+        mensagem += `📝 *EXPERIÊNCIA MICRO/MACRO:*%0A${experiencia}%0A%0A`;
+        mensagem += `🔴 *FuriaDaNoitePlay | RQZ ESPORTS*`;
+
+        // Número do WhatsApp (sem espaços, só números)
+        let numero = "31971497142";
+        
+        // Link do WhatsApp
+        let url = `https://wa.me/${numero}?text=${mensagem}`;
+        
+        // Abrir WhatsApp
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
