@@ -66,11 +66,58 @@
             margin-bottom: 50px;
         }
 
+        /* ANIMAÇÃO DO LOGO - SOBE E DESCE */
+        @keyframes flutuar {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
         .logo {
             max-width: 200px;
             width: 100%;
             margin-bottom: 20px;
             filter: drop-shadow(0 0 10px #ff0000);
+            animation: flutuar 2.5s ease-in-out infinite;
+            cursor: pointer;
+            transition: filter 0.3s;
+        }
+
+        .logo:hover {
+            filter: drop-shadow(0 0 20px #ff0000) drop-shadow(0 0 30px #ff3300);
+        }
+
+        /* TÍTULO COM LUAS DOS LADOS */
+        .title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .moon {
+            font-size: 2.8rem;
+            filter: drop-shadow(0 0 8px #ffaa00);
+            animation: brilhoLua 2s ease-in-out infinite;
+        }
+
+        @keyframes brilhoLua {
+            0%, 100% {
+                text-shadow: 0 0 5px #ffaa00;
+                opacity: 0.9;
+            }
+            50% {
+                text-shadow: 0 0 20px #ffdd44, 0 0 30px #ffaa00;
+                opacity: 1;
+            }
         }
 
         .clan-name {
@@ -85,7 +132,7 @@
             background-clip: text;
             color: transparent;
             text-shadow: none;
-            margin-bottom: 10px;
+            margin: 0;
         }
 
         .tagline {
@@ -97,6 +144,7 @@
             padding: 8px 20px;
             letter-spacing: 2px;
             backdrop-filter: blur(4px);
+            margin-top: 10px;
         }
 
         /* DESCRIÇÃO */
@@ -174,19 +222,32 @@
 
         .social-icons {
             margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
 
         .social-icons a {
             color: #ff4d4d;
-            margin: 0 12px;
             text-decoration: none;
             font-size: 1.2rem;
             transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid #ff000044;
+            background: #0f0f0faa;
         }
 
         .social-icons a:hover {
             color: #ff0000;
             text-shadow: 0 0 8px red;
+            border-color: #ff0000;
+            background: #1a1a1a;
+            transform: scale(1.05);
         }
 
         /* RESPONSIVO */
@@ -200,7 +261,13 @@
                 min-width: 160px;
             }
             .clan-name {
+                font-size: 1.4rem;
+            }
+            .moon {
                 font-size: 1.8rem;
+            }
+            .title-wrapper {
+                gap: 10px;
             }
             .buttons-grid {
                 gap: 15px;
@@ -208,6 +275,10 @@
             .neon-border::before,
             .neon-border::after {
                 width: 3px;
+            }
+            .social-icons a {
+                font-size: 0.9rem;
+                padding: 6px 12px;
             }
         }
 
@@ -226,7 +297,13 @@
         <!-- LOGO E TÍTULO -->
         <div class="header">
             <img src="Furia.png" alt="Logo FuriaDaNoitePlay" class="logo" onerror="this.style.display='none'">
-            <h1 class="clan-name">🌕FuriaDaNoitePlay🌕</h1>
+            
+            <!-- TÍTULO COM LUAS DOS LADOS -->
+            <div class="title-wrapper">
+                <span class="moon">🌕</span>
+                <h1 class="clan-name">FuriaDaNoitePlay</h1>
+                <span class="moon">🌕</span>
+            </div>
             <div class="tagline">Vem pro Furia</div>
         </div>
 
@@ -237,7 +314,7 @@
             <p>📌 Foco: rush + competitividade e diversão</p>
         </div>
 
-        <!-- BOTÕES QUE REDIRECIONAM PARA OS HTMLs PRONTOS -->
+        <!-- BOTÕES QUE REDIRECIONAM -->
         <div class="buttons-grid">
             <a href="regras.html" class="btn">REGRAS</a>
             <a href="GW.html" class="btn">GW</a>
@@ -248,9 +325,12 @@
         <!-- RODAPÉ -->
         <div class="footer">
             <div class="social-icons">
-                <a href="#">🎮 Discord</a>
-                <a href="#">📺 Twitch</a>
-                <a href="#">📱 Instagram</a>
+                <a href="https://discord.gg/MmA7uuSs2" target="_blank">
+                    🎮 Discord
+                </a>
+                <a href="https://www.instagram.com/furiadanoiteplay?igsh=MXcyMmNuYjF6ZzQxaw==" target="_blank">
+                    📱 Instagram
+                </a>
             </div>
             <p>ADN - Agente da Noite | Sistema competitivo noturno 🔴</p>
             <p style="margin-top: 12px;">© 2026 FuriaDaNoitePlay - ToxicSkull</p>
