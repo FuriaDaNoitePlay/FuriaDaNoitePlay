@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🌕FuriaDaNoitePlay🌕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Segoe UI', 'Poppins', 'Arial Black', system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* BORDA VERMELHA NEON NAS LATERAIS DO SITE */
+        .neon-border {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            background: #111;
+            border-radius: 0;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Laterais com neon vermelho */
+        .neon-border::before,
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: #ff0000;
+            box-shadow: 0 0 15px #ff0000, 0 0 30px #ff3300;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .neon-border::before {
+            left: 0;
+        }
+
+        .neon-border::after {
+            right: 0;
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .container {
+            padding: 40px 30px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* HEADER COM LOGO */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            max-width: 200px;
+            width: 100%;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px #ff0000);
+        }
+
+        .clan-name {
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            color: #ff1a1a;
+            text-shadow: 0 0 8px #ff0000, 0 0 15px #ff3300;
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ff4d4d, #ff0000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: #ccc;
+            font-size: 1rem;
+            border-top: 1px solid #ff000044;
+            border-bottom: 1px solid #ff000044;
+            display: inline-block;
+            padding: 8px 20px;
+            letter-spacing: 2px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* DESCRIÇÃO */
+        .description {
+            text-align: center;
+            margin: 30px 0 50px;
+            color: #ddd;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #0f0f0faa;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #ff000044;
+        }
+
+        .description p {
+            margin: 8px 0;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            color: #ff4d4d;
+            font-weight: bold;
+            text-shadow: 0 0 5px #ff0000;
+        }
+
+        /* GRADE DE BOTÕES */
+        .buttons-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .btn {
+            background: transparent;
+            border: 2px solid #ff0000;
+            color: #ff1a1a;
+            padding: 16px 42px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            letter-spacing: 3px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            min-width: 220px;
+            box-shadow: 0 0 5px #ff0000;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn:hover {
+            background: #ff0000;
+            color: #000;
+            box-shadow: 0 0 25px #ff0000, 0 0 40px #ff3300;
+            transform: scale(1.05);
+            border-color: #fff;
+            text-shadow: none;
+        }
+
+        /* RODAPÉ */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #ff000033;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .social-icons {
+            margin-bottom: 15px;
+        }
+
+        .social-icons a {
+            color: #ff4d4d;
+            margin: 0 12px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .social-icons a:hover {
+            color: #ff0000;
+            text-shadow: 0 0 8px red;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 15px;
+            }
+            .btn {
+                padding: 12px 20px;
+                font-size: 1.2rem;
+                min-width: 160px;
+            }
+            .clan-name {
+                font-size: 1.8rem;
+            }
+            .buttons-grid {
+                gap: 15px;
+            }
+            .neon-border::before,
+            .neon-border::after {
+                width: 3px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="neon-border">
+    <div class="container">
+        <!-- LOGO E TÍTULO -->
+        <div class="header">
+            <img src="Furia.png" alt="Logo FuriaDaNoitePlay" class="logo" onerror="this.style.display='none'">
+            <h1 class="clan-name">FURIA DA NOITE</h1>
+            <div class="tagline">RQZ ESPORTS</div>
+        </div>
+
+        <!-- DESCRIÇÃO DO CLÃ -->
+        <div class="description">
+            <p>⚡ <span class="highlight">FuriaDaNoitePlay</span> ⚡</p>
+            <p>Clã competitivo mobile e outros jogos no horário noturno.</p>
+            <p>📌 Foco: rush + competitividade e diversão</p>
+        </div>
+
+        <!-- BOTÕES QUE REDIRECIONAM PARA OS HTMLs PRONTOS -->
+        <div class="buttons-grid">
+            <a href="regras.html" class="btn">REGRAS</a>
+            <a href="gw.html" class="btn">GW</a>
+            <a href="fron.html" class="btn">FR0N</a>
+            <a href="recrutamento.html" class="btn">RECRUTAMENTO</a>
+        </div>
+
+        <!-- RODAPÉ -->
+        <div class="footer">
+            <div class="social-icons">
+                <a href="#">🎮 Discord</a>
+                <a href="#">📺 Twitch</a>
+                <a href="#">📱 Instagram</a>
+            </div>
+            <p>ADN - Agente da Noite | Sistema competitivo noturno 🔴</p>
+            <p style="margin-top: 12px;">© 2026 FuriaDaNoitePlay - ToxicSkull</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
