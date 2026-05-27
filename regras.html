@@ -493,11 +493,11 @@
             if (musicaTocando) {
                 audio.pause();
                 musicaTocando = false;
-                audioControl.innerHTML = '<span>🔇</span><span>Yasuo Mix</span>';
+                audioControl.innerHTML = '<span>🔇</span><span>Musica</span>';
             } else {
                 audio.play().then(() => {
                     musicaTocando = true;
-                    audioControl.innerHTML = '<span>🔊</span><span>Yasuo Mix</span>';
+                    audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
                 }).catch(erro => {
                     console.log("Erro ao tocar:", erro);
                     alert("Clique na página para ativar a música!");
