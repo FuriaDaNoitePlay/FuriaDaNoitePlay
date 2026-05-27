@@ -41,16 +41,59 @@
             overflow-y: auto;
         }
 
+        /* LOGO COM ANIMAÇÃO FLUTUANTE */
         .logo {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .logo h1 {
-            font-size: 2.8em;
+        @keyframes flutuar {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .logo-img {
+            max-width: 150px;
+            width: 100%;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px #ff0000);
+            animation: flutuar 2.5s ease-in-out infinite;
+            cursor: pointer;
+            transition: filter 0.3s;
+        }
+
+        .logo-img:hover {
+            filter: drop-shadow(0 0 20px #ff0000) drop-shadow(0 0 30px #ff3300);
+        }
+
+        /* TÍTULO COM ANIMAÇÃO DE DIGITAR */
+        .titulo-digitacao {
+            font-size: 2.2em;
             color: var(--primary);
             text-shadow: 0 0 20px var(--primary);
             margin-bottom: 10px;
+            min-height: 80px;
+            font-family: monospace;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: var(--primary);
+            margin-left: 5px;
+            animation: piscar 0.7s infinite;
+        }
+
+        @keyframes piscar {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .logo p {
@@ -201,6 +244,35 @@
             text-align: center;
         }
 
+        /* BOTÃO DE CONTROLE DE ÁUDIO */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #ff0000;
+            border-radius: 50px;
+            padding: 10px 18px;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #ff4d4d;
+            font-weight: bold;
+            font-family: inherit;
+        }
+
+        .audio-control:hover {
+            background: #ff0000;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff0000;
+        }
+
         /* SCROLLBAR PERSONALIZADA */
         .regras-container::-webkit-scrollbar {
             width: 8px;
@@ -227,8 +299,9 @@
                 margin: 10px;
             }
             
-            .logo h1 {
-                font-size: 2.2em;
+            .titulo-digitacao {
+                font-size: 1.5em;
+                min-height: 60px;
             }
             
             .titulo-secao {
@@ -248,13 +321,28 @@
             .links {
                 grid-template-columns: 1fr;
             }
+
+            .logo-img {
+                max-width: 100px;
+            }
+
+            .audio-control {
+                bottom: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="regras-container">
         <div class="logo">
-            <h1>🔥 FURIADANOITEPLAY</h1>
+            <!-- LOGO FURIA.PNG COM ANIMAÇÃO FLUTUANTE -->
+            <img src="Furia.png" alt="Logo FuriaDaNoitePlay" class="logo-img" onerror="this.style.display='none'">
+            
+            <!-- TÍTULO COM ANIMAÇÃO DE DIGITAR E APAGAR -->
+            <div class="titulo-digitacao" id="tituloAnimado"></div>
             <p>Regras e Diretrizes Oficiais da Comunidade</p>
         </div>
 
@@ -325,12 +413,62 @@
         </div>
     </div>
 
+    <!-- ÁUDIO -->
+    <audio id="musicaFuria" loop>
+        <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mp4">
+        <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <!-- BOTÃO DE CONTROLE DE MÚSICA -->
+    <div class="audio-control" id="audioControl">
+        <span>🔊</span>
+        <span>Musica</span>
+    </div>
+
     <script>
-        // RELÓGIO HORÁRIO DE BRASÍLIA (GMT-3)
+        // ========== ANIMAÇÃO DE DIGITAR E APAGAR ==========
+        const titulos = ["🌕 FuriaDaNoitePlay 🌕", "🌕 FURIA DA NOITE 🌕", "🌕 RQZ ESPORTS 🌕"];
+        let indiceTitulo = 0;
+        let indiceChar = 0;
+        let apagando = false;
+        const elemento = document.getElementById("tituloAnimado");
+        const velocidadeDigitacao = 100;
+        const velocidadeApagar = 50;
+        const pausaEntreTitulos = 1500;
+
+        function animarTexto() {
+            const tituloAtual = titulos[indiceTitulo];
+            
+            if (!apagando && indiceChar <= tituloAtual.length) {
+                // Digitando
+                elemento.textContent = tituloAtual.substring(0, indiceChar);
+                indiceChar++;
+                setTimeout(animarTexto, velocidadeDigitacao);
+            } else if (!apagando && indiceChar > tituloAtual.length) {
+                // Terminou de digitar, espera e começa apagar
+                apagando = true;
+                setTimeout(animarTexto, pausaEntreTitulos);
+            } else if (apagando && indiceChar >= 0) {
+                // Apagando
+                elemento.textContent = tituloAtual.substring(0, indiceChar);
+                indiceChar--;
+                setTimeout(animarTexto, velocidadeApagar);
+            } else if (apagando && indiceChar < 0) {
+                // Terminou de apagar, vai para próximo título
+                apagando = false;
+                indiceTitulo = (indiceTitulo + 1) % titulos.length;
+                indiceChar = 0;
+                setTimeout(animarTexto, velocidadeDigitacao);
+            }
+        }
+
+        // Iniciar animação
+        setTimeout(animarTexto, 500);
+
+        // ========== RELÓGIO HORÁRIO DE BRASÍLIA (GMT-3) ==========
         function atualizarHorarioBrasilia() {
             const agora = new Date();
-            
-            // Ajustar para horário de Brasília (GMT-3)
             const offsetBrasilia = -3;
             const utc = agora.getTime() + (agora.getTimezoneOffset() * 60000);
             const brasilia = new Date(utc + (offsetBrasilia * 3600000));
@@ -346,7 +484,41 @@
         setInterval(atualizarHorarioBrasilia, 1000);
         atualizarHorarioBrasilia();
 
-        // CONCORDAR COM REGRAS E IR PARA RECRUTAMENTO
+        // ========== MÚSICA ==========
+        const audio = document.getElementById('musicaFuria');
+        const audioControl = document.getElementById('audioControl');
+        let musicaTocando = false;
+
+        function toggleMusica() {
+            if (musicaTocando) {
+                audio.pause();
+                musicaTocando = false;
+                audioControl.innerHTML = '<span>🔇</span><span>Yasuo Mix</span>';
+            } else {
+                audio.play().then(() => {
+                    musicaTocando = true;
+                    audioControl.innerHTML = '<span>🔊</span><span>Yasuo Mix</span>';
+                }).catch(erro => {
+                    console.log("Erro ao tocar:", erro);
+                    alert("Clique na página para ativar a música!");
+                });
+            }
+        }
+
+        audioControl.addEventListener('click', toggleMusica);
+
+        // Tenta tocar automaticamente ao carregar
+        window.addEventListener('load', () => {
+            audio.play().then(() => {
+                musicaTocando = true;
+                audioControl.innerHTML = '<span>🔊</span><span>Yasuo Mix</span>';
+            }).catch(() => {
+                musicaTocando = false;
+                audioControl.innerHTML = '<span>🔇</span><span>Clique para tocar</span>';
+            });
+        });
+
+        // ========== CONCORDAR COM REGRAS ==========
         function concordarRegras() {
             localStorage.setItem('regrasAceitasFuria', 'true');
             alert('🎉 REGRAS ACEITAS COM SUCESSO!\n\nAgora você pode fazer seu cadastro para entrar na FuriaDaNoitePlay!');
