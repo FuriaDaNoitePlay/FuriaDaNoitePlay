@@ -19,66 +19,42 @@
             justify-content: center;
             padding: 20px;
             position: relative;
-        }
-
-        /* IMAGEM DE FUNDO bene.png - TAMANHO STORY, VISÍVEL */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             background-image: url('bene.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            z-index: -2;
+            background-attachment: fixed;
         }
 
-        /* OVERLAY LEVE PARA DESTACAR O CONTEÚDO MAS DEIXAR A FOTO VISÍVEL */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: -1;
-        }
-
-        /* BORDA VERMELHA NEON NAS LATERAIS DO SITE */
+        /* BORDA VERMELHA NEON NAS LATERAIS - MAIS PARA AS BORDAS/CANTOS */
         .neon-border {
             position: relative;
             width: 100%;
             max-width: 1400px;
-            background: rgba(17, 17, 17, 0.7);
-            backdrop-filter: blur(3px);
+            background: rgba(17, 17, 17, 0.5);
             border-radius: 0;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
         }
 
-        /* Laterais com neon vermelho */
+        /* Laterais com neon vermelho - grudado nas bordas */
         .neon-border::before,
         .neon-border::after {
             content: '';
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 6px;
+            width: 4px;
             background: #ff0000;
-            box-shadow: 0 0 15px #ff0000, 0 0 30px #ff3300;
+            box-shadow: 0 0 20px #ff0000, 0 0 40px #ff3300;
             z-index: 10;
             pointer-events: none;
         }
 
         .neon-border::before {
-            left: 0;
+            left: -4px;
         }
 
         .neon-border::after {
-            right: 0;
+            right: -4px;
         }
 
         /* CONTEÚDO PRINCIPAL */
@@ -171,7 +147,6 @@
             display: inline-block;
             padding: 8px 20px;
             letter-spacing: 2px;
-            backdrop-filter: blur(4px);
             margin-top: 10px;
         }
 
@@ -183,7 +158,7 @@
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            background: rgba(15, 15, 15, 0.6);
+            background: rgba(15, 15, 15, 0.5);
             padding: 15px;
             border-radius: 20px;
             border: 1px solid #ff000044;
@@ -257,7 +232,6 @@
             text-align: center;
             min-width: 200px;
             box-shadow: 0 0 5px #ff0000;
-            backdrop-filter: blur(4px);
         }
 
         .btn:hover {
@@ -279,7 +253,6 @@
             border-radius: 50px;
             padding: 8px 15px;
             z-index: 100;
-            backdrop-filter: blur(5px);
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
@@ -324,7 +297,7 @@
             padding: 6px 14px;
             border-radius: 30px;
             border: 1px solid #ff000044;
-            background: rgba(15, 15, 15, 0.6);
+            background: rgba(15, 15, 15, 0.5);
         }
 
         .social-icons a:hover {
@@ -360,6 +333,12 @@
             .neon-border::before,
             .neon-border::after {
                 width: 3px;
+            }
+            .neon-border::before {
+                left: -3px;
+            }
+            .neon-border::after {
+                right: -3px;
             }
             .social-icons a {
                 font-size: 0.8rem;
@@ -406,7 +385,7 @@
 
         <!-- DESCRIÇÃO DO CLÃ -->
         <div class="description">
-            <p>⚡ <span class="highlight">FuriaDaNoitePlay</span> ⚡</p>
+            <p>🔴 <span class="highlight">FuriaDaNoitePlay</span> 🔴</p>
             <p>Clã competitivo mobile e outros jogos no horário noturno.</p>
             <p>🎵 Foco: rush + competitividade e diversão</p>
         </div>
@@ -447,17 +426,17 @@
     </div>
 </div>
 
-<!-- ÁUDIO AUTOMÁTICO -->
+<!-- ÁUDIO -->
 <audio id="musicaFuria" autoplay loop>
-    <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mp4">
-    <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mpeg">
+    <source src="Hanzo Mix (2020).m4a" type="audio/mp4">
+    <source src="Hanzo Mix (2020).m4a" type="audio/mpeg">
     Seu navegador não suporta áudio.
 </audio>
 
 <!-- CONTROLE DE ÁUDIO FLUTUANTE -->
 <div class="audio-control" id="audioControl" onclick="toggleMusica()">
     <span>🔊</span>
-    <span>Musica</span>
+    <span>Clique para tocar</span>
 </div>
 
 <script>
@@ -468,7 +447,7 @@
     function tentarPlayAutomatico() {
         audio.play().then(() => {
             musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
+            audioControl.innerHTML = '<span>🔊</span><span>Hanzo Mix (2020)</span>';
         }).catch(() => {
             musicaTocando = false;
             audioControl.innerHTML = '<span>🔇</span><span>Clique para tocar</span>';
@@ -488,7 +467,7 @@
             alerta.onclick = function() {
                 audio.play();
                 musicaTocando = true;
-                audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
+                audioControl.innerHTML = '<span>🔊</span><span>Hanzo Mix (2020)</span>';
                 alerta.remove();
             };
             document.body.appendChild(alerta);
@@ -503,11 +482,11 @@
         if (musicaTocando) {
             audio.pause();
             musicaTocando = false;
-            audioControl.innerHTML = '<span>🔇</span><span>Musica</span>';
+            audioControl.innerHTML = '<span>🔇</span><span>Clique para tocar</span>';
         } else {
             audio.play();
             musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
+            audioControl.innerHTML = '<span>🔊</span><span>Hanzo Mix (2020)</span>';
         }
     }
 
@@ -519,7 +498,7 @@
         if (!musicaTocando && audio.paused) {
             audio.play();
             musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
+            audioControl.innerHTML = '<span>🔊</span><span>Hanzo Mix (2020)</span>';
         }
         document.body.removeEventListener('click', iniciarMusica);
     });
