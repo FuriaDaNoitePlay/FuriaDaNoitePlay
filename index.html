@@ -17,7 +17,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 0;
             position: relative;
             background-image: url('bene.png');
             background-size: cover;
@@ -26,38 +26,38 @@
             background-attachment: fixed;
         }
 
-        /* BORDA VERMELHA NEON NAS LATERAIS - MAIS PARA AS BORDAS/CANTOS */
+        /* BORDA VERMELHA NEON - GRUDADA NAS BORDAS DA TELA/CELULAR */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #ff0000;
+            box-shadow: 0 0 15px #ff0000, 0 0 30px #ff3300;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        body::before {
+            left: 0;
+        }
+
+        body::after {
+            right: 0;
+        }
+
+        /* CONTEÚDO PRINCIPAL - OCUPA TELA TODA */
         .neon-border {
             position: relative;
             width: 100%;
             max-width: 1400px;
             background: rgba(17, 17, 17, 0.5);
             border-radius: 0;
+            margin: 0 auto;
         }
 
-        /* Laterais com neon vermelho - grudado nas bordas */
-        .neon-border::before,
-        .neon-border::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: #ff0000;
-            box-shadow: 0 0 20px #ff0000, 0 0 40px #ff3300;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .neon-border::before {
-            left: -4px;
-        }
-
-        .neon-border::after {
-            right: -4px;
-        }
-
-        /* CONTEÚDO PRINCIPAL */
         .container {
             padding: 40px 30px;
             position: relative;
@@ -125,7 +125,7 @@
         }
 
         .clan-name {
-            font-size: 2.2rem;
+            font-size: 2rem;
             letter-spacing: 4px;
             color: #ff1a1a;
             text-shadow: 0 0 8px #ff0000, 0 0 15px #ff3300;
@@ -308,7 +308,7 @@
             transform: scale(1.05);
         }
 
-        /* RESPONSIVO */
+        /* RESPONSIVO - BORDAS MAIS FINAS NO CELULAR E BEM NOS CANTOS */
         @media (max-width: 768px) {
             .container {
                 padding: 25px 15px;
@@ -319,26 +319,16 @@
                 min-width: 150px;
             }
             .clan-name {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
             .moon {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
             .title-wrapper {
-                gap: 10px;
+                gap: 8px;
             }
             .buttons-grid {
                 gap: 15px;
-            }
-            .neon-border::before,
-            .neon-border::after {
-                width: 3px;
-            }
-            .neon-border::before {
-                left: -3px;
-            }
-            .neon-border::after {
-                right: -3px;
             }
             .social-icons a {
                 font-size: 0.8rem;
@@ -353,6 +343,12 @@
             .video-wrapper iframe {
                 height: 200px;
             }
+            
+            /* Bordas laterais mais finas no celular e bem nos cantos */
+            body::before,
+            body::after {
+                width: 3px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -362,6 +358,12 @@
             }
             .video-wrapper iframe {
                 height: 180px;
+            }
+            
+            /* Bordas ainda mais finas */
+            body::before,
+            body::after {
+                width: 2px;
             }
         }
     </style>
@@ -436,7 +438,7 @@
 <!-- CONTROLE DE ÁUDIO FLUTUANTE -->
 <div class="audio-control" id="audioControl" onclick="toggleMusica()">
     <span>🔊</span>
-    <span>Clique para tocar</span>
+    <span>Hanzo Mix (2020)</span>
 </div>
 
 <script>
