@@ -12,13 +12,40 @@
         }
 
         body {
-            background-color: #0a0a0a;
             font-family: 'Segoe UI', 'Poppins', 'Arial Black', system-ui, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+        }
+
+        /* IMAGEM DE FUNDO bene.png - TAMANHO STORY */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('bene.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -2;
+        }
+
+        /* OVERLAY ESCURO PARA DESTACAR O CONTEÚDO */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: -1;
         }
 
         /* BORDA VERMELHA NEON NAS LATERAIS DO SITE */
@@ -26,7 +53,8 @@
             position: relative;
             width: 100%;
             max-width: 1400px;
-            background: #111;
+            background: rgba(17, 17, 17, 0.85);
+            backdrop-filter: blur(5px);
             border-radius: 0;
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
         }
@@ -155,7 +183,7 @@
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            background: #0f0f0faa;
+            background: rgba(15, 15, 15, 0.7);
             padding: 20px;
             border-radius: 20px;
             border: 1px solid #ff000044;
@@ -170,6 +198,55 @@
             color: #ff4d4d;
             font-weight: bold;
             text-shadow: 0 0 5px #ff0000;
+        }
+
+        /* QUADRADO DO YOUTUBE */
+        .youtube-card {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .youtube-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            border: 3px solid #ff4444;
+            border-radius: 20px;
+            padding: 20px 40px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            min-width: 280px;
+        }
+
+        .youtube-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(255, 0, 0, 0.8);
+            border-color: #ff6666;
+        }
+
+        .youtube-icon {
+            font-size: 3rem;
+        }
+
+        .youtube-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .youtube-text span:first-child {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .youtube-text span:last-child {
+            font-size: 0.8rem;
+            color: #ffcccc;
         }
 
         /* GRADE DE BOTÕES */
@@ -265,7 +342,7 @@
             padding: 8px 16px;
             border-radius: 30px;
             border: 1px solid #ff000044;
-            background: #0f0f0faa;
+            background: rgba(15, 15, 15, 0.7);
         }
 
         .social-icons a:hover {
@@ -312,6 +389,15 @@
                 padding: 5px 12px;
                 font-size: 0.7rem;
             }
+            .youtube-link {
+                padding: 15px 30px;
+            }
+            .youtube-icon {
+                font-size: 2rem;
+            }
+            .youtube-text span:first-child {
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -344,6 +430,17 @@
             <p>⚡ <span class="highlight">FuriaDaNoitePlay</span> ⚡</p>
             <p>Clã competitivo mobile e outros jogos no horário noturno.</p>
             <p>📌 Foco: rush + competitividade e diversão</p>
+        </div>
+
+        <!-- QUADRADO DO YOUTUBE -->
+        <div class="youtube-card">
+            <a href="https://youtu.be/Ej7ablp9gEE?si=g86ghYciybsaW3P5" target="_blank" class="youtube-link">
+                <div class="youtube-icon">▶️</div>
+                <div class="youtube-text">
+                    <span>ASSISTIR VÍDEO</span>
+                    <span>Clique para ver no YouTube</span>
+                </div>
+            </a>
         </div>
 
         <!-- BOTÕES QUE REDIRECIONAM -->
@@ -386,8 +483,6 @@
     const audioControl = document.getElementById('audioControl');
     let musicaTocando = true;
 
-    // Tentar reproduzir automaticamente (navegadores modernos bloqueiam)
-    // Por isso criamos um overlay de interação
     function tentarPlayAutomatico() {
         audio.play().then(() => {
             musicaTocando = true;
@@ -396,7 +491,6 @@
             musicaTocando = false;
             audioControl.innerHTML = '<span>🔇</span><span>Clique para tocar</span>';
             
-            // Cria um alerta sutil pedindo interação
             const alerta = document.createElement('div');
             alerta.style.position = 'fixed';
             alerta.style.bottom = '80px';
@@ -417,7 +511,6 @@
             };
             document.body.appendChild(alerta);
             
-            // Remove o alerta após 5 segundos
             setTimeout(() => {
                 if(alerta.parentNode) alerta.remove();
             }, 5000);
@@ -436,12 +529,10 @@
         }
     }
 
-    // Tentar iniciar a música automaticamente ao carregar a página
     window.addEventListener('load', () => {
         setTimeout(tentarPlayAutomatico, 500);
     });
 
-    // Se o usuário clicar em qualquer lugar da página, tenta tocar (último recurso)
     document.body.addEventListener('click', function iniciarMusica() {
         if (!musicaTocando && audio.paused) {
             audio.play();
