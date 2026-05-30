@@ -430,15 +430,15 @@
 
 <!-- ÁUDIO -->
 <audio id="musicaFuria" autoplay loop>
-    <source src="Hanzo Mix (2020).m4a" type="audio/mp4">
-    <source src="Hanzo Mix (2020).m4a" type="audio/mpeg">
+    <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mp4">
+    <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mpeg">
     Seu navegador não suporta áudio.
 </audio>
 
 <!-- CONTROLE DE ÁUDIO FLUTUANTE -->
 <div class="audio-control" id="audioControl" onclick="toggleMusica()">
     <span>🔊</span>
-    <span>Hanzo Mix (2020)</span>
+    <span>Musica</span>
 </div>
 
 <script>
@@ -449,7 +449,7 @@
     function tentarPlayAutomatico() {
         audio.play().then(() => {
             musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Hanzo Mix (2020)</span>';
+            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
         }).catch(() => {
             musicaTocando = false;
             audioControl.innerHTML = '<span>🔇</span><span>Clique para tocar</span>';
@@ -469,7 +469,7 @@
             alerta.onclick = function() {
                 audio.play();
                 musicaTocando = true;
-                audioControl.innerHTML = '<span>🔊</span><span>Hanzo Mix (2020)</span>';
+                audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
                 alerta.remove();
             };
             document.body.appendChild(alerta);
@@ -484,11 +484,11 @@
         if (musicaTocando) {
             audio.pause();
             musicaTocando = false;
-            audioControl.innerHTML = '<span>🔇</span><span>Clique para tocar</span>';
+            audioControl.innerHTML = '<span>🔇</span><span>Musica</span>';
         } else {
             audio.play();
             musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Hanzo Mix (2020)</span>';
+            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
         }
     }
 
@@ -500,7 +500,7 @@
         if (!musicaTocando && audio.paused) {
             audio.play();
             musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Hanzo Mix (2020)</span>';
+            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
         }
         document.body.removeEventListener('click', iniciarMusica);
     });
