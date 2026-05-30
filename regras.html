@@ -85,7 +85,7 @@
 
         .logo p {
             color: var(--secondary);
-            font-size: 1.2em;
+            font-size: 1em;
             text-shadow: 0 0 10px var(--secondary);
         }
 
@@ -115,17 +115,17 @@
 
         /* SEÇÕES DE REGRAS */
         .secao-regras {
-            margin: 30px 0;
+            margin: 25px 0;
             background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             border: 1px solid rgba(255, 0, 0, 0.3);
         }
 
         .titulo-secao {
             color: var(--secondary);
-            font-size: 1.6em;
-            margin-bottom: 20px;
+            font-size: 1.4em;
+            margin-bottom: 15px;
             text-shadow: 0 0 15px var(--secondary);
             border-bottom: 2px solid var(--primary);
             padding-bottom: 8px;
@@ -141,8 +141,8 @@
 
         .item-regra {
             background: rgba(255, 0, 0, 0.1);
-            margin: 12px 0;
-            padding: 18px;
+            margin: 10px 0;
+            padding: 12px 15px;
             border-radius: 8px;
             border-left: 4px solid var(--primary);
             transition: all 0.3s;
@@ -154,14 +154,14 @@
         .item-regra:hover {
             background: rgba(255, 215, 0, 0.1);
             border-left-color: var(--secondary);
-            transform: translateX(8px);
+            transform: translateX(5px);
         }
 
         .destaque {
             color: var(--secondary);
             font-weight: bold;
             text-shadow: 0 0 8px var(--secondary);
-            min-width: 120px;
+            min-width: 100px;
         }
 
         .importante {
@@ -176,22 +176,38 @@
             border: 2px solid #00ff00;
         }
 
+        .sub-secao {
+            margin-top: 15px;
+            margin-left: 15px;
+            padding-left: 15px;
+            border-left: 2px solid var(--primary);
+        }
+
+        .sub-titulo {
+            color: var(--secondary);
+            font-size: 1.1em;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         /* GRADE DE HIERARQUIA */
         .hierarquia-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 15px;
         }
 
         .cargo-card {
             background: rgba(0, 0, 0, 0.6);
             border: 2px solid var(--primary);
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 15px;
             text-align: center;
-            min-width: 150px;
+            min-width: 130px;
             flex: 1;
             transition: all 0.3s;
         }
@@ -203,20 +219,29 @@
         }
 
         .cargo-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2rem;
+            margin-bottom: 8px;
         }
 
         .cargo-nome {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: bold;
             color: var(--secondary);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .cargo-desc {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: #ccc;
+        }
+
+        .frase-final {
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            margin: 20px 0 10px;
+            font-style: italic;
         }
 
         /* BOTÕES */
@@ -237,7 +262,7 @@
         }
 
         .btn-regras:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
             box-shadow: 0 0 35px var(--secondary);
         }
 
@@ -245,13 +270,13 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .link {
             color: var(--light);
             text-decoration: none;
-            padding: 15px;
+            padding: 12px;
             border: 2px solid var(--primary);
             border-radius: 8px;
             transition: all 0.3s;
@@ -267,10 +292,9 @@
             box-shadow: 0 5px 15px var(--primary);
         }
 
-        /* ÍCONES PERSONALIZADOS */
         .icone-regra {
-            font-size: 1.2em;
-            width: 30px;
+            font-size: 1.1em;
+            width: 28px;
             text-align: center;
         }
 
@@ -282,15 +306,15 @@
             background: rgba(0,0,0,0.8);
             border: 2px solid #ff0000;
             border-radius: 50px;
-            padding: 10px 18px;
+            padding: 8px 15px;
             z-index: 100;
             backdrop-filter: blur(5px);
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
+            gap: 8px;
+            font-size: 0.8rem;
             color: #ff4d4d;
             font-weight: bold;
             font-family: inherit;
@@ -303,72 +327,60 @@
             box-shadow: 0 0 20px #ff0000;
         }
 
-        /* SCROLLBAR PERSONALIZADA */
+        /* SCROLLBAR */
         .regras-container::-webkit-scrollbar {
             width: 8px;
         }
-
         .regras-container::-webkit-scrollbar-track {
             background: rgba(255, 0, 0, 0.1);
             border-radius: 10px;
         }
-
         .regras-container::-webkit-scrollbar-thumb {
             background: var(--primary);
             border-radius: 10px;
         }
-
         .regras-container::-webkit-scrollbar-thumb:hover {
             background: var(--secondary);
         }
 
-        /* RESPONSIVO */
         @media (max-width: 768px) {
             .regras-container {
-                padding: 25px;
+                padding: 20px;
                 margin: 10px;
             }
-            
             .titulo-digitacao {
-                font-size: 1.5em;
-                min-height: 60px;
-            }
-            
-            .titulo-secao {
                 font-size: 1.3em;
+                min-height: 50px;
             }
-            
+            .titulo-secao {
+                font-size: 1.2em;
+            }
             .item-regra {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 5px;
             }
-            
             .destaque {
                 min-width: auto;
             }
-            
             .links {
                 grid-template-columns: 1fr;
             }
-
             .logo-img {
                 max-width: 100px;
             }
-
             .audio-control {
                 bottom: 10px;
                 right: 10px;
-                padding: 6px 12px;
-                font-size: 0.75rem;
+                padding: 5px 10px;
+                font-size: 0.7rem;
             }
-
             .cargo-card {
-                min-width: 120px;
+                min-width: 100px;
+                padding: 10px;
             }
-
             .cargo-nome {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -376,140 +388,137 @@
 <body>
     <div class="regras-container">
         <div class="logo">
-            <!-- LOGO FURIA.PNG COM ANIMAÇÃO FLUTUANTE -->
             <img src="Furia.png" alt="Logo FuriaDaNoitePlay" class="logo-img" onerror="this.style.display='none'">
-            
-            <!-- TÍTULO COM ANIMAÇÃO DE DIGITAR E APAGAR -->
             <div class="titulo-digitacao" id="tituloAnimado"></div>
             <p>Regras e Diretrizes Oficiais da Comunidade</p>
         </div>
 
-        <!-- RELÓGIO FURIA - HORÁRIO DE BRASÍLIA -->
         <div class="relogio-furia">
             <div class="horario-furia" id="horarioFuria">00:00:00</div>
             <div class="zona-furia">⏰ HORÁRIO DE BRASÍLIA - ZONA DE COMBATE</div>
         </div>
 
+        <!-- BEM-VINDO -->
+        <div class="secao-regras">
+            <h2 class="titulo-secao"><i class="fas fa-moon"></i> BEM-VINDO À FURIA DA NOITE 🌕</h2>
+            <p style="margin-bottom: 10px;">Entrou na comunidade? Então mantenha respeito, organização e espírito de equipe.</p>
+            <p style="color: var(--secondary);">Aqui todos têm voz, mas a ordem da comunidade vem em primeiro lugar.</p>
+        </div>
+
         <!-- HIERARQUIA -->
         <div class="secao-regras">
-            <h2 class="titulo-secao"><i class="fas fa-crown"></i> HIERARQUIA - CARGO E RESPONSABILIDADES</h2>
+            <h2 class="titulo-secao"><i class="fas fa-crown"></i> HIERARQUIA - CARGOS</h2>
             <div class="hierarquia-grid">
-                <div class="cargo-card">
-                    <div class="cargo-icon">👑</div>
-                    <div class="cargo-nome">DONO</div>
-                    <div class="cargo-desc">Fundador do clã<br>Última palavra em decisões</div>
-                </div>
-                <div class="cargo-card">
-                    <div class="cargo-icon">⭐</div>
-                    <div class="cargo-nome">LÍDER</div>
-                    <div class="cargo-desc">Gerencia o clã<br>Comanda partidas e estratégias</div>
-                </div>
-                <div class="cargo-card">
-                    <div class="cargo-icon">🔱</div>
-                    <div class="cargo-nome">COLÍDER</div>
-                    <div class="cargo-desc">Auxilia o líder<br>Organiza treinos e eventos</div>
-                </div>
-                <div class="cargo-card">
-                    <div class="cargo-icon">📖</div>
-                    <div class="cargo-nome">MENTOR</div>
-                    <div class="cargo-desc">Ensina novatos<br>Ajuda na evolução dos membros</div>
-                </div>
-                <div class="cargo-card">
-                    <div class="cargo-icon">🛡️</div>
-                    <div class="cargo-nome">ANCIÃO</div>
-                    <div class="cargo-desc">Membros experientes<br>Ajudam a manter a ordem</div>
-                </div>
+                <div class="cargo-card"><div class="cargo-icon">👑</div><div class="cargo-nome">DONO</div><div class="cargo-desc">Fundador do clã</div></div>
+                <div class="cargo-card"><div class="cargo-icon">⭐</div><div class="cargo-nome">LÍDER</div><div class="cargo-desc">Gerencia o clã</div></div>
+                <div class="cargo-card"><div class="cargo-icon">🔱</div><div class="cargo-nome">COLÍDER</div><div class="cargo-desc">Auxilia o líder</div></div>
+                <div class="cargo-card"><div class="cargo-icon">📖</div><div class="cargo-nome">MENTOR</div><div class="cargo-desc">Ensina novatos</div></div>
+                <div class="cargo-card"><div class="cargo-icon">🛡️</div><div class="cargo-nome">ANCIÃO</div><div class="cargo-desc">Mantém a ordem</div></div>
             </div>
         </div>
 
-        <!-- REGRAS GERAIS -->
+        <!-- RESPEITO -->
         <div class="secao-regras">
-            <h2 class="titulo-secao"><i class="fas fa-scroll"></i> REGRAS GERAIS</h2>
+            <h2 class="titulo-secao"><i class="fas fa-hand-fist"></i> 👑 RESPEITO É OBRIGAÇÃO</h2>
             <ul class="lista-regras">
-                <li class="item-regra">
-                    <span class="icone-regra">👑</span>
-                    <span class="destaque">RESPEITO:</span> Honre a hierarquia e trate todos com dignidade
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">🔊</span>
-                    <span class="destaque">COMUNICAÇÃO:</span> Português nos chats oficiais - sem gírias excessivas
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">🎯</span>
-                    <span class="destaque">IDADE:</span> Mínimo de 16 anos - verificação obrigatória
-                </li>
-                <li class="item-regra importante">
-                    <span class="icone-regra">🚫</span>
-                    <span class="destaque">PROIBIDO:</span> Racismo, homofobia e qualquer discriminação
-                </li>
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Respeite todos os membros, líderes e administradores.</span></li>
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Evite brigas, provocações e discussões desnecessárias.</span></li>
+                <li class="item-regra importante"><span class="icone-regra">⚠️</span><span>Racismo, preconceito, ameaças ou ofensas resultarão em BAN imediato.</span></li>
             </ul>
         </div>
 
-        <!-- PENALIDADES -->
+        <!-- ORGANIZAÇÃO DOS CHATS -->
         <div class="secao-regras">
-            <h2 class="titulo-secao"><i class="fas fa-gavel"></i> SISTEMA DE PENALIDADES</h2>
+            <h2 class="titulo-secao"><i class="fas fa-comments"></i> 💬 ORGANIZAÇÃO DOS CHATS</h2>
+            
+            <div class="sub-titulo"><i class="fas fa-fire"></i> 🔥 CHAT NORMAL</div>
             <ul class="lista-regras">
-                <li class="item-regra">
-                    <span class="icone-regra">1️⃣</span>
-                    <span class="destaque">1ª OCORRÊNCIA:</span> Aviso formal + orientação
-                </li>
-                <li class="item-regra importante">
-                    <span class="icone-regra">2️⃣</span>
-                    <span class="destaque">2ª OCORRÊNCIA:</span> Suspensão por 7 dias
-                </li>
-                <li class="item-regra importante">
-                    <span class="icone-regra">3️⃣</span>
-                    <span class="destaque">3ª OCORRÊNCIA:</span> Banimento permanente
-                </li>
-                <li class="item-regra">
-                    <span class="icone-regra">⚠️</span>
-                    <span class="destaque">OBSERVAÇÃO:</span> Casos graves = banimento imediato
-                </li>
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Conversa liberada.</span></li>
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Pode brincar, conversar e fazer amizades.</span></li>
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Evite spam, flood e poluição no chat.</span></li>
+            </ul>
+
+            <div class="sub-titulo"><i class="fas fa-crosshairs"></i> 🎯 CHAT DAS EQUIPES</div>
+            <ul class="lista-regras">
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Use apenas para: Treinos, Calls de campeonato, Estratégias</span></li>
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Avisos importantes, Resultados de partidas, Organização da line</span></li>
+                <li class="item-regra importante"><span class="icone-regra">❌</span><span>Não usar para conversas aleatórias.</span></li>
             </ul>
         </div>
 
-        <!-- BOTÃO CONCORDAR -->
+        <!-- PARTIDAS E EVENTOS -->
+        <div class="secao-regras">
+            <h2 class="titulo-secao"><i class="fas fa-gamepad"></i> ⚔️ PARTIDAS E EVENTOS</h2>
+            <ul class="lista-regras">
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Quer organizar Scrim, x1 ou amistoso? Marque as tags da comunidade e avise corretamente.</span></li>
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Eventos oficiais serão anunciados pelos líderes ou administradores.</span></li>
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Respeite os horários de treinos, campeonatos e eventos.</span></li>
+                <li class="item-regra"><span class="icone-regra">✓</span><span>Evite cancelar Scrim ou partidas em cima da hora sem aviso prévio.</span></li>
+            </ul>
+        </div>
+
+        <!-- PROIBIDO -->
+        <div class="secao-regras">
+            <h2 class="titulo-secao"><i class="fas fa-ban"></i> 🚫 PROIBIDO</h2>
+            <ul class="lista-regras">
+                <li class="item-regra"><span class="icone-regra">❌</span><span>Fake</span></li>
+                <li class="item-regra"><span class="icone-regra">❌</span><span>Divulgação sem permissão</span></li>
+                <li class="item-regra"><span class="icone-regra">❌</span><span>Spam/Flood</span></li>
+                <li class="item-regra"><span class="icone-regra">❌</span><span>Conteúdo +18</span></li>
+                <li class="item-regra"><span class="icone-regra">❌</span><span>Uso de hacks ou cheats</span></li>
+                <li class="item-regra"><span class="icone-regra">❌</span><span>Toxicidade excessiva</span></li>
+                <li class="item-regra"><span class="icone-regra">❌</span><span>Desrespeito com membros ou staff</span></li>
+            </ul>
+        </div>
+
+        <!-- SISTEMA DE PUNIÇÃO -->
+        <div class="secao-regras">
+            <h2 class="titulo-secao"><i class="fas fa-gavel"></i> 🛡️ SISTEMA DE PUNIÇÃO</h2>
+            <ul class="lista-regras">
+                <li class="item-regra"><span class="icone-regra">⚠️</span><span>1ª ocorrência → Aviso</span></li>
+                <li class="item-regra"><span class="icone-regra">⏳</span><span>2ª ocorrência → Suspensão</span></li>
+                <li class="item-regra importante"><span class="icone-regra">🚫</span><span>3ª ocorrência → Banimento</span></li>
+                <li class="item-regra"><span class="icone-regra">⚠️</span><span>Casos graves podem resultar em BAN imediato.</span></li>
+            </ul>
+        </div>
+
+        <!-- OBJETIVO -->
+        <div class="secao-regras">
+            <h2 class="titulo-secao"><i class="fas fa-bullseye"></i> 🔱 OBJETIVO DA COMUNIDADE</h2>
+            <p style="text-align: center; padding: 10px;">Unir jogadores mobile, criar amizades, fortalecer equipes e crescer juntos dentro da FuriaDaNoitePlay.</p>
+            <div class="frase-final">
+                🌕 “A noite pertence aos fortes.” 🌕
+            </div>
+        </div>
+
         <button class="btn-regras" onclick="concordarRegras()">
             <i class="fas fa-shield-alt"></i> 🔴 REGRAS JÁ ACEITAS - IR PARA CADASTRO
         </button>
 
         <div class="links">
-            <a href="recrutamento.html" class="link">
-                <i class="fas fa-user-plus"></i> + FAZER CADASTRO
-            </a>
-            <a href="index.html" class="link">
-                <i class="fas fa-home"></i> VOLTAR AO INÍCIO
-            </a>
+            <a href="recrutamento.html" class="link"><i class="fas fa-user-plus"></i> + FAZER CADASTRO</a>
+            <a href="index.html" class="link"><i class="fas fa-home"></i> VOLTAR AO INÍCIO</a>
         </div>
     </div>
 
-    <!-- ÁUDIO -->
     <audio id="musicaFuria" loop>
         <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mp4">
         <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mpeg">
-        Seu navegador não suporta áudio.
     </audio>
 
-    <!-- BOTÃO DE CONTROLE DE MÚSICA -->
     <div class="audio-control" id="audioControl">
-        <span>🔊</span>
-        <span>Musica</span>
+        <span>🔊</span><span>Musica</span>
     </div>
 
     <script>
-        // ========== ANIMAÇÃO DE DIGITAR E APAGAR ==========
-        const titulos = ["🌕 FuriaDaNoitePlay 🌕", "🌕 FURIA DA NOITE 🌕", "🌕 RQZ ESPORTS 🌕"];
-        let indiceTitulo = 0;
-        let indiceChar = 0;
-        let apagando = false;
+        // Animação de digitar
+        const titulos = ["🌕 FuriaDaNoitePlay 🌕", "🌕 FURIA DA NOITE 🌕", "🌕  🌕"];
+        let indiceTitulo = 0, indiceChar = 0, apagando = false;
         const elemento = document.getElementById("tituloAnimado");
-        const velocidadeDigitacao = 100;
-        const velocidadeApagar = 50;
-        const pausaEntreTitulos = 1500;
+        const velocidadeDigitacao = 100, velocidadeApagar = 50, pausaEntreTitulos = 1500;
 
         function animarTexto() {
             const tituloAtual = titulos[indiceTitulo];
-            
             if (!apagando && indiceChar <= tituloAtual.length) {
                 elemento.textContent = tituloAtual.substring(0, indiceChar);
                 indiceChar++;
@@ -528,28 +537,20 @@
                 setTimeout(animarTexto, velocidadeDigitacao);
             }
         }
-
         setTimeout(animarTexto, 500);
 
-        // ========== RELÓGIO HORÁRIO DE BRASÍLIA (GMT-3) ==========
+        // Relógio Brasília
         function atualizarHorarioBrasilia() {
             const agora = new Date();
             const offsetBrasilia = -3;
             const utc = agora.getTime() + (agora.getTimezoneOffset() * 60000);
             const brasilia = new Date(utc + (offsetBrasilia * 3600000));
-            
-            const horas = brasilia.getHours().toString().padStart(2, '0');
-            const minutos = brasilia.getMinutes().toString().padStart(2, '0');
-            const segundos = brasilia.getSeconds().toString().padStart(2, '0');
-            
-            const horarioFormatado = `${horas}:${minutos}:${segundos}`;
-            document.getElementById('horarioFuria').textContent = horarioFormatado;
+            document.getElementById('horarioFuria').textContent = brasilia.toLocaleTimeString('pt-BR');
         }
-
         setInterval(atualizarHorarioBrasilia, 1000);
         atualizarHorarioBrasilia();
 
-        // ========== MÚSICA ==========
+        // Música
         const audio = document.getElementById('musicaFuria');
         const audioControl = document.getElementById('audioControl');
         let musicaTocando = false;
@@ -563,13 +564,9 @@
                 audio.play().then(() => {
                     musicaTocando = true;
                     audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
-                }).catch(erro => {
-                    console.log("Erro ao tocar:", erro);
-                    alert("Clique na página para ativar a música!");
-                });
+                }).catch(() => alert("Clique na página para ativar a música!"));
             }
         }
-
         audioControl.addEventListener('click', toggleMusica);
 
         window.addEventListener('load', () => {
@@ -582,7 +579,7 @@
             });
         });
 
-        // ========== CONCORDAR COM REGRAS ==========
+        // Concordar regras
         function concordarRegras() {
             localStorage.setItem('regrasAceitasFuria', 'true');
             alert('🎉 REGRAS ACEITAS COM SUCESSO!\n\nAgora você pode fazer seu cadastro para entrar na FuriaDaNoitePlay!');
@@ -590,13 +587,10 @@
         }
 
         window.addEventListener('load', function() {
-            const regrasAceitas = localStorage.getItem('regrasAceitasFuria');
-            if (regrasAceitas) {
+            if (localStorage.getItem('regrasAceitasFuria')) {
                 const btn = document.querySelector('.btn-regras');
                 btn.innerHTML = '<i class="fas fa-check-circle"></i> ✅ REGRAS JÁ ACEITAS - FAZER CADASTRO';
-                btn.onclick = function() {
-                    window.location.href = 'recrutamento.html';
-                };
+                btn.onclick = () => window.location.href = 'recrutamento.html';
             }
         });
     </script>
