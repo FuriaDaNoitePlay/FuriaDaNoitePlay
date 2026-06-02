@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Rifa do Guerreiro - FuriaDaNoitePlay</title>
     <style>
         * {
@@ -59,6 +59,7 @@
             position: relative;
         }
         
+        /* HEADER COM LOGO ANIMADA MOVENDO PARA LADOS */
         .header {
             text-align: center;
             margin-bottom: 25px;
@@ -72,13 +73,41 @@
             margin-bottom: 15px;
         }
         
-        .logo {
+        /* ANIMAÇÃO DO LOGO - MOVE PARA ESQUERDA E DIREITA */
+        @keyframes moverLadoALado {
+            0% {
+                transform: translateX(0px);
+            }
+            25% {
+                transform: translateX(-18px);
+            }
+            50% {
+                transform: translateX(0px);
+            }
+            75% {
+                transform: translateX(18px);
+            }
+            100% {
+                transform: translateX(0px);
+            }
+        }
+        
+        .logo-animated {
             width: 100px;
             height: 100px;
             object-fit: contain;
             border-radius: 50%;
             border: 3px solid #ff0000;
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            animation: moverLadoALado 2.5s ease-in-out infinite;
+            cursor: pointer;
+            transition: filter 0.3s;
+            background: rgba(0,0,0,0.3);
+        }
+        
+        .logo-animated:hover {
+            filter: drop-shadow(0 0 15px #ff0000);
+            animation-play-state: paused;
         }
         
         .title {
@@ -478,6 +507,19 @@
                 padding: 10px 15px;
                 font-size: 0.8rem;
             }
+            
+            .logo-animated {
+                width: 80px;
+                height: 80px;
+            }
+            
+            @keyframes moverLadoALado {
+                0% { transform: translateX(0px); }
+                25% { transform: translateX(-12px); }
+                50% { transform: translateX(0px); }
+                75% { transform: translateX(12px); }
+                100% { transform: translateX(0px); }
+            }
         }
         
         @media (max-width: 480px) {
@@ -497,6 +539,11 @@
             .whatsapp-btn {
                 padding: 14px;
                 font-size: 1rem;
+            }
+            
+            .logo-animated {
+                width: 70px;
+                height: 70px;
             }
         }
         
@@ -518,7 +565,8 @@
     <div class="container">
         <div class="header">
             <div class="logo-container">
-                <img src="fúria.png" alt="FuriaDaNoitePlay" class="logo">
+                <!-- LOGO COM ANIMAÇÃO DE MOVER PARA LADO ESQUERDO E DIREITO -->
+                <img src="Furia.png" alt="FuriaDaNoitePlay - Logo" class="logo-animated" onerror="this.src='https://via.placeholder.com/100x100?text=Furia'">
             </div>
             <h1 class="title">RIFA DO GUERREIRO</h1>
             <h2 class="subtitle">FuriaDaNoitePlay</h2>
@@ -1104,8 +1152,9 @@ ${selectedNumbers.map(item => `➤ ${item.number} - ${item.name}`).join('\n')}
             // Adicionar Font Awesome para o ícone do WhatsApp e ADM
             const fontAwesomeScript = document.createElement('script');
             fontAwesomeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js';
+            fontAwesomeScript.async = true;
             document.head.appendChild(fontAwesomeScript);
         });
     </script>
 </body>
-    </html>
+</html>
