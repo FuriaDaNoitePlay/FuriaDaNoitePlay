@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>🌕FuriaDaNoitePlay🌕</title>
+    <title>🌕 FuriaDaNoitePlay 🌕</title>
     <style>
         * {
             margin: 0;
@@ -26,7 +26,7 @@
             background-attachment: fixed;
         }
 
-        /* BORDA VERMELHA NEON - GRUDADA NAS BORDAS DA TELA/CELULAR */
+        /* BORDA VERMELHA NEON - GRUDADA NAS BORDAS DA TELA/CELULAR (SEM QUADRADOS BRANCOS) */
         body::before,
         body::after {
             content: '';
@@ -64,7 +64,7 @@
             z-index: 5;
         }
 
-        /* HEADER COM LOGO */
+        /* HEADER COM LOGO - TOPO E CENTRALIZADO */
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -97,7 +97,7 @@
             filter: drop-shadow(0 0 20px #ff0000) drop-shadow(0 0 30px #ff3300);
         }
 
-        /* TÍTULO COM LUAS DOS LADOS */
+        /* TÍTULO COM LUAS DOS LADOS - SEM ELEMENTOS EXTRAS BRANCOS */
         .title-wrapper {
             display: flex;
             align-items: center;
@@ -175,7 +175,7 @@
             text-shadow: 0 0 5px #ff0000;
         }
 
-        /* QUADRADO DO VÍDEO DO YOUTUBE */
+        /* QUADRADO DO VÍDEO DO YOUTUBE - SEM BUGS, APENAS O PLAYER */
         .video-card {
             display: flex;
             justify-content: center;
@@ -206,7 +206,7 @@
             display: block;
         }
 
-        /* GRADE DE BOTÕES */
+        /* GRADE DE BOTÕES - SEM CARACTERES ESTRANHOS */
         .buttons-grid {
             display: flex;
             flex-wrap: wrap;
@@ -372,32 +372,34 @@
 
 <div class="neon-border">
     <div class="container">
-        <!-- LOGO E TÍTULO -->
+        <!-- LOGO E TÍTULO - LOGOTIPO NO TOPO COMO SOLICITADO -->
         <div class="header">
-            <img src="Furia.png" alt="Logo FuriaDaNoitePlay" class="logo" onerror="this.style.display='none'">
+            <!-- LOGO Furia.png no topo centralizado -->
+            <img src="Furia.png" alt="Logo FuriaDaNoitePlay - Agente da Noite" class="logo" onerror="this.style.display='none'">
             
-            <!-- TÍTULO COM LUAS DOS LADOS -->
+            <!-- TÍTULO COM LUAS DOS LADOS (SEM QUADRADOS BRANCOS) -->
             <div class="title-wrapper">
                 <span class="moon">🌕</span>
                 <h1 class="clan-name">FuriaDaNoitePlay</h1>
                 <span class="moon">🌕</span>
             </div>
-            <div class="tagline">Vem pro Furia</div>
+            <div class="tagline">⚡ Vem pro Furia ⚡</div>
         </div>
 
         <!-- DESCRIÇÃO DO CLÃ -->
         <div class="description">
             <p>🔴 <span class="highlight">FuriaDaNoitePlay</span> 🔴</p>
             <p>Clã competitivo mobile e outros jogos no horário noturno.</p>
-            <p>🎵 Foco: rush + competitividade e diversão</p>
+            <p>🎯 Foco: rush + competitividade e diversão 🎯</p>
+            <p>🌙 Hanzo Mix (2020) | Toxic Skull 🌙</p>
         </div>
 
-        <!-- QUADRADO COM VÍDEO DO YOUTUBE DENTRO DO SITE -->
+        <!-- QUADRADO COM VÍDEO DO YOUTUBE DENTRO DO SITE - SEM BUGS E SEM QUADRADOS EXTRAS -->
         <div class="video-card">
             <div class="video-wrapper">
                 <iframe 
                     src="https://www.youtube.com/embed/Ej7ablp9gEE?si=g86ghYciybsaW3P5" 
-                    title="YouTube video player" 
+                    title="YouTube video player - FuriaDaNoitePlay" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin" 
@@ -406,31 +408,32 @@
             </div>
         </div>
 
-        <!-- BOTÕES QUE REDIRECIONAM -->
+        <!-- BOTÕES QUE REDIRECIONAM - CORRIGIDO O BOTÃO RIFA SEM CARACTERES ESTRANHOS -->
         <div class="buttons-grid">
             <a href="regras.html" class="btn">REGRAS</a>
             <a href="recrutamento.html" class="btn">RECRUTAMENTO</a>
-<a href="rifa.html" class="btn">RIFA<
+            <a href="rifa.html" class="btn">RIFA</a>
         </div>
 
-        <!-- RODAPÉ -->
+        <!-- RODAPÉ COM INFORMAÇÕES E REDES SOCIAIS -->
         <div class="footer">
             <div class="social-icons">
-                <a href="https://discord.gg/MmA7uuSs2" target="_blank">
+                <a href="https://discord.gg/MmA7uuSs2" target="_blank" rel="noopener noreferrer">
                     🎮 Discord
                 </a>
-                <a href="https://www.instagram.com/furiadanoiteplay?igsh=MXcyMmNuYjF6ZzQxaw==" target="_blank">
+                <a href="https://www.instagram.com/furiadanoiteplay?igsh=MXcyMmNuYjF6ZzQxaw==" target="_blank" rel="noopener noreferrer">
                     📱 Instagram
                 </a>
             </div>
             <p>ADN - Agente da Noite | Sistema competitivo noturno 🔴</p>
-            <p style="margin-top: 12px;">© 2026 FuriaDaNoitePlay - ToxicSkull</p>
+            <p style="margin-top: 12px;">© 2026 FuriaDaNoitePlay - Toxic Skull</p>
+            <p style="margin-top: 8px; font-size: 0.7rem;">⚡ Assista no YouTube | Rush + Competitividade ⚡</p>
         </div>
     </div>
 </div>
 
-<!-- ÁUDIO -->
-<audio id="musicaFuria" autoplay loop>
+<!-- ÁUDIO DE FUNDO COM CONTROLE -->
+<audio id="musicaFuria" autoplay loop preload="auto">
     <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mp4">
     <source src="Yasuo Mix (2021)(M4A_128K).m4a" type="audio/mpeg">
     Seu navegador não suporta áudio.
@@ -439,45 +442,53 @@
 <!-- CONTROLE DE ÁUDIO FLUTUANTE -->
 <div class="audio-control" id="audioControl" onclick="toggleMusica()">
     <span>🔊</span>
-    <span>Musica</span>
+    <span>Música</span>
 </div>
 
 <script>
     const audio = document.getElementById('musicaFuria');
-    const audioControl = document.getElementById('audioControl');
+    const audioControlDiv = document.getElementById('audioControl');
     let musicaTocando = true;
 
     function tentarPlayAutomatico() {
+        // Tenta tocar o áudio automaticamente, se falhar mostra alerta amigável
         audio.play().then(() => {
             musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
-        }).catch(() => {
+            audioControlDiv.innerHTML = '<span>🔊</span><span>Música</span>';
+        }).catch((error) => {
+            console.log("Autoplay bloqueado pelo navegador:", error);
             musicaTocando = false;
-            audioControl.innerHTML = '<span>🔇</span><span>Clique para tocar</span>';
+            audioControlDiv.innerHTML = '<span>🔇</span><span>Clique para tocar</span>';
             
-            const alerta = document.createElement('div');
-            alerta.style.position = 'fixed';
-            alerta.style.bottom = '80px';
-            alerta.style.right = '20px';
-            alerta.style.background = '#ff0000cc';
-            alerta.style.color = '#fff';
-            alerta.style.padding = '10px 15px';
-            alerta.style.borderRadius = '10px';
-            alerta.style.fontSize = '0.8rem';
-            alerta.style.zIndex = '99';
-            alerta.style.cursor = 'pointer';
-            alerta.innerHTML = '🎵 Clique aqui para ativar a música!';
-            alerta.onclick = function() {
-                audio.play();
-                musicaTocando = true;
-                audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
-                alerta.remove();
+            // Cria um aviso sutil para ativar a música (sem ser invasivo)
+            const alertaMusica = document.createElement('div');
+            alertaMusica.style.position = 'fixed';
+            alertaMusica.style.bottom = '80px';
+            alertaMusica.style.right = '20px';
+            alertaMusica.style.background = '#ff0000cc';
+            alertaMusica.style.color = '#fff';
+            alertaMusica.style.padding = '10px 18px';
+            alertaMusica.style.borderRadius = '40px';
+            alertaMusica.style.fontSize = '0.8rem';
+            alertaMusica.style.zIndex = '99';
+            alertaMusica.style.cursor = 'pointer';
+            alertaMusica.style.backdropFilter = 'blur(4px)';
+            alertaMusica.style.fontWeight = 'bold';
+            alertaMusica.style.border = '1px solid #ff8888';
+            alertaMusica.innerHTML = '🎵 Ativar música agora!';
+            alertaMusica.onclick = function() {
+                audio.play().then(() => {
+                    musicaTocando = true;
+                    audioControlDiv.innerHTML = '<span>🔊</span><span>Música</span>';
+                    alertaMusica.remove();
+                }).catch(e => console.log("Ainda bloqueado"));
             };
-            document.body.appendChild(alerta);
+            document.body.appendChild(alertaMusica);
             
+            // Remove o alerta após 6 segundos para não poluir
             setTimeout(() => {
-                if(alerta.parentNode) alerta.remove();
-            }, 5000);
+                if(alertaMusica && alertaMusica.parentNode) alertaMusica.remove();
+            }, 6000);
         });
     }
 
@@ -485,27 +496,35 @@
         if (musicaTocando) {
             audio.pause();
             musicaTocando = false;
-            audioControl.innerHTML = '<span>🔇</span><span>Musica</span>';
+            audioControlDiv.innerHTML = '<span>🔇</span><span>Música</span>';
         } else {
-            audio.play();
-            musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
+            audio.play().then(() => {
+                musicaTocando = true;
+                audioControlDiv.innerHTML = '<span>🔊</span><span>Música</span>';
+            }).catch((err) => {
+                console.warn("Não foi possível tocar:", err);
+                // Caso não consiga tocar, mantém o botão mudo
+            });
         }
     }
 
+    // Tenta iniciar a música ao carregar a página
     window.addEventListener('load', () => {
-        setTimeout(tentarPlayAutomatico, 500);
+        setTimeout(tentarPlayAutomatico, 300);
     });
 
-    document.body.addEventListener('click', function iniciarMusica() {
+    // Fallback: se o usuário clicar em qualquer lugar da página e a música estiver pausada, tenta tocar
+    // (Respeita a interação do usuário, mais compatível com navegadores)
+    document.body.addEventListener('click', function iniciarMusicaPorInteracao() {
         if (!musicaTocando && audio.paused) {
-            audio.play();
-            musicaTocando = true;
-            audioControl.innerHTML = '<span>🔊</span><span>Musica</span>';
+            audio.play().then(() => {
+                musicaTocando = true;
+                audioControlDiv.innerHTML = '<span>🔊</span><span>Música</span>';
+            }).catch(() => {});
         }
-        document.body.removeEventListener('click', iniciarMusica);
+        // Remove o listener após a primeira interação para não ficar escutando clicks desnecessários
+        document.body.removeEventListener('click', iniciarMusicaPorInteracao);
     });
 </script>
-
 </body>
 </html>
