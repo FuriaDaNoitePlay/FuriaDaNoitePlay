@@ -25,7 +25,6 @@
             margin: 0 auto;
         }
         
-        /* Cabeçalho ADM */
         .admin-header {
             background: rgba(20, 0, 0, 0.9);
             border: 3px solid #ff0000;
@@ -33,7 +32,6 @@
             padding: 25px;
             margin-bottom: 30px;
             box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
-            position: relative;
         }
         
         .header-top {
@@ -119,7 +117,6 @@
             font-size: 0.9rem;
         }
         
-        /* Painéis ADM */
         .admin-panels {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -147,11 +144,11 @@
             gap: 10px;
         }
         
-        /* Controle de Números */
         .number-control {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .number-input {
@@ -162,6 +159,12 @@
             border-radius: 8px;
             color: white;
             font-size: 1rem;
+        }
+        
+        .number-input:focus {
+            outline: none;
+            border-color: #ff8888;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
         
         .action-btn {
@@ -189,39 +192,29 @@
             cursor: not-allowed;
         }
         
-        .action-btn.green {
-            background: linear-gradient(135deg, #006400, #228B22);
+        .action-btn.green { background: linear-gradient(135deg, #006400, #228B22); }
+        .action-btn.red { background: linear-gradient(135deg, #8B0000, #B22222); }
+        .action-btn.blue { background: linear-gradient(135deg, #00008B, #191970); }
+        .action-btn.orange { background: linear-gradient(135deg, #ff8800, #ff5500); }
+        
+        .info-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff4444;
+            margin-bottom: 20px;
         }
         
-        .action-btn.green:hover:not(:disabled) {
-            background: linear-gradient(135deg, #008000, #32CD32);
+        .info-card h4 {
+            color: #ff4444;
+            margin-bottom: 10px;
         }
         
-        .action-btn.red {
-            background: linear-gradient(135deg, #8B0000, #B22222);
+        .info-card p {
+            margin: 5px 0;
+            color: #ddd;
         }
         
-        .action-btn.red:hover:not(:disabled) {
-            background: linear-gradient(135deg, #A52A2A, #DC143C);
-        }
-        
-        .action-btn.blue {
-            background: linear-gradient(135deg, #00008B, #191970);
-        }
-        
-        .action-btn.blue:hover:not(:disabled) {
-            background: linear-gradient(135deg, #0000CD, #4169E1);
-        }
-        
-        .action-btn.orange {
-            background: linear-gradient(135deg, #ff8800, #ff5500);
-        }
-        
-        .action-btn.orange:hover:not(:disabled) {
-            background: linear-gradient(135deg, #ffaa00, #ff7700);
-        }
-        
-        /* Lista de Números Pendentes */
         .pending-list {
             max-height: 400px;
             overflow-y: auto;
@@ -239,10 +232,6 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
-        }
-        
-        .pending-info {
-            flex: 1;
         }
         
         .pending-number {
@@ -266,70 +255,6 @@
             gap: 8px;
         }
         
-        /* Tabela de Números */
-        .numbers-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        
-        .numbers-table th {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff9999;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            border-bottom: 2px solid #ff0000;
-        }
-        
-        .numbers-table td {
-            padding: 12px;
-            border-bottom: 1px solid #333;
-        }
-        
-        .numbers-table tr:hover {
-            background: rgba(255, 0, 0, 0.05);
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
-        
-        .status-available {
-            background: rgba(0, 255, 0, 0.1);
-            color: #00ff00;
-            border: 1px solid #00ff00;
-        }
-        
-        .status-pending {
-            background: rgba(255, 165, 0, 0.1);
-            color: #ffa500;
-            border: 1px solid #ffa500;
-        }
-        
-        .status-confirmed {
-            background: rgba(0, 0, 255, 0.1);
-            color: #4169E1;
-            border: 1px solid #4169E1;
-        }
-        
-        .status-sold {
-            background: rgba(255, 0, 0, 0.1);
-            color: #ff4444;
-            border: 1px solid #ff4444;
-        }
-        
-        /* Botões de ação na tabela */
-        .table-actions {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-        
         .table-btn {
             padding: 5px 10px;
             border: none;
@@ -345,9 +270,7 @@
             border: 1px solid #00ff00;
         }
         
-        .confirm-btn:hover {
-            background: rgba(0, 255, 0, 0.3);
-        }
+        .confirm-btn:hover { background: rgba(0, 255, 0, 0.3); }
         
         .cancel-btn {
             background: rgba(255, 0, 0, 0.1);
@@ -355,21 +278,40 @@
             border: 1px solid #ff4444;
         }
         
-        .cancel-btn:hover {
-            background: rgba(255, 0, 0, 0.3);
+        .cancel-btn:hover { background: rgba(255, 0, 0, 0.3); }
+        
+        .numbers-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
         }
         
-        .edit-btn {
-            background: rgba(255, 165, 0, 0.1);
-            color: #ffa500;
-            border: 1px solid #ffa500;
+        .numbers-table th {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff9999;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #ff0000;
         }
         
-        .edit-btn:hover {
-            background: rgba(255, 165, 0, 0.3);
+        .numbers-table td {
+            padding: 12px;
+            border-bottom: 1px solid #333;
         }
         
-        /* Notificação ADM */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        
+        .status-available { background: rgba(0, 255, 0, 0.1); color: #00ff00; border: 1px solid #00ff00; }
+        .status-pending { background: rgba(255, 165, 0, 0.1); color: #ffa500; border: 1px solid #ffa500; }
+        .status-confirmed { background: rgba(0, 0, 255, 0.1); color: #4169E1; border: 1px solid #4169E1; }
+        .status-sold { background: rgba(255, 0, 0, 0.1); color: #ff4444; border: 1px solid #ff4444; }
+        
         .admin-notification {
             position: fixed;
             top: 20px;
@@ -379,116 +321,19 @@
             border-radius: 10px;
             padding: 20px;
             max-width: 350px;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
             z-index: 1000;
             display: none;
             animation: slideIn 0.5s ease;
         }
         
-        .admin-notification.show {
-            display: block;
-        }
+        .admin-notification.show { display: block; }
         
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
         
-        .notification-title {
-            color: #ff4444;
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-        }
-        
-        /* Modal de edição */
-        .admin-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-        
-        .modal-content {
-            background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
-            border: 3px solid #ff0000;
-            border-radius: 15px;
-            padding: 30px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
-        }
-        
-        .modal-title {
-            color: #ff4444;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.5rem;
-        }
-        
-        .modal-input-group {
-            margin-bottom: 20px;
-        }
-        
-        .modal-label {
-            display: block;
-            color: #ff9999;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-        
-        .modal-input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #ff4444;
-            border-radius: 8px;
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .modal-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-        
-        .modal-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-confirm {
-            background: linear-gradient(135deg, #ff0000, #ff4444);
-            color: white;
-        }
-        
-        .modal-confirm:hover {
-            background: linear-gradient(135deg, #cc0000, #ff2222);
-            transform: translateY(-2px);
-        }
-        
-        .modal-cancel {
-            background: linear-gradient(135deg, #333, #555);
-            color: white;
-        }
-        
-        .modal-cancel:hover {
-            background: linear-gradient(135deg, #444, #666);
-            transform: translateY(-2px);
-        }
-        
-        /* ==================== ROLETA DE SORTEIO ==================== */
+        /* ROLETA */
         .roulette-modal {
             position: fixed;
             top: 0;
@@ -500,7 +345,6 @@
             justify-content: center;
             align-items: center;
             z-index: 3000;
-            backdrop-filter: blur(5px);
         }
         
         .roulette-content {
@@ -509,46 +353,37 @@
             border-radius: 30px;
             padding: 30px;
             width: 90%;
-            max-width: 600px;
+            max-width: 650px;
             text-align: center;
             box-shadow: 0 0 60px rgba(255, 68, 0, 0.6);
-            animation: pulseGlow 2s infinite;
-        }
-        
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 40px rgba(255, 68, 0, 0.4); }
-            50% { box-shadow: 0 0 80px rgba(255, 68, 0, 0.9); }
         }
         
         .roulette-title {
             color: #ff8800;
             font-size: 2rem;
             margin-bottom: 20px;
-            text-shadow: 0 0 10px #ff4400;
         }
         
         .roulette-wheel {
             background: rgba(0, 0, 0, 0.5);
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px;
             margin: 20px 0;
             border: 2px solid #ff8800;
         }
         
         .roulette-number {
-            font-size: 6rem;
+            font-size: 5rem;
             font-weight: bold;
             color: #ffaa00;
             text-shadow: 0 0 20px #ff6600;
             font-family: monospace;
-            letter-spacing: 10px;
-            animation: glowPulse 0.5s ease;
         }
         
-        @keyframes glowPulse {
-            0% { transform: scale(1); text-shadow: 0 0 0px #ff6600; }
-            50% { transform: scale(1.1); text-shadow: 0 0 30px #ffaa00; }
-            100% { transform: scale(1); text-shadow: 0 0 20px #ff6600; }
+        .roulette-hero {
+            font-size: 1.2rem;
+            color: #ffcc66;
+            margin-top: 10px;
         }
         
         .roulette-info {
@@ -559,20 +394,18 @@
             text-align: left;
         }
         
-        .roulette-info p {
-            margin: 8px 0;
-            color: #ddd;
+        .winner-highlight {
+            background: linear-gradient(135deg, #ffaa00, #ff6600);
+            color: #000;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            animation: winnerFlash 0.5s ease;
         }
         
-        .roulette-info strong {
-            color: #ff8800;
-        }
-        
-        .roulette-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
+        @keyframes winnerFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; background: linear-gradient(135deg, #ffcc00, #ff8800); }
         }
         
         .spin-btn {
@@ -590,7 +423,7 @@
             gap: 12px;
         }
         
-        .spin-btn:hover {
+        .spin-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, #ffaa00, #ff6600);
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 68, 0, 0.8);
@@ -599,7 +432,6 @@
         .spin-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
         }
         
         .close-roulette {
@@ -610,534 +442,545 @@
             border-radius: 50px;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .close-roulette:hover {
-            background: linear-gradient(135deg, #444, #666);
-            transform: scale(1.02);
-        }
-        
-        .winner-highlight {
-            background: linear-gradient(135deg, #ffaa00, #ff6600);
-            color: #000;
-            padding: 15px;
-            border-radius: 15px;
-            margin-top: 20px;
-            animation: winnerFlash 1s ease infinite;
-        }
-        
-        @keyframes winnerFlash {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; background: linear-gradient(135deg, #ffcc00, #ff8800); }
-        }
-        
-        .winner-name {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #000;
-        }
-        
-        /* Responsividade */
-        @media (max-width: 1100px) {
-            .admin-panels {
-                grid-template-columns: 1fr;
-            }
+            margin-left: 15px;
         }
         
         @media (max-width: 768px) {
-            .header-top {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .admin-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .number-control {
-                flex-direction: column;
-            }
-            
-            .numbers-table {
-                font-size: 0.9rem;
-            }
-            
-            .numbers-table th,
-            .numbers-table td {
-                padding: 8px;
-            }
-            
-            .table-actions {
-                flex-direction: column;
-                gap: 3px;
-            }
-            
-            .roulette-number {
-                font-size: 3rem;
-                letter-spacing: 5px;
-            }
-            
-            .roulette-content {
-                padding: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .admin-stats {
-                grid-template-columns: 1fr;
-            }
-            
-            .admin-title {
-                font-size: 1.5rem;
-            }
-            
-            .admin-panel {
-                padding: 15px;
-            }
-            
-            .roulette-number {
-                font-size: 2.5rem;
-            }
-            
-            .spin-btn {
-                padding: 12px 20px;
-                font-size: 1rem;
-            }
+            .roulette-number { font-size: 3rem; }
+            .spin-btn { padding: 12px 20px; font-size: 1rem; }
+            .admin-panels { grid-template-columns: 1fr; }
+            .header-top { flex-direction: column; text-align: center; }
+            .numbers-table { font-size: 0.8rem; }
+            .numbers-table th, .numbers-table td { padding: 6px; }
         }
     </style>
 </head>
 <body>
-    <!-- Notificação ADM -->
     <div class="admin-notification" id="adminNotification">
         <h4 class="notification-title" id="notificationTitle">📡 ATUALIZAÇÃO</h4>
         <p id="notificationText">Sistema de comunicação ativo</p>
     </div>
     
-    <!-- Modal de Edição -->
-    <div class="admin-modal" id="editModal">
-        <div class="modal-content">
-            <h3 class="modal-title">✏️ EDITAR COMPRADOR</h3>
-            
-            <div class="modal-input-group">
-                <label class="modal-label">Número do Guerreiro:</label>
-                <input type="text" id="modalNumber" class="modal-input" readonly>
-            </div>
-            
-            <div class="modal-input-group">
-                <label class="modal-label">Nome do Guerreiro:</label>
-                <input type="text" id="modalWarrior" class="modal-input" readonly>
-            </div>
-            
-            <div class="modal-input-group">
-                <label class="modal-label">Nome do Comprador:</label>
-                <input type="text" id="modalBuyer" class="modal-input" placeholder="Digite o nome do comprador">
-            </div>
-            
-            <div class="modal-input-group">
-                <label class="modal-label">Telefone/WhatsApp:</label>
-                <input type="text" id="modalPhone" class="modal-input" placeholder="(00) 00000-0000">
-            </div>
-            
-            <div class="modal-buttons">
-                <button class="modal-btn modal-confirm" id="modalConfirmBtn">
-                    <i class="fas fa-check"></i> CONFIRMAR
-                </button>
-                <button class="modal-btn modal-cancel" id="modalCancelBtn">
-                    <i class="fas fa-times"></i> CANCELAR
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- ROLETA DE SORTEIO -->
+    <!-- ROLETA -->
     <div class="roulette-modal" id="rouletteModal">
         <div class="roulette-content">
-            <h2 class="roulette-title">
-                <i class="fas fa-dice-d6"></i> ROLETA DO GUERREIRO
-            </h2>
-            
+            <h2 class="roulette-title"><i class="fas fa-dice-d6"></i> ROLETA DO GUERREIRO</h2>
             <div class="roulette-wheel">
                 <div class="roulette-number" id="rouletteNumberDisplay">🎲</div>
+                <div class="roulette-hero" id="rouletteHeroDisplay"></div>
             </div>
-            
             <div class="roulette-info" id="rouletteInfo">
-                <p><strong>📊 Números disponíveis para sorteio:</strong> <span id="availableCount">0</span></p>
-                <p><strong>🎯 Clique em GIRAR para sortear um número</strong></p>
+                <p><strong>📊 Números confirmados:</strong> <span id="availableCount">0</span></p>
+                <p><strong>🎯 Clique em GIRAR para sortear</strong></p>
             </div>
-            
-            <div class="roulette-buttons">
-                <button class="spin-btn" id="spinRouletteBtn">
-                    <i class="fas fa-sync-alt"></i> GIRAR ROLETA
-                </button>
-                <button class="close-roulette" id="closeRouletteBtn">
-                    <i class="fas fa-times"></i> FECHAR
-                </button>
+            <div>
+                <button class="spin-btn" id="spinRouletteBtn"><i class="fas fa-sync-alt"></i> GIRAR ROLETA</button>
+                <button class="close-roulette" id="closeRouletteBtn"><i class="fas fa-times"></i> FECHAR</button>
             </div>
         </div>
     </div>
     
     <div class="container">
-        <!-- Cabeçalho ADM -->
         <div class="admin-header">
             <div class="header-top">
-                <h1 class="admin-title">
-                    <i class="fas fa-user-shield"></i> PAINEL ADMINISTRATIVO
-                </h1>
+                <h1 class="admin-title"><i class="fas fa-user-shield"></i> PAINEL ADMINISTRATIVO</h1>
                 <div style="display: flex; gap: 15px;">
-                    <button class="roulette-btn" id="openRouletteBtn">
-                        <i class="fas fa-dice-d6"></i> 🎰 SORTEAR GANHADOR
-                    </button>
-                    <a href="comun.html" class="back-btn">
-                        <i class="fas fa-arrow-left"></i> VOLTAR
-                    </a>
+                    <button class="roulette-btn" id="openRouletteBtn"><i class="fas fa-dice-d6"></i> 🎰 SORTEAR GANHADOR</button>
+                    <a href="comun.html" class="back-btn"><i class="fas fa-arrow-left"></i> VOLTAR</a>
                 </div>
             </div>
             
-            <p style="color: #ccc; margin-bottom: 15px;">
-                Painel de controle da Rifa do Guerreiro - FuriaDaNoitePlay
-            </p>
-            
             <div class="admin-stats">
-                <div class="admin-stat">
-                    <div class="admin-stat-label">TOTAL DE NÚMEROS</div>
-                    <div class="admin-stat-value" id="totalNumbers">31</div>
-                </div>
-                
-                <div class="admin-stat">
-                    <div class="admin-stat-label">SELECIONADOS</div>
-                    <div class="admin-stat-value" id="selectedNumbers">0</div>
-                    <div class="admin-stat-label" id="selectedPercent">0%</div>
-                </div>
-                
-                <div class="admin-stat">
-                    <div class="admin-stat-label">CONFIRMADOS</div>
-                    <div class="admin-stat-value" id="confirmedNumbers">0</div>
-                    <div class="admin-stat-label">Pagamentos OK</div>
-                </div>
-                
-                <div class="admin-stat">
-                    <div class="admin-stat-label">PENDENTES</div>
-                    <div class="admin-stat-value" id="pendingNumbers">0</div>
-                    <div class="admin-stat-label">Aguardando ADM</div>
-                </div>
+                <div class="admin-stat"><div class="admin-stat-label">TOTAL DE NÚMEROS</div><div class="admin-stat-value" id="totalNumbers">31</div></div>
+                <div class="admin-stat"><div class="admin-stat-label">SELECIONADOS</div><div class="admin-stat-value" id="selectedNumbers">0</div></div>
+                <div class="admin-stat"><div class="admin-stat-label">CONFIRMADOS</div><div class="admin-stat-value" id="confirmedNumbers">0</div></div>
+                <div class="admin-stat"><div class="admin-stat-label">PENDENTES</div><div class="admin-stat-value" id="pendingNumbers">0</div></div>
             </div>
         </div>
         
-        <!-- Resto do painel ADM (mesmo conteúdo) -->
         <div class="admin-panels">
+            <!-- Painel de Controle -->
             <div class="admin-panel">
-                <h3 class="panel-title">
-                    <i class="fas fa-gamepad"></i> CONTROLE DE NÚMEROS
-                </h3>
+                <h3 class="panel-title"><i class="fas fa-gamepad"></i> CONTROLE DE NÚMEROS</h3>
                 
                 <div class="number-control">
                     <input type="number" id="controlNumber" class="number-input" placeholder="Digite o número (1-31)" min="1" max="31">
-                    <button class="action-btn" id="checkNumberBtn">
-                        <i class="fas fa-search"></i> VERIFICAR
-                    </button>
+                    <button class="action-btn" id="checkNumberBtn"><i class="fas fa-search"></i> VERIFICAR</button>
                 </div>
                 
-                <div id="numberInfo" style="margin-bottom: 20px; display: none;">
-                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; border-left: 4px solid #ff4444;">
-                        <h4 style="color: #ff4444; margin-bottom: 10px;">INFORMAÇÕES DO NÚMERO <span id="infoNumber">0</span></h4>
-                        <p><strong>Guerreiro:</strong> <span id="infoWarrior">-</span></p>
-                        <p><strong>Status:</strong> <span id="infoStatus">-</span></p>
-                        <p><strong>Comprador:</strong> <span id="infoBuyer">-</span></p>
-                        <p><strong>Data:</strong> <span id="infoDate">-</span></p>
+                <div id="numberInfo" style="display: none;">
+                    <div class="info-card">
+                        <h4>INFORMAÇÕES DO NÚMERO <span id="infoNumber">0</span></h4>
+                        <p><strong>⚔️ Guerreiro:</strong> <span id="infoWarrior">-</span></p>
+                        <p><strong>📌 Status:</strong> <span id="infoStatus">-</span></p>
+                        <p><strong>👤 Comprador:</strong> <span id="infoBuyer">-</span></p>
+                        <p><strong>📅 Data:</strong> <span id="infoDate">-</span></p>
                     </div>
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                    <button class="action-btn green" id="confirmNumberBtn" disabled>
-                        <i class="fas fa-check-circle"></i> CONFIRMAR PAGAMENTO
-                    </button>
-                    <button class="action-btn red" id="cancelNumberBtn" disabled>
-                        <i class="fas fa-times-circle"></i> CANCELAR SELEÇÃO
-                    </button>
-                    <button class="action-btn blue" id="editNumberBtn" disabled>
-                        <i class="fas fa-edit"></i> EDITAR COMPRADOR
-                    </button>
-                    <button class="action-btn orange" id="forceSelectBtn">
-                        <i class="fas fa-user-plus"></i> FORÇAR SELEÇÃO
-                    </button>
+                    <button class="action-btn green" id="confirmNumberBtn" disabled><i class="fas fa-check-circle"></i> CONFIRMAR</button>
+                    <button class="action-btn red" id="cancelNumberBtn" disabled><i class="fas fa-times-circle"></i> CANCELAR</button>
+                    <button class="action-btn blue" id="editNumberBtn" disabled><i class="fas fa-edit"></i> EDITAR</button>
+                    <button class="action-btn orange" id="forceSelectBtn"><i class="fas fa-user-plus"></i> FORÇAR SELEÇÃO</button>
                 </div>
             </div>
             
+            <!-- Painel de Pendentes -->
             <div class="admin-panel">
-                <h3 class="panel-title">
-                    <i class="fas fa-clock"></i> NÚMEROS PENDENTES
-                </h3>
-                
-                <div class="pending-list" id="pendingList">
-                    <p style="text-align: center; color: #888; padding: 20px;">
-                        Nenhum número pendente de confirmação
-                    </p>
-                </div>
-                
-                <div style="margin-top: 20px;">
-                    <button class="action-btn" id="refreshBtn" style="width: 100%;">
-                        <i class="fas fa-sync-alt"></i> ATUALIZAR LISTA
-                    </button>
-                </div>
+                <h3 class="panel-title"><i class="fas fa-clock"></i> NÚMEROS PENDENTES</h3>
+                <div class="pending-list" id="pendingList"><p style="text-align: center; color: #888;">Nenhum pendente</p></div>
+                <button class="action-btn" id="refreshBtn" style="width: 100%; margin-top: 15px;"><i class="fas fa-sync-alt"></i> ATUALIZAR</button>
             </div>
         </div>
         
+        <!-- Tabela de Números -->
         <div class="admin-panel">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-                <h3 class="panel-title">
-                    <i class="fas fa-list-ol"></i> TABELA COMPLETA DE NÚMEROS
-                </h3>
-                <button class="action-btn blue" id="exportBtn">
-                    <i class="fas fa-download"></i> EXPORTAR DADOS
-                </button>
+                <h3 class="panel-title"><i class="fas fa-list-ol"></i> TABELA COMPLETA</h3>
+                <button class="action-btn blue" id="exportBtn"><i class="fas fa-download"></i> EXPORTAR</button>
             </div>
-            
             <table class="numbers-table">
-                <thead>
-                    <tr>
-                        <th width="80">Nº</th>
-                        <th>Guerreiro</th>
-                        <th width="120">Status</th>
-                        <th>Comprador</th>
-                        <th width="100">Valor</th>
-                        <th width="150">Data</th>
-                        <th width="180">Ações</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Nº</th><th>Guerreiro</th><th>Status</th><th>Comprador</th><th>Valor</th><th>Data</th><th>Ações</th></tr></thead>
                 <tbody id="numbersTable"></tbody>
             </table>
         </div>
         
+        <!-- Relatórios -->
         <div class="admin-panel">
-            <h3 class="panel-title">
-                <i class="fas fa-chart-bar"></i> RELATÓRIOS E ESTATÍSTICAS
-            </h3>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
-                <div>
-                    <h4 style="color: #ff9999; margin-bottom: 10px;">ARRECADAÇÃO</h4>
-                    <div style="font-size: 1.8rem; color: #00ff00; font-weight: bold;" id="totalAmount">R$ 0,00</div>
-                    <div style="color: #888; font-size: 0.9rem;">Valor total arrecadado</div>
-                </div>
-                
-                <div>
-                    <h4 style="color: #ff9999; margin-bottom: 10px;">PRÊMIO TOTAL</h4>
-                    <div style="font-size: 1.8rem; color: #ffcc00; font-weight: bold;" id="totalPrize">R$ 0,00</div>
-                    <div style="color: #888; font-size: 0.9rem;">60% da arrecadação</div>
-                </div>
-                
-                <div>
-                    <h4 style="color: #ff9999; margin-bottom: 10px;">TOTAL DE PARTICIPANTES</h4>
-                    <div style="font-size: 1.8rem; color: #ff4444; font-weight: bold;" id="totalParticipants">0</div>
-                    <div style="color: #888; font-size: 0.9rem;">Compradores únicos</div>
-                </div>
+            <h3 class="panel-title"><i class="fas fa-chart-bar"></i> RELATÓRIOS</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div><h4 style="color:#ff9999">ARRECADAÇÃO</h4><div style="font-size:1.8rem; color:#00ff00; font-weight:bold" id="totalAmount">R$ 0,00</div></div>
+                <div><h4 style="color:#ff9999">PRÊMIO (60%)</h4><div style="font-size:1.8rem; color:#ffcc00; font-weight:bold" id="totalPrize">R$ 0,00</div></div>
+                <div><h4 style="color:#ff9999">PARTICIPANTES</h4><div style="font-size:1.8rem; color:#ff4444; font-weight:bold" id="totalParticipants">0</div></div>
             </div>
-            
-            <div style="margin-top: 30px;">
-                <button class="action-btn green" id="generateReportBtn" style="width: 100%;">
-                    <i class="fas fa-file-pdf"></i> GERAR RELATÓRIO COMPLETO
-                </button>
-            </div>
+            <button class="action-btn green" id="generateReportBtn" style="width: 100%; margin-top: 20px;"><i class="fas fa-file-pdf"></i> GERAR RELATÓRIO</button>
         </div>
     </div>
 
     <script>
-        // ==================== SISTEMA ADM ====================
-        const ADM_CONFIG = {
-            TOTAL_NUMEROS: 31,
-            PRECO_NUMERO: 3.00,
-            SENHA_ADM: 'FuriaMLBB2024!',
-            GUERREIROS: [
-                "Alucard", "Miya", "Zilong", "Layla", "Chou", "Gusion", "Harley", 
-                "Lancelot", "Fanny", "Kagura", "Hayabusa", "Claude", "Karrie", 
-                "Granger", "Bruno", "Wanwan", "Clint", "Lesley", "Beatrix", "Brody",
-                "Esmeralda", "Lunox", "Harith", "Cecilion", "Pharsa", "Odette", 
-                "Yve", "Valentina", "Xavier", "Lylia", "Benedetta"
-            ]
-        };
+        // ==================== CONFIGURAÇÃO ====================
+        const GUERREIROS = [
+            "Alucard", "Miya", "Zilong", "Layla", "Chou", "Gusion", "Harley", 
+            "Lancelot", "Fanny", "Kagura", "Hayabusa", "Claude", "Karrie", 
+            "Granger", "Bruno", "Wanwan", "Clint", "Lesley", "Beatrix", "Brody",
+            "Esmeralda", "Lunox", "Harith", "Cecilion", "Pharsa", "Odette", 
+            "Yve", "Valentina", "Xavier", "Lylia", "Benedetta"
+        ];
+        const PRECO = 3.00;
+        const TOTAL_NUMEROS = 31;
         
-        let admData = {
-            numerosSelecionados: [],
-            numerosConfirmados: [],
-            numerosPendentes: [],
-            compradores: {},
-            historico: []
-        };
-        
+        // ==================== DADOS ====================
+        let numerosSelecionados = [];
+        let numerosConfirmados = [];
+        let numerosPendentes = [];
+        let compradores = {};
         let currentSelectedNumber = null;
         
-        // ==================== FUNÇÕES AUXILIARES ====================
-        function loadADMData() {
-            admData.numerosSelecionados = JSON.parse(localStorage.getItem('rifa_com_selecionados') || '[]');
-            admData.numerosConfirmados = JSON.parse(localStorage.getItem('rifa_com_confirmados') || '[]');
-            admData.numerosPendentes = JSON.parse(localStorage.getItem('rifa_com_pendentes') || '[]');
+        // ==================== FUNÇÕES DE CARREGAMENTO ====================
+        function loadData() {
+            numerosSelecionados = JSON.parse(localStorage.getItem('rifa_com_selecionados') || '[]');
+            numerosConfirmados = JSON.parse(localStorage.getItem('rifa_com_confirmados') || '[]');
+            numerosPendentes = JSON.parse(localStorage.getItem('rifa_com_pendentes') || '[]');
             
-            const savedData = localStorage.getItem('rifa_adm_data');
-            if (savedData) {
-                const parsed = JSON.parse(savedData);
-                admData.compradores = parsed.compradores || {};
-                admData.historico = parsed.historico || [];
+            const saved = localStorage.getItem('rifa_adm_data');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                compradores = parsed.compradores || {};
+            }
+            updateAll();
+        }
+        
+        function saveData() {
+            localStorage.setItem('rifa_com_selecionados', JSON.stringify(numerosSelecionados));
+            localStorage.setItem('rifa_com_confirmados', JSON.stringify(numerosConfirmados));
+            localStorage.setItem('rifa_com_pendentes', JSON.stringify(numerosPendentes));
+            localStorage.setItem('rifa_adm_data', JSON.stringify({ compradores, historico: [] }));
+            updateAll();
+        }
+        
+        function showNotification(title, message) {
+            const notif = document.getElementById('adminNotification');
+            document.getElementById('notificationTitle').textContent = title;
+            document.getElementById('notificationText').textContent = message;
+            notif.classList.add('show');
+            setTimeout(() => notif.classList.remove('show'), 4000);
+        }
+        
+        // ==================== ATUALIZAR INTERFACE ====================
+        function updateAll() {
+            updateStats();
+            updatePendingList();
+            updateNumbersTable();
+            if (currentSelectedNumber) updateNumberInfo();
+        }
+        
+        function updateStats() {
+            document.getElementById('totalNumbers').textContent = TOTAL_NUMEROS;
+            document.getElementById('selectedNumbers').textContent = numerosSelecionados.length;
+            document.getElementById('confirmedNumbers').textContent = numerosConfirmados.length;
+            document.getElementById('pendingNumbers').textContent = numerosPendentes.length;
+            
+            const arrecadacao = numerosConfirmados.length * PRECO;
+            document.getElementById('totalAmount').textContent = `R$ ${arrecadacao.toFixed(2).replace('.', ',')}`;
+            document.getElementById('totalPrize').textContent = `R$ ${(arrecadacao * 0.6).toFixed(2).replace('.', ',')}`;
+            
+            const participantes = new Set(Object.values(compradores).map(c => c.nome));
+            document.getElementById('totalParticipants').textContent = participantes.size;
+        }
+        
+        function updateNumberInfo() {
+            if (!currentSelectedNumber) return;
+            
+            const num = currentSelectedNumber;
+            const infoDiv = document.getElementById('numberInfo');
+            document.getElementById('infoNumber').textContent = num;
+            document.getElementById('infoWarrior').textContent = GUERREIROS[num-1];
+            
+            let status = 'DISPONÍVEL';
+            if (numerosConfirmados.includes(num)) status = 'CONFIRMADO';
+            else if (numerosPendentes.some(p => p.numero === num)) status = 'PENDENTE';
+            else if (numerosSelecionados.includes(num)) status = 'SELECIONADO';
+            document.getElementById('infoStatus').textContent = status;
+            
+            const comp = compradores[num];
+            document.getElementById('infoBuyer').textContent = comp?.nome || '-';
+            document.getElementById('infoDate').textContent = comp?.data ? new Date(comp.data).toLocaleDateString('pt-BR') : '-';
+            
+            infoDiv.style.display = 'block';
+            
+            const isSelecionado = numerosSelecionados.includes(num);
+            const isConfirmado = numerosConfirmados.includes(num);
+            document.getElementById('confirmNumberBtn').disabled = !isSelecionado || isConfirmado;
+            document.getElementById('cancelNumberBtn').disabled = !isSelecionado;
+            document.getElementById('editNumberBtn').disabled = !comp;
+        }
+        
+        function updatePendingList() {
+            const container = document.getElementById('pendingList');
+            if (numerosPendentes.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #888;">Nenhum número pendente</p>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            numerosPendentes.forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'pending-item';
+                item.innerHTML = `
+                    <div>
+                        <div class="pending-number">Nº ${p.numero} - ${GUERREIROS[p.numero-1]}</div>
+                        <div class="pending-user">${p.usuario || 'Anônimo'}</div>
+                        <div class="pending-date">${new Date(p.timestamp || p.data).toLocaleString('pt-BR')}</div>
+                    </div>
+                    <div class="pending-actions">
+                        <button class="table-btn confirm-btn" onclick="confirmarNumero(${p.numero})"><i class="fas fa-check"></i> OK</button>
+                        <button class="table-btn cancel-btn" onclick="cancelarNumero(${p.numero})"><i class="fas fa-times"></i> Cancelar</button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+        
+        function updateNumbersTable() {
+            const tbody = document.getElementById('numbersTable');
+            tbody.innerHTML = '';
+            
+            for (let i = 1; i <= TOTAL_NUMEROS; i++) {
+                const row = tbody.insertRow();
+                let status = 'DISPONÍVEL';
+                let statusClass = 'status-available';
+                let comprador = '-';
+                let data = '-';
+                
+                if (numerosConfirmados.includes(i)) {
+                    status = 'CONFIRMADO';
+                    statusClass = 'status-confirmed';
+                    if (compradores[i]) comprador = compradores[i].nome;
+                    if (compradores[i]?.data) data = new Date(compradores[i].data).toLocaleDateString('pt-BR');
+                } else if (numerosPendentes.some(p => p.numero === i)) {
+                    status = 'PENDENTE';
+                    statusClass = 'status-pending';
+                    const pend = numerosPendentes.find(p => p.numero === i);
+                    if (pend) comprador = pend.usuario || 'Anônimo';
+                } else if (numerosSelecionados.includes(i)) {
+                    status = 'SELECIONADO';
+                    statusClass = 'status-sold';
+                    if (compradores[i]) comprador = compradores[i].nome;
+                }
+                
+                row.innerHTML = `
+                    <td style="font-weight:bold; color:#ff4444">${i}</td>
+                    <td>${GUERREIROS[i-1]}</td>
+                    <td><span class="status-badge ${statusClass}">${status}</span></td>
+                    <td>${comprador}</td>
+                    <td>R$ 3,00</td>
+                    <td>${data}</td>
+                    <td>
+                        <div style="display:flex; gap:5px; flex-wrap:wrap;">
+                            ${numerosSelecionados.includes(i) && !numerosConfirmados.includes(i) ? `<button class="table-btn confirm-btn" onclick="confirmarNumero(${i})"><i class="fas fa-check"></i></button>` : ''}
+                            ${compradores[i] ? `<button class="table-btn edit-btn" onclick="abrirEdicao(${i})"><i class="fas fa-edit"></i></button>` : ''}
+                            ${numerosSelecionados.includes(i) ? `<button class="table-btn cancel-btn" onclick="cancelarNumero(${i})"><i class="fas fa-times"></i></button>` : ''}
+                            ${!numerosSelecionados.includes(i) ? `<button class="table-btn confirm-btn" onclick="forcarSelecao(${i})"><i class="fas fa-user-plus"></i></button>` : ''}
+                        </div>
+                    </td>
+                `;
             }
         }
         
-        function saveADMData() {
-            localStorage.setItem('rifa_adm_data', JSON.stringify({
-                compradores: admData.compradores,
-                historico: admData.historico
-            }));
+        // ==================== AÇÕES ====================
+        function verificarNumero() {
+            const input = document.getElementById('controlNumber');
+            const numero = parseInt(input.value);
+            if (!numero || numero < 1 || numero > TOTAL_NUMEROS) {
+                showNotification('⚠️ NÚMERO INVÁLIDO', 'Digite um número entre 1 e 31');
+                input.value = '';
+                input.focus();
+                return;
+            }
+            currentSelectedNumber = numero;
+            updateNumberInfo();
+            input.value = '';
         }
         
-        function showNotification(titulo, mensagem) {
-            const notification = document.getElementById('adminNotification');
-            document.getElementById('notificationTitle').textContent = titulo;
-            document.getElementById('notificationText').textContent = mensagem;
-            notification.classList.add('show');
-            setTimeout(() => notification.classList.remove('show'), 5000);
+        function confirmarNumero(numero = currentSelectedNumber) {
+            if (!numero) return;
+            if (!numerosSelecionados.includes(numero)) {
+                showNotification('⚠️ ERRO', `Número ${numero} não está selecionado`);
+                return;
+            }
+            if (numerosConfirmados.includes(numero)) {
+                showNotification('⚠️ AVISO', `Número ${numero} já está confirmado`);
+                return;
+            }
+            
+            numerosConfirmados.push(numero);
+            numerosPendentes = numerosPendentes.filter(p => p.numero !== numero);
+            saveData();
+            showNotification('✅ CONFIRMADO', `Pagamento do número ${numero} confirmado!`);
         }
         
-        // ==================== ROLETA DE SORTEIO ====================
+        function cancelarNumero(numero = currentSelectedNumber) {
+            if (!numero) return;
+            if (!numerosSelecionados.includes(numero)) {
+                showNotification('⚠️ ERRO', `Número ${numero} não está selecionado`);
+                return;
+            }
+            if (!confirm(`Tem certeza que deseja cancelar o número ${numero}?`)) return;
+            
+            numerosSelecionados = numerosSelecionados.filter(n => n !== numero);
+            numerosConfirmados = numerosConfirmados.filter(n => n !== numero);
+            numerosPendentes = numerosPendentes.filter(p => p.numero !== numero);
+            delete compradores[numero];
+            saveData();
+            showNotification('❌ CANCELADO', `Número ${numero} cancelado`);
+        }
+        
+        function forcarSelecao(numero = currentSelectedNumber) {
+            if (!numero) {
+                const input = document.getElementById('controlNumber');
+                const val = parseInt(input.value);
+                if (!val || val < 1 || val > TOTAL_NUMEROS) {
+                    showNotification('⚠️ ERRO', 'Digite um número válido primeiro');
+                    return;
+                }
+                numero = val;
+            }
+            
+            if (numerosSelecionados.includes(numero)) {
+                showNotification('⚠️ AVISO', `Número ${numero} já está selecionado`);
+                return;
+            }
+            
+            const nome = prompt(`Digite o nome do comprador para o número ${numero} (${GUERREIROS[numero-1]}):`);
+            if (!nome || nome.trim() === '') return;
+            
+            numerosSelecionados.push(numero);
+            numerosConfirmados.push(numero);
+            compradores[numero] = { nome: nome.trim(), data: new Date().toISOString(), origem: 'ADM' };
+            saveData();
+            showNotification('✅ SELECIONADO', `Número ${numero} selecionado para ${nome}`);
+        }
+        
+        function abrirEdicao(numero) {
+            const comp = compradores[numero];
+            if (!comp) return;
+            const novoNome = prompt(`Editar comprador do número ${numero} (${GUERREIROS[numero-1]}):\nNome atual: ${comp.nome}`, comp.nome);
+            if (novoNome && novoNome.trim()) {
+                compradores[numero].nome = novoNome.trim();
+                compradores[numero].atualizado = new Date().toISOString();
+                saveData();
+                showNotification('✅ ATUALIZADO', `Comprador do número ${numero} atualizado`);
+            }
+        }
+        
+        // ==================== ROLETA ====================
         const rouletteModal = document.getElementById('rouletteModal');
-        const openRouletteBtn = document.getElementById('openRouletteBtn');
-        const closeRouletteBtn = document.getElementById('closeRouletteBtn');
-        const spinRouletteBtn = document.getElementById('spinRouletteBtn');
         const rouletteNumberDisplay = document.getElementById('rouletteNumberDisplay');
+        const rouletteHeroDisplay = document.getElementById('rouletteHeroDisplay');
         const availableCountSpan = document.getElementById('availableCount');
-        
         let isSpinning = false;
         
-        function getAvailableNumbersForRoulette() {
-            // Apenas números CONFIRMADOS (pagamento confirmado) entram no sorteio
-            return admData.numerosConfirmados.filter(num => num >= 1 && num <= 31);
+        function getAvailableNumbers() {
+            return numerosConfirmados.filter(n => n >= 1 && n <= TOTAL_NUMEROS);
         }
         
-        function updateAvailableCount() {
-            const available = getAvailableNumbersForRoulette();
+        function updateRouletteInfo() {
+            const available = getAvailableNumbers();
             availableCountSpan.textContent = available.length;
-            
+            const spinBtn = document.getElementById('spinRouletteBtn');
             if (available.length === 0) {
-                spinRouletteBtn.disabled = true;
-                spinRouletteBtn.title = "Não há números confirmados para sortear";
+                spinBtn.disabled = true;
+                document.getElementById('rouletteInfo').innerHTML = `
+                    <p><strong>⚠️ NENHUM NÚMERO CONFIRMADO!</strong></p>
+                    <p>Para realizar o sorteio, confirme pelo menos um pagamento.</p>
+                `;
             } else {
-                spinRouletteBtn.disabled = false;
-                spinRouletteBtn.title = "Clique para sortear um ganhador";
+                spinBtn.disabled = false;
+                document.getElementById('rouletteInfo').innerHTML = `
+                    <p><strong>📊 Números confirmados:</strong> ${available.length}</p>
+                    <p><strong>🎯 Clique em GIRAR para sortear o ganhador!</strong></p>
+                `;
             }
-            return available.length;
         }
         
         function openRoulette() {
-            loadADMData();
-            updateAvailableCount();
-            rouletteNumberDisplay.textContent = "🎲";
-            rouletteModal.style.display = "flex";
-            
-            // Limpar área de informação anterior se houver
-            const rouletteInfo = document.getElementById('rouletteInfo');
-            const availableCount = getAvailableNumbersForRoulette().length;
-            if (availableCount === 0) {
-                rouletteInfo.innerHTML = `
-                    <p><strong>⚠️ ATENÇÃO:</strong> Não há números confirmados para o sorteio!</p>
-                    <p style="color: #ffaa00;">Para realizar o sorteio, é necessário ter pelo menos 1 número com pagamento confirmado.</p>
-                `;
-            } else {
-                rouletteInfo.innerHTML = `
-                    <p><strong>📊 Números confirmados para sorteio:</strong> ${availableCount}</p>
-                    <p><strong>🎯 Clique em GIRAR para sortear um ganhador</strong></p>
-                `;
-            }
+            loadData();
+            updateRouletteInfo();
+            rouletteNumberDisplay.textContent = '🎲';
+            rouletteHeroDisplay.textContent = '';
+            rouletteModal.style.display = 'flex';
         }
         
         function closeRoulette() {
-            rouletteModal.style.display = "none";
+            rouletteModal.style.display = 'none';
             isSpinning = false;
         }
         
         async function spinRoulette() {
             if (isSpinning) return;
-            
-            const availableNumbers = getAvailableNumbersForRoulette();
-            if (availableNumbers.length === 0) {
-                showNotification("⚠️ SORTEIO INDISPONÍVEL", "Não há números confirmados para sortear!");
+            const available = getAvailableNumbers();
+            if (available.length === 0) {
+                showNotification('⚠️ SORTEIO INDISPONÍVEL', 'Não há números confirmados para sortear!');
                 return;
             }
             
             isSpinning = true;
-            spinRouletteBtn.disabled = true;
-            spinRouletteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SORTEANDO...';
+            const spinBtn = document.getElementById('spinRouletteBtn');
+            spinBtn.disabled = true;
+            spinBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SORTEANDO...';
             
-            // Efeito de roleta: vários números rápidos
-            let spinCount = 0;
-            const maxSpins = 20;
-            const spinInterval = setInterval(() => {
-                const randomNum = Math.floor(Math.random() * ADM_CONFIG.TOTAL_NUMEROS) + 1;
+            // Efeito de roleta
+            let count = 0;
+            const maxCount = 25;
+            const interval = setInterval(() => {
+                const randomNum = Math.floor(Math.random() * TOTAL_NUMEROS) + 1;
                 rouletteNumberDisplay.textContent = randomNum.toString().padStart(2, '0');
-                rouletteNumberDisplay.style.animation = 'glowPulse 0.1s ease';
-                setTimeout(() => {
-                    rouletteNumberDisplay.style.animation = '';
-                }, 100);
-                spinCount++;
-                
-                if (spinCount >= maxSpins) {
-                    clearInterval(spinInterval);
+                rouletteHeroDisplay.textContent = GUERREIROS[randomNum - 1];
+                count++;
+                if (count >= maxCount) {
+                    clearInterval(interval);
                     
-                    // Escolher o número final entre os confirmados
-                    const winnerNumber = availableNumbers[Math.floor(Math.random() * availableNumbers.length)];
-                    const winnerName = admData.compradores[winnerNumber]?.nome || 'Anônimo';
-                    const winnerWarrior = ADM_CONFIG.GUERREIROS[winnerNumber - 1];
+                    // Sorteio final entre os confirmados
+                    const winnerNum = available[Math.floor(Math.random() * available.length)];
+                    const winnerName = compradores[winnerNum]?.nome || 'Anônimo';
+                    const winnerHero = GUERREIROS[winnerNum - 1];
+                    const arrecadacao = numerosConfirmados.length * PRECO;
+                    const premio = arrecadacao * 0.6;
                     
-                    rouletteNumberDisplay.textContent = winnerNumber.toString().padStart(2, '0');
-                    rouletteNumberDisplay.style.animation = 'glowPulse 0.5s ease';
+                    rouletteNumberDisplay.textContent = winnerNum.toString().padStart(2, '0');
+                    rouletteHeroDisplay.textContent = winnerHero;
                     
-                    // Atualizar informações do vencedor
-                    const rouletteInfo = document.getElementById('rouletteInfo');
-                    const arrecadacao = admData.numerosConfirmados.length * ADM_CONFIG.PRECO_NUMERO;
-                    const premioTotal = arrecadacao * 0.6;
-                    
-                    rouletteInfo.innerHTML = `
+                    document.getElementById('rouletteInfo').innerHTML = `
                         <div class="winner-highlight">
-                            <p><strong>🏆 NÚMERO SORTEADO: ${winnerNumber}</strong></p>
-                            <p><strong>⚔️ GUERREIRO: ${winnerWarrior}</strong></p>
-                            <p class="winner-name">👤 GANHADOR: ${winnerName}</p>
+                            <p><strong>🏆 NÚMERO SORTEADO: ${winnerNum}</strong></p>
+                            <p><strong>⚔️ GUERREIRO: ${winnerHero}</strong></p>
+                            <p><strong>👤 GANHADOR: ${winnerName}</strong></p>
                         </div>
-                        <p style="margin-top: 15px;"><strong>💰 PRÊMIO TOTAL:</strong> R$ ${premioTotal.toFixed(2).replace('.', ',')}</p>
-                        <p><strong>📅 Data do sorteio:</strong> ${new Date().toLocaleDateString('pt-BR')}</p>
-                        <p style="color: #ffaa00; margin-top: 10px;">🎉 PARABÉNS AO GANHADOR! 🎉</p>
+                        <p style="margin-top:15px;"><strong>💰 PRÊMIO TOTAL:</strong> R$ ${premio.toFixed(2).replace('.', ',')}</p>
+                        <p><strong>📅 Sorteio:</strong> ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}</p>
+                        <p style="color:#ffaa00; margin-top:10px;">🎉 PARABÉNS AO GANHADOR! 🎉</p>
                     `;
                     
-                    // Registrar no histórico
-                    admData.historico.push({
-                        tipo: 'SORTEIO',
-                        numero: winnerNumber,
-                        ganhador: winnerName,
-                        premio: premioTotal,
-                        data: new Date().toISOString()
-                    });
-                    saveADMData();
-                    
-                    showNotification("🏆 SORTEIO REALIZADO!", `Número ${winnerNumber} - Ganhador: ${winnerName}`);
-                    
-                    spinRouletteBtn.disabled = false;
-                    spinRouletteBtn.innerHTML = '<i class="fas fa-sync-alt"></i> GIRAR NOVAMENTE';
+                    showNotification('🏆 SORTEIO REALIZADO!', `Número ${winnerNum} - ${winnerName}`);
+                    spinBtn.disabled = false;
+                    spinBtn.innerHTML = '<i class="fas fa-sync-alt"></i> GIRAR NOVAMENTE';
                     isSpinning = false;
                 }
-            }, 80);
+            }, 70);
+        }
+        
+        // ==================== RELATÓRIOS ====================
+        function gerarRelatorio() {
+            let relatorio = 'RELATÓRIO DA RIFA DO GUERREIRO\n';
+            relatorio += '================================\n\n';
+            relatorio += `Data: ${new Date().toLocaleDateString('pt-BR')}\n`;
+            relatorio += `Hora: ${new Date().toLocaleTimeString('pt-BR')}\n\n`;
+            
+            relatorio += 'ESTATÍSTICAS:\n';
+            relatorio += `Números confirmados: ${numerosConfirmados.length}\n`;
+            relatorio += `Arrecadação: R$ ${(numerosConfirmados.length * PRECO).toFixed(2).replace('.', ',')}\n`;
+            relatorio += `Prêmio (60%): R$ ${(numerosConfirmados.length * PRECO * 0.6).toFixed(2).replace('.', ',')}\n\n`;
+            
+            relatorio += 'NÚMEROS VENDIDOS:\n';
+            relatorio += '----------------\n';
+            const sorted = [...numerosConfirmados].sort((a,b) => a-b);
+            sorted.forEach(num => {
+                const comp = compradores[num];
+                relatorio += `${num.toString().padStart(2, '0')} - ${GUERREIROS[num-1]}: ${comp?.nome || 'Anônimo'}\n`;
+            });
+            
+            const blob = new Blob([relatorio], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `relatorio_rifa_${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('📥 RELATÓRIO', 'Relatório baixado com sucesso!');
+        }
+        
+        function exportarDados() {
+            const dados = { numerosConfirmados, compradores, data: new Date().toISOString() };
+            const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup_rifa_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('💾 BACKUP', 'Dados exportados!');
         }
         
         // ==================== EVENTOS ====================
-        openRouletteBtn.addEventListener('click', openRoulette);
-        closeRouletteBtn.addEventListener('click', closeRoulette);
-        spinRouletteBtn.addEventListener('click', spinRoulette);
-        
-        // Fechar modal ao clicar fora
-        rouletteModal.addEventListener('click', function(e) {
-            if (e.target === rouletteModal) closeRoulette();
-        });
+        function setupEvents() {
+            document.getElementById('checkNumberBtn').addEventListener('click', verificarNumero);
+            document.getElementById('controlNumber').addEventListener('keypress', (e) => { if(e.key === 'Enter') verificarNumero(); });
+            document.getElementById('confirmNumberBtn').addEventListener('click', () => confirmarNumero());
+            document.getElementById('cancelNumberBtn').addEventListener('click', () => cancelarNumero());
+            document.getElementById('editNumberBtn').addEventListener('click', () => currentSelectedNumber && abrirEdicao(currentSelectedNumber));
+            document.getElementById('forceSelectBtn').addEventListener('click', () => forcarSelecao());
+            document.getElementById('refreshBtn').addEventListener('click', () => loadData());
+            document.getElementById('exportBtn').addEventListener('click', exportarDados);
+            document.getElementById('generateReportBtn').addEventListener('click', gerarRelatorio);
+            document.getElementById('openRouletteBtn').addEventListener('click', openRoulette);
+            document.getElementById('closeRouletteBtn').addEventListener('click', closeRoulette);
+            document.getElementById('spinRouletteBtn').addEventListener('click', spinRoulette);
+            rouletteModal.addEventListener('click', (e) => { if(e.target === rouletteModal) closeRoulette(); });
+        }
         
         // ==================== INICIALIZAÇÃO ====================
         function init() {
-            loadADMData();
-            console.log('✅ Sistema ADM com Roleta inicializado!');
+            loadData();
+            setupEvents();
+            console.log('✅ Painel ADM inicializado!');
         }
+        
+        // Expor funções globalmente para os botões onclick
+        window.confirmarNumero = confirmarNumero;
+        window.cancelarNumero = cancelarNumero;
+        window.forcarSelecao = forcarSelecao;
+        window.abrirEdicao = abrirEdicao;
         
         document.addEventListener('DOMContentLoaded', init);
     </script>
