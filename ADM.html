@@ -8,12 +8,10 @@
     
     <!-- Firebase SDKs -->
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-analytics.js";
         import { getDatabase, ref, set, get, child, update, remove, onValue } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
         
-        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyB8E7-9j-34IFkbsioAcqH0_Zo0wc5aeYE",
             authDomain: "furiadanoiteplay.firebaseapp.com",
@@ -24,12 +22,10 @@
             measurementId: "G-QXGLMTQQCW"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const database = getDatabase(app);
         
-        // Tornar disponível globalmente
         window.firebaseDB = database;
         window.firebaseRef = ref;
         window.firebaseSet = set;
@@ -39,16 +35,11 @@
         window.firebaseRemove = remove;
         window.firebaseOnValue = onValue;
         
-        console.log("🔥 Firebase inicializado com sucesso!");
+        console.log("🔥 Firebase inicializado!");
     </script>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
             color: white;
@@ -56,12 +47,7 @@
             min-height: 100vh;
             padding: 20px;
         }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
+        .container { max-width: 1400px; margin: 0 auto; }
         .admin-header {
             background: rgba(20, 0, 0, 0.9);
             border: 3px solid #ff0000;
@@ -70,7 +56,6 @@
             margin-bottom: 30px;
             box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
         }
-        
         .header-top {
             display: flex;
             justify-content: space-between;
@@ -79,13 +64,11 @@
             flex-wrap: wrap;
             gap: 15px;
         }
-        
         .admin-title {
             color: #ff4444;
             font-size: 2rem;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
-        
         .back-btn {
             background: linear-gradient(135deg, #333, #111);
             color: #ff4444;
@@ -99,13 +82,11 @@
             gap: 10px;
             transition: all 0.3s ease;
         }
-        
         .back-btn:hover {
             background: linear-gradient(135deg, #444, #222);
             transform: translateY(-2px);
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
         }
-        
         .roulette-btn {
             background: linear-gradient(135deg, #ff8800, #ff4400);
             color: white;
@@ -121,46 +102,36 @@
             gap: 12px;
             box-shadow: 0 0 15px rgba(255, 68, 0, 0.5);
         }
-        
         .roulette-btn:hover {
             background: linear-gradient(135deg, #ffaa00, #ff6600);
             transform: translateY(-2px);
             box-shadow: 0 0 25px rgba(255, 68, 0, 0.8);
         }
-        
         .admin-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
-        
         .admin-stat {
             background: rgba(0, 0, 0, 0.3);
             padding: 15px;
             border-radius: 10px;
             border-left: 4px solid #ff4444;
         }
-        
         .admin-stat-value {
             font-size: 1.8rem;
             font-weight: bold;
             color: #ff4444;
             margin: 5px 0;
         }
-        
-        .admin-stat-label {
-            color: #ccc;
-            font-size: 0.9rem;
-        }
-        
+        .admin-stat-label { color: #ccc; font-size: 0.9rem; }
         .admin-panels {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
-        
         .admin-panel {
             background: rgba(20, 20, 30, 0.9);
             border: 2px solid #ff0000;
@@ -169,7 +140,6 @@
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
             height: fit-content;
         }
-        
         .panel-title {
             color: #ff4444;
             font-size: 1.4rem;
@@ -180,14 +150,12 @@
             align-items: center;
             gap: 10px;
         }
-        
         .number-control {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
-        
         .number-input {
             flex: 1;
             padding: 12px 15px;
@@ -197,13 +165,11 @@
             color: white;
             font-size: 1rem;
         }
-        
         .number-input:focus {
             outline: none;
             border-color: #ff8888;
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
-        
         .action-btn {
             padding: 12px 25px;
             background: linear-gradient(135deg, #ff0000, #ff4444);
@@ -217,23 +183,16 @@
             align-items: center;
             gap: 8px;
         }
-        
         .action-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, #cc0000, #ff2222);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
         }
-        
-        .action-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .action-btn.green { background: linear-gradient(135deg, #006400, #228B22); }
         .action-btn.red { background: linear-gradient(135deg, #8B0000, #B22222); }
         .action-btn.blue { background: linear-gradient(135deg, #00008B, #191970); }
         .action-btn.orange { background: linear-gradient(135deg, #ff8800, #ff5500); }
-        
         .info-card {
             background: rgba(0, 0, 0, 0.3);
             padding: 15px;
@@ -241,23 +200,13 @@
             border-left: 4px solid #ff4444;
             margin-bottom: 20px;
         }
-        
-        .info-card h4 {
-            color: #ff4444;
-            margin-bottom: 10px;
-        }
-        
-        .info-card p {
-            margin: 5px 0;
-            color: #ddd;
-        }
-        
+        .info-card h4 { color: #ff4444; margin-bottom: 10px; }
+        .info-card p { margin: 5px 0; color: #ddd; }
         .pending-list {
             max-height: 400px;
             overflow-y: auto;
             margin-top: 15px;
         }
-        
         .pending-item {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid #444;
@@ -270,28 +219,10 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        
-        .pending-number {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #ff4444;
-        }
-        
-        .pending-user {
-            color: #ccc;
-            margin: 5px 0;
-        }
-        
-        .pending-date {
-            color: #888;
-            font-size: 0.8rem;
-        }
-        
-        .pending-actions {
-            display: flex;
-            gap: 8px;
-        }
-        
+        .pending-number { font-size: 1.4rem; font-weight: bold; color: #ff4444; }
+        .pending-user { color: #ccc; margin: 5px 0; }
+        .pending-date { color: #888; font-size: 0.8rem; }
+        .pending-actions { display: flex; gap: 8px; }
         .table-btn {
             padding: 5px 10px;
             border: none;
@@ -300,37 +231,19 @@
             font-size: 0.8rem;
             transition: all 0.2s ease;
         }
-        
-        .confirm-btn {
-            background: rgba(0, 255, 0, 0.1);
-            color: #00ff00;
-            border: 1px solid #00ff00;
-        }
-        
+        .confirm-btn { background: rgba(0, 255, 0, 0.1); color: #00ff00; border: 1px solid #00ff00; }
         .confirm-btn:hover { background: rgba(0, 255, 0, 0.3); }
-        
-        .cancel-btn {
-            background: rgba(255, 0, 0, 0.1);
-            color: #ff4444;
-            border: 1px solid #ff4444;
-        }
-        
+        .cancel-btn { background: rgba(255, 0, 0, 0.1); color: #ff4444; border: 1px solid #ff4444; }
         .cancel-btn:hover { background: rgba(255, 0, 0, 0.3); }
-        
-        .edit-btn {
-            background: rgba(255, 165, 0, 0.1);
-            color: #ffa500;
-            border: 1px solid #ffa500;
-        }
-        
+        .edit-btn { background: rgba(255, 165, 0, 0.1); color: #ffa500; border: 1px solid #ffa500; }
         .edit-btn:hover { background: rgba(255, 165, 0, 0.3); }
-        
+        .sell-btn { background: rgba(0, 255, 255, 0.1); color: #00ffff; border: 1px solid #00ffff; }
+        .sell-btn:hover { background: rgba(0, 255, 255, 0.3); }
         .numbers-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
-        
         .numbers-table th {
             background: rgba(255, 0, 0, 0.2);
             color: #ff9999;
@@ -338,12 +251,10 @@
             text-align: left;
             border-bottom: 2px solid #ff0000;
         }
-        
         .numbers-table td {
             padding: 12px;
             border-bottom: 1px solid #333;
         }
-        
         .status-badge {
             display: inline-block;
             padding: 4px 12px;
@@ -351,12 +262,10 @@
             font-size: 0.85rem;
             font-weight: bold;
         }
-        
         .status-available { background: rgba(0, 255, 0, 0.1); color: #00ff00; border: 1px solid #00ff00; }
         .status-pending { background: rgba(255, 165, 0, 0.1); color: #ffa500; border: 1px solid #ffa500; }
         .status-confirmed { background: rgba(0, 0, 255, 0.1); color: #4169E1; border: 1px solid #4169E1; }
         .status-sold { background: rgba(255, 0, 0, 0.1); color: #ff4444; border: 1px solid #ff4444; }
-        
         .admin-notification {
             position: fixed;
             top: 20px;
@@ -370,15 +279,11 @@
             display: none;
             animation: slideIn 0.5s ease;
         }
-        
         .admin-notification.show { display: block; }
-        
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-        
-        /* ROLETA */
         .roulette-modal {
             position: fixed;
             top: 0;
@@ -391,7 +296,6 @@
             align-items: center;
             z-index: 3000;
         }
-        
         .roulette-content {
             background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
             border: 4px solid #ff8800;
@@ -402,13 +306,7 @@
             text-align: center;
             box-shadow: 0 0 60px rgba(255, 68, 0, 0.6);
         }
-        
-        .roulette-title {
-            color: #ff8800;
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-        
+        .roulette-title { color: #ff8800; font-size: 2rem; margin-bottom: 20px; }
         .roulette-wheel {
             background: rgba(0, 0, 0, 0.5);
             border-radius: 20px;
@@ -416,7 +314,6 @@
             margin: 20px 0;
             border: 2px solid #ff8800;
         }
-        
         .roulette-number {
             font-size: 5rem;
             font-weight: bold;
@@ -424,13 +321,7 @@
             text-shadow: 0 0 20px #ff6600;
             font-family: monospace;
         }
-        
-        .roulette-hero {
-            font-size: 1.2rem;
-            color: #ffcc66;
-            margin-top: 10px;
-        }
-        
+        .roulette-hero { font-size: 1.2rem; color: #ffcc66; margin-top: 10px; }
         .roulette-info {
             background: rgba(0, 0, 0, 0.5);
             padding: 20px;
@@ -438,7 +329,6 @@
             margin: 20px 0;
             text-align: left;
         }
-        
         .winner-highlight {
             background: linear-gradient(135deg, #ffaa00, #ff6600);
             color: #000;
@@ -447,12 +337,10 @@
             margin-top: 15px;
             animation: winnerFlash 0.5s ease;
         }
-        
         @keyframes winnerFlash {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; background: linear-gradient(135deg, #ffcc00, #ff8800); }
         }
-        
         .spin-btn {
             background: linear-gradient(135deg, #ff8800, #ff4400);
             color: white;
@@ -467,18 +355,12 @@
             align-items: center;
             gap: 12px;
         }
-        
         .spin-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, #ffaa00, #ff6600);
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 68, 0, 0.8);
         }
-        
-        .spin-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
+        .spin-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .close-roulette {
             background: linear-gradient(135deg, #333, #555);
             color: white;
@@ -489,14 +371,7 @@
             cursor: pointer;
             margin-left: 15px;
         }
-        
-        .sync-status {
-            font-size: 0.8rem;
-            color: #00ff00;
-            margin-top: 10px;
-            text-align: center;
-        }
-        
+        .sync-status { font-size: 0.8rem; color: #00ff00; margin-top: 10px; text-align: center; }
         @media (max-width: 768px) {
             .roulette-number { font-size: 3rem; }
             .spin-btn { padding: 12px 20px; font-size: 1rem; }
@@ -509,11 +384,10 @@
 </head>
 <body>
     <div class="admin-notification" id="adminNotification">
-        <h4 class="notification-title" id="notificationTitle">📡 ATUALIZAÇÃO</h4>
+        <h4 id="notificationTitle">📡 ATUALIZAÇÃO</h4>
         <p id="notificationText">Sistema de comunicação ativo</p>
     </div>
     
-    <!-- ROLETA -->
     <div class="roulette-modal" id="rouletteModal">
         <div class="roulette-content">
             <h2 class="roulette-title"><i class="fas fa-dice-d6"></i> ROLETA DO GUERREIRO</h2>
@@ -541,10 +415,9 @@
                     <a href="comun.html" class="back-btn"><i class="fas fa-arrow-left"></i> VOLTAR</a>
                 </div>
             </div>
-            
             <div class="admin-stats">
                 <div class="admin-stat"><div class="admin-stat-label">TOTAL DE NÚMEROS</div><div class="admin-stat-value" id="totalNumbers">31</div></div>
-                <div class="admin-stat"><div class="admin-stat-label">SELECIONADOS</div><div class="admin-stat-value" id="selectedNumbers">0</div></div>
+                <div class="admin-stat"><div class="admin-stat-label">VENDIDOS</div><div class="admin-stat-value" id="selectedNumbers">0</div></div>
                 <div class="admin-stat"><div class="admin-stat-label">CONFIRMADOS</div><div class="admin-stat-value" id="confirmedNumbers">0</div></div>
                 <div class="admin-stat"><div class="admin-stat-label">PENDENTES</div><div class="admin-stat-value" id="pendingNumbers">0</div></div>
             </div>
@@ -552,15 +425,12 @@
         </div>
         
         <div class="admin-panels">
-            <!-- Painel de Controle -->
             <div class="admin-panel">
                 <h3 class="panel-title"><i class="fas fa-gamepad"></i> CONTROLE DE NÚMEROS</h3>
-                
                 <div class="number-control">
                     <input type="number" id="controlNumber" class="number-input" placeholder="Digite o número (1-31)" min="1" max="31">
                     <button class="action-btn" id="checkNumberBtn"><i class="fas fa-search"></i> VERIFICAR</button>
                 </div>
-                
                 <div id="numberInfo" style="display: none;">
                     <div class="info-card">
                         <h4>INFORMAÇÕES DO NÚMERO <span id="infoNumber">0</span></h4>
@@ -570,27 +440,24 @@
                         <p><strong>📅 Data:</strong> <span id="infoDate">-</span></p>
                     </div>
                 </div>
-                
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                     <button class="action-btn green" id="confirmNumberBtn" disabled><i class="fas fa-check-circle"></i> CONFIRMAR</button>
                     <button class="action-btn red" id="cancelNumberBtn" disabled><i class="fas fa-times-circle"></i> CANCELAR</button>
                     <button class="action-btn blue" id="editNumberBtn" disabled><i class="fas fa-edit"></i> EDITAR</button>
-                    <button class="action-btn orange" id="forceSelectBtn"><i class="fas fa-user-plus"></i> FORÇAR SELEÇÃO</button>
+                    <button class="action-btn orange" id="forceSelectBtn"><i class="fas fa-user-plus"></i> FORÇAR VENDA</button>
                 </div>
             </div>
             
-            <!-- Painel de Pendentes -->
             <div class="admin-panel">
                 <h3 class="panel-title"><i class="fas fa-clock"></i> NÚMEROS PENDENTES</h3>
-                <div class="pending-list" id="pendingList"><p style="text-align: center; color: #888;">Carregando...</p></div>
+                <div class="pending-list" id="pendingList"><p style="text-align: center; color: #888;">Nenhum pendente</p></div>
                 <button class="action-btn" id="refreshBtn" style="width: 100%; margin-top: 15px;"><i class="fas fa-sync-alt"></i> ATUALIZAR</button>
             </div>
         </div>
         
-        <!-- Tabela de Números -->
         <div class="admin-panel">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-                <h3 class="panel-title"><i class="fas fa-list-ol"></i> TABELA COMPLETA</h3>
+                <h3 class="panel-title"><i class="fas fa-list-ol"></i> TABELA COMPLETA (NÚMEROS 1 A 31)</h3>
                 <button class="action-btn blue" id="exportBtn"><i class="fas fa-download"></i> EXPORTAR</button>
             </div>
             <div style="overflow-x: auto;">
@@ -603,7 +470,6 @@
             </div>
         </div>
         
-        <!-- Relatórios -->
         <div class="admin-panel">
             <h3 class="panel-title"><i class="fas fa-chart-bar"></i> RELATÓRIOS</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
@@ -618,49 +484,45 @@
     <script type="module">
         // ==================== CONFIGURAÇÃO ====================
         const GUERREIROS = [
-            "Alucard", "Miya", "Zilong", "Layla", "Chou", "Gusion", "Harley", 
-            "Lancelot", "Fanny", "Kagura", "Hayabusa", "Claude", "Karrie", 
-            "Granger", "Bruno", "Wanwan", "Clint", "Lesley", "Beatrix", "Brody",
-            "Esmeralda", "Lunox", "Harith", "Cecilion", "Pharsa", "Odette", 
-            "Yve", "Valentina", "Xavier", "Lylia", "Benedetta"
+            "🏹 Alucard", "🌸 Miya", "⚔️ Zilong", "🔫 Layla", "🥋 Chou", "🗡️ Gusion", "🎩 Harley",
+            "⚡ Lancelot", "🪢 Fanny", "🌊 Kagura", "💨 Hayabusa", "🎯 Claude", "⭐ Karrie",
+            "🔫 Granger", "⚽ Bruno", "🐉 Wanwan", "🤠 Clint", "🎯 Lesley", "🎭 Beatrix", "💀 Brody",
+            "✨ Esmeralda", "🌙 Lunox", "🐱 Harith", "🦇 Cecilion", "🌀 Pharsa", "🎭 Odette",
+            "📜 Yve", "🔮 Valentina", "🔥 Xavier", "🧪 Lylia", "🗡️ Benedetta"
         ];
         const PRECO = 3.00;
         const TOTAL_NUMEROS = 31;
         
         // ==================== DADOS ====================
-        let numerosSelecionados = [];
-        let numerosConfirmados = [];
-        let numerosPendentes = [];
+        let numerosVendidos = [];     // Números com venda confirmada
+        let numerosConfirmados = [];   // Números com pagamento confirmado
+        let numerosPendentes = [];     // Números aguardando pagamento
         let compradores = {};
         let currentSelectedNumber = null;
         
-        // Referências Firebase
         const db = window.firebaseDB;
         const ref = window.firebaseRef;
         const get = window.firebaseGet;
-        const set = window.firebaseSet;
         const update = window.firebaseUpdate;
-        const remove = window.firebaseRemove;
         const onValue = window.firebaseOnValue;
-        const child = window.firebaseChild;
         
         // ==================== FUNÇÕES DO FIREBASE ====================
         async function syncToFirebase() {
             try {
                 const rifaRef = ref(db, 'rifa');
                 await update(rifaRef, {
-                    numerosSelecionados: numerosSelecionados,
+                    numerosVendidos: numerosVendidos,
                     numerosConfirmados: numerosConfirmados,
                     numerosPendentes: numerosPendentes,
                     compradores: compradores,
                     ultimaAtualizacao: new Date().toISOString()
                 });
-                document.getElementById('syncStatus').innerHTML = '✅ Sincronizado com Firebase';
+                document.getElementById('syncStatus').innerHTML = '✅ Sincronizado!';
                 setTimeout(() => {
                     document.getElementById('syncStatus').innerHTML = '✅ Sincronizado com Firebase';
                 }, 2000);
             } catch (error) {
-                console.error("Erro ao sincronizar:", error);
+                console.error("Erro:", error);
                 document.getElementById('syncStatus').innerHTML = '⚠️ Erro na sincronização';
             }
         }
@@ -672,24 +534,22 @@
                 
                 if (snapshot.exists()) {
                     const data = snapshot.val();
-                    numerosSelecionados = data.numerosSelecionados || [];
+                    numerosVendidos = data.numerosVendidos || [];
                     numerosConfirmados = data.numerosConfirmados || [];
                     numerosPendentes = data.numerosPendentes || [];
                     compradores = data.compradores || {};
                 } else {
-                    numerosSelecionados = [];
+                    // Primeira vez - dados vazios
+                    numerosVendidos = [];
                     numerosConfirmados = [];
                     numerosPendentes = [];
                     compradores = {};
                 }
                 updateAll();
-                document.getElementById('syncStatus').innerHTML = '✅ Dados carregados do Firebase';
-                setTimeout(() => {
-                    document.getElementById('syncStatus').innerHTML = '✅ Sincronizado com Firebase';
-                }, 2000);
+                document.getElementById('syncStatus').innerHTML = '✅ Dados carregados!';
             } catch (error) {
                 console.error("Erro ao carregar:", error);
-                showNotification('⚠️ ERRO', 'Erro ao conectar com Firebase');
+                updateAll(); // Mostra tabela mesmo sem Firebase
             }
         }
         
@@ -698,12 +558,11 @@
             onValue(rifaRef, (snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
-                    numerosSelecionados = data.numerosSelecionados || [];
+                    numerosVendidos = data.numerosVendidos || [];
                     numerosConfirmados = data.numerosConfirmados || [];
                     numerosPendentes = data.numerosPendentes || [];
                     compradores = data.compradores || {};
                     updateAll();
-                    showNotification('🔄 ATUALIZAÇÃO', 'Dados sincronizados com o servidor');
                 }
             });
         }
@@ -726,7 +585,7 @@
         
         function updateStats() {
             document.getElementById('totalNumbers').textContent = TOTAL_NUMEROS;
-            document.getElementById('selectedNumbers').textContent = numerosSelecionados.length;
+            document.getElementById('selectedNumbers').textContent = numerosVendidos.length;
             document.getElementById('confirmedNumbers').textContent = numerosConfirmados.length;
             document.getElementById('pendingNumbers').textContent = numerosPendentes.length;
             
@@ -749,7 +608,7 @@
             let status = 'DISPONÍVEL';
             if (numerosConfirmados.includes(num)) status = 'CONFIRMADO';
             else if (numerosPendentes.some(p => p.numero === num)) status = 'PENDENTE';
-            else if (numerosSelecionados.includes(num)) status = 'SELECIONADO';
+            else if (numerosVendidos.includes(num)) status = 'VENDIDO';
             document.getElementById('infoStatus').textContent = status;
             
             const comp = compradores[num];
@@ -758,10 +617,10 @@
             
             infoDiv.style.display = 'block';
             
-            const isSelecionado = numerosSelecionados.includes(num);
+            const isVendido = numerosVendidos.includes(num);
             const isConfirmado = numerosConfirmados.includes(num);
-            document.getElementById('confirmNumberBtn').disabled = !isSelecionado || isConfirmado;
-            document.getElementById('cancelNumberBtn').disabled = !isSelecionado;
+            document.getElementById('confirmNumberBtn').disabled = !isVendido || isConfirmado;
+            document.getElementById('cancelNumberBtn').disabled = !isVendido;
             document.getElementById('editNumberBtn').disabled = !comp;
         }
         
@@ -812,8 +671,8 @@
                     statusClass = 'status-pending';
                     const pend = numerosPendentes.find(p => p.numero === i);
                     if (pend) comprador = pend.usuario || 'Anônimo';
-                } else if (numerosSelecionados.includes(i)) {
-                    status = 'SELECIONADO';
+                } else if (numerosVendidos.includes(i)) {
+                    status = 'VENDIDO';
                     statusClass = 'status-sold';
                     if (compradores[i]) comprador = compradores[i].nome;
                 }
@@ -827,10 +686,10 @@
                     <td style="font-size:0.8rem">${data}</td>
                     <td>
                         <div style="display:flex; gap:5px; flex-wrap:wrap;">
-                            ${numerosSelecionados.includes(i) && !numerosConfirmados.includes(i) ? `<button class="table-btn confirm-btn" onclick="window.confirmarNumero(${i})"><i class="fas fa-check"></i></button>` : ''}
-                            ${compradores[i] ? `<button class="table-btn edit-btn" onclick="window.abrirEdicao(${i})"><i class="fas fa-edit"></i></button>` : ''}
-                            ${numerosSelecionados.includes(i) ? `<button class="table-btn cancel-btn" onclick="window.cancelarNumero(${i})"><i class="fas fa-times"></i></button>` : ''}
-                            ${!numerosSelecionados.includes(i) ? `<button class="table-btn confirm-btn" onclick="window.forcarSelecao(${i})"><i class="fas fa-user-plus"></i></button>` : ''}
+                            ${!numerosVendidos.includes(i) ? `<button class="table-btn sell-btn" onclick="window.venderNumero(${i})"><i class="fas fa-dollar-sign"></i> VENDER</button>` : ''}
+                            ${numerosVendidos.includes(i) && !numerosConfirmados.includes(i) ? `<button class="table-btn confirm-btn" onclick="window.confirmarNumero(${i})"><i class="fas fa-check"></i></button>` : ''}
+                            ${compradores[i] ? `<button class="table-btn edit-btn" onclick="window.editarComprador(${i})"><i class="fas fa-edit"></i> EDITAR</button>` : ''}
+                            ${numerosVendidos.includes(i) ? `<button class="table-btn cancel-btn" onclick="window.cancelarNumero(${i})"><i class="fas fa-times"></i></button>` : ''}
                         </div>
                     </td>
                 `;
@@ -852,10 +711,33 @@
             input.value = '';
         }
         
+        async function venderNumero(numero) {
+            if (numerosVendidos.includes(numero)) {
+                showNotification('⚠️ AVISO', `Número ${numero} já está vendido!`);
+                return;
+            }
+            
+            const nome = prompt(`💲 VENDA DO NÚMERO ${numero} - ${GUERREIROS[numero-1]}\n\nDigite o nome do comprador:`);
+            if (!nome || nome.trim() === '') return;
+            
+            const telefone = prompt(`📱 Digite o telefone do comprador (opcional):`);
+            
+            numerosVendidos.push(numero);
+            numerosConfirmados.push(numero); // Já confirma direto
+            compradores[numero] = { 
+                nome: nome.trim(), 
+                telefone: telefone || '',
+                data: new Date().toISOString(), 
+                origem: 'ADM' 
+            };
+            await syncToFirebase();
+            showNotification('✅ VENDA REALIZADA!', `Número ${numero} vendido para ${nome}`);
+        }
+        
         async function confirmarNumero(numero = currentSelectedNumber) {
             if (!numero) return;
-            if (!numerosSelecionados.includes(numero)) {
-                showNotification('⚠️ ERRO', `Número ${numero} não está selecionado`);
+            if (!numerosVendidos.includes(numero)) {
+                showNotification('⚠️ ERRO', `Número ${numero} não está vendido`);
                 return;
             }
             if (numerosConfirmados.includes(numero)) {
@@ -871,55 +753,32 @@
         
         async function cancelarNumero(numero = currentSelectedNumber) {
             if (!numero) return;
-            if (!numerosSelecionados.includes(numero)) {
-                showNotification('⚠️ ERRO', `Número ${numero} não está selecionado`);
+            if (!numerosVendidos.includes(numero)) {
+                showNotification('⚠️ ERRO', `Número ${numero} não está vendido`);
                 return;
             }
-            if (!confirm(`Tem certeza que deseja cancelar o número ${numero}?`)) return;
+            if (!confirm(`❌ CANCELAR VENDA\n\nTem certeza que deseja cancelar o número ${numero} - ${GUERREIROS[numero-1]}?`)) return;
             
-            numerosSelecionados = numerosSelecionados.filter(n => n !== numero);
+            numerosVendidos = numerosVendidos.filter(n => n !== numero);
             numerosConfirmados = numerosConfirmados.filter(n => n !== numero);
             numerosPendentes = numerosPendentes.filter(p => p.numero !== numero);
             delete compradores[numero];
             await syncToFirebase();
-            showNotification('❌ CANCELADO', `Número ${numero} cancelado`);
+            showNotification('❌ CANCELADO', `Venda do número ${numero} cancelada`);
         }
         
-        async function forcarSelecao(numero = currentSelectedNumber) {
-            if (!numero) {
-                const input = document.getElementById('controlNumber');
-                const val = parseInt(input.value);
-                if (!val || val < 1 || val > TOTAL_NUMEROS) {
-                    showNotification('⚠️ ERRO', 'Digite um número válido primeiro');
-                    return;
-                }
-                numero = val;
-            }
-            
-            if (numerosSelecionados.includes(numero)) {
-                showNotification('⚠️ AVISO', `Número ${numero} já está selecionado`);
+        async function editarComprador(numero) {
+            const comp = compradores[numero];
+            if (!comp) {
+                showNotification('⚠️ ERRO', 'Número não possui comprador');
                 return;
             }
-            
-            const nome = prompt(`Digite o nome do comprador para o número ${numero} (${GUERREIROS[numero-1]}):`);
-            if (!nome || nome.trim() === '') return;
-            
-            numerosSelecionados.push(numero);
-            numerosConfirmados.push(numero);
-            compradores[numero] = { nome: nome.trim(), data: new Date().toISOString(), origem: 'ADM' };
-            await syncToFirebase();
-            showNotification('✅ SELECIONADO', `Número ${numero} selecionado para ${nome}`);
-        }
-        
-        async function abrirEdicao(numero) {
-            const comp = compradores[numero];
-            if (!comp) return;
-            const novoNome = prompt(`Editar comprador do número ${numero} (${GUERREIROS[numero-1]}):\nNome atual: ${comp.nome}`, comp.nome);
-            if (novoNome && novoNome.trim()) {
+            const novoNome = prompt(`✏️ EDITAR COMPRADOR\n\nNúmero: ${numero} - ${GUERREIROS[numero-1]}\nNome atual: ${comp.nome}\n\nDigite o novo nome:`, comp.nome);
+            if (novoNome && novoNome.trim() && novoNome.trim() !== comp.nome) {
                 compradores[numero].nome = novoNome.trim();
                 compradores[numero].atualizado = new Date().toISOString();
                 await syncToFirebase();
-                showNotification('✅ ATUALIZADO', `Comprador do número ${numero} atualizado`);
+                showNotification('✅ ATUALIZADO', `Comprador do número ${numero} atualizado para ${novoNome}`);
             }
         }
         
@@ -927,7 +786,6 @@
         const rouletteModal = document.getElementById('rouletteModal');
         const rouletteNumberDisplay = document.getElementById('rouletteNumberDisplay');
         const rouletteHeroDisplay = document.getElementById('rouletteHeroDisplay');
-        const availableCountSpan = document.getElementById('availableCount');
         let isSpinning = false;
         
         function getAvailableNumbers() {
@@ -936,13 +794,13 @@
         
         function updateRouletteInfo() {
             const available = getAvailableNumbers();
-            availableCountSpan.textContent = available.length;
+            document.getElementById('availableCount').textContent = available.length;
             const spinBtn = document.getElementById('spinRouletteBtn');
             if (available.length === 0) {
                 spinBtn.disabled = true;
                 document.getElementById('rouletteInfo').innerHTML = `
                     <p><strong>⚠️ NENHUM NÚMERO CONFIRMADO!</strong></p>
-                    <p>Para realizar o sorteio, confirme pelo menos um pagamento.</p>
+                    <p>Venda e confirme números para realizar o sorteio.</p>
                 `;
             } else {
                 spinBtn.disabled = false;
@@ -954,12 +812,10 @@
         }
         
         function openRoulette() {
-            loadFromFirebase().then(() => {
-                updateRouletteInfo();
-                rouletteNumberDisplay.textContent = '🎲';
-                rouletteHeroDisplay.textContent = '';
-                rouletteModal.style.display = 'flex';
-            });
+            updateRouletteInfo();
+            rouletteNumberDisplay.textContent = '🎲';
+            rouletteHeroDisplay.textContent = '';
+            rouletteModal.style.display = 'flex';
         }
         
         function closeRoulette() {
@@ -1049,7 +905,7 @@
         }
         
         function exportarDados() {
-            const dados = { numerosConfirmados, compradores, numerosSelecionados, numerosPendentes, data: new Date().toISOString() };
+            const dados = { numerosConfirmados, compradores, numerosVendidos, numerosPendentes, data: new Date().toISOString() };
             const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1066,8 +922,16 @@
             document.getElementById('controlNumber').addEventListener('keypress', (e) => { if(e.key === 'Enter') verificarNumero(); });
             document.getElementById('confirmNumberBtn').addEventListener('click', () => confirmarNumero());
             document.getElementById('cancelNumberBtn').addEventListener('click', () => cancelarNumero());
-            document.getElementById('editNumberBtn').addEventListener('click', () => currentSelectedNumber && abrirEdicao(currentSelectedNumber));
-            document.getElementById('forceSelectBtn').addEventListener('click', () => forcarSelecao());
+            document.getElementById('editNumberBtn').addEventListener('click', () => currentSelectedNumber && editarComprador(currentSelectedNumber));
+            document.getElementById('forceSelectBtn').addEventListener('click', () => {
+                const input = document.getElementById('controlNumber');
+                const val = parseInt(input.value);
+                if (val && val >= 1 && val <= TOTAL_NUMEROS) {
+                    venderNumero(val);
+                } else {
+                    showNotification('⚠️ ERRO', 'Digite um número válido primeiro');
+                }
+            });
             document.getElementById('refreshBtn').addEventListener('click', () => loadFromFirebase());
             document.getElementById('exportBtn').addEventListener('click', exportarDados);
             document.getElementById('generateReportBtn').addEventListener('click', gerarRelatorio);
@@ -1082,15 +946,15 @@
             await loadFromFirebase();
             setupEvents();
             setupRealtimeListener();
-            console.log('✅ Painel ADM inicializado com Firebase!');
-            showNotification('🚀 SISTEMA ONLINE', 'Painel administrativo conectado ao Firebase');
+            console.log('✅ Painel ADM inicializado!');
+            showNotification('🚀 SISTEMA ONLINE', 'Painel administrativo pronto para uso');
         }
         
         // Expor funções globalmente
         window.confirmarNumero = confirmarNumero;
         window.cancelarNumero = cancelarNumero;
-        window.forcarSelecao = forcarSelecao;
-        window.abrirEdicao = abrirEdicao;
+        window.venderNumero = venderNumero;
+        window.editarComprador = editarComprador;
         
         document.addEventListener('DOMContentLoaded', init);
     </script>
