@@ -6,7 +6,6 @@
     <title>Painel ADM - Rifa do Guerreiro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-analytics.js";
@@ -31,17 +30,10 @@
         window.firebaseGet = get;
         window.firebaseUpdate = update;
         window.firebaseOnValue = onValue;
-        
-        console.log("🔥 Firebase inicializado!");
     </script>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
             color: white;
@@ -49,12 +41,7 @@
             min-height: 100vh;
             padding: 20px;
         }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
+        .container { max-width: 1400px; margin: 0 auto; }
         .admin-header {
             background: rgba(20, 0, 0, 0.9);
             border: 3px solid #ff0000;
@@ -63,7 +50,6 @@
             margin-bottom: 30px;
             box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
         }
-        
         .header-top {
             display: flex;
             justify-content: space-between;
@@ -72,13 +58,11 @@
             flex-wrap: wrap;
             gap: 15px;
         }
-        
         .admin-title {
             color: #ff4444;
             font-size: 2rem;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
-        
         .back-btn {
             background: linear-gradient(135deg, #333, #111);
             color: #ff4444;
@@ -92,13 +76,11 @@
             gap: 10px;
             transition: all 0.3s ease;
         }
-        
         .back-btn:hover {
             background: linear-gradient(135deg, #444, #222);
             transform: translateY(-2px);
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
         }
-        
         .roulette-btn {
             background: linear-gradient(135deg, #ff8800, #ff4400);
             color: white;
@@ -114,55 +96,43 @@
             gap: 12px;
             box-shadow: 0 0 15px rgba(255, 68, 0, 0.5);
         }
-        
         .roulette-btn:hover {
             background: linear-gradient(135deg, #ffaa00, #ff6600);
             transform: translateY(-2px);
             box-shadow: 0 0 25px rgba(255, 68, 0, 0.8);
         }
-        
         .admin-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
-        
         .admin-stat {
             background: rgba(0, 0, 0, 0.3);
             padding: 15px;
             border-radius: 10px;
             border-left: 4px solid #ff4444;
         }
-        
         .admin-stat-value {
             font-size: 1.8rem;
             font-weight: bold;
             color: #ff4444;
             margin: 5px 0;
         }
-        
-        .admin-stat-label {
-            color: #ccc;
-            font-size: 0.9rem;
-        }
-        
+        .admin-stat-label { color: #ccc; font-size: 0.9rem; }
         .admin-panels {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
-        
         .admin-panel {
             background: rgba(20, 20, 30, 0.9);
             border: 2px solid #ff0000;
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-            height: fit-content;
         }
-        
         .panel-title {
             color: #ff4444;
             font-size: 1.4rem;
@@ -173,14 +143,12 @@
             align-items: center;
             gap: 10px;
         }
-        
         .number-control {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
-        
         .number-input {
             flex: 1;
             padding: 12px 15px;
@@ -190,13 +158,11 @@
             color: white;
             font-size: 1rem;
         }
-        
         .number-input:focus {
             outline: none;
             border-color: #ff8888;
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
-        
         .action-btn {
             padding: 12px 25px;
             background: linear-gradient(135deg, #ff0000, #ff4444);
@@ -210,23 +176,16 @@
             align-items: center;
             gap: 8px;
         }
-        
         .action-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, #cc0000, #ff2222);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
         }
-        
-        .action-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .action-btn.green { background: linear-gradient(135deg, #006400, #228B22); }
         .action-btn.red { background: linear-gradient(135deg, #8B0000, #B22222); }
         .action-btn.blue { background: linear-gradient(135deg, #00008B, #191970); }
         .action-btn.orange { background: linear-gradient(135deg, #ff8800, #ff5500); }
-        
         .info-card {
             background: rgba(0, 0, 0, 0.3);
             padding: 15px;
@@ -234,23 +193,13 @@
             border-left: 4px solid #ff4444;
             margin-bottom: 20px;
         }
-        
-        .info-card h4 {
-            color: #ff4444;
-            margin-bottom: 10px;
-        }
-        
-        .info-card p {
-            margin: 5px 0;
-            color: #ddd;
-        }
-        
+        .info-card h4 { color: #ff4444; margin-bottom: 10px; }
+        .info-card p { margin: 5px 0; color: #ddd; }
         .pending-list {
             max-height: 400px;
             overflow-y: auto;
             margin-top: 15px;
         }
-        
         .pending-item {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid #444;
@@ -263,67 +212,39 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        
-        .pending-number {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #ff4444;
-        }
-        
-        .pending-user {
-            color: #ccc;
-            margin: 5px 0;
-        }
-        
-        .pending-date {
-            color: #888;
-            font-size: 0.8rem;
-        }
-        
-        .pending-actions {
-            display: flex;
-            gap: 8px;
-        }
-        
+        .pending-number { font-size: 1.4rem; font-weight: bold; color: #ff4444; }
+        .pending-user { color: #ccc; margin: 5px 0; }
+        .pending-date { color: #888; font-size: 0.8rem; }
+        .pending-actions { display: flex; gap: 8px; }
         .table-btn {
-            padding: 5px 10px;
+            padding: 8px 12px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: bold;
             transition: all 0.2s ease;
         }
-        
-        .confirm-btn {
-            background: rgba(0, 255, 0, 0.1);
-            color: #00ff00;
-            border: 1px solid #00ff00;
+        .sell-btn { 
+            background: linear-gradient(135deg, #00cc44, #009933);
+            color: white;
+            border: none;
         }
-        
-        .confirm-btn:hover { background: rgba(0, 255, 0, 0.3); }
-        
-        .cancel-btn {
-            background: rgba(255, 0, 0, 0.1);
-            color: #ff4444;
-            border: 1px solid #ff4444;
+        .sell-btn:hover { 
+            background: linear-gradient(135deg, #00dd55, #00aa44);
+            transform: scale(1.05);
         }
-        
-        .cancel-btn:hover { background: rgba(255, 0, 0, 0.3); }
-        
-        .edit-btn {
-            background: rgba(255, 165, 0, 0.1);
-            color: #ffa500;
-            border: 1px solid #ffa500;
-        }
-        
-        .edit-btn:hover { background: rgba(255, 165, 0, 0.3); }
-        
+        .confirm-btn { background: rgba(0, 255, 0, 0.2); color: #00ff00; border: 1px solid #00ff00; }
+        .confirm-btn:hover { background: rgba(0, 255, 0, 0.4); }
+        .cancel-btn { background: rgba(255, 0, 0, 0.2); color: #ff4444; border: 1px solid #ff4444; }
+        .cancel-btn:hover { background: rgba(255, 0, 0, 0.4); }
+        .edit-btn { background: rgba(255, 165, 0, 0.2); color: #ffa500; border: 1px solid #ffa500; }
+        .edit-btn:hover { background: rgba(255, 165, 0, 0.4); }
         .numbers-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
-        
         .numbers-table th {
             background: rgba(255, 0, 0, 0.2);
             color: #ff9999;
@@ -331,12 +252,10 @@
             text-align: left;
             border-bottom: 2px solid #ff0000;
         }
-        
         .numbers-table td {
             padding: 12px;
             border-bottom: 1px solid #333;
         }
-        
         .status-badge {
             display: inline-block;
             padding: 4px 12px;
@@ -344,12 +263,10 @@
             font-size: 0.85rem;
             font-weight: bold;
         }
-        
-        .status-available { background: rgba(0, 255, 0, 0.1); color: #00ff00; border: 1px solid #00ff00; }
-        .status-pending { background: rgba(255, 165, 0, 0.1); color: #ffa500; border: 1px solid #ffa500; }
-        .status-confirmed { background: rgba(0, 0, 255, 0.1); color: #4169E1; border: 1px solid #4169E1; }
-        .status-sold { background: rgba(255, 0, 0, 0.1); color: #ff4444; border: 1px solid #ff4444; }
-        
+        .status-available { background: rgba(0, 255, 0, 0.15); color: #00ff00; border: 1px solid #00ff00; }
+        .status-pending { background: rgba(255, 165, 0, 0.15); color: #ffa500; border: 1px solid #ffa500; }
+        .status-confirmed { background: rgba(0, 0, 255, 0.15); color: #4169E1; border: 1px solid #4169E1; }
+        .status-sold { background: rgba(255, 0, 0, 0.15); color: #ff6666; border: 1px solid #ff6666; }
         .admin-notification {
             position: fixed;
             top: 20px;
@@ -363,22 +280,11 @@
             display: none;
             animation: slideIn 0.5s ease;
         }
-        
         .admin-notification.show { display: block; }
-        
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-        
-        .sync-status {
-            font-size: 0.8rem;
-            color: #00ff00;
-            margin-top: 10px;
-            text-align: center;
-        }
-        
-        /* ROLETA */
         .roulette-modal {
             position: fixed;
             top: 0;
@@ -391,7 +297,6 @@
             align-items: center;
             z-index: 3000;
         }
-        
         .roulette-content {
             background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
             border: 4px solid #ff8800;
@@ -402,13 +307,7 @@
             text-align: center;
             box-shadow: 0 0 60px rgba(255, 68, 0, 0.6);
         }
-        
-        .roulette-title {
-            color: #ff8800;
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-        
+        .roulette-title { color: #ff8800; font-size: 2rem; margin-bottom: 20px; }
         .roulette-wheel {
             background: rgba(0, 0, 0, 0.5);
             border-radius: 20px;
@@ -416,7 +315,6 @@
             margin: 20px 0;
             border: 2px solid #ff8800;
         }
-        
         .roulette-number {
             font-size: 5rem;
             font-weight: bold;
@@ -424,13 +322,7 @@
             text-shadow: 0 0 20px #ff6600;
             font-family: monospace;
         }
-        
-        .roulette-hero {
-            font-size: 1.2rem;
-            color: #ffcc66;
-            margin-top: 10px;
-        }
-        
+        .roulette-hero { font-size: 1.2rem; color: #ffcc66; margin-top: 10px; }
         .roulette-info {
             background: rgba(0, 0, 0, 0.5);
             padding: 20px;
@@ -438,7 +330,6 @@
             margin: 20px 0;
             text-align: left;
         }
-        
         .winner-highlight {
             background: linear-gradient(135deg, #ffaa00, #ff6600);
             color: #000;
@@ -447,12 +338,10 @@
             margin-top: 15px;
             animation: winnerFlash 0.5s ease;
         }
-        
         @keyframes winnerFlash {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; background: linear-gradient(135deg, #ffcc00, #ff8800); }
         }
-        
         .spin-btn {
             background: linear-gradient(135deg, #ff8800, #ff4400);
             color: white;
@@ -467,18 +356,12 @@
             align-items: center;
             gap: 12px;
         }
-        
         .spin-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, #ffaa00, #ff6600);
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 68, 0, 0.8);
         }
-        
-        .spin-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
+        .spin-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .close-roulette {
             background: linear-gradient(135deg, #333, #555);
             color: white;
@@ -489,24 +372,41 @@
             cursor: pointer;
             margin-left: 15px;
         }
-        
+        .sync-status { font-size: 0.8rem; color: #00ff00; margin-top: 10px; text-align: center; }
+        .btn-vender { 
+            background: linear-gradient(135deg, #00cc44, #009933);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .btn-vender:hover {
+            background: linear-gradient(135deg, #00dd55, #00aa44);
+            transform: scale(1.05);
+        }
         @media (max-width: 768px) {
             .roulette-number { font-size: 3rem; }
             .spin-btn { padding: 12px 20px; font-size: 1rem; }
             .admin-panels { grid-template-columns: 1fr; }
             .header-top { flex-direction: column; text-align: center; }
-            .numbers-table { font-size: 0.8rem; }
+            .numbers-table { font-size: 0.75rem; }
             .numbers-table th, .numbers-table td { padding: 6px; }
+            .table-btn { padding: 4px 8px; font-size: 0.7rem; }
         }
     </style>
 </head>
 <body>
     <div class="admin-notification" id="adminNotification">
-        <h4 class="notification-title" id="notificationTitle">📡 ATUALIZAÇÃO</h4>
+        <h4 id="notificationTitle">📡 ATUALIZAÇÃO</h4>
         <p id="notificationText">Sistema de comunicação ativo</p>
     </div>
     
-    <!-- ROLETA -->
     <div class="roulette-modal" id="rouletteModal">
         <div class="roulette-content">
             <h2 class="roulette-title"><i class="fas fa-dice-d6"></i> ROLETA DO GUERREIRO</h2>
@@ -534,7 +434,6 @@
                     <a href="comun.html" class="back-btn"><i class="fas fa-arrow-left"></i> VOLTAR</a>
                 </div>
             </div>
-            
             <div class="admin-stats">
                 <div class="admin-stat"><div class="admin-stat-label">TOTAL DE NÚMEROS</div><div class="admin-stat-value" id="totalNumbers">31</div></div>
                 <div class="admin-stat"><div class="admin-stat-label">VENDIDOS</div><div class="admin-stat-value" id="selectedNumbers">0</div></div>
@@ -545,15 +444,12 @@
         </div>
         
         <div class="admin-panels">
-            <!-- Painel de Controle -->
             <div class="admin-panel">
                 <h3 class="panel-title"><i class="fas fa-gamepad"></i> CONTROLE DE NÚMEROS</h3>
-                
                 <div class="number-control">
                     <input type="number" id="controlNumber" class="number-input" placeholder="Digite o número (1-31)" min="1" max="31">
                     <button class="action-btn" id="checkNumberBtn"><i class="fas fa-search"></i> VERIFICAR</button>
                 </div>
-                
                 <div id="numberInfo" style="display: none;">
                     <div class="info-card">
                         <h4>INFORMAÇÕES DO NÚMERO <span id="infoNumber">0</span></h4>
@@ -563,7 +459,6 @@
                         <p><strong>📅 Data:</strong> <span id="infoDate">-</span></p>
                     </div>
                 </div>
-                
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                     <button class="action-btn green" id="confirmNumberBtn" disabled><i class="fas fa-check-circle"></i> CONFIRMAR</button>
                     <button class="action-btn red" id="cancelNumberBtn" disabled><i class="fas fa-times-circle"></i> CANCELAR</button>
@@ -572,7 +467,6 @@
                 </div>
             </div>
             
-            <!-- Painel de Pendentes -->
             <div class="admin-panel">
                 <h3 class="panel-title"><i class="fas fa-clock"></i> NÚMEROS PENDENTES</h3>
                 <div class="pending-list" id="pendingList"><p style="text-align: center; color: #888;">Nenhum pendente</p></div>
@@ -580,7 +474,6 @@
             </div>
         </div>
         
-        <!-- Tabela de Números -->
         <div class="admin-panel">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
                 <h3 class="panel-title"><i class="fas fa-list-ol"></i> TABELA COMPLETA</h3>
@@ -596,7 +489,6 @@
             </div>
         </div>
         
-        <!-- Relatórios -->
         <div class="admin-panel">
             <h3 class="panel-title"><i class="fas fa-chart-bar"></i> RELATÓRIOS</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
@@ -611,30 +503,27 @@
     <script type="module">
         // ==================== CONFIGURAÇÃO ====================
         const GUERREIROS = [
-            "Alucard", "Miya", "Zilong", "Layla", "Chou", "Gusion", "Harley", 
-            "Lancelot", "Fanny", "Kagura", "Hayabusa", "Claude", "Karrie", 
-            "Granger", "Bruno", "Wanwan", "Clint", "Lesley", "Beatrix", "Brody",
-            "Esmeralda", "Lunox", "Harith", "Cecilion", "Pharsa", "Odette", 
-            "Yve", "Valentina", "Xavier", "Lylia", "Benedetta"
+            "🏹 Alucard", "🌸 Miya", "⚔️ Zilong", "🔫 Layla", "🥋 Chou", "🗡️ Gusion", "🎩 Harley",
+            "⚡ Lancelot", "🪢 Fanny", "🌊 Kagura", "💨 Hayabusa", "🎯 Claude", "⭐ Karrie",
+            "🔫 Granger", "⚽ Bruno", "🐉 Wanwan", "🤠 Clint", "🎯 Lesley", "🎭 Beatrix", "💀 Brody",
+            "✨ Esmeralda", "🌙 Lunox", "🐱 Harith", "🦇 Cecilion", "🌀 Pharsa", "🎭 Odette",
+            "📜 Yve", "🔮 Valentina", "🔥 Xavier", "🧪 Lylia", "🗡️ Benedetta"
         ];
         const PRECO = 3.00;
         const TOTAL_NUMEROS = 31;
         
-        // ==================== DADOS ====================
         let numerosVendidos = [];
         let numerosConfirmados = [];
         let numerosPendentes = [];
         let compradores = {};
         let currentSelectedNumber = null;
         
-        // Referências Firebase
         const db = window.firebaseDB;
         const ref = window.firebaseRef;
         const get = window.firebaseGet;
         const update = window.firebaseUpdate;
         const onValue = window.firebaseOnValue;
         
-        // ==================== FUNÇÕES DO FIREBASE ====================
         async function syncToFirebase() {
             try {
                 const rifaRef = ref(db, 'rifa');
@@ -645,13 +534,8 @@
                     compradores: compradores,
                     ultimaAtualizacao: new Date().toISOString()
                 });
-                document.getElementById('syncStatus').innerHTML = '✅ Sincronizado!';
-                setTimeout(() => {
-                    document.getElementById('syncStatus').innerHTML = '✅ Sincronizado com Firebase';
-                }, 2000);
             } catch (error) {
-                console.error("Erro:", error);
-                document.getElementById('syncStatus').innerHTML = '⚠️ Erro na sincronização';
+                console.error("Erro ao sincronizar:", error);
             }
         }
         
@@ -666,16 +550,14 @@
                     numerosConfirmados = data.numerosConfirmados || [];
                     numerosPendentes = data.numerosPendentes || [];
                     compradores = data.compradores || {};
-                } else {
-                    numerosVendidos = [];
-                    numerosConfirmados = [];
-                    numerosPendentes = [];
-                    compradores = {};
                 }
                 updateAll();
                 document.getElementById('syncStatus').innerHTML = '✅ Dados carregados!';
+                setTimeout(() => {
+                    document.getElementById('syncStatus').innerHTML = '✅ Sincronizado com Firebase';
+                }, 2000);
             } catch (error) {
-                console.error("Erro ao carregar:", error);
+                console.error("Erro:", error);
                 updateAll();
             }
         }
@@ -690,7 +572,6 @@
                     numerosPendentes = data.numerosPendentes || [];
                     compradores = data.compradores || {};
                     updateAll();
-                    showNotification('🔄 ATUALIZAÇÃO', 'Dados sincronizados com o servidor');
                 }
             });
         }
@@ -703,7 +584,6 @@
             setTimeout(() => notif.classList.remove('show'), 4000);
         }
         
-        // ==================== ATUALIZAR INTERFACE ====================
         function updateAll() {
             updateStats();
             updatePendingList();
@@ -727,9 +607,8 @@
         
         function updateNumberInfo() {
             if (!currentSelectedNumber) return;
-            
             const num = currentSelectedNumber;
-            const infoDiv = document.getElementById('numberInfo');
+            document.getElementById('numberInfo').style.display = 'block';
             document.getElementById('infoNumber').textContent = num;
             document.getElementById('infoWarrior').textContent = GUERREIROS[num-1];
             
@@ -743,8 +622,6 @@
             document.getElementById('infoBuyer').textContent = comp?.nome || '-';
             document.getElementById('infoDate').textContent = comp?.data ? new Date(comp.data).toLocaleDateString('pt-BR') : '-';
             
-            infoDiv.style.display = 'block';
-            
             const isVendido = numerosVendidos.includes(num);
             const isConfirmado = numerosConfirmados.includes(num);
             document.getElementById('confirmNumberBtn').disabled = !isVendido || isConfirmado;
@@ -755,10 +632,9 @@
         function updatePendingList() {
             const container = document.getElementById('pendingList');
             if (numerosPendentes.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #888;">Nenhum número pendente</p>';
+                container.innerHTML = '<p style="text-align: center; color: #888;">Nenhum pendente</p>';
                 return;
             }
-            
             container.innerHTML = '';
             numerosPendentes.forEach(p => {
                 const item = document.createElement('div');
@@ -788,44 +664,55 @@
                 let statusClass = 'status-available';
                 let comprador = '-';
                 let data = '-';
+                let acoes = '';
                 
                 if (numerosConfirmados.includes(i)) {
                     status = 'CONFIRMADO';
                     statusClass = 'status-confirmed';
                     if (compradores[i]) comprador = compradores[i].nome;
                     if (compradores[i]?.data) data = new Date(compradores[i].data).toLocaleDateString('pt-BR');
+                    acoes = `
+                        <button class="edit-btn table-btn" onclick="window.editarComprador(${i})"><i class="fas fa-edit"></i> EDITAR</button>
+                        <button class="cancel-btn table-btn" onclick="window.cancelarNumero(${i})"><i class="fas fa-trash"></i> CANCELAR</button>
+                    `;
                 } else if (numerosPendentes.some(p => p.numero === i)) {
                     status = 'PENDENTE';
                     statusClass = 'status-pending';
                     const pend = numerosPendentes.find(p => p.numero === i);
                     if (pend) comprador = pend.usuario || 'Anônimo';
+                    acoes = `
+                        <button class="confirm-btn table-btn" onclick="window.confirmarNumero(${i})"><i class="fas fa-check"></i> CONFIRMAR</button>
+                        <button class="cancel-btn table-btn" onclick="window.cancelarNumero(${i})"><i class="fas fa-times"></i> CANCELAR</button>
+                    `;
                 } else if (numerosVendidos.includes(i)) {
                     status = 'VENDIDO';
                     statusClass = 'status-sold';
                     if (compradores[i]) comprador = compradores[i].nome;
+                    acoes = `
+                        <button class="edit-btn table-btn" onclick="window.editarComprador(${i})"><i class="fas fa-edit"></i> EDITAR</button>
+                        <button class="cancel-btn table-btn" onclick="window.cancelarNumero(${i})"><i class="fas fa-trash"></i> CANCELAR</button>
+                    `;
+                } else {
+                    // DISPONÍVEL - Mostra o botão VENDER igual na foto 2!
+                    acoes = `
+                        <button class="sell-btn table-btn" onclick="window.venderNumero(${i})">
+                            <i class="fas fa-dollar-sign"></i> VENDER
+                        </button>
+                    `;
                 }
                 
                 row.innerHTML = `
-                    <td style="font-weight:bold; color:#ff4444">${i}</td>
+                    <td style="font-weight:bold; color:#ff4444; text-align:center">${i}</td>
                     <td>${GUERREIROS[i-1]}</td>
                     <td><span class="status-badge ${statusClass}">${status}</span></td>
                     <td>${comprador}</td>
-                    <td>R$ 3,00</td>
-                    <td style="font-size:0.8rem">${data}</td>
-                    <td>
-                        <div style="display:flex; gap:5px; flex-wrap:wrap;">
-                            ${!numerosVendidos.includes(i) ? `<button class="table-btn edit-btn" onclick="window.venderNumero(${i})"><i class="fas fa-dollar-sign"></i> VENDER</button>` : ''}
-                            ${numerosVendidos.includes(i) && !numerosConfirmados.includes(i) ? `<button class="table-btn confirm-btn" onclick="window.confirmarNumero(${i})"><i class="fas fa-check"></i></button>` : ''}
-                            ${compradores[i] ? `<button class="table-btn edit-btn" onclick="window.editarComprador(${i})"><i class="fas fa-edit"></i> EDITAR</button>` : ''}
-                            ${numerosVendidos.includes(i) ? `<button class="table-btn cancel-btn" onclick="window.cancelarNumero(${i})"><i class="fas fa-times"></i></button>` : ''}
-                        </div>
-                    </div>
-                    </td>
+                    <td style="text-align:center">R$ ${PRECO.toFixed(2).replace('.', ',')}</td>
+                    <td style="font-size:0.8rem; text-align:center">${data}</td>
+                    <td style="text-align:center">${acoes}</td>
                 `;
             }
         }
         
-        // ==================== AÇÕES ====================
         async function verificarNumero() {
             const input = document.getElementById('controlNumber');
             const numero = parseInt(input.value);
@@ -860,8 +747,7 @@
             showNotification('✅ VENDA REALIZADA!', `Número ${numero} vendido para ${nome}`);
         }
         
-        async function confirmarNumero(numero = currentSelectedNumber) {
-            if (!numero) return;
+        async function confirmarNumero(numero) {
             if (!numerosVendidos.includes(numero)) {
                 showNotification('⚠️ ERRO', `Número ${numero} não está vendido`);
                 return;
@@ -870,15 +756,13 @@
                 showNotification('⚠️ AVISO', `Número ${numero} já está confirmado`);
                 return;
             }
-            
             numerosConfirmados.push(numero);
             numerosPendentes = numerosPendentes.filter(p => p.numero !== numero);
             await syncToFirebase();
             showNotification('✅ CONFIRMADO', `Pagamento do número ${numero} confirmado!`);
         }
         
-        async function cancelarNumero(numero = currentSelectedNumber) {
-            if (!numero) return;
+        async function cancelarNumero(numero) {
             if (!numerosVendidos.includes(numero)) {
                 showNotification('⚠️ ERRO', `Número ${numero} não está vendido`);
                 return;
@@ -908,7 +792,7 @@
             }
         }
         
-        // ==================== ROLETA ====================
+        // ROLETA
         const rouletteModal = document.getElementById('rouletteModal');
         const rouletteNumberDisplay = document.getElementById('rouletteNumberDisplay');
         const rouletteHeroDisplay = document.getElementById('rouletteHeroDisplay');
@@ -971,7 +855,6 @@
                 count++;
                 if (count >= maxCount) {
                     clearInterval(interval);
-                    
                     const winnerNum = available[Math.floor(Math.random() * available.length)];
                     const winnerName = compradores[winnerNum]?.nome || 'Anônimo';
                     const winnerHero = GUERREIROS[winnerNum - 1];
@@ -1000,20 +883,15 @@
             }, 70);
         }
         
-        // ==================== RELATÓRIOS ====================
         function gerarRelatorio() {
             let relatorio = 'RELATÓRIO DA RIFA DO GUERREIRO\n';
             relatorio += '================================\n\n';
             relatorio += `Data: ${new Date().toLocaleDateString('pt-BR')}\n`;
             relatorio += `Hora: ${new Date().toLocaleTimeString('pt-BR')}\n\n`;
-            
-            relatorio += 'ESTATÍSTICAS:\n';
             relatorio += `Números confirmados: ${numerosConfirmados.length}\n`;
             relatorio += `Arrecadação: R$ ${(numerosConfirmados.length * PRECO).toFixed(2).replace('.', ',')}\n`;
             relatorio += `Prêmio (60%): R$ ${(numerosConfirmados.length * PRECO * 0.6).toFixed(2).replace('.', ',')}\n\n`;
-            
-            relatorio += 'NÚMEROS VENDIDOS:\n';
-            relatorio += '----------------\n';
+            relatorio += 'NÚMEROS VENDIDOS:\n----------------\n';
             const sorted = [...numerosConfirmados].sort((a,b) => a-b);
             sorted.forEach(num => {
                 const comp = compradores[num];
@@ -1027,11 +905,11 @@
             a.download = `relatorio_rifa_${new Date().toISOString().split('T')[0]}.txt`;
             a.click();
             URL.revokeObjectURL(url);
-            showNotification('📥 RELATÓRIO', 'Relatório baixado com sucesso!');
+            showNotification('📥 RELATÓRIO', 'Relatório baixado!');
         }
         
         function exportarDados() {
-            const dados = { numerosConfirmados, compradores, numerosVendidos, numerosPendentes, data: new Date().toISOString() };
+            const dados = { numerosConfirmados, compradores, numerosVendidos, numerosPendentes };
             const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1042,21 +920,17 @@
             showNotification('💾 BACKUP', 'Dados exportados!');
         }
         
-        // ==================== EVENTOS ====================
         function setupEvents() {
             document.getElementById('checkNumberBtn').addEventListener('click', verificarNumero);
             document.getElementById('controlNumber').addEventListener('keypress', (e) => { if(e.key === 'Enter') verificarNumero(); });
-            document.getElementById('confirmNumberBtn').addEventListener('click', () => confirmarNumero());
-            document.getElementById('cancelNumberBtn').addEventListener('click', () => cancelarNumero());
+            document.getElementById('confirmNumberBtn').addEventListener('click', () => confirmarNumero(currentSelectedNumber));
+            document.getElementById('cancelNumberBtn').addEventListener('click', () => cancelarNumero(currentSelectedNumber));
             document.getElementById('editNumberBtn').addEventListener('click', () => currentSelectedNumber && editarComprador(currentSelectedNumber));
             document.getElementById('forceSelectBtn').addEventListener('click', () => {
                 const input = document.getElementById('controlNumber');
                 const val = parseInt(input.value);
-                if (val && val >= 1 && val <= TOTAL_NUMEROS) {
-                    venderNumero(val);
-                } else {
-                    showNotification('⚠️ ERRO', 'Digite um número válido primeiro');
-                }
+                if (val && val >= 1 && val <= TOTAL_NUMEROS) venderNumero(val);
+                else showNotification('⚠️ ERRO', 'Digite um número válido');
             });
             document.getElementById('refreshBtn').addEventListener('click', () => loadFromFirebase());
             document.getElementById('exportBtn').addEventListener('click', exportarDados);
@@ -1067,19 +941,17 @@
             rouletteModal.addEventListener('click', (e) => { if(e.target === rouletteModal) closeRoulette(); });
         }
         
-        // ==================== INICIALIZAÇÃO ====================
         async function init() {
             await loadFromFirebase();
             setupEvents();
             setupRealtimeListener();
-            console.log('✅ Painel ADM inicializado com Firebase!');
-            showNotification('🚀 SISTEMA ONLINE', 'Painel administrativo conectado ao Firebase');
+            console.log('✅ Painel ADM inicializado!');
+            showNotification('🚀 SISTEMA ONLINE', 'Painel pronto para vender números!');
         }
         
-        // Expor funções globalmente
+        window.venderNumero = venderNumero;
         window.confirmarNumero = confirmarNumero;
         window.cancelarNumero = cancelarNumero;
-        window.venderNumero = venderNumero;
         window.editarComprador = editarComprador;
         
         document.addEventListener('DOMContentLoaded', init);
