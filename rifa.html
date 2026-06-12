@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Rifa do Guerreiro - FuriaDaNoitePlay</title>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -20,7 +23,6 @@
             line-height: 1.6;
         }
         
-        /* BOTÃO ADM NO CANTO SUPERIOR DIREITO */
         .admin-access {
             position: fixed;
             top: 20px;
@@ -50,46 +52,53 @@
             background: linear-gradient(135deg, #444, #222);
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
             transform: translateY(-2px);
-            color: #ff0000;
+        }
+        
+        .live-badge {
+            background: #ff0000;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            animation: pulse 1.5s infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; background: #ff0000; }
+            50% { opacity: 0.7; background: #cc0000; }
         }
         
         .container {
             max-width: 100%;
             margin: 0 auto;
-            position: relative;
         }
         
-        /* HEADER COM LOGO ANIMADA MOVENDO PARA LADOS */
         .header {
             text-align: center;
             margin-bottom: 25px;
-            padding-top: 60px; /* Espaço para o botão ADM */
+            padding-top: 60px;
         }
         
         .logo-container {
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
             margin-bottom: 15px;
         }
         
-        /* ANIMAÇÃO DO LOGO - MOVE PARA ESQUERDA E DIREITA */
         @keyframes moverLadoALado {
-            0% {
-                transform: translateX(0px);
-            }
-            25% {
-                transform: translateX(-18px);
-            }
-            50% {
-                transform: translateX(0px);
-            }
-            75% {
-                transform: translateX(18px);
-            }
-            100% {
-                transform: translateX(0px);
-            }
+            0% { transform: translateX(0px); }
+            25% { transform: translateX(-18px); }
+            50% { transform: translateX(0px); }
+            75% { transform: translateX(18px); }
+            100% { transform: translateX(0px); }
         }
         
         .logo-animated {
@@ -101,7 +110,6 @@
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
             animation: moverLadoALado 2.5s ease-in-out infinite;
             cursor: pointer;
-            transition: filter 0.3s;
             background: rgba(0,0,0,0.3);
         }
         
@@ -116,14 +124,12 @@
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
             margin-bottom: 8px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
         }
         
         .subtitle {
             font-size: 1.3rem;
             color: #ff4444;
             margin-bottom: 5px;
-            text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
         }
         
         .price-tag {
@@ -178,7 +184,7 @@
             min-height: 90px;
         }
         
-        .warrior-card:hover {
+        .warrior-card:hover:not(.sold):not(.pending) {
             transform: translateY(-3px);
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
             background: rgba(40, 0, 0, 0.9);
@@ -190,24 +196,19 @@
             border-color: #ff4444;
         }
         
-        .warrior-card.reserved {
-            background: linear-gradient(135deg, #333, #555);
-            border-color: #666;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-        
         .warrior-card.sold {
             background: linear-gradient(135deg, #006400, #228B22);
             border-color: #00ff00;
             box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            cursor: not-allowed;
+            opacity: 0.9;
         }
         
         .warrior-card.pending {
             background: linear-gradient(135deg, #8B4500, #FF8C00);
             border-color: #ffa500;
             box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+            cursor: not-allowed;
         }
         
         .warrior-number {
@@ -215,22 +216,18 @@
             font-weight: bold;
             color: white;
             margin-bottom: 5px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
         
         .warrior-label {
             font-size: 0.85rem;
             color: #ff9999;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         
         .warrior-name {
             font-size: 0.75rem;
             color: #ccc;
             margin-top: 5px;
-            height: 20px;
-            overflow: hidden;
         }
         
         .selection-info {
@@ -239,14 +236,12 @@
             border-radius: 10px;
             padding: 18px;
             margin-bottom: 25px;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
         }
         
         .selection-info h3 {
             color: #ff4444;
             margin-bottom: 12px;
             text-align: center;
-            font-size: 1.3rem;
         }
         
         .selected-numbers {
@@ -286,7 +281,6 @@
             border-radius: 10px;
             padding: 18px;
             margin-bottom: 20px;
-            box-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
         }
         
         .payment-info h4 {
@@ -331,7 +325,6 @@
         .whatsapp-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
-            background: linear-gradient(135deg, #20b858, #0f7a5f);
         }
         
         .action-buttons {
@@ -348,7 +341,6 @@
             font-size: 1rem;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
@@ -361,33 +353,33 @@
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
         
-        .select-btn:hover {
+        .select-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, #cc0000, #ff2222);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
             transform: translateY(-3px);
+        }
+        
+        .select-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
         
         .reset-btn {
             background: linear-gradient(135deg, #333, #555);
             color: white;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
         }
         
         .reset-btn:hover {
             background: linear-gradient(135deg, #444, #666);
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
         }
         
         .back-btn {
             background: linear-gradient(135deg, #222, #444);
             color: #ff4444;
             border: 2px solid #ff0000;
-            box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
         }
         
         .back-btn:hover {
             background: linear-gradient(135deg, #333, #555);
-            box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
         }
         
         .prize-info {
@@ -401,14 +393,6 @@
         .prize-info h4 {
             color: #ff4444;
             margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .prize-breakdown {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
         }
         
         .prize-item {
@@ -417,6 +401,7 @@
             padding: 8px;
             background: rgba(0, 0, 0, 0.3);
             border-radius: 5px;
+            margin: 5px 0;
         }
         
         .prize-total {
@@ -440,7 +425,6 @@
         .instructions h4 {
             color: #ff4444;
             margin-bottom: 10px;
-            font-size: 1.2rem;
         }
         
         .instructions ul {
@@ -450,7 +434,6 @@
         
         .instructions li {
             margin-bottom: 8px;
-            line-height: 1.4;
             font-size: 0.9rem;
         }
         
@@ -461,103 +444,52 @@
             border-top: 1px solid #333;
             color: #888;
             font-size: 0.85rem;
-            line-height: 1.5;
         }
         
-        .social-mention {
-            color: #ff9999;
-            font-style: italic;
-            margin: 10px 0;
-            font-size: 0.9rem;
+        .notification-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            padding: 15px;
+            z-index: 2000;
+            display: none;
+            animation: slideUp 0.3s ease;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
         @media (max-width: 768px) {
-            .warriors-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 10px;
-            }
-            
-            .title {
-                font-size: 1.7rem;
-            }
-            
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .warrior-card {
-                min-height: 85px;
-                padding: 10px 5px;
-            }
-            
-            .warrior-number {
-                font-size: 1.6rem;
-            }
-            
-            .pix-key {
-                font-size: 1rem;
-            }
-            
-            .admin-access {
-                top: 10px;
-                right: 10px;
-            }
-            
-            .admin-btn {
-                padding: 10px 15px;
-                font-size: 0.8rem;
-            }
-            
-            .logo-animated {
-                width: 80px;
-                height: 80px;
-            }
-            
-            @keyframes moverLadoALado {
-                0% { transform: translateX(0px); }
-                25% { transform: translateX(-12px); }
-                50% { transform: translateX(0px); }
-                75% { transform: translateX(12px); }
-                100% { transform: translateX(0px); }
-            }
+            .warriors-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+            .title { font-size: 1.7rem; }
+            .warrior-number { font-size: 1.6rem; }
+            .logo-animated { width: 80px; height: 80px; }
+            .admin-btn { padding: 10px 15px; font-size: 0.8rem; }
+            .live-badge { font-size: 0.6rem; }
         }
         
         @media (max-width: 480px) {
-            .warriors-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .title {
-                font-size: 1.5rem;
-            }
-            
-            .btn {
-                padding: 14px;
-                font-size: 0.95rem;
-            }
-            
-            .whatsapp-btn {
-                padding: 14px;
-                font-size: 1rem;
-            }
-            
-            .logo-animated {
-                width: 70px;
-                height: 70px;
-            }
+            .warriors-grid { grid-template-columns: repeat(3, 1fr); }
+            .title { font-size: 1.5rem; }
+            .whatsapp-btn { padding: 14px; font-size: 1rem; }
         }
         
         @media (max-width: 360px) {
-            .warriors-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .warriors-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
-    <!-- BOTÃO ADM FIXO NO CANTO SUPERIOR DIREITO -->
     <div class="admin-access">
-        <a href="ADM.html" class="admin-btn">
+        <a href="ADM.html" class="admin-btn" id="adminLink">
             <i class="fas fa-user-shield"></i> ACESSO ADM
         </a>
     </div>
@@ -565,8 +497,8 @@
     <div class="container">
         <div class="header">
             <div class="logo-container">
-                <!-- LOGO COM ANIMAÇÃO DE MOVER PARA LADO ESQUERDO E DIREITO -->
-                <img src="Furia.png" alt="FuriaDaNoitePlay - Logo" class="logo-animated" onerror="this.src='https://via.placeholder.com/100x100?text=Furia'">
+                <img src="Furia.png" alt="FuriaDaNoitePlay" class="logo-animated" onerror="this.src='https://via.placeholder.com/100x100?text=Furia'">
+                <div class="live-badge" id="liveBadge"><i class="fas fa-circle"></i> LIVE SYNC</div>
             </div>
             <h1 class="title">RIFA DO GUERREIRO</h1>
             <h2 class="subtitle">FuriaDaNoitePlay</h2>
@@ -576,9 +508,7 @@
         
         <h2 class="warriors-title">Tabela dos Guerreiros</h2>
         
-        <div class="warriors-grid" id="warriorsGrid">
-            <!-- Os números de 1 a 31 serão gerados por JavaScript -->
-        </div>
+        <div class="warriors-grid" id="warriorsGrid"></div>
         
         <div class="selection-info">
             <h3>Seus Guerreiros Selecionados</h3>
@@ -598,75 +528,56 @@
         <div class="payment-info">
             <h4>Pagamento via PIX</h4>
             <p>Envie o valor para a chave PIX abaixo e envie o comprovante pelo WhatsApp:</p>
-            
-            <div class="pix-key">
-                furiadanoiteplay2025@gmail.com
-            </div>
-            
-            <p><strong>Telefone para envio do comprovante:</strong> +55 (31) 97319-008</p>
-            <p><strong>Envie junto:</strong> Seu nome e os números escolhidos</p>
-            
-            <div id="whatsappBtnContainer">
-                <!-- Botão do WhatsApp será gerado dinamicamente -->
-            </div>
+            <div class="pix-key">furiadanoiteplay2025@gmail.com</div>
+            <p><strong>Telefone:</strong> +55 (31) 97319-008</p>
+            <div id="whatsappBtnContainer"></div>
         </div>
         
         <div class="prize-info">
             <h4>Premiação</h4>
-            <p>O ganhador receberá:</p>
-            
-            <div class="prize-breakdown">
-                <div class="prize-item">
-                    <span>60% da arrecadação da rifa</span>
-                    <span>R$ ???</span>
-                </div>
-                <div class="prize-item">
-                    <span>Parte dos colaboradores e patrocinadores</span>
-                    <span>R$ ???</span>
-                </div>
-            </div>
-            
-            <div class="prize-total">Prêmio Total: A ser divulgado após sorteio</div>
-            <p class="social-mention">O prêmio total será divulgado no Instagram e WhatsApp após o sorteio!</p>
+            <p>O ganhador receberá 60% da arrecadação total!</p>
+            <div class="prize-item"><span>Arrecadação atual:</span><span id="arrecadacaoAtual">R$ 0,00</span></div>
+            <div class="prize-item"><span>Prêmio atual (60%):</span><span id="premioAtual">R$ 0,00</span></div>
+            <div class="prize-total">Sorteio quando todos os números forem vendidos!</div>
         </div>
         
         <div class="instructions">
             <h4>Como Participar:</h4>
             <ul>
                 <li>Selecione até 5 números de guerreiros (1 a 31)</li>
-                <li>Cada número custa R$ 3,00 (exclusivo para comunidade MLBB)</li>
+                <li>Cada número custa R$ 3,00</li>
                 <li>Clique em "CONFIRMAR SELEÇÃO"</li>
-                <li>Será aberto o WhatsApp automaticamente com os números selecionados</li>
-                <li>Faça o PIX para: <strong>furiadanoiteplay2025@gmail.com</strong></li>
-                <li>Envie o comprovante pelo WhatsApp com a mensagem gerada</li>
+                <li>Faça o PIX e envie o comprovante pelo WhatsApp</li>
                 <li>Após confirmação do pagamento, seus números serão reservados</li>
-                <li>Sorteio será realizado quando todos os números forem vendidos</li>
             </ul>
         </div>
         
         <div class="footer">
-            <p>FuriaDaNoitePlay &copy; 2024 - Rifa exclusiva para a comunidade MLBB</p>
-            <p>O resultado será divulgado no Instagram, WhatsApp e grupos da comunidade</p>
-            <p>Dúvidas? Entre em contato pelo WhatsApp: +55 (31) 97319-008</p>
+            <p>FuriaDaNoitePlay &copy; 2025 - Rifa exclusiva para a comunidade MLBB</p>
+            <p>Dúvidas? WhatsApp: +55 (31) 97319-008</p>
         </div>
     </div>
+    
+    <div id="notificationToast" class="notification-toast"></div>
 
     <script>
-        // ==================== SISTEMA DA RIFA ====================
+        // ==================== FIREBASE CONFIG ====================
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8E7-9j-34IFkbsioAcqH0_Zo0wc5aeYE",
+            authDomain: "furiadanoiteplay.firebaseapp.com",
+            projectId: "furiadanoiteplay",
+            storageBucket: "furiadanoiteplay.firebasestorage.app",
+            messagingSenderId: "915495554416",
+            appId: "1:915495554416:web:756ab51a83cbd8a2e953b5",
+            measurementId: "G-QXGLMTQQCW",
+            databaseURL: "https://furiadanoiteplay-default-rtdb.firebaseio.com/"
+        };
         
-        // Gerar os números de 1 a 31
-        const warriorsGrid = document.getElementById('warriorsGrid');
-        const selectedNumbersContainer = document.getElementById('selectedNumbers');
-        const totalPriceElement = document.getElementById('totalPrice');
-        const confirmBtn = document.getElementById('confirmSelection');
-        const resetBtn = document.getElementById('resetSelection');
-        const whatsappBtnContainer = document.getElementById('whatsappBtnContainer');
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const dbRef = database.ref('rifaGuerreiro');
         
-        let selectedNumbers = [];
-        const maxSelection = 5;
-        const pricePerNumber = 3.00;
-        
-        // Nomes fictícios para os guerreiros (tema MLBB)
+        // ==================== CONFIGURAÇÕES ====================
         const warriorNames = [
             "Alucard", "Miya", "Zilong", "Layla", "Chou", "Gusion", "Harley", "Lancelot", "Fanny", "Kagura",
             "Hayabusa", "Claude", "Karrie", "Granger", "Bruno", "Wanwan", "Clint", "Lesley", "Beatrix", "Brody",
@@ -674,487 +585,308 @@
             "Benedetta"
         ];
         
-        // ==================== INICIALIZAÇÃO ====================
+        const PRECO = 3.00;
+        const TOTAL_NUMEROS = 31;
+        const MAX_SELECTION = 5;
+        const SENHA_ADMIN = "123qweasdzxc";
         
-        // Criar os cartões de 1 a 31
-        function criarCartoesGuerreiros() {
-            warriorsGrid.innerHTML = '';
-            
-            for (let i = 1; i <= 31; i++) {
-                const warriorCard = document.createElement('div');
-                warriorCard.className = 'warrior-card';
-                warriorCard.dataset.number = i;
-                warriorCard.dataset.name = warriorNames[i-1];
-                
-                const warriorNumber = document.createElement('div');
-                warriorNumber.className = 'warrior-number';
-                warriorNumber.textContent = i;
-                
-                const warriorLabel = document.createElement('div');
-                warriorLabel.className = 'warrior-label';
-                warriorLabel.textContent = 'GUERREIRO';
-                
-                const warriorName = document.createElement('div');
-                warriorName.className = 'warrior-name';
-                warriorName.textContent = warriorNames[i-1];
-                
-                warriorCard.appendChild(warriorNumber);
-                warriorCard.appendChild(warriorLabel);
-                warriorCard.appendChild(warriorName);
-                
-                warriorCard.addEventListener('click', () => toggleNumberSelection(i, warriorNames[i-1], warriorCard));
-                
-                warriorsGrid.appendChild(warriorCard);
-            }
-            
-            // Verificar status dos números
-            verificarStatusNumeros();
-        }
+        let selectedNumbers = [];
+        let numerosConfirmados = [];
+        let numerosPendentes = [];
+        let numerosSelecionados = [];
+        let compradores = {};
         
-        // Alternar seleção de número
-        function toggleNumberSelection(number, name, cardElement) {
-            if (cardElement.classList.contains('reserved') || 
-                cardElement.classList.contains('sold') || 
-                cardElement.classList.contains('pending')) {
-                return;
-            }
-            
-            const index = selectedNumbers.findIndex(item => item.number === number);
-            
-            if (index > -1) {
-                // Remover seleção
-                selectedNumbers.splice(index, 1);
-                cardElement.classList.remove('selected');
-            } else {
-                // Adicionar seleção (se não atingiu o limite)
-                if (selectedNumbers.length < maxSelection) {
-                    selectedNumbers.push({number: number, name: name});
-                    cardElement.classList.add('selected');
-                } else {
-                    alert(`Você só pode selecionar no máximo ${maxSelection} números!`);
-                    return;
+        // ==================== FIREBASE LISTENERS ====================
+        function listenFirebase() {
+            dbRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    numerosConfirmados = data.numerosConfirmados || [];
+                    numerosPendentes = data.numerosPendentes || [];
+                    numerosSelecionados = data.numerosSelecionados || [];
+                    compradores = data.compradores || {};
+                    
+                    atualizarInterfaceCompleta();
+                    mostrarNotificacao('🔄 Dados atualizados em tempo real!', '#00ff00');
                 }
-            }
-            
-            updateSelectedNumbersDisplay();
-            updateTotalPrice();
-            updateWhatsAppButton();
-        }
-        
-        // Atualizar display dos números selecionados
-        function updateSelectedNumbersDisplay() {
-            selectedNumbersContainer.innerHTML = '';
-            
-            if (selectedNumbers.length === 0) {
-                selectedNumbersContainer.innerHTML = '<p style="color: #888; text-align: center; width: 100%;">Nenhum guerreiro selecionado ainda</p>';
-                return;
-            }
-            
-            // Ordenar por número
-            selectedNumbers.sort((a, b) => a.number - b.number);
-            
-            selectedNumbers.forEach(item => {
-                const numberElement = document.createElement('div');
-                numberElement.className = 'selected-number';
-                numberElement.textContent = item.number;
-                selectedNumbersContainer.appendChild(numberElement);
+            }, (error) => {
+                console.error("Firebase error:", error);
             });
         }
         
-        // Atualizar preço total
-        function updateTotalPrice() {
-            const total = selectedNumbers.length * pricePerNumber;
-            totalPriceElement.textContent = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+        function pushToFirebase() {
+            const data = {
+                numerosSelecionados: numerosSelecionados,
+                numerosConfirmados: numerosConfirmados,
+                numerosPendentes: numerosPendentes,
+                compradores: compradores,
+                ultimaAtualizacao: new Date().toISOString()
+            };
+            dbRef.set(data).catch(err => console.error("Erro ao salvar:", err));
         }
         
-        // Atualizar botão do WhatsApp
-        function updateWhatsAppButton() {
-            whatsappBtnContainer.innerHTML = '';
+        // ==================== INTERFACE ====================
+        function criarCartoesGuerreiros() {
+            const grid = document.getElementById('warriorsGrid');
+            grid.innerHTML = '';
             
-            if (selectedNumbers.length === 0) {
-                // Botão padrão quando não há seleção
-                const defaultBtn = document.createElement('a');
-                defaultBtn.href = `https://wa.me/553197319008?text=${encodeURIComponent('Olá! Gostaria de participar da Rifa do Guerreiro.')}`;
-                defaultBtn.className = 'whatsapp-btn';
-                defaultBtn.target = '_blank';
-                defaultBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Comprovante no WhatsApp';
-                whatsappBtnContainer.appendChild(defaultBtn);
-                return;
+            for (let i = 1; i <= TOTAL_NUMEROS; i++) {
+                const card = document.createElement('div');
+                card.className = 'warrior-card';
+                card.dataset.number = i;
+                
+                card.innerHTML = `
+                    <div class="warrior-number">${i}</div>
+                    <div class="warrior-label">GUERREIRO</div>
+                    <div class="warrior-name">${warriorNames[i-1]}</div>
+                `;
+                
+                card.addEventListener('click', () => toggleNumberSelection(i, card));
+                grid.appendChild(card);
             }
-            
-            // Ordenar por número
-            selectedNumbers.sort((a, b) => a.number - b.number);
-            
-            // Criar mensagem detalhada para WhatsApp
-            const total = selectedNumbers.length * pricePerNumber;
-            
-            const message = `📱 *CONFIRMAÇÃO DE SELEÇÃO - RIFA DO GUERREIRO* 📱
-
-✅ *NÚMEROS SELECIONADOS:*
-${selectedNumbers.map(item => `➤ ${item.number} - ${item.name}`).join('\n')}
-
-💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}
-📧 *CHAVE PIX:* furiadanoiteplay2025@gmail.com
-
-👤 *MEU NOME:* [DIGITE SEU NOME AQUI]
-
-📋 *INSTRUÇÕES:*
-1️⃣ Vou fazer o PIX agora mesmo
-2️⃣ Envio o comprovante nesta conversa
-3️⃣ Aguardo a confirmação dos meus números
-
-🎮 *FuriaDaNoitePlay - Comunidade MLBB* 🎮`;
-            
-            const whatsappBtn = document.createElement('a');
-            whatsappBtn.href = `https://wa.me/553197319008?text=${encodeURIComponent(message)}`;
-            whatsappBtn.className = 'whatsapp-btn';
-            whatsappBtn.target = '_blank';
-            whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i> ENVIAR COMPROVANTE NO WHATSAPP';
-            whatsappBtn.id = 'dynamicWhatsAppBtn';
-            
-            whatsappBtnContainer.appendChild(whatsappBtn);
+            atualizarStatusCards();
         }
         
-        // ==================== SISTEMA DE COMUNICAÇÃO ====================
-        
-        // Verificar status dos números ao carregar a página
-        function verificarStatusNumeros() {
-            const numerosSelecionados = JSON.parse(
-                localStorage.getItem('rifa_com_selecionados') || '[]'
-            );
-            
-            const numerosConfirmados = JSON.parse(
-                localStorage.getItem('rifa_com_confirmados') || '[]'
-            );
-            
-            const numerosPendentes = JSON.parse(
-                localStorage.getItem('rifa_com_pendentes') || '[]'
-            );
-            
-            // Para cada número de 1 a 31
-            for (let i = 1; i <= 31; i++) {
+        function atualizarStatusCards() {
+            for (let i = 1; i <= TOTAL_NUMEROS; i++) {
                 const card = document.querySelector(`.warrior-card[data-number="${i}"]`);
                 if (!card) continue;
                 
+                card.classList.remove('sold', 'pending', 'selected');
+                
                 if (numerosConfirmados.includes(i)) {
-                    // Número confirmado (vendido)
                     card.classList.add('sold');
                     card.querySelector('.warrior-number').textContent = '✓';
-                    card.querySelector('.warrior-number').style.color = '#00ff00';
                     card.querySelector('.warrior-label').textContent = 'VENDIDO';
                     card.querySelector('.warrior-label').style.color = '#00ff00';
-                    card.style.cursor = 'not-allowed';
-                    card.title = 'Este número já foi vendido e confirmado';
                 } else if (numerosPendentes.some(p => p.numero === i)) {
-                    // Número selecionado (pendente)
                     card.classList.add('pending');
                     card.querySelector('.warrior-number').textContent = '⏳';
-                    card.querySelector('.warrior-number').style.color = '#ffa500';
                     card.querySelector('.warrior-label').textContent = 'PENDENTE';
                     card.querySelector('.warrior-label').style.color = '#ffa500';
-                    card.style.cursor = 'not-allowed';
-                    card.title = 'Este número está aguardando confirmação de pagamento';
+                } else if (selectedNumbers.some(s => s.number === i)) {
+                    card.classList.add('selected');
+                    card.querySelector('.warrior-number').textContent = i;
+                    card.querySelector('.warrior-label').textContent = 'GUERREIRO';
+                    card.querySelector('.warrior-label').style.color = '#ff9999';
+                } else {
+                    card.querySelector('.warrior-number').textContent = i;
+                    card.querySelector('.warrior-label').textContent = 'GUERREIRO';
+                    card.querySelector('.warrior-label').style.color = '#ff9999';
                 }
             }
         }
         
-        // Comunicar seleção para o sistema
-        function comunicarSelecaoParaSistema() {
-            if (selectedNumbers.length === 0) {
-                alert('Por favor, selecione pelo menos um número para participar!');
-                return false;
+        function toggleNumberSelection(numero, card) {
+            if (numerosConfirmados.includes(numero) || numerosPendentes.some(p => p.numero === numero)) {
+                mostrarNotificacao(`⚠️ Número ${numero} já está reservado!`, '#ffa500');
+                return;
             }
             
-            try {
-                // Verificar se algum número já está reservado
-                const numerosSelecionados = JSON.parse(
-                    localStorage.getItem('rifa_com_selecionados') || '[]'
-                );
-                
-                const numerosConfirmados = JSON.parse(
-                    localStorage.getItem('rifa_com_confirmados') || '[]'
-                );
-                
-                const numerosPendentes = JSON.parse(
-                    localStorage.getItem('rifa_com_pendentes') || '[]'
-                );
-                
-                // Verificar cada número selecionado
-                for (const item of selectedNumbers) {
-                    const numero = item.number;
-                    
-                    if (numerosSelecionados.includes(numero) || 
-                        numerosConfirmados.includes(numero) ||
-                        numerosPendentes.some(p => p.numero === numero)) {
-                        
-                        alert(`⚠️ O número ${numero} já foi selecionado por outra pessoa!\n\nPor favor, escolha outro número.`);
-                        
-                        // Remover número indisponível da seleção
-                        selectedNumbers = selectedNumbers.filter(n => n.number !== numero);
-                        
-                        // Atualizar interface
-                        updateSelectedNumbersDisplay();
-                        updateTotalPrice();
-                        updateWhatsAppButton();
-                        
-                        // Remover seleção visual do cartão
-                        const card = document.querySelector(`.warrior-card[data-number="${numero}"]`);
-                        if (card) {
-                            card.classList.remove('selected');
-                        }
-                        
-                        return false;
-                    }
-                }
-                
-                // Obter nome do usuário
-                const nomeUsuario = prompt('Por favor, digite seu nome para confirmar a seleção:');
-                if (!nomeUsuario || nomeUsuario.trim() === '') {
-                    alert('❌ É necessário informar seu nome para confirmar a seleção.');
-                    return false;
-                }
-                
-                // Para cada número selecionado
-                const numerosParaComunicar = [];
-                selectedNumbers.forEach(item => {
-                    const numero = item.number;
-                    
-                    // Adicionar à lista de selecionados
-                    numerosSelecionados.push(numero);
-                    
-                    // Adicionar à lista de pendentes
-                    numerosPendentes.push({
-                        numero: numero,
-                        usuario: nomeUsuario.trim(),
-                        timestamp: Date.now(),
-                        data: new Date().toISOString(),
-                        telefone: ''
-                    });
-                    
-                    numerosParaComunicar.push(numero);
-                });
-                
-                // Salvar no localStorage
-                localStorage.setItem('rifa_com_selecionados', JSON.stringify(numerosSelecionados));
-                localStorage.setItem('rifa_com_pendentes', JSON.stringify(numerosPendentes));
-                
-                // Salvar como última seleção (para notificação)
-                const ultimaSelecao = {
-                    numeros: selectedNumbers.map(item => item.number),
-                    usuario: nomeUsuario.trim(),
-                    timestamp: Date.now(),
-                    total: selectedNumbers.length * pricePerNumber
-                };
-                
-                localStorage.setItem('rifa_com_ultimo', JSON.stringify(ultimaSelecao));
-                
-                // Marcar números como pendentes na interface
-                marcarNumerosComoPendentes();
-                
-                console.log('✅ Seleção comunicada ao sistema:', ultimaSelecao);
-                return true;
-                
-            } catch (error) {
-                console.error('❌ Erro ao comunicar seleção:', error);
-                alert('❌ Erro ao processar sua seleção. Por favor, tente novamente.');
-                return false;
-            }
-        }
-        
-        // Marcar números como pendentes na interface
-        function marcarNumerosComoPendentes() {
-            selectedNumbers.forEach(item => {
-                const card = document.querySelector(`.warrior-card[data-number="${item.number}"]`);
-                if (card) {
-                    card.classList.remove('selected');
-                    card.classList.add('pending');
-                    card.querySelector('.warrior-number').textContent = '⏳';
-                    card.querySelector('.warrior-number').style.color = '#ffa500';
-                    card.querySelector('.warrior-label').textContent = 'PENDENTE';
-                    card.querySelector('.warrior-label').style.color = '#ffa500';
-                }
-            });
+            const index = selectedNumbers.findIndex(item => item.number === numero);
             
-            // Limpar seleção
-            selectedNumbers = [];
-            updateSelectedNumbersDisplay();
+            if (index > -1) {
+                selectedNumbers.splice(index, 1);
+            } else {
+                if (selectedNumbers.length >= MAX_SELECTION) {
+                    mostrarNotificacao(`⚠️ Máximo de ${MAX_SELECTION} números por pessoa!`, '#ffa500');
+                    return;
+                }
+                selectedNumbers.push({ number: numero, name: warriorNames[numero-1] });
+            }
+            
+            atualizarStatusCards();
+            updateSelectedDisplay();
             updateTotalPrice();
             updateWhatsAppButton();
         }
         
-        // Configurar botão de confirmação
-        function configurarBotaoConfirmacao() {
-            confirmBtn.onclick = function() {
-                if (selectedNumbers.length === 0) {
-                    alert('Por favor, selecione pelo menos um número para participar!');
-                    return;
-                }
-                
-                // Comunicar seleção para o sistema
-                const comunicado = comunicarSelecaoParaSistema();
-                if (!comunicado) {
-                    return;
-                }
-                
-                // Ordenar por número
-                selectedNumbers.sort((a, b) => a.number - b.number);
-                
-                // Criar mensagem detalhada para WhatsApp
-                const total = selectedNumbers.length * pricePerNumber;
-                
-                const message = `📱 *CONFIRMAÇÃO DE SELEÇÃO - RIFA DO GUERREIRO* 📱
-
-✅ *NÚMEROS SELECIONADOS:*
-${selectedNumbers.map(item => `➤ ${item.number} - ${item.name}`).join('\n')}
-
-💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}
-📧 *CHAVE PIX:* furiadanoiteplay2025@gmail.com
-
-👤 *MEU NOME:* [DIGITE SEU NOME AQUI]
-
-📋 *INSTRUÇÕES:*
-1️⃣ Vou fazer o PIX agora mesmo
-2️⃣ Envio o comprovante nesta conversa
-3️⃣ Aguardo a confirmação dos meus números
-
-🎮 *FuriaDaNoitePlay - Comunidade MLBB* 🎮`;
-                
-                // Abrir WhatsApp automaticamente
-                window.open(`https://wa.me/553197319008?text=${encodeURIComponent(message)}`, '_blank');
-                
-                // Mostrar confirmação
-                const numerosList = selectedNumbers.map(item => `${item.number} (${item.name})`).join(', ');
-                alert(`✅ Seleção confirmada e comunicada ao sistema!\n\n📊 Números reservados: ${numerosList}\n💰 Total: R$ ${total.toFixed(2)}\n\n📱 O WhatsApp foi aberto automaticamente!\n\n⚠️ Lembre-se de:\n1. Fazer o PIX para: furiadanoiteplay2025@gmail.com\n2. Enviar o comprovante pelo WhatsApp\n3. Colocar seu nome na mensagem\n\n🎮 Boa sorte!`);
-            };
+        function updateSelectedDisplay() {
+            const container = document.getElementById('selectedNumbers');
+            if (selectedNumbers.length === 0) {
+                container.innerHTML = '<p style="color: #888; text-align: center; width: 100%;">Nenhum guerreiro selecionado ainda</p>';
+                return;
+            }
+            container.innerHTML = '';
+            selectedNumbers.sort((a,b) => a.number - b.number).forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'selected-number';
+                el.textContent = item.number;
+                container.appendChild(el);
+            });
         }
         
-        // Configurar proteção do botão ADM
+        function updateTotalPrice() {
+            const total = selectedNumbers.length * PRECO;
+            document.getElementById('totalPrice').textContent = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+        
+        function updateArrecadacao() {
+            const total = numerosConfirmados.length * PRECO;
+            document.getElementById('arrecadacaoAtual').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('premioAtual').textContent = `R$ ${(total * 0.6).toFixed(2).replace('.', ',')}`;
+        }
+        
+        function updateWhatsAppButton() {
+            const container = document.getElementById('whatsappBtnContainer');
+            container.innerHTML = '';
+            
+            if (selectedNumbers.length === 0) {
+                const btn = document.createElement('a');
+                btn.href = `https://wa.me/553197319008?text=${encodeURIComponent('Olá! Gostaria de participar da Rifa do Guerreiro.')}`;
+                btn.className = 'whatsapp-btn';
+                btn.target = '_blank';
+                btn.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar Comprovante no WhatsApp';
+                container.appendChild(btn);
+                return;
+            }
+            
+            const total = selectedNumbers.length * PRECO;
+            const message = `📱 *CONFIRMAÇÃO DE SELEÇÃO - RIFA DO GUERREIRO* 📱\n\n✅ *NÚMEROS SELECIONADOS:*\n${selectedNumbers.map(item => `➤ ${item.number} - ${item.name}`).join('\n')}\n\n💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}\n📧 *CHAVE PIX:* furiadanoiteplay2025@gmail.com\n\n👤 *MEU NOME:* [DIGITE SEU NOME AQUI]\n\n📋 *INSTRUÇÕES:*\n1️⃣ Vou fazer o PIX agora mesmo\n2️⃣ Envio o comprovante nesta conversa\n3️⃣ Aguardo a confirmação dos meus números\n\n🎮 *FuriaDaNoitePlay* 🎮`;
+            
+            const btn = document.createElement('a');
+            btn.href = `https://wa.me/553197319008?text=${encodeURIComponent(message)}`;
+            btn.className = 'whatsapp-btn';
+            btn.target = '_blank';
+            btn.innerHTML = '<i class="fab fa-whatsapp"></i> ENVIAR COMPROVANTE NO WHATSAPP';
+            container.appendChild(btn);
+        }
+        
+        function confirmarSelecao() {
+            if (selectedNumbers.length === 0) {
+                mostrarNotificacao('⚠️ Selecione pelo menos um número!', '#ffa500');
+                return;
+            }
+            
+            for (const item of selectedNumbers) {
+                if (numerosConfirmados.includes(item.number) || numerosPendentes.some(p => p.numero === item.number)) {
+                    mostrarNotificacao(`⚠️ Número ${item.number} não está mais disponível!`, '#ff4444');
+                    selectedNumbers = selectedNumbers.filter(s => s.number !== item.number);
+                    atualizarStatusCards();
+                    updateSelectedDisplay();
+                    updateTotalPrice();
+                    updateWhatsAppButton();
+                    return;
+                }
+            }
+            
+            const nomeUsuario = prompt('Digite seu nome para confirmar a seleção:');
+            if (!nomeUsuario || nomeUsuario.trim() === '') {
+                mostrarNotificacao('❌ Nome é obrigatório!', '#ff4444');
+                return;
+            }
+            
+            for (const item of selectedNumbers) {
+                if (!numerosSelecionados.includes(item.number)) {
+                    numerosSelecionados.push(item.number);
+                }
+                
+                numerosPendentes.push({
+                    numero: item.number,
+                    usuario: nomeUsuario.trim(),
+                    timestamp: Date.now(),
+                    data: new Date().toISOString()
+                });
+            }
+            
+            pushToFirebase();
+            
+            const total = selectedNumbers.length * PRECO;
+            const numerosList = selectedNumbers.map(item => `${item.number}`).join(', ');
+            
+            mostrarNotificacao(`✅ ${selectedNumbers.length} números reservados! Aguardando pagamento.`, '#00ff00');
+            
+            // Abrir WhatsApp
+            const message = `📱 *CONFIRMAÇÃO DE SELEÇÃO - RIFA DO GUERREIRO* 📱\n\n✅ *NÚMEROS SELECIONADOS:*\n${selectedNumbers.map(item => `➤ ${item.number} - ${item.name}`).join('\n')}\n\n💰 *VALOR TOTAL:* R$ ${total.toFixed(2).replace('.', ',')}\n📧 *CHAVE PIX:* furiadanoiteplay2025@gmail.com\n\n👤 *MEU NOME:* ${nomeUsuario.trim()}\n\n🎮 *FuriaDaNoitePlay* 🎮`;
+            window.open(`https://wa.me/553197319008?text=${encodeURIComponent(message)}`, '_blank');
+            
+            selectedNumbers = [];
+            updateSelectedDisplay();
+            updateTotalPrice();
+            updateWhatsAppButton();
+            atualizarStatusCards();
+        }
+        
+        function resetSelecao() {
+            selectedNumbers = [];
+            updateSelectedDisplay();
+            updateTotalPrice();
+            updateWhatsAppButton();
+            atualizarStatusCards();
+            mostrarNotificacao('🔄 Seleção limpa!', '#ff4444');
+        }
+        
+        function atualizarInterfaceCompleta() {
+            atualizarStatusCards();
+            updateArrecadacao();
+            
+            // Remover números selecionados que foram reservados
+            selectedNumbers = selectedNumbers.filter(item => {
+                if (numerosConfirmados.includes(item.number) || numerosPendentes.some(p => p.numero === item.number)) {
+                    return false;
+                }
+                return true;
+            });
+            
+            updateSelectedDisplay();
+            updateTotalPrice();
+            updateWhatsAppButton();
+        }
+        
+        function mostrarNotificacao(msg, cor) {
+            const toast = document.getElementById('notificationToast');
+            toast.style.background = `linear-gradient(135deg, #1a1a2e, #0a0a0a)`;
+            toast.style.border = `2px solid ${cor}`;
+            toast.innerHTML = `<p style="color: ${cor}; text-align: center;">${msg}</p>`;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 4000);
+        }
+        
         function configurarProtecaoADM() {
-            document.querySelector('.admin-btn').addEventListener('click', function(e) {
-                // Verificar se já está logado
+            document.getElementById('adminLink').addEventListener('click', function(e) {
                 const adminLoggedIn = localStorage.getItem('adminLoggedIn');
                 const loginTime = localStorage.getItem('adminLoginTime');
                 
                 if (adminLoggedIn && loginTime) {
-                    // Verificar tempo da sessão (8 horas)
                     const sessionTime = 8 * 60 * 60 * 1000;
-                    const now = Date.now();
-                    
-                    if (now - parseInt(loginTime) <= sessionTime) {
-                        // Sessão válida, permitir acesso
+                    if (Date.now() - parseInt(loginTime) <= sessionTime) {
                         return true;
                     } else {
-                        // Sessão expirada
                         localStorage.removeItem('adminLoggedIn');
                         localStorage.removeItem('adminLoginTime');
                     }
                 }
                 
-                // Solicitar senha
                 const password = prompt('🔐 DIGITE A SENHA DE ACESSO AO PAINEL ADM:');
-                if (password !== '123qweasdzxc') {
+                if (password !== SENHA_ADMIN) {
                     e.preventDefault();
-                    alert('❌ SENHA INCORRETA! ACESSO NEGADO.');
+                    mostrarNotificacao('❌ SENHA INCORRETA! ACESSO NEGADO.', '#ff4444');
                 } else {
-                    // Salvar login
                     localStorage.setItem('adminLoggedIn', 'true');
                     localStorage.setItem('adminLoginTime', Date.now().toString());
-                }
-            });
-        }
-        
-        // Configurar ouvinte para atualizações do sistema
-        function configurarOuvinteAtualizacoes() {
-            window.addEventListener('storage', function(event) {
-                if (event.key === 'rifa_com_confirmados' || 
-                    event.key === 'rifa_com_selecionados' || 
-                    event.key === 'rifa_com_pendentes') {
-                    
-                    console.log('🔄 Atualizando status dos números...');
-                    verificarStatusNumeros();
-                    
-                    // Verificar se números selecionados foram reservados
-                    const numerosAtualizados = JSON.parse(event.newValue || '[]');
-                    const numerosAntigos = JSON.parse(event.oldValue || '[]');
-                    
-                    // Verificar se algum número selecionado foi reservado
-                    selectedNumbers = selectedNumbers.filter(item => {
-                        if (numerosAtualizados.includes(item.number) && !numerosAntigos.includes(item.number)) {
-                            // Número foi reservado, remover da seleção
-                            const card = document.querySelector(`.warrior-card[data-number="${item.number}"]`);
-                            if (card) {
-                                card.classList.remove('selected');
-                            }
-                            return false;
-                        }
-                        return true;
-                    });
-                    
-                    // Atualizar interface
-                    updateSelectedNumbersDisplay();
-                    updateTotalPrice();
-                    updateWhatsAppButton();
+                    mostrarNotificacao('✅ Acesso liberado! Redirecionando...', '#00ff00');
                 }
             });
         }
         
         // ==================== INICIALIZAÇÃO ====================
-        
-        function inicializarSistema() {
-            console.log('🎮 Inicializando sistema da Rifa do Guerreiro...');
-            
-            // Criar cartões dos guerreiros
+        function init() {
             criarCartoesGuerreiros();
-            
-            // Inicializar dados de comunicação se não existirem
-            if (!localStorage.getItem('rifa_com_selecionados')) {
-                localStorage.setItem('rifa_com_selecionados', JSON.stringify([]));
-                localStorage.setItem('rifa_com_confirmados', JSON.stringify([]));
-                localStorage.setItem('rifa_com_pendentes', JSON.stringify([]));
-                console.log('📁 Dados de comunicação inicializados');
-            }
-            
-            // Configurar botões
-            configurarBotaoConfirmacao();
-            configurarProtecaoADM();
-            configurarOuvinteAtualizacoes();
-            
-            // Botão de limpar seleção
-            resetBtn.addEventListener('click', () => {
-                selectedNumbers = [];
-                
-                // Remover classe 'selected' de todos os cartões
-                document.querySelectorAll('.warrior-card').forEach(card => {
-                    if (!card.classList.contains('reserved') && 
-                        !card.classList.contains('sold') && 
-                        !card.classList.contains('pending')) {
-                        card.classList.remove('selected');
-                    }
-                });
-                
-                updateSelectedNumbersDisplay();
-                updateTotalPrice();
-                updateWhatsAppButton();
-            });
-            
-            // Inicializar display
-            updateSelectedNumbersDisplay();
-            updateTotalPrice();
+            listenFirebase();
             updateWhatsAppButton();
             
-            console.log('✅ Sistema da Rifa do Guerreiro inicializado!');
+            document.getElementById('confirmSelection').onclick = confirmarSelecao;
+            document.getElementById('resetSelection').onclick = resetSelecao;
+            configurarProtecaoADM();
+            
+            const fontAwesome = document.createElement('script');
+            fontAwesome.src = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js';
+            document.head.appendChild(fontAwesome);
+            
+            mostrarNotificacao('🔥 Sincronização em tempo real ativada!', '#ff0000');
         }
         
-        // Inicializar quando a página carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            inicializarSistema();
-            
-            // Adicionar Font Awesome para o ícone do WhatsApp e ADM
-            const fontAwesomeScript = document.createElement('script');
-            fontAwesomeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js';
-            fontAwesomeScript.async = true;
-            document.head.appendChild(fontAwesomeScript);
-        });
+        init();
     </script>
 </body>
 </html>
